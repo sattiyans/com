@@ -13,10 +13,10 @@ export const HOME: Metadata = {
   DESCRIPTION: "Sattiyan Selvarajah is a web developer from Malaysia.",
 };
 
-// export const BLOG: Metadata = {
-//   TITLE: "Blog",
-//   DESCRIPTION: "A collection of articles on topics I am passionate about.",
-// };
+export const BLOG: Metadata = {
+  TITLE: "Blog",
+  DESCRIPTION: "A collection of articles on topics I am passionate about.",
+};
 
 export const WORK: Metadata = {
   TITLE: "Work",
