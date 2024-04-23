@@ -4,6 +4,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import { dateRange } from "@lib/utils";
 import { WORK } from "@consts";
+import Link from "@components/Link.astro";
 
 const collection = (await getCollection("work"))
   .sort((a, b) => new Date(b.data.dateStart).valueOf() - new Date(a.data.dateStart).valueOf());
@@ -42,6 +43,11 @@ const work = await Promise.all(
           ))
         }
       </ul>
+      <div class="animate text-black dark:text-white text-center">
+        <Link href="https://cv.sattiyans.com">
+          View full CV on Read.CV
+        </Link>
+      </div>
 <!-- 
       <ul class="animate flex flex-col gap-4">
 

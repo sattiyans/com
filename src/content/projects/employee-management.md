@@ -1,9 +1,8 @@
 ---
-title: "Astro Nano"
-description: "Minimal portfolio and blog build with astro and no frameworks."
-date: "Mar 26 2024"
-demoURL: "https://astro-nano-demo.vercel.app"
-repoURL: "https://github.com/markhorn-dev/astro-nano"
+title: "Employee Management"
+description: "Web app that allows users to search for movies and series and get information."
+date: "Feb 24 2023"
+repoURL: "https://github.com/sattiyans/employee-management"
 ---
 
 ![Astro Nano](/astro-nano.png)
