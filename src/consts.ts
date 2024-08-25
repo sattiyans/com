@@ -41,8 +41,4 @@ export const SOCIALS: Socials = [
     NAME: "x",
     HREF: "https://x.com/sattiyans",
   },
-  { 
-    NAME: "instagram",
-    HREF: "https://instagram.com/sattiyans",
-  },
 ];
