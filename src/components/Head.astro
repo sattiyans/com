@@ -182,4 +182,11 @@ function toggleTheme(dark) {
 
 <!-- Dot AI Assistant -->
 <script src="/dot-config.js" is:inline></script>
-<script src="https://cdn.d0t.my/dot.js" is:inline></script>
+<script is:inline>
+  // Wait for DOM to be fully loaded before loading Dot script
+  document.addEventListener('DOMContentLoaded', function() {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.d0t.my/dot.js';
+    document.head.appendChild(script);
+  });
+</script>
