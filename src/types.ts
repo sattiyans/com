@@ -15,3 +15,17 @@ export type Socials = {
   NAME: string;
   HREF: string;
 }[];
+
+export type WatchedItem = {
+  id: string;
+  title: string;
+  year: number;
+  type: 'film' | 'series';
+  platform: 'letterboxd' | 'serializd';
+  watchedDate: Date;
+  rating?: number;
+  posterUrl?: string;
+  url?: string;
+  episode?: string;
+  season?: number;
+};

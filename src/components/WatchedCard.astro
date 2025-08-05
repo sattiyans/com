@@ -1,0 +1,94 @@
+---
+import type { WatchedItem } from "@types";
+
+type Props = {
+  item: WatchedItem;
+}
+
+const { item } = Astro.props;
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric'
+  }).format(date);
+};
+
+const formatRating = (rating: number) => {
+  if (rating === 0.5) return '½';
+  if (rating === 1) return '★';
+  if (rating === 1.5) return '★½';
+  if (rating === 2) return '★★';
+  if (rating === 2.5) return '★★½';
+  if (rating === 3) return '★★★';
+  if (rating === 3.5) return '★★★½';
+  if (rating === 4) return '★★★★';
+  if (rating === 4.5) return '★★★★½';
+  if (rating === 5) return '★★★★★';
+  return '';
+};
+---
+
+<div class="group relative bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] border border-gray-200 dark:border-gray-700">
+  <!-- Poster Container -->
+  <div class="relative aspect-[2/3] overflow-hidden">
+    {item.posterUrl ? (
+      <img
+        src={item.posterUrl}
+        alt={`Poster for ${item.title}`}
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        loading="lazy"
+      />
+    ) : (
+      <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 flex flex-col items-center justify-center">
+        <span class="text-4xl mb-2 opacity-60">🎬</span>
+        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+          Film
+        </span>
+      </div>
+    )}
+  </div>
+
+  <!-- Content Section -->
+  <div class="p-4">
+    <!-- Title - Full width, proper truncation -->
+    <h3 class="font-semibold text-gray-900 dark:text-white text-sm leading-tight mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+      {item.title}
+    </h3>
+
+    <!-- Rating - Below title, left aligned -->
+    {item.rating && (
+      <div class="mb-3">
+        <div class="inline-flex">
+          <span class="text-xs font-bold text-yellow-500">{formatRating(item.rating)}</span>
+        </div>
+      </div>
+    )}
+
+    <!-- Meta Info - Clean layout -->
+    <div class="flex items-center justify-between text-xs">
+      <span class="text-gray-600 dark:text-gray-400 font-medium">
+        {item.year}
+      </span>
+      <span class="text-gray-500 dark:text-gray-500">
+        {formatDate(item.watchedDate)}
+      </span>
+    </div>
+  </div>
+
+  <!-- Hover Overlay -->
+  <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 dark:group-hover:bg-white/5 transition-colors duration-300 rounded-xl pointer-events-none"></div>
+
+  <!-- External Link -->
+  {item.url && (
+    <a
+      href={item.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+      aria-label={`View ${item.title} on Letterboxd`}
+    >
+      <span class="sr-only">View on Letterboxd</span>
+    </a>
+  )}
+</div> 
