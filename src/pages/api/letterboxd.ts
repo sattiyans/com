@@ -22,7 +22,7 @@ export const GET: APIRoute = async () => {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=3600' // Cache for 1 hour
+        'Cache-Control': 'no-cache, no-store, must-revalidate'
       }
     });
     
@@ -97,8 +97,11 @@ async function parseLetterboxdRSS(xmlText: string): Promise<WatchedItem[]> {
           // Remove any remaining rating from title
           cleanTitle = cleanTitle.replace(/ - [★☆½]+$/, '');
           
-          // Get poster URL from TMDB
-          const posterUrl = await getPosterUrl(cleanTitle, year);
+          // Only fetch poster for first 12 items to keep it fast
+          let posterUrl: string | undefined = undefined;
+          if (items.length < 12) {
+            posterUrl = await getPosterUrl(cleanTitle, year);
+          }
           
           items.push({
             id: `letterboxd-${Date.now()}-${Math.random()}`,
@@ -123,7 +126,8 @@ async function parseLetterboxdRSS(xmlText: string): Promise<WatchedItem[]> {
     console.error('Error parsing RSS:', parseError);
   }
   
-  return items;
+  // Return only the latest 12 items
+  return items.slice(0, 12);
 }
 
 async function getPosterUrl(title: string, year: number): Promise<string | undefined> {
