@@ -152,8 +152,16 @@ export const prerender = false;
     console.log('🎬 Loading real data from Letterboxd...');
 
     try {
-      // Fetch data from Letterboxd API only
-      const letterboxdResponse = await fetch('/api/letterboxd');
+      // Fetch data from Letterboxd API only with cache busting
+      const cacheBuster = `?t=${Date.now()}&r=${Math.random()}`;
+      const letterboxdResponse = await fetch(`/api/letterboxd${cacheBuster}`, {
+        method: 'GET',
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      });
 
       if (letterboxdResponse.ok) {
         const letterboxdData = await letterboxdResponse.json();

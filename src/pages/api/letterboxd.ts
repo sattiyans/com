@@ -3,9 +3,10 @@ import type { WatchedItem } from '@types';
 
 export const GET: APIRoute = async () => {
   try {
-    // Letterboxd RSS feed URL for user activity
+    // Letterboxd RSS feed URL for user activity with cache busting
     const username = 'sattiyans'; // Your Letterboxd username
-    const rssUrl = `https://letterboxd.com/${username}/rss/`;
+    const cacheBuster = `?t=${Date.now()}&r=${Math.random()}`;
+    const rssUrl = `https://letterboxd.com/${username}/rss/${cacheBuster}`;
     
     const response = await fetch(rssUrl);
     
@@ -22,7 +23,11 @@ export const GET: APIRoute = async () => {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache, no-store, must-revalidate'
+        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Last-Modified': new Date().toUTCString(),
+        'ETag': `"${Date.now()}-${Math.random()}"`
       }
     });
     

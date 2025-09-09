@@ -110,8 +110,16 @@ export const mockWatchedData: WatchedItem[] = [
 
 export async function getWatchedData(): Promise<WatchedItem[]> {
   try {
-    // Try to fetch real data from Letterboxd API
-    const response = await fetch('/api/letterboxd');
+    // Try to fetch real data from Letterboxd API with cache busting
+    const cacheBuster = `?t=${Date.now()}&r=${Math.random()}`;
+    const response = await fetch(`/api/letterboxd${cacheBuster}`, {
+      method: 'GET',
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      }
+    });
     
     if (response.ok) {
       const data = await response.json();
