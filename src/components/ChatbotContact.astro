@@ -4,7 +4,7 @@
 
 <!-- Enhanced floating input bar -->
 <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 chatbot-wrapper w-full px-4">
-  <div class="chatbot-container bg-white dark:bg-gray-900 rounded-full shadow-2xl border border-gray-200 dark:border-gray-700 max-w-xl w-full mx-auto backdrop-blur-sm">
+  <div class="chatbot-container bg-white dark:bg-gray-900 rounded-full shadow-2xl border border-gray-200 dark:border-gray-700 max-w-lg w-full mx-auto backdrop-blur-sm">
     <div class="px-6 py-4 relative">
       <div class="flex items-center gap-3">
         <!-- AI Icon -->
@@ -112,13 +112,17 @@
   /* Mobile optimizations */
   @media (max-width: 640px) {
     .chatbot-wrapper {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
     
     .chatbot-container {
       border-radius: 9999px; /* Restore pill shape on mobile */
-      max-width: 20rem; /* Decrease width on mobile */
+    }
+    
+    .chatbot-input {
+      font-size: 16px !important;
+      min-height: 36px; /* Reduced height for less bulk */
     }
     
     .chatbot-container .px-6 {
@@ -131,19 +135,14 @@
       padding-bottom: 0.75rem;
     }
     
-    .chatbot-input {
-      font-size: 16px !important;
-      min-height: 36px; /* Decrease height */
-    }
-    
     .ai-icon svg {
-      width: 1rem;
-      height: 1rem;
+      width: 1.25rem;
+      height: 1.25rem;
     }
     
     .send-icon svg {
-      width: 1rem;
-      height: 1rem;
+      width: 1.25rem;
+      height: 1.25rem;
     }
   }
   
