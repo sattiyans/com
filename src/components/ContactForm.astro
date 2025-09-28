@@ -10,7 +10,13 @@
     Have a project in mind or a job opportunity? I'd love to hear about it. Send me a message and I'll respond as soon as possible.
   </p>
   
-  <form id="contact-form" class="space-y-4">
+  <form id="contact-form" action="https://formsubmit.co/satt.works@gmail.com" method="POST" class="space-y-4">
+    <!-- Hidden inputs for FormSubmit configuration -->
+    <input type="hidden" name="_subject" value="New Contact Form Submission from sattiyans.com">
+    <input type="hidden" name="_next" value="https://sattiyans.com?form=success">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    
     <div>
       <label for="name" class="block text-sm font-medium text-black dark:text-white mb-1">
         Name *
@@ -109,6 +115,14 @@
       return;
     }
 
+    // Check if user returned from successful form submission
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('form') === 'success') {
+      showMessage(true);
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
       function showMessage(isSuccess: boolean) {
         if (messages && successMessage && errorMessage) {
           messages.classList.remove('hidden');
@@ -130,44 +144,14 @@
         }
       }
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      // Disable submit button
+    form.addEventListener('submit', (e) => {
+      // Disable submit button and show loading state
       submitButton.disabled = true;
       submitButton.textContent = 'Sending...';
       
-      // Get form data
-      const formData = new FormData(form);
-      const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        subject: formData.get('subject'),
-        message: formData.get('message')
-      };
-
-      try {
-        // Send form data to API endpoint
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          body: formData
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-          showMessage(true);
-          resetForm();
-        } else {
-          showMessage(false);
-        }
-        
-      } catch (error) {
-        console.error('Error sending message:', error);
-        showMessage(false);
-        submitButton.disabled = false;
-        submitButton.textContent = 'Send Message';
-      }
+      // Let FormSubmit handle the actual submission
+      // The form will submit normally to FormSubmit's endpoint
+      // FormSubmit will redirect to the _next URL on success
     });
   }
 
