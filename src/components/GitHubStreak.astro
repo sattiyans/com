@@ -34,41 +34,33 @@
       const { currentStreak, longestStreak, thisYearCommits } = data;
       
       // Determine streak status and colors
-      let streakText, bgColor, textColor, dotColor, icon;
+      let streakText, dotColor, icon;
       
       if (currentStreak === 0) {
         streakText = "No recent commits";
-        bgColor = "bg-gray-50 dark:bg-gray-900";
-        textColor = "text-gray-500 dark:text-gray-400";
         dotColor = "bg-gray-400";
         icon = "📊";
       } else if (currentStreak >= 7) {
         streakText = `${currentStreak} day streak`;
-        bgColor = "bg-orange-50 dark:bg-orange-900/20";
-        textColor = "text-orange-700 dark:text-orange-300";
         dotColor = "bg-orange-500";
         icon = "🔥";
       } else if (currentStreak >= 3) {
         streakText = `${currentStreak} day streak`;
-        bgColor = "bg-yellow-50 dark:bg-yellow-900/20";
-        textColor = "text-yellow-700 dark:text-yellow-300";
         dotColor = "bg-yellow-500";
         icon = "⚡";
       } else {
         streakText = `${currentStreak} day streak`;
-        bgColor = "bg-blue-50 dark:bg-blue-900/20";
-        textColor = "text-blue-700 dark:text-blue-300";
-        dotColor = "bg-blue-500";
+        dotColor = "bg-green-500";
         icon = "💻";
       }
       
       container.innerHTML = `
-        <a href="https://github.com/sattiyans" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-3 py-1 ${bgColor} rounded-full text-xs font-medium hover:opacity-80 transition-opacity duration-200 whitespace-nowrap">
+        <a href="https://github.com/sattiyans" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-3 py-1 bg-gray-50 dark:bg-gray-900 rounded-full text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 whitespace-nowrap">
           <div class="flex items-center gap-1">
-            <span class="text-xs">${icon}</span>
-            <div class="w-1.5 h-1.5 ${dotColor} rounded-full"></div>
+            <span class="text-xs group-hover:animate-pulse">${icon}</span>
+            <div class="w-1.5 h-1.5 ${dotColor} rounded-full group-hover:animate-pulse"></div>
           </div>
-          <span class="${textColor} truncate max-w-[200px]">${streakText}</span>
+          <span class="text-gray-700 dark:text-gray-300 truncate max-w-[200px]">${streakText}</span>
           <span class="text-gray-500 dark:text-gray-400 text-xs">${thisYearCommits} this year</span>
         </a>
       `;

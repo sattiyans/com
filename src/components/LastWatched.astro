@@ -39,18 +39,18 @@
       // Determine icon and color based on type
       const isFilm = lastItem.type === 'film';
       const icon = isFilm ? '🎬' : '📺';
-      const bgColor = isFilm ? 'bg-blue-50 dark:bg-blue-900/20' : 'bg-purple-50 dark:bg-purple-900/20';
-      const textColor = isFilm ? 'text-blue-700 dark:text-blue-300' : 'text-purple-700 dark:text-purple-300';
+      const bgColor = 'bg-gray-50 dark:bg-gray-900';
+      const textColor = 'text-gray-700 dark:text-gray-300';
       const dotColor = isFilm ? 'bg-blue-500' : 'bg-purple-500';
       
       // Format title with year
       const title = `${lastItem.title} (${lastItem.year})`;
       
       container.innerHTML = `
-        <a href="${lastItem.url}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-3 py-1 ${bgColor} rounded-full text-xs font-medium hover:opacity-80 transition-opacity duration-200 whitespace-nowrap">
+        <a href="${lastItem.url}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-3 py-1 ${bgColor} rounded-full text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 whitespace-nowrap">
           <div class="flex items-center gap-1">
-            <span class="text-xs">${icon}</span>
-            <div class="w-1.5 h-1.5 ${dotColor} rounded-full"></div>
+            <span class="text-xs group-hover:animate-pulse">${icon}</span>
+            <div class="w-1.5 h-1.5 ${dotColor} rounded-full group-hover:animate-pulse"></div>
           </div>
           <span class="${textColor} truncate max-w-[200px]">${title}</span>
           <span class="text-gray-500 dark:text-gray-400 text-xs">${timeAgo}</span>
