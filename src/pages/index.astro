@@ -6,9 +6,7 @@ import Link from "@components/Link.astro";
 import ContactForm from "@components/ContactForm.astro";
 import SkillsSection from "@components/SkillsSection.astro";
 import RecommendationsSection from "@components/RecommendationsSection.astro";
-import GitHubActivity from "@components/GitHubActivity.astro";
 import AvailabilityStatus from "@components/AvailabilityStatus.astro";
-import FloatingStatusBar from "@components/FloatingStatusBar.astro";
 import { SITE, HOME, SOCIALS } from "@consts";
 
 const allwork = (await getCollection("work"))
@@ -183,9 +181,6 @@ const work = await Promise.all(
         <RecommendationsSection />
       </section>
 
-      <section class="animate space-y-6">
-        <GitHubActivity />
-      </section>
 
       <section class="animate space-y-6">
         <div class="flex flex-wrap gap-y-2 items-center justify-between">
@@ -212,7 +207,4 @@ const work = await Promise.all(
       </section>
     </div>
   </Container>
-  
-  <!-- Floating Status Bar -->
-  <FloatingStatusBar />
 </PageLayout>
