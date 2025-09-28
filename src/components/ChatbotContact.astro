@@ -4,7 +4,15 @@
 
 <!-- Enhanced floating input bar -->
 <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 chatbot-wrapper w-full px-4">
-  <div class="chatbot-container bg-white/90 dark:bg-gray-900/90 rounded-full shadow-2xl border border-gray-200 dark:border-gray-700 max-w-lg w-full mx-auto backdrop-blur-sm hover:shadow-3xl dark:hover:shadow-3xl transition-all duration-300">
+  <!-- Mobile collapsed state -->
+  <div class="chatbot-mobile-collapsed sm:hidden bg-white/90 dark:bg-gray-900/90 rounded-full shadow-2xl border border-gray-200 dark:border-gray-700 w-12 h-12 mx-auto backdrop-blur-sm hover:shadow-3xl dark:hover:shadow-3xl transition-all duration-300 flex items-center justify-center cursor-pointer">
+    <svg class="w-6 h-6 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+    </svg>
+  </div>
+  
+  <!-- Desktop/expanded state -->
+  <div class="chatbot-container hidden sm:block bg-white/90 dark:bg-gray-900/90 rounded-full shadow-2xl border border-gray-200 dark:border-gray-700 max-w-lg w-full mx-auto backdrop-blur-sm hover:shadow-3xl dark:hover:shadow-3xl transition-all duration-300">
     <div class="px-6 py-4 relative">
       <div class="flex items-center gap-3">
         <!-- AI Icon -->
@@ -33,6 +41,39 @@
       
       <!-- Animated Border -->
       <div class="animated-border"></div>
+    </div>
+  </div>
+  
+  <!-- Mobile expanded state (hidden by default) -->
+  <div class="chatbot-mobile-expanded hidden sm:hidden bg-white/90 dark:bg-gray-900/90 rounded-full shadow-2xl border border-gray-200 dark:border-gray-700 max-w-xs w-full mx-auto backdrop-blur-sm transition-all duration-500">
+    <div class="px-4 py-3 relative">
+      <div class="flex items-center gap-2">
+        <!-- AI Icon -->
+        <div class="ai-icon flex-shrink-0">
+          <svg class="w-4 h-4 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+          </svg>
+        </div>
+        
+        <!-- Input Field -->
+        <input 
+          type="text" 
+          id="chatbot-mobile-input" 
+          placeholder="What can I help you with?" 
+          class="chatbot-mobile-input w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none text-sm transition-all duration-300"
+          style="font-size: 16px;"
+        />
+        
+        <!-- Send Icon -->
+        <div class="send-icon-mobile flex-shrink-0 opacity-0 transition-all duration-300 hover:text-blue-500 dark:hover:text-blue-400">
+          <svg class="w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Animated Border -->
+      <div class="animated-border-mobile"></div>
     </div>
   </div>
 </div>
@@ -109,46 +150,61 @@
     font-size: 16px !important; /* Prevent zoom on mobile */
   }
   
+  /* Mobile collapsed circle animation */
+  .chatbot-mobile-collapsed {
+    animation: aiPulse 2s infinite ease-in-out;
+  }
+  
+  .chatbot-mobile-collapsed:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Mobile expanded state animations */
+  .chatbot-mobile-expanded {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  
+  .chatbot-mobile-expanded.expanded {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .chatbot-mobile-expanded .chatbot-mobile-input {
+    min-height: 28px;
+  }
+  
+  .chatbot-mobile-expanded .animated-border-mobile {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+    border-radius: 1px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .dark .chatbot-mobile-expanded .animated-border-mobile {
+    background: linear-gradient(90deg, #60a5fa, #a78bfa, #22d3ee);
+  }
+  
+  .chatbot-mobile-input:focus ~ .animated-border-mobile {
+    width: 80%;
+    animation: borderGlow 2s infinite ease-in-out;
+  }
+  
+  .dark .chatbot-mobile-input:focus ~ .animated-border-mobile {
+    animation: borderGlowDark 2s infinite ease-in-out;
+  }
+  
   /* Mobile optimizations */
   @media (max-width: 640px) {
     .chatbot-wrapper {
       padding-left: 1rem;
       padding-right: 1rem;
       bottom: 1rem; /* Add bottom padding */
-    }
-    
-    .chatbot-container {
-      border-radius: 9999px; /* Restore pill shape on mobile */
-      max-width: 20rem; /* Make it smaller on mobile */
-    }
-    
-    .chatbot-input {
-      font-size: 14px !important; /* Smaller font size */
-      min-height: 32px; /* Even smaller height */
-    }
-    
-    .chatbot-container .px-6 {
-      padding-left: 0.75rem; /* Reduce horizontal padding */
-      padding-right: 0.75rem;
-    }
-    
-    .chatbot-container .py-4 {
-      padding-top: 0.5rem; /* Reduce vertical padding */
-      padding-bottom: 0.5rem;
-    }
-    
-    .ai-icon svg {
-      width: 1rem; /* Smaller icons */
-      height: 1rem;
-    }
-    
-    .send-icon svg {
-      width: 1rem; /* Smaller icons */
-      height: 1rem;
-    }
-    
-    .chatbot-wrapper .gap-3 {
-      gap: 0.5rem; /* Reduce gap between elements */
     }
   }
   
@@ -384,6 +440,10 @@
   class SimpleChatbot {
     constructor() {
       this.input = document.getElementById('chatbot-input');
+      this.mobileInput = document.getElementById('chatbot-mobile-input');
+      this.mobileCollapsed = document.querySelector('.chatbot-mobile-collapsed');
+      this.mobileExpanded = document.querySelector('.chatbot-mobile-expanded');
+      this.isMobileExpanded = false;
       
       this.currentStep = 'inquiry';
       this.formData = {
@@ -397,11 +457,11 @@
     }
     
     init() {
+      // Desktop input
       this.input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') this.handleSend();
       });
       
-      // Enhanced input interactions
       this.input.addEventListener('focus', () => {
         this.addFocusEffects();
       });
@@ -412,6 +472,28 @@
       
       this.input.addEventListener('input', () => {
         this.handleInputChange();
+      });
+      
+      // Mobile input
+      this.mobileInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') this.handleMobileSend();
+      });
+      
+      this.mobileInput.addEventListener('focus', () => {
+        this.addFocusEffects();
+      });
+      
+      this.mobileInput.addEventListener('blur', () => {
+        this.removeFocusEffects();
+      });
+      
+      this.mobileInput.addEventListener('input', () => {
+        this.handleMobileInputChange();
+      });
+      
+      // Mobile collapsed click handler
+      this.mobileCollapsed.addEventListener('click', () => {
+        this.toggleMobileExpanded();
       });
       
       this.updatePlaceholder("What can I help you with?");
@@ -446,18 +528,80 @@
       }
     }
     
+    handleMobileInputChange() {
+      const sendIcon = document.querySelector('.send-icon-mobile');
+      if (this.mobileInput.value.trim()) {
+        if (sendIcon) {
+          sendIcon.style.opacity = '1';
+          sendIcon.style.transform = 'translateX(0)';
+        }
+      } else {
+        if (sendIcon) {
+          sendIcon.style.opacity = '0';
+          sendIcon.style.transform = 'translateX(10px)';
+        }
+      }
+    }
+    
+    toggleMobileExpanded() {
+      if (!this.isMobileExpanded) {
+        // Show expanded state
+        this.mobileCollapsed.style.display = 'none';
+        this.mobileExpanded.classList.remove('hidden');
+        this.mobileExpanded.classList.add('expanded');
+        this.isMobileExpanded = true;
+        
+        // Focus the input after animation
+        setTimeout(() => {
+          this.mobileInput.focus();
+        }, 300);
+      } else {
+        // Hide expanded state
+        this.mobileExpanded.classList.remove('expanded');
+        setTimeout(() => {
+          this.mobileExpanded.classList.add('hidden');
+          this.mobileCollapsed.style.display = 'flex';
+          this.isMobileExpanded = false;
+        }, 300);
+      }
+    }
+    
+    handleMobileSend() {
+      const message = this.mobileInput.value.trim();
+      if (!message) return;
+      
+      // Use the same logic as desktop but with mobile input
+      const originalInput = this.input;
+      this.input = this.mobileInput;
+      this.handleSend();
+      this.input = originalInput;
+    }
+    
     updatePlaceholder(text) {
       this.input.placeholder = text;
+      if (this.mobileInput) {
+        this.mobileInput.placeholder = text;
+      }
     }
     
     showBotResponse(text) {
       this.input.value = text;
       this.input.disabled = true;
       
+      // Also update mobile input if it exists
+      if (this.mobileInput) {
+        this.mobileInput.value = text;
+        this.mobileInput.disabled = true;
+      }
+      
       // Re-enable input after a delay
       setTimeout(() => {
         this.input.disabled = false;
         this.input.value = '';
+        if (this.mobileInput) {
+          this.mobileInput.disabled = false;
+          this.mobileInput.value = '';
+        }
       }, 2000);
     }
     
