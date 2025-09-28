@@ -37,9 +37,17 @@
     }
   }
   
-  // Update time immediately and then every second
-  updateTime();
-  setInterval(updateTime, 1000);
+      // Update time immediately and then every second
+      updateTime();
+      
+      // Notify floating bar that time component is ready
+      setTimeout(() => {
+        if (window.showFloatingBar) {
+          window.showFloatingBar();
+        }
+      }, 100);
+      
+      setInterval(updateTime, 1000);
   
   // Update when page becomes visible
   document.addEventListener('visibilitychange', () => {

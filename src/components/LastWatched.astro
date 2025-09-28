@@ -76,9 +76,11 @@
           `;
           
           // Notify floating bar that data is loaded (even if empty)
-          if (window.showFloatingBar) {
-            window.showFloatingBar();
-          }
+          setTimeout(() => {
+            if (window.showFloatingBar) {
+              window.showFloatingBar();
+            }
+          }, 100);
           return;
       }
       
@@ -133,10 +135,12 @@
             </div>
           `;
           
-          // Notify floating bar that data is loaded
-          if (window.showFloatingBar) {
-            window.showFloatingBar();
-          }
+          // Notify floating bar that data is loaded (after content is rendered)
+          setTimeout(() => {
+            if (window.showFloatingBar) {
+              window.showFloatingBar();
+            }
+          }, 100);
           
     } catch (error) {
       console.error('Error loading last watched:', error);
@@ -152,9 +156,11 @@
         `;
         
         // Notify floating bar that data is loaded (even if error)
-        if (window.showFloatingBar) {
-          window.showFloatingBar();
-        }
+        setTimeout(() => {
+          if (window.showFloatingBar) {
+            window.showFloatingBar();
+          }
+        }, 100);
       }
     }
   }
