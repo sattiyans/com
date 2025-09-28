@@ -10,6 +10,7 @@ import GitHubActivity from "@components/GitHubActivity.astro";
 import AvailabilityStatus from "@components/AvailabilityStatus.astro";
 import SpotifyNowPlaying from "@components/SpotifyNowPlaying.astro";
 import LastWatched from "@components/LastWatched.astro";
+import GitHubStreak from "@components/GitHubStreak.astro";
 import { SITE, HOME, SOCIALS } from "@consts";
 
 const allwork = (await getCollection("work"))
@@ -49,6 +50,7 @@ const work = await Promise.all(
       <div class="animate mb-4 flex items-center gap-4">
         <SpotifyNowPlaying />
         <LastWatched />
+        <GitHubStreak />
       </div>
       
       <!-- Tech Stack Tags -->
