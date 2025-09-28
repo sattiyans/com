@@ -69,37 +69,13 @@ import CurrentTime from "@components/CurrentTime.astro";
 
   let dataLoadedCount = 0;
   const totalComponents = 2; // LastWatched and CurrentTime (Spotify is optional)
-  let hasSpotifyData = false;
-  let hasWatchedData = false;
-  let hasTimeData = false;
   
   function checkAndShowFloatingBar() {
     dataLoadedCount++;
     console.log(`Floating bar: ${dataLoadedCount}/${totalComponents} components loaded`);
     
-    // Check if we have meaningful data to show
-    const spotifyContainer = document.getElementById('spotify-container');
-    const lastWatched = document.getElementById('last-watched');
-    const currentTime = document.getElementById('current-time');
-    
-    const spotifyVisible = spotifyContainer && spotifyContainer.style.display !== 'none';
-    const watchedVisible = lastWatched && lastWatched.textContent && lastWatched.textContent !== 'Loading...';
-    const timeVisible = currentTime && currentTime.textContent && currentTime.textContent !== 'Loading...';
-    
-    console.log('Component visibility check:', {
-      spotifyVisible,
-      watchedVisible, 
-      timeVisible,
-      spotifyContainer: !!spotifyContainer,
-      lastWatched: !!lastWatched,
-      currentTime: !!currentTime
-    });
-    
-    // Only show floating bar if we have at least some meaningful content
-    const hasContent = spotifyVisible || (watchedVisible && timeVisible);
-    
-    if (dataLoadedCount >= totalComponents && hasContent) {
-      console.log('All components loaded with content, showing floating bar');
+    if (dataLoadedCount >= totalComponents) {
+      console.log('All components loaded, showing floating bar');
       const floatingBar = document.getElementById('floating-bar');
       if (floatingBar) {
         floatingBar.style.display = 'flex';
@@ -108,12 +84,6 @@ import CurrentTime from "@components/CurrentTime.astro";
           floatingBar.classList.add('show');
         }, 10);
       }
-    } else if (dataLoadedCount >= totalComponents) {
-      console.log('All components loaded but no meaningful content yet, waiting...');
-      // Check again after a short delay
-      setTimeout(() => {
-        checkAndShowFloatingBar();
-      }, 500);
     }
   }
   
