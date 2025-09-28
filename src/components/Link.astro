@@ -5,6 +5,8 @@ type Props = {
   href: string;
   external?: boolean;
   underline?: boolean;
+  class?: string;
+  "aria-label"?: string;
 }
 
 const { href, external, underline = true, ...rest } = Astro.props;

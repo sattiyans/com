@@ -10,7 +10,7 @@ export const SITE: Site = {
 
 export const HOME: Metadata = {
   TITLE: "Home",
-  DESCRIPTION: "Sattiyan Selvarajah is a web developer from Malaysia.",
+  DESCRIPTION: "Sattiyan Selvarajah is a Senior PHP/Laravel Developer and Founder of Dotkod Solutions, specializing in scalable web applications, SaaS platforms, and e-commerce solutions.",
 };
 
 export const BLOG: Metadata = {
@@ -35,15 +35,15 @@ export const WATCHED: Metadata = {
 
 export const SOCIALS: Socials = [
   { 
-    NAME: "github",
+    NAME: "GitHub",
     HREF: "https://github.com/sattiyans"
   },
   { 
-    NAME: "linkedin",
+    NAME: "LinkedIn",
     HREF: "https://www.linkedin.com/in/sattiyans",
   },
   { 
-    NAME: "x",
+    NAME: "X",
     HREF: "https://x.com/sattiyans",
   },
 ];

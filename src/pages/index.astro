@@ -2,20 +2,14 @@
 import { getCollection } from "astro:content";
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
-import ArrowCard from "@components/ArrowCard.astro";
 import Link from "@components/Link.astro";
-import { dateRange } from "@lib/utils";
+import ContactForm from "@components/ContactForm.astro";
+import SkillsSection from "@components/SkillsSection.astro";
+import RecommendationsSection from "@components/RecommendationsSection.astro";
+import GitHubActivity from "@components/GitHubActivity.astro";
+import AvailabilityStatus from "@components/AvailabilityStatus.astro";
+import SpotifyNowPlaying from "@components/SpotifyNowPlaying.astro";
 import { SITE, HOME, SOCIALS } from "@consts";
-
-const blog = (await getCollection("blog"))
-  .filter(post => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0,SITE.NUM_POSTS_ON_HOMEPAGE);
-
-const projects = (await getCollection("projects"))
-  .filter(project => !project.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0,SITE.NUM_PROJECTS_ON_HOMEPAGE);
 
 const allwork = (await getCollection("work"))
   .sort((a, b) => new Date(b.data.dateStart).valueOf() - new Date(a.data.dateStart).valueOf())
@@ -32,22 +26,64 @@ const work = await Promise.all(
 
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <Container>
-    <h4 class="animate font-semibold text-black dark:text-white">
-      Hey, I'm Sattiyan <span class="text-xl">👋🏻</span> 
-    </h4>
-    <div class="space-y-16">
+    <!-- Hero Section -->
+    <section class="mb-8">
+      <h1 class="animate text-2xl md:text-3xl font-semibold text-black dark:text-white mb-3">
+        Hey, I'm Sattiyan <span class="text-3xl">👋🏻</span>
+      </h1>
+      <p class="animate text-lg text-gray-600 dark:text-gray-300 font-medium mb-1">
+        Senior PHP/Laravel Developer & Founder of Dotkod Solutions
+      </p>
+      <p class="animate text-sm text-gray-500 dark:text-gray-400 mb-1">
+        Building scalable web applications, SaaS platforms, and e-commerce solutions
+      </p>
+      <p class="animate text-xs text-gray-400 dark:text-gray-500 italic mb-3">
+        "Turning ideas into high-impact digital solutions that are practical, scalable, and future-ready."
+      </p>
+      
+      <!-- Status Indicators -->
+      <div class="animate mb-4 flex items-center gap-4">
+        <AvailabilityStatus />
+        <SpotifyNowPlaying />
+      </div>
+      
+      <!-- Tech Stack Tags -->
+      <div class="animate flex flex-wrap gap-2">
+        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
+          Laravel
+        </span>
+        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
+          PHP
+        </span>
+        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
+          SaaS
+        </span>
+        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
+          E-commerce
+        </span>
+        <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
+          AI Integration
+        </span>
+      </div>
+    </section>
+
+    <div class="space-y-12">
       <section>
         <article class="space-y-4">
           <p class="animate">
-            Specializing in Laravel, FilamentPHP, and Shopify, I excel in crafting efficient web applications and tailored e-commerce solutions. As the Founder of Dotkod Solutions, I deliver innovative web solutions customized to clients' needs. With expertise in frontend technologies like Bootstrap and Tailwind CSS, coupled with a focus on project management efficiency, I'm committed to driving digital excellence for every project.
+            I'm a Senior PHP/Laravel Developer and Founder of Dotkod Solutions, with expertise in building scalable web applications, SaaS platforms, and e-commerce solutions. At TriSquare Technology, I work on end-to-end Laravel projects—from planning and database design to deployment—while integrating advanced features like AI chatbots, OpenAI APIs, automation with n8n, and multi-gateway payments.
+          </p>
+          <p class="animate">
+            Through Dotkod Solutions, I help SMEs and startups elevate their digital presence with custom web, Shopify/WooCommerce, and SaaS products—all while leading the company's first AI-driven SaaS platform. I thrive on turning ideas into high-impact digital solutions that are practical, scalable, and future-ready.
           </p>
           <p class="animate">
             Outside of my professional endeavors, I'm also deeply passionate about films and TV series. 
             As a dedicated cinephile, I have a particular fondness for rom-coms and horror films. You can 
             often find me sharing my insights and reviews on platforms like 
-            <Link href="https://letterboxd.com/sattiyans" aria-label="Letterboxd" external>Letterboxd</Link> 
+            <Link href="https://threads.com/sattiyanss" aria-label="Threads" external>Threads</Link>, 
+            <Link href="https://letterboxd.com/sattiyans" aria-label="Letterboxd" external>Letterboxd</Link>, 
             and <Link href="https://serializd.com/user/sattiyans" aria-label="Serializd" external>Serializd</Link>,
-            where I enthusiastically engage with fellow movie enthusiasts.
+            where I enthusiastically engage with fellow movie enthusiasts and share my latest discoveries.
           </p>
         </article>
       </section>
@@ -83,7 +119,7 @@ const work = await Promise.all(
           {work.map(entry => (
             <li>
               <div class="text-sm opacity-75">
-                {dateRange(entry.data.dateStart, entry.data.dateEnd)}
+                {entry.data.dateStart} - {entry.data.dateEnd || 'Present'}
               </div>
               <div class="font-semibold text-black dark:text-white">
                 {entry.data.company}
@@ -109,85 +145,73 @@ const work = await Promise.all(
           </Link>
         </div>
         <ul class="flex flex-col gap-4">
-          <!-- {projects.map(project => (
-            <li>
-              <ArrowCard entry={project} />
-            </li>
-          ))} -->
           <li> 
-            <a target="_blank" href="https://puasa.lapar.la" class="relative group flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro"> 
-              <div class="flex flex-col flex-1 truncate" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro" data-astro-source-loc="12:46"> 
-                <div class="font-semibold" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro" data-astro-source-loc="13:32"> 
-                  
-                    Puasa with Lapar.la 
+            <a target="_blank" href="https://d0t.my" class="relative group flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"> 
+              <div class="flex flex-col flex-1 truncate"> 
+                <div class="font-semibold"> 
+                  d0t.my
                 </div> 
-                <div class="text-sm" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro" data-astro-source-loc="16:26"> 
-                  Ramadan recipe listing from popular Instagram influencers.
+                <div class="text-sm opacity-75"> 
+                  AI-powered chatbot widget that integrates seamlessly into websites, providing intelligent engagement and support without complex setup.
                 </div> 
               </div> 
-              <svg class="absolute top-1/2 right-2 -translate-y-1/2 size-5 stroke-2 fill-none stroke-current mr-3" viewBox="0 0 128 128">
-                <path d="M0 8.934l49.854.158 14.167 24.47 14.432-24.47L128 8.935l-63.834 110.14zm126.98.637l-24.36.02-38.476 66.053L25.691 9.592.942 9.572l63.211 107.89zm-25.149-.008l-22.745.168-15.053 24.647L49.216 9.73l-22.794-.168 37.731 64.476zm-75.834-.17l23.002.009m-23.002-.01l23.002.01" fill="none"></path><path d="M25.997 9.393l23.002.009L64.035 34.36 79.018 9.404 102 9.398 64.15 75.053z" fill="#35495e"></path><path d="M.91 9.569l25.067-.172 38.15 65.659L101.98 9.401l25.11.026-62.966 108.06z" fill="#41b883"></path>
-                </svg>
+              <svg class="absolute top-1/2 right-2 -translate-y-1/2 size-5 stroke-2 fill-none stroke-current mr-3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
             </a> 
           </li>
           <li> 
-            <a target="_blank" href="https://github.com/sattiyans/laravel-resume-builder" class="relative group flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro"> 
-              <div class="flex flex-col flex-1 truncate" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro" data-astro-source-loc="12:46"> 
-                <div class="font-semibold" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro" data-astro-source-loc="13:32"> 
-                  Resume Builder
+            <a target="_blank" href="https://cinezd.dotkod.com" class="relative group flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"> 
+              <div class="flex flex-col flex-1 truncate"> 
+                <div class="font-semibold"> 
+                  Cinezd
                 </div> 
-                <div class="text-sm" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro" data-astro-source-loc="16:26"> 
-                  A CRUD tool allowing user to generate their own resume with own public url.
-                </div> 
-              </div> 
-              <svg class="absolute top-1/2 right-2 -translate-y-1/2 size-5 stroke-2 fill-none stroke-current mr-3" viewBox="0 0 128 128">
-                <path fill="#f0513f" d="M27.271.11c-.2.078-5.82 3.28-12.487 7.112-8.078 4.644-12.227 7.09-12.449 7.32-.19.225-.34.482-.438.76-.167.564-.179 82.985-.01 83.578.061.23.26.568.44.754.436.46 48.664 28.19 49.25 28.324.272.065.577.054.88-.03.658-.165 48.76-27.834 49.188-28.286.175-.195.375-.532.44-.761.084-.273.115-4.58.115-13.655v-13.26l11.726-6.735c11.056-6.357 11.733-6.755 12.017-7.191l.29-.47V43.287c0-15.548.03-14.673-.585-15.235-.165-.146-5.798-3.433-12.53-7.31L100.89 13.71h-1.359l-11.963 6.87c-6.586 3.788-12.184 7.027-12.457 7.203-.272.18-.597.512-.73.753l-.242.417-.054 13.455-.048 13.46-9.879 5.69c-5.434 3.124-9.957 5.71-10.053 5.734-.175.049-.187-1.232-.187-25.966V15.293l-.26-.447c-.326-.545 1.136.324-13.544-8.114C27.803-.348 28.098-.2 27.27.11zm11.317 10.307c5.15 2.955 9.364 5.4 9.364 5.43 0 .031-4.516 2.641-10.035 5.813l-10.041 5.765-10.023-5.764c-5.507-3.173-10.02-5.783-10.02-5.814 0-.03 4.505-2.64 10.013-5.805l9.999-5.752.69.376c3.357 1.907 6.708 3.824 10.053 5.751zm71.668 13.261c5.422 3.122 9.908 5.702 9.95 5.744.114.103-19.774 11.535-20.046 11.523-.272-.008-19.915-11.335-19.907-11.473.01-.157 19.773-11.527 19.973-11.496.091.022 4.607 2.59 10.03 5.702zM16.3 25.328l9.558 5.503.055 27.247.05 27.252.233.368c.122.194.352.459.52.581.158.115 5.477 3.146 11.818 6.724l11.52 6.506v11.527c0 6.326-.043 11.516-.097 11.516-.041 0-10-5.699-22.124-12.676L5.793 97.201l-.03-38.966-.019-38.954.49.271c.283.15 4.807 2.748 10.065 5.775zm33.754 19.18v25.109l-.387.253c-.525.332-19.667 11.335-19.732 11.335-.03 0-.054-11.336-.054-25.193l.012-25.182 10-5.752c5.499-3.165 10.034-5.733 10.088-5.714.039.024.073 11.34.073 25.144zm38.15-5.775 10.023 5.763V55.92c0 10.838-.011 11.42-.176 11.357-.107-.041-4.642-2.64-10.083-5.774l-9.91-5.69v-11.42c0-6.287.032-11.424.062-11.424.043 0 4.577 2.592 10.084 5.764zm34.164 5.587c0 6.254-.042 11.412-.084 11.462-.072.115-19.896 11.538-20.022 11.538-.031 0-.062-5.135-.062-11.423v-11.42l10-5.756c5.507-3.16 10.042-5.752 10.084-5.752.053 0 .084 5.105.084 11.351zM95.993 70.933 52.005 96.04 32.056 84.693S76 59.277 76.176 59.343zm2.215 14.827-.034 11.442-22.028 12.676c-12.12 6.976-22.082 12.675-22.132 12.675-.053 0-.095-4.658-.095-11.516V99.51l22.08-12.592c12.132-6.923 22.101-12.59 22.154-12.602.043 0 .062 5.148.054 11.443z"></path>
-                </svg>
-            </a> 
-          </li>
-          <li> 
-            <a target="_blank" href="https://movie-series-search.vercel.app" class="relative group flex flex-nowrap py-3 px-4 pr-10 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro"> 
-              <div class="flex flex-col flex-1 truncate" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro" data-astro-source-loc="12:46"> 
-                <div class="font-semibold" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro" data-astro-source-loc="13:32"> 
-                  Movie Series Search
-                </div> 
-                <div class="text-sm" data-astro-source-file="/Users/sattiyans/Git/com/src/components/ArrowCard.astro" data-astro-source-loc="16:26"> 
-                  Web app that allows users to search for movies and series and get information.
+                <div class="text-sm opacity-75"> 
+                  Social movie discovery app that enables users to discover, track, and share their cinematic journeys with watchlists and ratings.
                 </div> 
               </div> 
-              <svg class="absolute top-1/2 right-2 -translate-y-1/2 size-5 stroke-2 fill-none stroke-current mr-3" viewBox="0 0 128 128">
-                <path fill="#F0DB4F" d="M1.408 1.408h125.184v125.185H1.408z"></path><path fill="#323330" d="M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981-3.832-1.761-8.104-3.022-9.377-5.926-.452-1.69-.512-2.642-.226-3.665.821-3.32 4.784-4.355 7.925-3.403 2.023.678 3.938 2.237 5.093 4.724 5.402-3.498 5.391-3.475 9.163-5.879-1.381-2.141-2.118-3.129-3.022-4.045-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235-5.926 6.724-4.236 18.492 2.975 23.335 7.104 5.332 17.54 6.545 18.873 11.531 1.297 6.104-4.486 8.08-10.234 7.378-4.236-.881-6.592-3.034-9.139-6.949-4.688 2.713-4.688 2.713-9.508 5.485 1.143 2.499 2.344 3.63 4.26 5.795 9.068 9.198 31.76 8.746 35.83-5.176.165-.478 1.261-3.666.38-8.581zM69.462 58.943H57.753l-.048 30.272c0 6.438.333 12.34-.714 14.149-1.713 3.558-6.152 3.117-8.175 2.427-2.059-1.012-3.106-2.451-4.319-4.485-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901 4.462 2.678 10.459 3.499 16.731 2.059 4.082-1.189 7.604-3.652 9.448-7.401 2.666-4.915 2.094-10.864 2.07-17.444.06-10.735.001-21.468.001-32.237z"></path>
+              <svg class="absolute top-1/2 right-2 -translate-y-1/2 size-5 stroke-2 fill-none stroke-current mr-3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
               </svg>
             </a> 
           </li>
         </ul>
       </section>
 
-      <section class="animate space-y-4">
-        <h5 class="font-semibold text-black dark:text-white">
-          Let's Connect
-        </h5>
-        <article>
-          <p>
-            If you want to get in touch with me about something or just to say hi,
-            reach out on social media or send me an email.
-          </p>
-        </article>
-        <ul class="flex flex-wrap gap-2">
-          {SOCIALS.map(SOCIAL => (
-            <li class="flex gap-x-2 text-nowrap">
-              <Link href={SOCIAL.HREF} external aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}>
+      <section class="animate space-y-6">
+        <SkillsSection />
+      </section>
+
+      <section class="animate space-y-6">
+        <RecommendationsSection />
+      </section>
+
+      <section class="animate space-y-6">
+        <GitHubActivity />
+      </section>
+
+      <section class="animate space-y-6">
+        <div class="flex flex-wrap gap-y-2 items-center justify-between">
+          <h5 class="font-semibold text-black dark:text-white">
+            Get in Touch
+          </h5>
+          <div class="flex flex-wrap gap-2 text-sm">
+            {SOCIALS.map(SOCIAL => (
+              <Link href={SOCIAL.HREF} external aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`} class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-200">
                 {SOCIAL.NAME}
               </Link>
-              {"/"}
-            </li>
-          ))}
-          <li class="line-clamp-1">
-            <Link href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.NAME}`}>
+            ))}
+            <span class="text-gray-400">/</span>
+            <Link href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.NAME}`} class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-200">
               {SITE.EMAIL}
             </Link>
-          </li>
-        </ul>
+            <span class="text-gray-400">/</span>
+            <Link href="https://sattiyans.com/cv" external aria-label="Download CV" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-200">
+              CV
+            </Link>
+          </div>
+        </div>
+        <ContactForm />
       </section>
     </div>
   </Container>

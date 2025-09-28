@@ -1,0 +1,324 @@
+---
+import Container from "@components/Container.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import Link from "@components/Link.astro";
+import Head from "@components/Head.astro";
+
+const seoData = {
+  title: "Free Online Tools - Developer Utilities & Web Tools | Sattiyan Selvarajah",
+  description: "Collection of free online tools for developers: Base64 encoder/decoder, color converter, password generator, Letterboxd analytics. Simple, fast, and reliable web utilities.",
+  keywords: "online tools, developer tools, base64 encoder, color converter, password generator, regex tester, free web tools, utility tools, coding tools",
+  canonical: "https://sattiyans.com/tools"
+};
+
+const tools = [
+  {
+    name: "Letterboxd Analytics",
+    description: "Analyze your Letterboxd activity with detailed statistics, ratings breakdown, and viewing patterns.",
+    href: "/tools/letterboxd-analytics",
+    icon: "🎬",
+    category: "Analytics",
+    status: "Live"
+  },
+  {
+    name: "Base64 Encoder/Decoder",
+    description: "Convert text to Base64 encoding or decode Base64 back to text. Simple and fast text conversion.",
+    href: "/tools/base64",
+    icon: "🔤",
+    category: "Text Tools",
+    status: "Live"
+  },
+  {
+    name: "Color Converter",
+    description: "Convert colors between HEX, RGB, HSL, and HSV formats. Pick colors visually and get all format codes.",
+    href: "/tools/color-converter",
+    icon: "🎨",
+    category: "Design Tools",
+    status: "Live"
+  },
+  {
+    name: "Password Generator",
+    description: "Generate secure, random passwords with customizable length and character sets. Create strong passwords.",
+    href: "/tools/password-generator",
+    icon: "🔐",
+    category: "Security Tools",
+    status: "Live"
+  },
+];
+
+const categories = ["All", "Analytics", "Text Tools", "Design Tools", "Security Tools"];
+---
+
+<PageLayout title={seoData.title} description={seoData.description}>
+  <Head title={seoData.title} description={seoData.description}>
+    <meta name="keywords" content={seoData.keywords} />
+    <link rel="canonical" href={seoData.canonical} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={seoData.canonical} />
+    <meta property="og:title" content={seoData.title} />
+    <meta property="og:description" content={seoData.description} />
+    <meta property="og:image" content="https://sattiyans.com/og-tools.png" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={seoData.canonical} />
+    <meta property="twitter:title" content={seoData.title} />
+    <meta property="twitter:description" content={seoData.description} />
+    <meta property="twitter:image" content="https://sattiyans.com/og-tools.png" />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Free Online Tools Collection",
+        "description": "Collection of free online tools for developers and content creators",
+        "url": "https://sattiyans.com/tools",
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "SoftwareApplication",
+              "name": "Base64 Encoder/Decoder",
+              "description": "Convert text to Base64 encoding or decode Base64 back to text",
+              "url": "https://sattiyans.com/tools/base64",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Web Browser"
+            },
+            {
+              "@type": "SoftwareApplication", 
+              "name": "Color Converter",
+              "description": "Convert colors between HEX, RGB, HSL, and HSV formats",
+              "url": "https://sattiyans.com/tools/color-converter",
+              "applicationCategory": "DesignApplication",
+              "operatingSystem": "Web Browser"
+            },
+            {
+              "@type": "SoftwareApplication",
+              "name": "Password Generator", 
+              "description": "Generate secure, random passwords with customizable options",
+              "url": "https://sattiyans.com/tools/password-generator",
+              "applicationCategory": "SecurityApplication",
+              "operatingSystem": "Web Browser"
+            },
+            {
+              "@type": "SoftwareApplication",
+              "name": "Letterboxd Analytics",
+              "description": "Analyze your Letterboxd activity with detailed statistics",
+              "url": "https://sattiyans.com/tools/letterboxd-analytics", 
+              "applicationCategory": "AnalyticsApplication",
+              "operatingSystem": "Web Browser"
+            }
+          ]
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Sattiyan Selvarajah",
+          "url": "https://sattiyans.com"
+        }
+      }
+    </script>
+  </Head>
+  <Container>
+    <div class="space-y-12">
+      <!-- Breadcrumb -->
+      <section>
+        <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+          <Link 
+            href="/"
+            class="hover:text-black dark:hover:text-white transition-colors duration-200"
+          >
+            Home
+          </Link>
+          <span>/</span>
+          <span class="text-black dark:text-white font-medium">Tools</span>
+        </nav>
+      </section>
+
+      <!-- Header -->
+      <section>
+        <h1 class="text-2xl md:text-3xl font-semibold text-black dark:text-white mb-3">
+          Tools & Utilities
+        </h1>
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
+          A collection of tools I've built to help developers, content creators, and movie enthusiasts analyze and understand their data better.
+        </p>
+      </section>
+
+      <!-- Filter Section -->
+      <section>
+        <div class="flex flex-wrap gap-2 mb-6">
+          {categories.map((category) => (
+            <button
+              class={`filter-btn px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${
+                category === 'All' 
+                  ? 'bg-black dark:bg-white text-white dark:text-black' 
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white'
+              }`}
+              data-category={category}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <!-- Tools Grid -->
+      <section>
+        <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {tools.map((tool) => (
+            <Link 
+              href={tool.href !== "#" ? tool.href : "#"}
+              class={`tool-card block border border-black/20 dark:border-white/20 rounded-lg p-6 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-black/30 dark:hover:border-white/30 transition-all duration-200 ${
+                tool.href === "#" ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
+              }`}
+              data-category={tool.category}
+            >
+              <div class="space-y-4">
+                <!-- Header with icon and title -->
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl">{tool.icon}</span>
+                  <div class="flex-1">
+                    <h3 class="text-lg font-medium text-black dark:text-white mb-2">
+                      {tool.name}
+                    </h3>
+                    <div class="flex items-center gap-2">
+                      <span class={`text-xs px-2 py-1 rounded-full ${
+                        tool.status === 'Live' 
+                          ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' 
+                          : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
+                      }`}>
+                        {tool.status}
+                      </span>
+                      <span class="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
+                        {tool.category}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Description -->
+                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                  {tool.description}
+                </p>
+
+                <!-- Action indicator -->
+                <div class="flex items-center justify-end">
+                  <span class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                    {tool.href !== "#" ? (
+                      <>
+                        Try Tool
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </>
+                    ) : (
+                      'Coming Soon'
+                    )}
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section>
+        <div class="border border-black/10 dark:border-white/10 rounded-lg p-6">
+          <h2 class="text-lg font-medium text-black dark:text-white mb-2">
+            Have an idea for a tool?
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+            I'm always looking for new problems to solve. If you have an idea for a tool that would be useful, let me know!
+          </p>
+          <Link 
+            href="/#contact"
+            class="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-200"
+          >
+            Get in Touch →
+          </Link>
+        </div>
+      </section>
+    </div>
+  </Container>
+
+  <script>
+    function initToolsPage() {
+      const filterButtons = document.querySelectorAll('.filter-btn') as NodeListOf<HTMLButtonElement>;
+      const toolCards = document.querySelectorAll('.tool-card') as NodeListOf<HTMLElement>;
+      const toolsGrid = document.getElementById('tools-grid') as HTMLElement | null;
+
+      if (!toolsGrid) {
+        console.error('Tools grid not found');
+        return;
+      }
+
+    function filterTools(category: string) {
+      // Update button states
+      filterButtons.forEach(btn => {
+        if (btn.dataset.category === category) {
+          btn.className = 'filter-btn px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 bg-black dark:bg-white text-white dark:text-black';
+        } else {
+          btn.className = 'filter-btn px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white';
+        }
+      });
+
+      // Filter and show/hide tool cards
+      toolCards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        
+        if (category === 'All' || cardCategory === category) {
+          card.style.display = 'block';
+          card.style.animation = 'fadeIn 0.3s ease-in-out';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+          // Update grid layout for better spacing
+          setTimeout(() => {
+            const visibleCards = Array.from(toolCards).filter(card => card.style.display !== 'none');
+            if (visibleCards.length === 0 && toolsGrid) {
+              toolsGrid.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                  <div class="text-6xl mb-4">🔍</div>
+                  <h3 class="text-lg font-medium text-gray-600 dark:text-gray-400 mb-2">No tools found</h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-500">Try selecting a different category</p>
+                </div>
+              `;
+            }
+          }, 300);
+    }
+
+        // Add click event listeners to filter buttons
+        filterButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const category = button.dataset.category;
+            if (category) {
+              filterTools(category);
+            }
+          });
+        });
+
+      // Add CSS animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    // Initialize the tools page when DOM is loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initToolsPage);
+    } else {
+      initToolsPage();
+    }
+  </script>
+</PageLayout>

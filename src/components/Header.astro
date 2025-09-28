@@ -1,40 +1,73 @@
 ---
 import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
+import ThemeToggle from "@components/ThemeToggle.astro";
 import { SITE } from "@consts";
 ---
 
-<header>
+<header class="relative">
   <Container>
-    <div class="flex flex-wrap gap-y-2 justify-between">
-      <Link href="/" underline={false}>
-        <div class="font-semibold">
-          {SITE.NAME}
+    <div class="flex items-center justify-between py-4">
+      <!-- Logo/Brand -->
+      <Link href="/" underline={false} class="group">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+            <span class="text-white dark:text-black font-bold text-sm">S</span>
+          </div>
+          <div class="hidden md:block font-semibold text-black dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors duration-200">
+            {SITE.NAME}
+          </div>
         </div>
       </Link>
-      <nav class="flex gap-1">
-        <!-- <Link href="/blog">
-          blog
+      
+      <!-- Navigation -->
+      <nav class="flex items-center gap-3">
+        <Link href="/work" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+          Work
         </Link>
-        <span>
-          {`/`}
-        </span> -->
-        <Link href="/work">
-          work
+        <Link href="/watched" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+          Watched
         </Link>
-        <span>
-          {`/`}
-        </span>
-        <Link href="/watched">
-          watched
+        <Link href="/tools" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+          Tools
         </Link>
-        <!-- <span>
-          {`/`}
-        </span> -->
-        <!-- <Link href="/projects">
-          projects
-        </Link> -->
+        <Link href="/uses" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+          Uses
+        </Link>
+        <ThemeToggle />
       </nav>
     </div>
   </Container>
+  
+  <!-- Dotkod Solutions Banner -->
+  <div>
+    <Container>
+       <div class="border border-black/15 dark:border-white/20 rounded-lg p-4 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors duration-300 my-2">
+         <div class="flex items-center justify-between">
+           <div class="flex-1">
+             <div class="flex items-center gap-2">
+               <span class="text-sm">🚀</span>
+               <h3 class="text-sm font-semibold text-gray-900 dark:text-white">
+                 Automate Your Business & Save Money with AI
+               </h3>
+                <span class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium rounded">
+                  via Dotkod Solutions
+                </span>
+             </div>
+           </div>
+           <div class="flex-shrink-0 ml-3">
+             <Link 
+               href="https://dotkod.com" 
+               external
+               class="flex items-center justify-center w-8 h-8 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
+             >
+               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+               </svg>
+             </Link>
+           </div>
+        </div>
+      </div>
+    </Container>
+  </div>
 </header>

@@ -1,0 +1,12 @@
+---
+// Availability Status component
+const isAvailable = true; // You can change this based on your availability
+const status = isAvailable ? 'Available for work' : 'Currently unavailable';
+const statusColor = isAvailable ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400';
+const dotColor = isAvailable ? 'bg-green-500' : 'bg-red-500';
+---
+
+<div class="animate inline-flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-xs font-medium">
+  <div class={`w-2 h-2 rounded-full ${dotColor} animate-pulse`}></div>
+  <span class={statusColor}>{status}</span>
+</div>

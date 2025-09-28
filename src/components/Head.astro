@@ -24,10 +24,16 @@ const { title, description, image = "/nano.png" } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.ico" media="(prefers-color-scheme: dark)">
-<link rel="icon" type="image/svg+xml" href="/favicon.ico" media="(prefers-color-scheme: light)">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
 <meta name="generator" content={Astro.generator} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon-light.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
 
 <!-- Font preloads -->
 <link rel="preload" href={inter400} as="font" type="font/woff2" crossorigin/>
@@ -45,17 +51,62 @@ const { title, description, image = "/nano.png" } = Astro.props;
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Sattiyan Selvarajah" />
+<meta property="og:locale" content="en_US" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:creator" content="@sattiyans" />
+<meta property="twitter:site" content="@sattiyans" />
+
+<!-- Additional Meta Tags -->
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Sattiyan Selvarajah" />
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)" />
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Sattiyan Selvarajah",
+  "jobTitle": "Senior PHP/Laravel Developer & Founder",
+  "description": "Senior PHP/Laravel Developer and Founder of Dotkod Solutions, specializing in scalable web applications, SaaS platforms, and e-commerce solutions.",
+  "url": "https://sattiyans.com",
+  "image": "https://sattiyans.com/astro-nano.png",
+  "sameAs": [
+    "https://github.com/sattiyans",
+    "https://www.linkedin.com/in/sattiyans",
+    "https://x.com/sattiyans",
+    "https://threads.com/sattiyanss",
+    "https://letterboxd.com/sattiyans",
+    "https://serializd.com/user/sattiyans"
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Dotkod Solutions"
+  },
+  "knowsAbout": [
+    "PHP",
+    "Laravel",
+    "SaaS Development",
+    "E-commerce",
+    "AI Integration",
+    "Web Development"
+  ]
+}
+</script>
 
 <ViewTransitions  />
 

@@ -1,0 +1,121 @@
+---
+import Container from "@components/Container.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+
+const uses = {
+  hardware: [
+    { name: "MacBook Air M2", description: "512GB SSD, 16GB RAM" },
+    { name: "Acer PM161Q", description: "15.6\" Portable Monitor" },
+    { name: "Logitech MX Keys for Mac", description: "Wireless keyboard" },
+    { name: "Logitech MX Master 3S for Mac", description: "Wireless mouse" },
+    { name: "UGREEN HiTune H6 Pro", description: "Wireless earbuds" }
+  ],
+  software: [
+    { name: "Cursor", description: "AI-powered code editor" },
+    { name: "Warp", description: "Terminal emulator" },
+    { name: "Safari", description: "Web browser" },
+    { name: "Figma", description: "Design and prototyping" },
+    { name: "Apple Notes", description: "Note-taking" },
+    { name: "Spotify", description: "Music streaming" }
+  ],
+  development: [
+    { name: "Laravel", description: "PHP framework" },
+    { name: "PHP", description: "Backend language" },
+    { name: "JavaScript/TypeScript", description: "Frontend language" },
+    { name: "React", description: "Frontend framework" },
+    { name: "Next.js", description: "React framework" },
+    { name: "Tailwind CSS", description: "CSS framework" },
+    { name: "Bootstrap", description: "CSS framework" },
+    { name: "MySQL", description: "Database" },
+    { name: "PostgreSQL", description: "Database" },
+    { name: "Git", description: "Version control" },
+    { name: "Nginx", description: "Web server" },
+    { name: "n8n", description: "Workflow automation" }
+  ],
+  services: [
+    { name: "GitHub", description: "Code hosting" },
+    { name: "Vercel", description: "Frontend deployment" },
+    { name: "Supabase", description: "Backend as a Service" },
+    { name: "Digital Ocean", description: "VPS hosting" },
+    { name: "Stripe", description: "Payment processing" },
+    { name: "OpenAI API", description: "AI integration" },
+    { name: "n8n", description: "Workflow automation" },
+    { name: "Figma", description: "Design collaboration" },
+    { name: "Redis", description: "Caching" },
+    { name: "Sentry", description: "Error tracking" },
+    { name: "Resend", description: "Email service" }
+  ]
+};
+---
+
+<PageLayout title="Uses" description="Tools, technologies, and services I use for development and productivity.">
+  <Container>
+    <!-- Breadcrumb -->
+    <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6">
+      <a 
+        href="/"
+        class="hover:text-black dark:hover:text-white transition-colors duration-200"
+      >
+        Home
+      </a>
+      <span>/</span>
+      <span class="text-black dark:text-white font-medium">Uses</span>
+    </nav>
+
+    <div class="mb-6">
+      <h1 class="animate text-xl font-semibold text-black dark:text-white mb-2">
+        What I Use
+      </h1>
+    </div>
+
+    <div class="space-y-6">
+      <section class="animate">
+        <h2 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wide">Hardware</h2>
+        <div class="flex flex-wrap gap-2">
+          {uses.hardware.map((item) => (
+            <div class="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs">
+              <span class="font-medium text-black dark:text-white">{item.name}</span>
+              <span class="text-gray-500 dark:text-gray-400 ml-1">• {item.description}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="animate">
+        <h2 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wide">Software</h2>
+        <div class="flex flex-wrap gap-2">
+          {uses.software.map((item) => (
+            <div class="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs">
+              <span class="font-medium text-black dark:text-white">{item.name}</span>
+              <span class="text-gray-500 dark:text-gray-400 ml-1">• {item.description}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="animate">
+        <h2 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wide">Development</h2>
+        <div class="flex flex-wrap gap-2">
+          {uses.development.map((item) => (
+            <div class="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs">
+              <span class="font-medium text-black dark:text-white">{item.name}</span>
+              <span class="text-gray-500 dark:text-gray-400 ml-1">• {item.description}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="animate">
+        <h2 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wide">Services</h2>
+        <div class="flex flex-wrap gap-2">
+          {uses.services.map((item) => (
+            <div class="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs">
+              <span class="font-medium text-black dark:text-white">{item.name}</span>
+              <span class="text-gray-500 dark:text-gray-400 ml-1">• {item.description}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  </Container>
+</PageLayout>

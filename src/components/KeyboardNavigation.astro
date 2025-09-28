@@ -1,0 +1,129 @@
+---
+// Keyboard Navigation component - adds keyboard shortcuts
+---
+
+<script>
+  function initKeyboardNavigation() {
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Skip if user is typing in an input, textarea, or contenteditable
+      if (e.target instanceof HTMLInputElement || 
+          e.target instanceof HTMLTextAreaElement || 
+          e.target instanceof HTMLElement && e.target.isContentEditable) {
+        return;
+      }
+      
+      // Alt + H: Go to Home
+      if (e.altKey && e.key === 'h') {
+        e.preventDefault();
+        window.location.href = '/';
+      }
+      
+      // Alt + W: Go to Work
+      if (e.altKey && e.key === 'w') {
+        e.preventDefault();
+        window.location.href = '/work';
+      }
+      
+      // Alt + U: Go to Uses
+      if (e.altKey && e.key === 'u') {
+        e.preventDefault();
+        window.location.href = '/uses';
+      }
+      
+      // Alt + M: Go to Watched (Movies)
+      if (e.altKey && e.key === 'm') {
+        e.preventDefault();
+        window.location.href = '/watched';
+      }
+      
+      // Alt + T: Toggle theme
+      if (e.altKey && e.key === 't') {
+        e.preventDefault();
+        const currentTheme = localStorage.getItem('theme') || 'system';
+        const isDark = document.documentElement.classList.contains('dark');
+        
+        if (currentTheme === 'system') {
+          // If system, toggle to opposite of current
+          localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        } else {
+          // If manual, toggle
+          localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        }
+        
+        // Apply the new theme
+        const newIsDark = !isDark;
+        if (newIsDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      
+      
+      // Escape: Close mobile menu if open
+      if (e.key === 'Escape') {
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        if (mobileMenuPanel && !mobileMenuPanel.classList.contains('translate-x-full')) {
+          const closeBtn = document.getElementById('mobile-menu-close');
+          closeBtn?.click();
+        }
+      }
+      
+      // Space: Scroll down (when not in form elements)
+      if (e.key === ' ' && !e.altKey && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+      }
+      
+      // Shift + Space: Scroll up
+      if (e.key === ' ' && e.shiftKey) {
+        e.preventDefault();
+        window.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
+      }
+      
+      // Home: Go to top
+      if (e.key === 'Home') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      
+      // End: Go to bottom
+      if (e.key === 'End') {
+        e.preventDefault();
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }
+    });
+    
+    // Add visual feedback for keyboard shortcuts
+    function showKeyboardShortcut(key: string, description: string) {
+      // Create a temporary notification
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-20 right-4 bg-black dark:bg-white text-white dark:text-black px-3 py-2 rounded text-sm z-50 transition-opacity duration-300';
+      notification.textContent = `${key}: ${description}`;
+      document.body.appendChild(notification);
+      
+      // Remove after 2 seconds
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 2000);
+    }
+    
+    // Show keyboard shortcuts help on first visit
+    if (!localStorage.getItem('keyboardShortcutsShown')) {
+      setTimeout(() => {
+        showKeyboardShortcut('Alt + H', 'Go to Home');
+        setTimeout(() => {
+          showKeyboardShortcut('Alt + T', 'Toggle Theme');
+        }, 2500);
+        localStorage.setItem('keyboardShortcutsShown', 'true');
+      }, 3000);
+    }
+  }
+  
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', initKeyboardNavigation);
+</script>

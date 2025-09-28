@@ -1,0 +1,448 @@
+---
+import Container from "@components/Container.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import Link from "@components/Link.astro";
+import Head from "@components/Head.astro";
+
+const seoData = {
+  title: "Letterboxd Analytics - Free Movie Stats & Rating Analysis Tool | Sattiyan Selvarajah",
+  description: "Free Letterboxd analytics tool. Analyze your movie watching activity with detailed statistics, ratings breakdown, and viewing patterns. Get insights from your Letterboxd data.",
+  keywords: "letterboxd analytics, movie stats, film analytics, letterboxd data, movie ratings analysis, film statistics, movie tracking, letterboxd insights",
+  canonical: "https://sattiyans.com/tools/letterboxd-analytics"
+};
+---
+
+<PageLayout title={seoData.title} description={seoData.description}>
+  <Head title={seoData.title} description={seoData.description}>
+    <meta name="keywords" content={seoData.keywords} />
+    <link rel="canonical" href={seoData.canonical} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={seoData.canonical} />
+    <meta property="og:title" content={seoData.title} />
+    <meta property="og:description" content={seoData.description} />
+    <meta property="og:image" content="https://sattiyans.com/og-letterboxd-analytics.png" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={seoData.canonical} />
+    <meta property="twitter:title" content={seoData.title} />
+    <meta property="twitter:description" content={seoData.description} />
+    <meta property="twitter:image" content="https://sattiyans.com/og-letterboxd-analytics.png" />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Letterboxd Analytics",
+        "description": "Free online tool to analyze Letterboxd movie watching activity and statistics",
+        "url": "https://sattiyans.com/tools/letterboxd-analytics",
+        "applicationCategory": "AnalyticsApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Sattiyan Selvarajah",
+          "url": "https://sattiyans.com"
+        },
+        "featureList": [
+          "Movie watching statistics",
+          "Rating distribution analysis",
+          "Viewing patterns tracking",
+          "Recent activity overview",
+          "Personal movie insights",
+          "Data visualization"
+        ]
+      }
+    </script>
+  </Head>
+  <Container>
+    <div class="space-y-12">
+      <!-- Breadcrumb -->
+      <section>
+        <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+          <Link 
+            href="/"
+            class="hover:text-black dark:hover:text-white transition-colors duration-200"
+          >
+            Home
+          </Link>
+          <span>/</span>
+          <Link 
+            href="/tools"
+            class="hover:text-black dark:hover:text-white transition-colors duration-200"
+          >
+            Tools
+          </Link>
+          <span>/</span>
+          <span class="text-black dark:text-white font-medium">Letterboxd Analytics</span>
+        </nav>
+      </section>
+
+      <!-- Header -->
+      <section>
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-2xl">🎬</span>
+          <h1 class="text-2xl md:text-3xl font-semibold text-black dark:text-white">
+            Letterboxd Analytics
+          </h1>
+        </div>
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
+          Get detailed insights into your movie watching habits, ratings distribution, and viewing patterns from your Letterboxd RSS feed.
+        </p>
+      </section>
+
+      <!-- Input Form -->
+      <section>
+        <div class="border border-black/10 dark:border-white/10 rounded-lg p-6">
+              <h2 class="text-lg font-medium text-black dark:text-white mb-3">
+                Enter Your Letterboxd Username
+              </h2>
+              <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                We'll analyze your public Letterboxd activity and provide detailed statistics about your movie watching habits.
+              </p>
+          
+          <form id="analytics-form" class="space-y-4">
+            <div>
+              <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Letterboxd Username
+              </label>
+              <div class="flex gap-3">
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="sattiyans"
+                  class="flex-1 px-3 py-2 border border-black/15 dark:border-white/20 rounded-md focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-900 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                  required
+                />
+                <button
+                  type="submit"
+                  class="px-4 py-2 bg-black dark:bg-white text-white dark:text-black rounded-md font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Analyze
+                </button>
+              </div>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                Your data is processed locally and not stored on our servers.
+              </p>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Loading State -->
+      <div id="loading-state" class="hidden">
+        <div class="text-center py-8">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-black dark:border-white mx-auto mb-4"></div>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Analyzing your Letterboxd data...</p>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="results" class="hidden space-y-8">
+        <!-- Summary Stats -->
+        <section>
+          <h2 class="text-lg font-medium text-black dark:text-white mb-4">Summary</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="border border-black/10 dark:border-white/10 rounded-lg p-4 text-center">
+              <div class="text-2xl font-semibold text-black dark:text-white mb-1" id="total-films">-</div>
+              <div class="text-xs text-gray-600 dark:text-gray-300">Total Films</div>
+            </div>
+            <div class="border border-black/10 dark:border-white/10 rounded-lg p-4 text-center">
+              <div class="text-2xl font-semibold text-black dark:text-white mb-1" id="avg-rating">-</div>
+              <div class="text-xs text-gray-600 dark:text-gray-300">Average Rating</div>
+            </div>
+            <div class="border border-black/10 dark:border-white/10 rounded-lg p-4 text-center">
+              <div class="text-2xl font-semibold text-black dark:text-white mb-1" id="this-year">-</div>
+              <div class="text-xs text-gray-600 dark:text-gray-300">This Year</div>
+            </div>
+            <div class="border border-black/10 dark:border-white/10 rounded-lg p-4 text-center">
+              <div class="text-2xl font-semibold text-black dark:text-white mb-1" id="this-month">-</div>
+              <div class="text-xs text-gray-600 dark:text-gray-300">This Month</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Recent Activity -->
+        <section>
+          <h2 class="text-lg font-medium text-black dark:text-white mb-4">Recent Activity</h2>
+          <div class="border border-black/10 dark:border-white/10 rounded-lg p-4">
+            <div id="recent-activity" class="space-y-3">
+              <!-- Dynamic content will be inserted here -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Rating Distribution -->
+        <section>
+          <h2 class="text-lg font-medium text-black dark:text-white mb-4">Rating Distribution</h2>
+          <div class="border border-black/10 dark:border-white/10 rounded-lg p-4">
+            <div id="rating-distribution" class="space-y-2">
+              <!-- Dynamic content will be inserted here -->
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Error State -->
+      <div id="error-state" class="hidden">
+        <div class="border border-red-200 dark:border-red-800 rounded-lg p-6 text-center">
+          <div class="text-red-600 dark:text-red-400 mb-3">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-red-800 dark:text-red-200 mb-2">Unable to Load Data</h3>
+          <p class="text-red-700 dark:text-red-300 text-sm mb-4" id="error-message">
+            Please check the username and try again.
+          </p>
+          <button 
+            onclick="location.reload()" 
+            class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200 text-sm"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </Container>
+
+  <script>
+    function initLetterboxdAnalytics() {
+      // RSS parsing functions
+      function extractRating(title: string) {
+      const ratingMatch = title.match(/(?:, \d{4} - | - )([★☆½]+)$/);
+      if (!ratingMatch) return 0;
+      
+      const ratingStr = ratingMatch[1];
+      let rating = 0;
+      
+      const fullStars = (ratingStr.match(/★/g) || []).length;
+      rating += fullStars;
+      
+      if (ratingStr.includes('½')) {
+        rating += 0.5;
+      }
+      
+      return rating;
+    }
+
+    function parseLetterboxdRSS(xmlText: string) {
+      const items = [];
+      const itemRegex = /<item>([\s\S]*?)<\/item>/g;
+      let match;
+      
+      while ((match = itemRegex.exec(xmlText)) !== null) {
+        const itemContent = match[1];
+        
+        const titleMatch = itemContent.match(/<title>(.*?)<\/title>/);
+        if (!titleMatch) continue;
+        
+        const fullTitle = titleMatch[1];
+        const rating = extractRating(fullTitle);
+        
+        const yearMatch = fullTitle.match(/(\d{4})/);
+        const year = yearMatch ? parseInt(yearMatch[1]) : new Date().getFullYear();
+        
+        const cleanTitle = fullTitle
+          .replace(/, \d{4} - [★☆½]+$/, '')
+          .replace(/ - [★☆½]+$/, '')
+          .trim();
+        
+        const linkMatch = itemContent.match(/<link>(.*?)<\/link>/);
+        const url = linkMatch ? linkMatch[1] : '';
+        
+        const dateMatch = itemContent.match(/<pubDate>(.*?)<\/pubDate>/);
+        const pubDate = dateMatch ? new Date(dateMatch[1]) : new Date();
+        
+        const watchedDate = pubDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+        
+        items.push({
+          title: cleanTitle,
+          year,
+          rating,
+          watchedDate,
+          url
+        });
+      }
+      
+      return calculateAnalytics(items);
+    }
+
+    function calculateAnalytics(films: any[]) {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const currentMonth = now.getMonth();
+      
+      const thisYearFilms = films.filter((film: any) => {
+        const filmDate = new Date(film.watchedDate);
+        return filmDate.getFullYear() === currentYear;
+      });
+      
+      const thisMonthFilms = films.filter((film: any) => {
+        const filmDate = new Date(film.watchedDate);
+        return filmDate.getFullYear() === currentYear && filmDate.getMonth() === currentMonth;
+      });
+      
+      const ratedFilms = films.filter((film: any) => film.rating > 0);
+      const averageRating = ratedFilms.length > 0 
+        ? ratedFilms.reduce((sum: number, film: any) => sum + film.rating, 0) / ratedFilms.length 
+        : 0;
+      
+      const ratingDistribution: Record<number, number> = {};
+      for (let rating = 0.5; rating <= 5; rating += 0.5) {
+        ratingDistribution[rating] = 0;
+      }
+      
+      ratedFilms.forEach((film: any) => {
+        if (ratingDistribution.hasOwnProperty(film.rating)) {
+          ratingDistribution[film.rating]++;
+        }
+      });
+      
+      return {
+        totalFilms: films.length,
+        averageRating,
+        thisYear: thisYearFilms.length,
+        thisMonth: thisMonthFilms.length,
+        recentFilms: films.slice(0, 20),
+        ratingDistribution
+      };
+    }
+
+    const form = document.getElementById('analytics-form') as HTMLFormElement | null;
+    const loadingState = document.getElementById('loading-state') as HTMLElement | null;
+    const results = document.getElementById('results') as HTMLElement | null;
+    const errorState = document.getElementById('error-state') as HTMLElement | null;
+    const errorMessage = document.getElementById('error-message') as HTMLElement | null;
+    const totalFilms = document.getElementById('total-films') as HTMLElement | null;
+    const avgRating = document.getElementById('avg-rating') as HTMLElement | null;
+    const thisYear = document.getElementById('this-year') as HTMLElement | null;
+    const thisMonth = document.getElementById('this-month') as HTMLElement | null;
+    const recentActivity = document.getElementById('recent-activity') as HTMLElement | null;
+    const ratingDistribution = document.getElementById('rating-distribution') as HTMLElement | null;
+
+    if (!form || !loadingState || !results || !errorState || !errorMessage || !totalFilms || !avgRating || !thisYear || !thisMonth || !recentActivity || !ratingDistribution) {
+      console.error('Analytics form elements not found');
+      return;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(e.target as HTMLFormElement);
+      const username = formData.get('username');
+      
+      if (!username) {
+        alert('Please enter a Letterboxd username');
+        return;
+      }
+      
+      // Show loading state
+      loadingState.classList.remove('hidden');
+      results.classList.add('hidden');
+      errorState.classList.add('hidden');
+      
+      try {
+        // Use CORS proxy to avoid CORS issues
+        const rssUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://letterboxd.com/${username}/rss/`)}`;
+        const response = await fetch(rssUrl);
+        
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error(`Letterboxd user "${username}" not found`);
+          }
+          throw new Error('Failed to fetch data');
+        }
+        
+        const xmlText = await response.text();
+        const data = parseLetterboxdRSS(xmlText);
+        
+        // Update summary stats
+        totalFilms.textContent = String(data.totalFilms || 0);
+        avgRating.textContent = data.averageRating ? data.averageRating.toFixed(1) + '★' : 'N/A';
+        thisYear.textContent = String(data.thisYear || 0);
+        thisMonth.textContent = String(data.thisMonth || 0);
+        
+        // Update recent activity
+        recentActivity.innerHTML = '';
+        
+        if (data.recentFilms && data.recentFilms.length > 0) {
+          data.recentFilms.slice(0, 10).forEach((film: any) => {
+            const filmDiv = document.createElement('div');
+            filmDiv.className = 'flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-800 last:border-b-0';
+            filmDiv.innerHTML = `
+              <div class="flex-1">
+                <div class="font-medium text-black dark:text-white">${film.title}</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">${film.year} • ${film.watchedDate}</div>
+              </div>
+              <div class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                ${film.rating ? '★'.repeat(Math.floor(film.rating)) + (film.rating % 1 ? '½' : '') : 'No Rating'}
+              </div>
+            `;
+            recentActivity.appendChild(filmDiv);
+          });
+        } else {
+          recentActivity.innerHTML = '<p class="text-gray-500 dark:text-gray-400">No recent activity found.</p>';
+        }
+        
+        // Update rating distribution
+        ratingDistribution.innerHTML = '';
+        
+        if (data.ratingDistribution) {
+          const maxCount = Math.max(...Object.values(data.ratingDistribution) as number[]);
+          
+          for (let rating = 5; rating >= 0.5; rating -= 0.5) {
+            const count = data.ratingDistribution[rating] || 0;
+            const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0;
+            
+            const ratingDiv = document.createElement('div');
+            ratingDiv.className = 'flex items-center gap-3';
+            ratingDiv.innerHTML = `
+              <div class="w-8 text-sm font-medium text-gray-700 dark:text-gray-300">
+                ${rating}★
+              </div>
+              <div class="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                <div class="bg-black dark:bg-white h-4 rounded-full transition-all duration-500" style="width: ${percentage}%"></div>
+              </div>
+              <div class="w-8 text-sm text-gray-600 dark:text-gray-400 text-right">
+                ${count}
+              </div>
+            `;
+            ratingDistribution.appendChild(ratingDiv);
+          }
+        }
+        
+        // Show results
+        loadingState.classList.add('hidden');
+        results.classList.remove('hidden');
+        
+      } catch (error) {
+        console.error('Error:', error);
+        loadingState.classList.add('hidden');
+        errorState.classList.remove('hidden');
+        errorMessage.textContent = 'Unable to fetch data for this username. Please check the username and try again.';
+      }
+    });
+    }
+
+    // Initialize the analytics tool when DOM is loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLetterboxdAnalytics);
+    } else {
+      initLetterboxdAnalytics();
+    }
+  </script>
+</PageLayout>

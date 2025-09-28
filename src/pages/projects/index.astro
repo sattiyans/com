@@ -13,6 +13,18 @@ const projects = (await getCollection("projects"))
 <PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
   <Container>
     <div class="space-y-10">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+        <a 
+          href="/"
+          class="hover:text-black dark:hover:text-white transition-colors duration-200"
+        >
+          Home
+        </a>
+        <span>/</span>
+        <span class="text-black dark:text-white font-medium">Projects</span>
+      </nav>
+
       <div class="animate font-semibold text-black dark:text-white">
         Projects
       </div>

@@ -1,23 +1,34 @@
 import type { APIRoute } from 'astro';
 import type { WatchedItem } from '@types';
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request }) => {
   try {
     // Letterboxd RSS feed URL for user activity with cache busting
     const username = 'sattiyans'; // Your Letterboxd username
     const cacheBuster = `?t=${Date.now()}&r=${Math.random()}`;
     const rssUrl = `https://letterboxd.com/${username}/rss/${cacheBuster}`;
     
-    const response = await fetch(rssUrl);
+    console.log('Fetching Letterboxd RSS:', rssUrl);
+    
+    const response = await fetch(rssUrl, {
+      method: 'GET',
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'User-Agent': 'Mozilla/5.0 (compatible; PortfolioBot/1.0)'
+      }
+    });
     
     if (!response.ok) {
       throw new Error(`Failed to fetch RSS feed: ${response.status}`);
     }
     
     const xmlText = await response.text();
+    console.log('RSS feed fetched successfully, length:', xmlText.length);
     
     // Parse the RSS XML to extract watched films
     const watchedItems = await parseLetterboxdRSS(xmlText);
+    console.log('Parsed items:', watchedItems.length);
     
     return new Response(JSON.stringify(watchedItems), {
       status: 200,
@@ -27,7 +38,10 @@ export const GET: APIRoute = async () => {
         'Pragma': 'no-cache',
         'Expires': '0',
         'Last-Modified': new Date().toUTCString(),
-        'ETag': `"${Date.now()}-${Math.random()}"`
+        'ETag': `"${Date.now()}-${Math.random()}"`,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type'
       }
     });
     
@@ -40,7 +54,10 @@ export const GET: APIRoute = async () => {
     }), {
       status: 500,
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+        'Pragma': 'no-cache',
+        'Expires': '0'
       }
     });
   }
@@ -66,6 +83,7 @@ async function parseLetterboxdRSS(xmlText: string): Promise<WatchedItem[]> {
         // Extract title
         const titleMatch = itemXml.match(/<title>(.*?)<\/title>/);
         const title = titleMatch ? titleMatch[1].trim() : '';
+        console.log('Raw RSS title:', title);
         
         // Extract link
         const linkMatch = itemXml.match(/<link>(.*?)<\/link>/);
@@ -161,21 +179,31 @@ async function getPosterUrl(title: string, year: number): Promise<string | undef
 }
 
 function extractRating(title: string): number | undefined {
-  // Look for star ratings in the title (★ = 1, ★★ = 2, etc.)
+  console.log('Extracting rating from title:', title);
+  
+  // Look for patterns like "Film Title, 2023 - ★★★½" or "Film Title - ★★★½"
+  const ratingMatch = title.match(/(?:, \d{4} - | - )([★☆½]+)$/);
+  if (ratingMatch) {
+    const ratingStr = ratingMatch[1];
+    console.log('Found rating string:', ratingStr);
+    
+    // Count full stars
+    const fullStars = (ratingStr.match(/★/g) || []).length;
+    
+    // Check for half star
+    const hasHalfStar = ratingStr.includes('½');
+    
+    const rating = fullStars + (hasHalfStar ? 0.5 : 0);
+    console.log('Calculated rating:', rating);
+    return rating;
+  }
+  
+  // Fallback: look for any star pattern in the title
   const starMatch = title.match(/★{1,5}/);
   if (starMatch) {
-    return starMatch[0].length; // Count the stars
-  }
-  
-  // Look for half stars (★½ = 1.5, ★★½ = 2.5, etc.)
-  const halfStarMatch = title.match(/(★{1,5})½/);
-  if (halfStarMatch) {
-    return halfStarMatch[1].length + 0.5;
-  }
-  
-  // Look for just half star (½ = 0.5)
-  if (title.includes('½')) {
-    return 0.5;
+    const fullStars = starMatch[0].length;
+    const hasHalfStar = title.includes('½');
+    return fullStars + (hasHalfStar ? 0.5 : 0);
   }
   
   return undefined;

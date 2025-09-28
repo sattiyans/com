@@ -1,0 +1,84 @@
+---
+import Link from "@components/Link.astro";
+
+// Recommendations data
+const recommendations = [
+  {
+    name: "Ahmad Farhan Hamsani",
+    title: "Tech Lead at Globaltium Sdn Bhd",
+    date: "February 27, 2024",
+    relationship: "Worked together on the same team",
+    content: "From the first moment that Sattiyan came to DMC, I knew right away that he would make a good fit for the team. And true enough, he quickly adapts to our work environment. He got along well with all the colleagues. He has shown nothing but growth throughout his entire journey as a developer at DMC. He is also a quick learner and able to correct his mistakes in a timely manner, if any. He is also very proactive and quick to finish tasks on hand till the point where all tasks were 'sapu-ed' by him. That's where he earned the title 'Super Sattiyan' among the colleagues. It was a pleasure working with him, although our path was cut short, but our good memories remain. Looking forward to work with him again in the future if given the chance."
+  },
+  {
+    name: "Ahmad Azamuddin Hasni",
+    title: "PHP Laravel Developer at ALPHV Technologies",
+    date: "February 23, 2024",
+    relationship: "Worked together on the same team",
+    content: "In the brief period of six months that I had the privilege of working alongside Sattiyan, I was continually impressed by his unwavering dedication, strong work ethic, and polite demeanor when seeking clarification or guidance. Despite our limited time together, it was evident that Sattiyan possessed a relentless drive to expand his knowledge and skills, particularly in PHP and the Laravel framework. His expertise in these areas not only contributed to the team's technical capabilities but also inspired confidence in our collective ability to tackle complex projects. Sattiyan's proactive approach to problem-solving and his eagerness to share his insights made a significant impact on our team's productivity and cohesion. His commitment to excellence and his inherent curiosity make him a valuable asset to any team or endeavor he embarks upon."
+  },
+  {
+    name: "Mukhlis Ramli",
+    title: "Senior IT Manager at Xanderia Berhad",
+    date: "February 22, 2024",
+    relationship: "Managed Sattiyan directly",
+    content: "For all talent seekers out there, i couldn't say enough to explain all the good sides of him. His dedication to perfection, focus on details, ingenuity and a lot more. Super Sattiyan (as in super saiyan) is a good friend and will excel in any field he dive into."
+  },
+  {
+    name: "Naeem Ahsan",
+    title: "Web Developer || Wordpress | Shopify | PHP | MySQL | CMS",
+    date: "July 27, 2023",
+    relationship: "Worked together on the same team",
+    content: "Sattiyan, who has been both a valuable colleague and an exceptional mentor to me over the past year. As a dedicated and knowledgeable professional, Sattiyan has played an instrumental role in my growth and development throughout our collaboration. His expertise in CMS, APIs, and Web development is truly commendable, and he has consistently guided me with valuable insights and advice. During our time working together on multiple projects, Sattiyan's mentorship has been a guiding light. His unwavering support when I faced challenges and felt overwhelmed by multiple tasks. Whenever I found myself in such situations, Sattiyan was always there to lend a helping hand, providing valuable assistance and encouragement. His willingness to step in and offer support has been truly invaluable and has allowed me to overcome obstacles with confidence. It is without hesitation that I recommend Sattiyan for any endeavor or role he may pursue. I have no doubt that his exceptional skills, dedication, and commitment to excellence will continue to drive success in all his future endeavors."
+  },
+  {
+    name: "Crystallyn Ersinski",
+    title: "Master of Business | Financial Analytics & Management | UI/UX Designer",
+    date: "May 5, 2022",
+    relationship: "Worked together on the same team",
+    content: "Satti is a highly intelligent, honest, dependable and hardworking person. His knowledge and expertise in his field was a huge advantage to accomplish great achievements. I thoroughly enjoyed working with Satti as he is very easy to communicate and to work with!"
+  },
+  {
+    name: "Douglas Lee",
+    title: "Senior Unity Developer at CraveAsia Sdn. Bhd.",
+    date: "March 10, 2020",
+    relationship: "Was Sattiyan's mentor",
+    content: "A hardworking and fast learner. Very focus and detailed person when dealing with any problems. He has a very good analytical approach to anything. Fantastic R&D skill set."
+  }
+];
+---
+
+<section class="animate space-y-6">
+  <div class="flex flex-wrap gap-y-2 items-center justify-between">
+    <h5 class="font-semibold text-black dark:text-white">
+      Recommendations
+    </h5>
+    <Link href="https://www.linkedin.com/in/sattiyans" external class="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-200">
+      View all on LinkedIn
+    </Link>
+  </div>
+  
+  <div class="space-y-6">
+    {recommendations.map((rec, index) => (
+      <div class="border border-black/15 dark:border-white/20 rounded-lg p-6 hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-300">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+          <div>
+            <h6 class="font-semibold text-black dark:text-white text-sm">
+              {rec.name}
+            </h6>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">
+              {rec.title}
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-500">
+              {rec.relationship} • {rec.date}
+            </p>
+          </div>
+        </div>
+        
+        <blockquote class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic">
+          "{rec.content}"
+        </blockquote>
+      </div>
+    ))}
+  </div>
+</section>

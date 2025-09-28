@@ -1,0 +1,185 @@
+---
+// Contact Form Component
+---
+
+<div class="space-y-4">
+  <h3 class="font-semibold text-black dark:text-white">
+    Let's work together
+  </h3>
+  <p class="text-sm opacity-75">
+    Have a project in mind or a job opportunity? I'd love to hear about it. Send me a message and I'll respond as soon as possible.
+  </p>
+  
+  <form id="contact-form" class="space-y-4">
+    <div>
+      <label for="name" class="block text-sm font-medium text-black dark:text-white mb-1">
+        Name *
+      </label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        class="w-full px-3 py-2 border border-black/15 dark:border-white/20 rounded-lg bg-transparent text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-black dark:focus:border-white transition-colors duration-300"
+        placeholder="Your name"
+      />
+    </div>
+    
+    <div>
+      <label for="email" class="block text-sm font-medium text-black dark:text-white mb-1">
+        Email *
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        class="w-full px-3 py-2 border border-black/15 dark:border-white/20 rounded-lg bg-transparent text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-black dark:focus:border-white transition-colors duration-300"
+        placeholder="your.email@example.com"
+      />
+    </div>
+    
+    <div>
+      <label for="subject" class="block text-sm font-medium text-black dark:text-white mb-1">
+        Subject
+      </label>
+      <select
+        id="subject"
+        name="subject"
+        class="w-full px-3 py-2 border border-black/15 dark:border-white/20 rounded-lg bg-transparent text-black dark:text-white focus:outline-none focus:border-black dark:focus:border-white transition-colors duration-300"
+      >
+        <option value="">Select a topic</option>
+        <option value="web-development">Web Development Project</option>
+        <option value="saas-platform">SaaS Platform Development</option>
+        <option value="ecommerce">E-commerce Solution</option>
+        <option value="job-opportunity">Job Opportunity / Recruitment</option>
+        <option value="consultation">Technical Consultation</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    
+    <div>
+      <label for="message" class="block text-sm font-medium text-black dark:text-white mb-1">
+        Message *
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        required
+        class="w-full px-3 py-2 border border-black/15 dark:border-white/20 rounded-lg bg-transparent text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-black dark:focus:border-white transition-colors duration-300 resize-vertical"
+        placeholder="Tell me about your project..."
+      ></textarea>
+    </div>
+    
+    <div class="flex items-center justify-between">
+      <div class="text-xs opacity-75">
+        * Required fields
+      </div>
+      <button
+        type="submit"
+        class="px-4 py-2 bg-black dark:bg-white text-white dark:text-black font-medium rounded-lg hover:bg-black/80 dark:hover:bg-white/80 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Send Message
+      </button>
+    </div>
+  </form>
+  
+  <!-- Success/Error Messages -->
+  <div id="form-messages" class="mt-4 hidden">
+    <div id="success-message" class="p-3 border border-green-300 dark:border-green-700 rounded-lg text-green-700 dark:text-green-300 text-sm hidden">
+      <strong>Message sent successfully!</strong> I'll get back to you soon.
+    </div>
+    <div id="error-message" class="p-3 border border-red-300 dark:border-red-700 rounded-lg text-red-700 dark:text-red-300 text-sm hidden">
+      <strong>Error sending message.</strong> Please try again or contact me directly at hey@sattiyans.com
+    </div>
+  </div>
+</div>
+
+<script>
+  function initContactForm() {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const messages = document.getElementById('form-messages') as HTMLElement | null;
+    const successMessage = document.getElementById('success-message') as HTMLElement | null;
+    const errorMessage = document.getElementById('error-message') as HTMLElement | null;
+    const submitButton = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+    if (!form || !messages || !successMessage || !errorMessage || !submitButton) {
+      console.error('Contact form elements not found');
+      return;
+    }
+
+      function showMessage(isSuccess: boolean) {
+        if (messages && successMessage && errorMessage) {
+          messages.classList.remove('hidden');
+          successMessage.classList.toggle('hidden', !isSuccess);
+          errorMessage.classList.toggle('hidden', isSuccess);
+          
+          // Hide messages after 5 seconds
+          setTimeout(() => {
+            messages.classList.add('hidden');
+          }, 5000);
+        }
+      }
+
+      function resetForm() {
+        if (form && submitButton) {
+          form.reset();
+          submitButton.disabled = false;
+          submitButton.textContent = 'Send Message';
+        }
+      }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Disable submit button
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+      
+      // Get form data
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        subject: formData.get('subject'),
+        message: formData.get('message')
+      };
+
+      try {
+        // For now, we'll simulate sending the email
+        // In a real implementation, you'd send this to your backend
+        console.log('Contact form submission:', data);
+        
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // For demo purposes, we'll always show success
+        // In production, you'd handle the actual API response
+        showMessage(true);
+        resetForm();
+        
+        // Optional: Open email client as fallback
+        const emailSubject = data.subject ? `[${data.subject}] Contact from ${data.name}` : `Contact from ${data.name}`;
+        const emailBody = `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`;
+        
+        // You can uncomment this to open email client
+        // const mailtoLink = `mailto:hey@sattiyans.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        // window.open(mailtoLink, '_blank');
+        
+      } catch (error) {
+        console.error('Error sending message:', error);
+        showMessage(false);
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send Message';
+      }
+    });
+  }
+
+  // Initialize when DOM is loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactForm);
+  } else {
+    initContactForm();
+  }
+</script>

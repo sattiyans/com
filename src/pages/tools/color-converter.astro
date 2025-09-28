@@ -1,0 +1,477 @@
+---
+import Container from "@components/Container.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import Link from "@components/Link.astro";
+import Head from "@components/Head.astro";
+
+const seoData = {
+  title: "Color Converter - Free Online HEX RGB HSL HSV Color Tool | Sattiyan Selvarajah",
+  description: "Free online color converter tool. Convert colors between HEX, RGB, HSL, and HSV formats with visual color picker. Perfect for designers and developers.",
+  keywords: "color converter, hex to rgb, rgb to hex, hsl converter, hsv converter, color picker, color tool, design tools, color format converter",
+  canonical: "https://sattiyans.com/tools/color-converter"
+};
+---
+
+<PageLayout title={seoData.title} description={seoData.description}>
+  <Head title={seoData.title} description={seoData.description}>
+    <meta name="keywords" content={seoData.keywords} />
+    <link rel="canonical" href={seoData.canonical} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={seoData.canonical} />
+    <meta property="og:title" content={seoData.title} />
+    <meta property="og:description" content={seoData.description} />
+    <meta property="og:image" content="https://sattiyans.com/og-color-converter.png" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={seoData.canonical} />
+    <meta property="twitter:title" content={seoData.title} />
+    <meta property="twitter:description" content={seoData.description} />
+    <meta property="twitter:image" content="https://sattiyans.com/og-color-converter.png" />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Color Converter",
+        "description": "Free online tool to convert colors between HEX, RGB, HSL, and HSV formats",
+        "url": "https://sattiyans.com/tools/color-converter",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Sattiyan Selvarajah",
+          "url": "https://sattiyans.com"
+        },
+        "featureList": [
+          "HEX to RGB conversion",
+          "RGB to HEX conversion",
+          "HSL color conversion",
+          "HSV color conversion",
+          "Visual color picker",
+          "Copy color codes",
+          "Random color generator"
+        ]
+      }
+    </script>
+  </Head>
+  <Container>
+    <div class="space-y-12">
+      <!-- Breadcrumb -->
+      <section>
+        <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+          <Link 
+            href="/"
+            class="hover:text-black dark:hover:text-white transition-colors duration-200"
+          >
+            Home
+          </Link>
+          <span>/</span>
+          <Link 
+            href="/tools"
+            class="hover:text-black dark:hover:text-white transition-colors duration-200"
+          >
+            Tools
+          </Link>
+          <span>/</span>
+          <span class="text-black dark:text-white font-medium">Color Converter</span>
+        </nav>
+      </section>
+
+      <!-- Header -->
+      <section>
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-2xl">🎨</span>
+          <h1 class="text-2xl md:text-3xl font-semibold text-black dark:text-white">
+            Color Converter
+          </h1>
+        </div>
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
+          Convert colors between HEX, RGB, HSL, and HSV formats. Pick colors visually and get all format codes.
+        </p>
+      </section>
+
+      <!-- Tool Interface -->
+      <section>
+        <div class="border border-black/10 dark:border-white/10 rounded-lg p-6">
+          <div class="space-y-6">
+            <!-- Color Picker -->
+            <div>
+              <label for="color-picker" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Color Picker
+              </label>
+              <div class="flex items-center gap-4">
+                <input
+                  type="color"
+                  id="color-picker"
+                  value="#3b82f6"
+                  class="w-16 h-12 border border-black/15 dark:border-white/20 rounded-md cursor-pointer"
+                />
+                <div class="flex-1">
+                  <div id="color-preview" class="w-full h-12 rounded-md border border-black/15 dark:border-white/20" style="background-color: #3b82f6;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Color Formats -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <!-- HEX -->
+              <div>
+                <label for="hex-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  HEX
+                </label>
+                <div class="flex gap-2">
+                  <input
+                    type="text"
+                    id="hex-input"
+                    value="#3b82f6"
+                    placeholder="#000000"
+                    class="flex-1 px-3 py-2 border border-black/15 dark:border-white/20 rounded-md focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-900 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 min-w-0"
+                  />
+                  <button
+                    id="copy-hex"
+                    class="px-2 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 whitespace-nowrap text-sm"
+                  >
+                    Copy
+                  </button>
+                </div>
+              </div>
+
+              <!-- RGB -->
+              <div>
+                <label for="rgb-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  RGB
+                </label>
+                <div class="flex gap-2">
+                  <input
+                    type="text"
+                    id="rgb-input"
+                    value="rgb(59, 130, 246)"
+                    placeholder="rgb(0, 0, 0)"
+                    class="flex-1 px-3 py-2 border border-black/15 dark:border-white/20 rounded-md focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-900 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 min-w-0"
+                  />
+                  <button
+                    id="copy-rgb"
+                    class="px-2 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 whitespace-nowrap text-sm"
+                  >
+                    Copy
+                  </button>
+                </div>
+              </div>
+
+              <!-- HSL -->
+              <div>
+                <label for="hsl-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  HSL
+                </label>
+                <div class="flex gap-2">
+                  <input
+                    type="text"
+                    id="hsl-input"
+                    value="hsl(217, 91%, 60%)"
+                    placeholder="hsl(0, 0%, 0%)"
+                    class="flex-1 px-3 py-2 border border-black/15 dark:border-white/20 rounded-md focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-900 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 min-w-0"
+                  />
+                  <button
+                    id="copy-hsl"
+                    class="px-2 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 whitespace-nowrap text-sm"
+                  >
+                    Copy
+                  </button>
+                </div>
+              </div>
+
+              <!-- HSV -->
+              <div>
+                <label for="hsv-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  HSV
+                </label>
+                <div class="flex gap-2">
+                  <input
+                    type="text"
+                    id="hsv-input"
+                    value="hsv(217, 76%, 96%)"
+                    placeholder="hsv(0, 0%, 0%)"
+                    class="flex-1 px-3 py-2 border border-black/15 dark:border-white/20 rounded-md focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent bg-white dark:bg-gray-900 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 min-w-0"
+                  />
+                  <button
+                    id="copy-hsv"
+                    class="px-2 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 whitespace-nowrap text-sm"
+                  >
+                    Copy
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Random Color Button -->
+            <div class="flex justify-center">
+              <button
+                id="random-color"
+                class="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-200"
+              >
+                Random Color
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section>
+        <div class="border border-black/10 dark:border-white/10 rounded-lg p-6">
+          <h2 class="text-lg font-medium text-black dark:text-white mb-3">
+            Color Format Guide
+          </h2>
+          <div class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+            <p><strong>HEX:</strong> #RRGGBB format, commonly used in web development</p>
+            <p><strong>RGB:</strong> Red, Green, Blue values (0-255), used in CSS</p>
+            <p><strong>HSL:</strong> Hue, Saturation, Lightness, more intuitive for color manipulation</p>
+            <p><strong>HSV:</strong> Hue, Saturation, Value, similar to HSL but with different calculation</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </Container>
+
+  <script>
+    function initColorConverter() {
+      const colorPicker = document.getElementById('color-picker') as HTMLInputElement | null;
+      const colorPreview = document.getElementById('color-preview') as HTMLElement | null;
+      const hexInput = document.getElementById('hex-input') as HTMLInputElement | null;
+      const rgbInput = document.getElementById('rgb-input') as HTMLInputElement | null;
+      const hslInput = document.getElementById('hsl-input') as HTMLInputElement | null;
+      const hsvInput = document.getElementById('hsv-input') as HTMLInputElement | null;
+      const randomBtn = document.getElementById('random-color') as HTMLButtonElement | null;
+
+      // Copy buttons
+      const copyHex = document.getElementById('copy-hex') as HTMLButtonElement | null;
+      const copyRgb = document.getElementById('copy-rgb') as HTMLButtonElement | null;
+      const copyHsl = document.getElementById('copy-hsl') as HTMLButtonElement | null;
+      const copyHsv = document.getElementById('copy-hsv') as HTMLButtonElement | null;
+
+      if (!colorPicker || !colorPreview || !hexInput || !rgbInput || !hslInput || !hsvInput || !randomBtn || !copyHex || !copyRgb || !copyHsl || !copyHsv) {
+        console.error('Color converter elements not found');
+        return;
+      }
+
+    function hexToRgb(hex: string) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+
+    function rgbToHsl(r: number, g: number, b: number) {
+      r /= 255;
+      g /= 255;
+      b /= 255;
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      let h: number = 0, s: number = 0, l = (max + min) / 2;
+
+      if (max === min) {
+        h = s = 0;
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+      }
+
+      return {
+        h: Math.round(h * 360),
+        s: Math.round(s * 100),
+        l: Math.round(l * 100)
+      };
+    }
+
+    function rgbToHsv(r: number, g: number, b: number) {
+      r /= 255;
+      g /= 255;
+      b /= 255;
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      const diff = max - min;
+      let h: number = 0, s: number = 0, v = max;
+
+      if (max === 0) {
+        s = 0;
+      } else {
+        s = diff / max;
+      }
+
+      if (diff === 0) {
+        h = 0;
+      } else {
+        switch (max) {
+          case r: h = ((g - b) / diff) % 6; break;
+          case g: h = (b - r) / diff + 2; break;
+          case b: h = (r - g) / diff + 4; break;
+        }
+        h = h * 60;
+        if (h < 0) h += 360;
+      }
+
+      return {
+        h: Math.round(h),
+        s: Math.round(s * 100),
+        v: Math.round(v * 100)
+      };
+    }
+
+    function updateAllFormats(hex: string) {
+      const rgb = hexToRgb(hex);
+      if (!rgb || !hexInput || !rgbInput || !hslInput || !hsvInput || !colorPreview) return;
+
+      const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+      const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+
+      // Update inputs
+      hexInput.value = hex;
+      rgbInput.value = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      hslInput.value = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+      hsvInput.value = `hsv(${hsv.h}, ${hsv.s}%, ${hsv.v}%)`;
+
+      // Update preview
+      colorPreview.style.backgroundColor = hex;
+    }
+
+    function parseHexInput(value: string) {
+      let hex = value.replace('#', '');
+      if (hex.length === 3) {
+        hex = hex.split('').map((char: string) => char + char).join('');
+      }
+      return '#' + hex;
+    }
+
+    function parseRgbInput(value: string) {
+      const match = value.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+      if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+      }
+      return null;
+    }
+
+    function parseHslInput(value: string) {
+      const match = value.match(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/);
+      if (match) {
+        const h = parseInt(match[1]) / 360;
+        const s = parseInt(match[2]) / 100;
+        const l = parseInt(match[3]) / 100;
+        
+        const c = (1 - Math.abs(2 * l - 1)) * s;
+        const x = c * (1 - Math.abs((h * 6) % 2 - 1));
+        const m = l - c / 2;
+        
+        let r, g, b;
+        if (h < 1/6) [r, g, b] = [c, x, 0];
+        else if (h < 2/6) [r, g, b] = [x, c, 0];
+        else if (h < 3/6) [r, g, b] = [0, c, x];
+        else if (h < 4/6) [r, g, b] = [0, x, c];
+        else if (h < 5/6) [r, g, b] = [x, 0, c];
+        else [r, g, b] = [c, 0, x];
+        
+        const rgb = {
+          r: Math.round((r + m) * 255),
+          g: Math.round((g + m) * 255),
+          b: Math.round((b + m) * 255)
+        };
+        
+        return `#${((1 << 24) + (rgb.r << 16) + (rgb.g << 8) + rgb.b).toString(16).slice(1)}`;
+      }
+      return null;
+    }
+
+    function generateRandomColor() {
+      const hex = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+      if (colorPicker) {
+        colorPicker.value = hex;
+      }
+      updateAllFormats(hex);
+    }
+
+    function copyToClipboard(text: string, button: HTMLButtonElement) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 2000);
+      });
+    }
+
+    // Event listeners
+    colorPicker.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      updateAllFormats(target.value);
+    });
+
+    hexInput.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      const hex = parseHexInput(target.value);
+      if (hex && /^#[0-9A-F]{6}$/i.test(hex)) {
+        colorPicker.value = hex;
+        updateAllFormats(hex);
+      }
+    });
+
+    rgbInput.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      const hex = parseRgbInput(target.value);
+      if (hex) {
+        colorPicker.value = hex;
+        updateAllFormats(hex);
+      }
+    });
+
+    hslInput.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      const hex = parseHslInput(target.value);
+      if (hex) {
+        colorPicker.value = hex;
+        updateAllFormats(hex);
+      }
+    });
+
+    hsvInput.addEventListener('input', (e) => {
+      // For simplicity, we'll skip HSV parsing for now
+    });
+
+    randomBtn.addEventListener('click', generateRandomColor);
+
+    // Copy buttons
+    copyHex.addEventListener('click', () => copyToClipboard(hexInput.value, copyHex));
+    copyRgb.addEventListener('click', () => copyToClipboard(rgbInput.value, copyRgb));
+    copyHsl.addEventListener('click', () => copyToClipboard(hslInput.value, copyHsl));
+    copyHsv.addEventListener('click', () => copyToClipboard(hsvInput.value, copyHsv));
+
+      // Initialize
+      updateAllFormats('#3b82f6');
+    }
+
+    // Initialize the tool when DOM is loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initColorConverter);
+    } else {
+      initColorConverter();
+    }
+  </script>
+</PageLayout>
