@@ -18,9 +18,9 @@ export const GET: APIRoute = async ({ request }) => {
     const html = await response.text();
     
     // Extract movie count from the HTML
-    // Look for patterns like "123 films" or "123 movies"
-    const movieCountMatch = html.match(/(\d+)\s+(?:films?|movies?)/i);
-    const movieCount = movieCountMatch ? parseInt(movieCountMatch[1]) : 0;
+    // Look for patterns like "1,071 films" or "123 movies" (with commas)
+    const movieCountMatch = html.match(/([\d,]+)\s+(?:films?|movies?)/i);
+    const movieCount = movieCountMatch ? parseInt(movieCountMatch[1].replace(/,/g, '')) : 0;
     
     console.log('Extracted movie count:', movieCount);
 
