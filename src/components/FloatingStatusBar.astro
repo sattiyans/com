@@ -1,0 +1,91 @@
+---
+// Floating Status Bar - displays status indicators at bottom center
+import SpotifyNowPlaying from "@components/SpotifyNowPlaying.astro";
+import LastWatched from "@components/LastWatched.astro";
+import CurrentTime from "@components/CurrentTime.astro";
+---
+
+<style>
+  .floating-status-bar {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    backdrop-filter: blur(10px);
+    width: fit-content;
+    max-width: 640px; /* Match Container max-w-screen-sm */
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+
+  .floating-status-bar.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .floating-status-bar {
+      bottom: 15px;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%) translateY(20px);
+      max-width: 640px; /* Match Container max-w-screen-sm */
+      padding: 8px 16px;
+    }
+
+    .floating-status-bar.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .floating-status-bar {
+      bottom: 10px;
+      max-width: 640px; /* Match Container max-w-screen-sm */
+      padding: 6px 12px;
+    }
+  }
+
+</style>
+
+
+<div id="floating-bar" class="floating-status-bar border border-black/15 dark:border-white/20 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors duration-300 px-4 py-2 flex items-center gap-3" style="display: none;">
+  <SpotifyNowPlaying />
+  <div id="spotify-separator" class="w-1 h-1 bg-gray-400 dark:bg-gray-500 rounded-full"></div>
+  <LastWatched />
+  <div class="w-1 h-1 bg-gray-400 dark:bg-gray-500 rounded-full"></div>
+  <CurrentTime />
+</div>
+
+<script>
+  // Type declaration for window property
+  declare global {
+    interface Window {
+      showFloatingBar: () => void;
+    }
+  }
+
+  let dataLoadedCount = 0;
+  const totalComponents = 2; // LastWatched and CurrentTime (Spotify is optional)
+  
+  function checkAndShowFloatingBar() {
+    dataLoadedCount++;
+    if (dataLoadedCount >= totalComponents) {
+      const floatingBar = document.getElementById('floating-bar');
+      if (floatingBar) {
+        floatingBar.style.display = 'flex';
+        // Trigger animation after a small delay to ensure display is set
+        setTimeout(() => {
+          floatingBar.classList.add('show');
+        }, 10);
+      }
+    }
+  }
+  
+  // Make the function globally available for components to call
+  window.showFloatingBar = checkAndShowFloatingBar;
+  
+</script>
+

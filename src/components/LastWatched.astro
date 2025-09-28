@@ -43,13 +43,17 @@
 </style>
 
 <div class="animate">
-  <div id="last-watched" class="flex items-center gap-2 text-xs">
-    <!-- Loading skeleton -->
-    <div class="animate-pulse flex items-center gap-2">
-      <div class="w-3 h-3 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
-      <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+  <div id="last-watched" class="watched-container">
+    <div class="flex items-center gap-2 text-xs">
+      <!-- Loading skeleton -->
+      <div class="animate-pulse flex items-center gap-2">
+        <div class="w-3 h-3 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+        <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+      </div>
     </div>
   </div>
+  
+  <!-- Dropup (hidden by default) - moved outside container -->
 </div>
 
 <script>
@@ -62,19 +66,27 @@
       if (!container) return;
       
       if (!data || !Array.isArray(data) || data.length === 0) {
-        container.innerHTML = `
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-gray-50 dark:bg-gray-900 rounded-full text-xs font-medium whitespace-nowrap">
-            <div class="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-            <span class="text-gray-500 dark:text-gray-400">No recent watches</span>
-          </div>
-        `;
-        return;
+          container.innerHTML = `
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-transparent rounded-full text-xs font-medium whitespace-nowrap">
+              <div class="w-3 h-3 border-2 border-gray-400 dark:border-gray-500 rounded-full flex items-center justify-center">
+                <div class="w-1 h-1 bg-gray-400 dark:bg-gray-500 rounded-full"></div>
+              </div>
+              <span class="text-gray-500 dark:text-gray-400">No recent watches</span>
+            </div>
+          `;
+          
+          // Notify floating bar that data is loaded (even if empty)
+          if (window.showFloatingBar) {
+            window.showFloatingBar();
+          }
+          return;
       }
       
       // Get the most recent item (first in the sorted array)
       const lastItem = data[0];
       const watchedDate = new Date(lastItem.watchedDate);
       const timeAgo = getTimeAgo(watchedDate);
+      
       
       // Determine icon and color based on type
       const isFilm = lastItem.type === 'film';
@@ -90,9 +102,14 @@
       if (isFilm) {
         animatedIcon = `
           <div class="relative w-4 h-4 flex items-center justify-center">
-            <div class="w-3 h-3 border-2 border-blue-500 rounded-full film-reel">
-              <div class="w-1 h-1 bg-blue-500 rounded-full absolute top-0.5 left-0.5"></div>
-              <div class="w-1 h-1 bg-blue-500 rounded-full absolute bottom-0.5 right-0.5"></div>
+            <div class="w-3 h-3 border-2 border-blue-500 rounded-full film-reel relative">
+              <!-- Film reel holes -->
+              <div class="w-0.5 h-0.5 bg-blue-500 rounded-full absolute top-0.5 left-0.5"></div>
+              <div class="w-0.5 h-0.5 bg-blue-500 rounded-full absolute top-0.5 right-0.5"></div>
+              <div class="w-0.5 h-0.5 bg-blue-500 rounded-full absolute bottom-0.5 left-0.5"></div>
+              <div class="w-0.5 h-0.5 bg-blue-500 rounded-full absolute bottom-0.5 right-0.5"></div>
+              <!-- Center hole -->
+              <div class="w-1 h-1 bg-blue-500 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
             </div>
           </div>
         `;
@@ -106,26 +123,38 @@
         `;
       }
       
-      container.innerHTML = `
-        <a href="${lastItem.url}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-3 py-1 ${bgColor} rounded-full text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 whitespace-nowrap">
-          <div class="flex items-center gap-1">
-            ${animatedIcon}
-            <div class="w-1.5 h-1.5 ${dotColor} rounded-full group-hover:animate-pulse"></div>
-          </div>
-          <span class="${textColor} truncate max-w-[200px]">${title}</span>
-          <span class="text-gray-500 dark:text-gray-400 text-xs">${timeAgo}</span>
-        </a>
-      `;
+          container.innerHTML = `
+            <div class="group inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-transparent rounded-full text-xs font-medium transition-colors duration-200 whitespace-nowrap">
+              <div class="flex items-center gap-1">
+                ${animatedIcon}
+              </div>
+              <span class="text-gray-700 dark:text-gray-200 truncate max-w-[70px] sm:max-w-[120px]">${lastItem.title}</span>
+              <span class="text-gray-500 dark:text-gray-400 text-xs">${timeAgo}</span>
+            </div>
+          `;
+          
+          // Notify floating bar that data is loaded
+          if (window.showFloatingBar) {
+            window.showFloatingBar();
+          }
+          
     } catch (error) {
       console.error('Error loading last watched:', error);
       const container = document.getElementById('last-watched');
       if (container) {
         container.innerHTML = `
           <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-50 dark:bg-red-900/20 rounded-full text-xs font-medium whitespace-nowrap">
-            <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+            <div class="w-3 h-3 border-2 border-red-400 dark:border-red-500 rounded-full flex items-center justify-center">
+              <div class="w-1 h-1 bg-red-400 dark:bg-red-500 rounded-full"></div>
+            </div>
             <span class="text-red-700 dark:text-red-300">Unable to load</span>
           </div>
         `;
+        
+        // Notify floating bar that data is loaded (even if error)
+        if (window.showFloatingBar) {
+          window.showFloatingBar();
+        }
       }
     }
   }
@@ -143,7 +172,9 @@
   }
   
   // Load last watched data when the component is visible
-  document.addEventListener('DOMContentLoaded', loadLastWatched);
+  document.addEventListener('DOMContentLoaded', () => {
+    loadLastWatched();
+  });
   
   // Refresh every 5 minutes (less frequent than Spotify since watched data changes less often)
   setInterval(loadLastWatched, 300000);

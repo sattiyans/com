@@ -8,9 +8,7 @@ import SkillsSection from "@components/SkillsSection.astro";
 import RecommendationsSection from "@components/RecommendationsSection.astro";
 import GitHubActivity from "@components/GitHubActivity.astro";
 import AvailabilityStatus from "@components/AvailabilityStatus.astro";
-import SpotifyNowPlaying from "@components/SpotifyNowPlaying.astro";
-import LastWatched from "@components/LastWatched.astro";
-import GitHubStreak from "@components/GitHubStreak.astro";
+import FloatingStatusBar from "@components/FloatingStatusBar.astro";
 import { SITE, HOME, SOCIALS } from "@consts";
 
 const allwork = (await getCollection("work"))
@@ -46,12 +44,6 @@ const work = await Promise.all(
         "Turning ideas into high-impact digital solutions that are practical, scalable, and future-ready."
       </p>
       
-      <!-- Status Indicators -->
-      <div class="animate mb-4 flex items-center gap-4">
-        <SpotifyNowPlaying />
-        <LastWatched />
-      </div>
-      
       <!-- Tech Stack Tags -->
       <div class="animate flex flex-wrap gap-2 mb-4">
         <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
@@ -69,11 +61,6 @@ const work = await Promise.all(
         <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
           AI Integration
         </span>
-      </div>
-      
-      <!-- GitHub Streak -->
-      <div class="animate mb-4">
-        <GitHubStreak />
       </div>
     </section>
 
@@ -129,7 +116,7 @@ const work = await Promise.all(
           {work.map(entry => (
             <li>
               <div class="text-sm opacity-75">
-                {entry.data.dateStart} - {entry.data.dateEnd || 'Present'}
+                {new Date(entry.data.dateStart).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })} - {entry.data.dateEnd === 'Current' ? 'Present' : (entry.data.dateEnd ? new Date(entry.data.dateEnd).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : 'Present')}
               </div>
               <div class="font-semibold text-black dark:text-white">
                 {entry.data.company}
@@ -225,4 +212,7 @@ const work = await Promise.all(
       </section>
     </div>
   </Container>
+  
+  <!-- Floating Status Bar -->
+  <FloatingStatusBar />
 </PageLayout>

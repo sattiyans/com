@@ -12,7 +12,7 @@ export const GET: APIRoute = async ({ request }) => {
     // GitHub API headers
     const headers: Record<string, string> = {
       'Accept': 'application/vnd.github.v3+json',
-      'User-Agent': 'sattiyans.com'
+      'User-Agent': 'sattiyans.com-portfolio'
     };
     
     if (githubToken) {
@@ -25,7 +25,24 @@ export const GET: APIRoute = async ({ request }) => {
     });
     
     if (!eventsResponse.ok) {
-      throw new Error(`GitHub API error: ${eventsResponse.status}`);
+      const errorText = await eventsResponse.text();
+      console.error(`GitHub API error: ${eventsResponse.status} - ${errorText}`);
+      
+      // Return mock data if API fails
+      return new Response(JSON.stringify({
+        currentStreak: 0,
+        longestStreak: 0,
+        thisYearCommits: 0,
+        totalCommits: 0,
+        lastCommitDate: null,
+        error: `GitHub API unavailable (${eventsResponse.status})`
+      }), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'public, max-age=300', // Cache errors for 5 minutes
+        },
+      });
     }
     
     const events = await eventsResponse.json();

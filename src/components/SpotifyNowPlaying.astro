@@ -13,14 +13,67 @@
       opacity: 1;
     }
   }
+  
+  @keyframes dropup {
+    0% {
+      opacity: 0;
+      transform: translateY(10px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  .dropup {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    min-width: 280px;
+    max-width: 320px;
+    animation: dropup 0.2s ease-out;
+    z-index: 100;
+  }
+  
+  .dark .dropup {
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dropup-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid rgba(255, 255, 255, 0.95);
+  }
+  
+  .dark .dropup-arrow {
+    border-top: 8px solid rgba(0, 0, 0, 0.95);
+  }
+  
+  .spotify-container {
+    position: relative;
+  }
 </style>
 
-<div class="animate">
-  <div id="spotify-now-playing" class="flex items-center gap-2 text-xs">
-    <!-- Loading skeleton -->
-    <div class="animate-pulse flex items-center gap-2">
-      <div class="w-3 h-3 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
-      <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+<div class="animate" id="spotify-container" style="display: none;">
+  <div id="spotify-now-playing" class="spotify-container">
+    <div class="flex items-center gap-2 text-xs">
+      <!-- Content will be populated by JavaScript -->
     </div>
   </div>
 </div>
@@ -32,56 +85,72 @@
       const data = await response.json();
       
       const container = document.getElementById('spotify-now-playing');
-      if (!container) return;
+      const spotifyContainer = document.getElementById('spotify-container');
+      if (!container || !spotifyContainer) return;
       
       if (data.error || !data.isPlaying) {
-        // Check if it's a credentials error
-        if (data.error === 'Spotify credentials not configured') {
-          container.innerHTML = `
-            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-amber-50 dark:bg-amber-900/20 rounded-full text-xs font-medium whitespace-nowrap">
-              <div class="w-1.5 h-1.5 bg-amber-400 rounded-full"></div>
-              <span class="text-amber-700 dark:text-amber-300">Spotify not configured</span>
-            </div>
-          `;
-        } else {
-          container.innerHTML = `
-            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-gray-50 dark:bg-gray-900 rounded-full text-xs font-medium whitespace-nowrap">
-              <div class="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-              <span class="text-gray-500 dark:text-gray-400">Not playing</span>
-            </div>
-          `;
+        // Hide the entire Spotify component when not playing
+        spotifyContainer.style.display = 'none';
+        // Also hide the separator between Spotify and Last Watched
+        const separator = document.getElementById('spotify-separator');
+        if (separator) {
+          separator.style.display = 'none';
+        }
+        // Notify floating bar that Spotify data is loaded (even if not playing)
+        if (window.showFloatingBar) {
+          window.showFloatingBar();
         }
         return;
       }
       
+      // Show the container when music is playing
+      spotifyContainer.style.display = 'block';
+      // Show the separator when Spotify is playing
+      const separator = document.getElementById('spotify-separator');
+      if (separator) {
+        separator.style.display = 'block';
+      }
+      // Notify floating bar that Spotify data is loaded
+      if (window.showFloatingBar) {
+        window.showFloatingBar();
+      }
+      
       container.innerHTML = `
-        <a href="${data.trackUrl}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-3 py-1 bg-gray-50 dark:bg-gray-900 rounded-full text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 whitespace-nowrap">
-          <div class="flex items-center gap-0.5 h-3">
-            <div class="w-0.5 h-1.5 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 0ms; transform-origin: bottom;"></div>
-            <div class="w-0.5 h-2 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 150ms; transform-origin: bottom;"></div>
-            <div class="w-0.5 h-1.5 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 300ms; transform-origin: bottom;"></div>
-            <div class="w-0.5 h-2.5 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 450ms; transform-origin: bottom;"></div>
-            <div class="w-0.5 h-1.5 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 600ms; transform-origin: bottom;"></div>
-          </div>
-          <span class="text-gray-700 dark:text-gray-300 truncate max-w-[200px]">${data.trackName} - ${data.artistName}</span>
-        </a>
-      `;
+            <div class="group inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-transparent rounded-full text-xs font-medium transition-colors duration-200 whitespace-nowrap">
+              <div class="flex items-center gap-0.5 h-3">
+                <div class="w-0.5 h-1.5 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 0ms; transform-origin: bottom;"></div>
+                <div class="w-0.5 h-2 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 150ms; transform-origin: bottom;"></div>
+                <div class="w-0.5 h-1.5 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 300ms; transform-origin: bottom;"></div>
+                <div class="w-0.5 h-2.5 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 450ms; transform-origin: bottom;"></div>
+                <div class="w-0.5 h-1.5 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 600ms; transform-origin: bottom;"></div>
+              </div>
+              <span class="text-gray-700 dark:text-gray-300 truncate max-w-[100px] sm:max-w-[150px]">${data.trackName}</span>
+            </div>
+          `;
+          
     } catch (error) {
       console.error('Error loading Spotify data:', error);
-      const container = document.getElementById('spotify-now-playing');
-      if (container) {
-        container.innerHTML = `
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-50 dark:bg-red-900/20 rounded-full text-xs font-medium whitespace-nowrap">
-            <div class="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
-            <span class="text-red-700 dark:text-red-300">Unable to load</span>
-          </div>
-        `;
+      const spotifyContainer = document.getElementById('spotify-container');
+      if (spotifyContainer) {
+        // Hide the container on error
+        spotifyContainer.style.display = 'none';
+      }
+      // Also hide the separator on error
+      const separator = document.getElementById('spotify-separator');
+      if (separator) {
+        separator.style.display = 'none';
+      }
+      // Notify floating bar that Spotify data is loaded (even if error)
+      if (window.showFloatingBar) {
+        window.showFloatingBar();
       }
     }
   }
   
   // Load Spotify data when the component is visible
-  document.addEventListener('DOMContentLoaded', loadSpotifyData);
+  document.addEventListener('DOMContentLoaded', () => {
+    loadSpotifyData();
+  });
   
   // Refresh Spotify data every 30 seconds
   setInterval(loadSpotifyData, 30000);
