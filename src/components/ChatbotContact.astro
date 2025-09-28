@@ -123,35 +123,41 @@
     .chatbot-wrapper {
       padding-left: 1rem;
       padding-right: 1rem;
+      bottom: 1rem; /* Add bottom padding */
     }
     
     .chatbot-container {
       border-radius: 9999px; /* Restore pill shape on mobile */
+      max-width: 20rem; /* Make it smaller on mobile */
     }
     
     .chatbot-input {
-      font-size: 16px !important;
-      min-height: 36px; /* Reduced height for less bulk */
+      font-size: 14px !important; /* Smaller font size */
+      min-height: 32px; /* Even smaller height */
     }
     
     .chatbot-container .px-6 {
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-left: 0.75rem; /* Reduce horizontal padding */
+      padding-right: 0.75rem;
     }
     
     .chatbot-container .py-4 {
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
+      padding-top: 0.5rem; /* Reduce vertical padding */
+      padding-bottom: 0.5rem;
     }
     
     .ai-icon svg {
-      width: 1.25rem;
-      height: 1.25rem;
+      width: 1rem; /* Smaller icons */
+      height: 1rem;
     }
     
     .send-icon svg {
-      width: 1.25rem;
-      height: 1.25rem;
+      width: 1rem; /* Smaller icons */
+      height: 1rem;
+    }
+    
+    .chatbot-wrapper .gap-3 {
+      gap: 0.5rem; /* Reduce gap between elements */
     }
   }
   
