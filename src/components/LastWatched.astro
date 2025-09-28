@@ -47,12 +47,12 @@
       const title = `${lastItem.title} (${lastItem.year})`;
       
       container.innerHTML = `
-        <a href="${lastItem.url}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1.5 px-2.5 py-1 ${bgColor} rounded-full text-xs font-medium hover:opacity-80 transition-opacity duration-200 whitespace-nowrap">
+        <a href="${lastItem.url}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-3 py-1 ${bgColor} rounded-full text-xs font-medium hover:opacity-80 transition-opacity duration-200 whitespace-nowrap">
           <div class="flex items-center gap-1">
             <span class="text-xs">${icon}</span>
             <div class="w-1.5 h-1.5 ${dotColor} rounded-full"></div>
           </div>
-          <span class="${textColor} truncate max-w-[120px]">${title}</span>
+          <span class="${textColor} truncate max-w-[200px]">${title}</span>
           <span class="text-gray-500 dark:text-gray-400 text-xs">${timeAgo}</span>
         </a>
       `;

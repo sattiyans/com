@@ -55,7 +55,7 @@
       }
       
       container.innerHTML = `
-        <a href="${data.trackUrl}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1.5 px-2.5 py-1 bg-gray-50 dark:bg-gray-900 rounded-full text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 whitespace-nowrap">
+        <a href="${data.trackUrl}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-3 py-1 bg-gray-50 dark:bg-gray-900 rounded-full text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 whitespace-nowrap">
           <div class="flex items-center gap-0.5 h-3">
             <div class="w-0.5 h-1.5 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 0ms; transform-origin: bottom;"></div>
             <div class="w-0.5 h-2 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 150ms; transform-origin: bottom;"></div>
@@ -63,7 +63,7 @@
             <div class="w-0.5 h-2.5 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 450ms; transform-origin: bottom;"></div>
             <div class="w-0.5 h-1.5 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 600ms; transform-origin: bottom;"></div>
           </div>
-          <span class="text-gray-700 dark:text-gray-300 truncate max-w-[120px]">${data.trackName} - ${data.artistName}</span>
+          <span class="text-gray-700 dark:text-gray-300 truncate max-w-[200px]">${data.trackName} - ${data.artistName}</span>
         </a>
       `;
     } catch (error) {
