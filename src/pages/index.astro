@@ -50,11 +50,10 @@ const work = await Promise.all(
       <div class="animate mb-4 flex items-center gap-4">
         <SpotifyNowPlaying />
         <LastWatched />
-        <GitHubStreak />
       </div>
       
       <!-- Tech Stack Tags -->
-      <div class="animate flex flex-wrap gap-2">
+      <div class="animate flex flex-wrap gap-2 mb-4">
         <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
           Laravel
         </span>
@@ -70,6 +69,11 @@ const work = await Promise.all(
         <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
           AI Integration
         </span>
+      </div>
+      
+      <!-- GitHub Streak -->
+      <div class="animate mb-4">
+        <GitHubStreak />
       </div>
     </section>
 
