@@ -8,6 +8,7 @@ import SkillsSection from "@components/SkillsSection.astro";
 import RecommendationsSection from "@components/RecommendationsSection.astro";
 import AvailabilityStatus from "@components/AvailabilityStatus.astro";
 import PersonalStats from "@components/PersonalStats.astro";
+import ChatbotContact from "@components/ChatbotContact.astro";
 import { SITE, HOME, SOCIALS } from "@consts";
 
 const allwork = (await getCollection("work"))
@@ -42,9 +43,6 @@ const work = await Promise.all(
       <p class="animate text-xs text-gray-400 dark:text-gray-500 italic mb-3">
         "Turning ideas into high-impact digital solutions that are practical, scalable, and future-ready."
       </p>
-      
-      <!-- Personal Stats -->
-      <PersonalStats />
       
       <!-- Quick Stats -->
       <div class="animate flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
@@ -81,6 +79,9 @@ const work = await Promise.all(
           AI Integration
         </span>
       </div>
+      
+      <!-- Personal Stats -->
+      <PersonalStats />
     </section>
 
     <div class="space-y-12">
@@ -229,3 +230,6 @@ const work = await Promise.all(
     </div>
   </Container>
 </PageLayout>
+
+<!-- AI Chatbot Contact -->
+<ChatbotContact />
