@@ -81,14 +81,18 @@
 <script>
   async function loadSpotifyData() {
     try {
+      console.log('Loading Spotify data...');
       const response = await fetch('/api/spotify-now-playing');
       const data = await response.json();
+      
+      console.log('Spotify API response:', data);
       
       const container = document.getElementById('spotify-now-playing');
       const spotifyContainer = document.getElementById('spotify-container');
       if (!container || !spotifyContainer) return;
       
       if (data.error || !data.isPlaying) {
+        console.log('Spotify not playing or error:', data.error || 'No music playing');
         // Hide the entire Spotify component when not playing
         spotifyContainer.style.display = 'none';
         // Also hide the separator between Spotify and Last Watched

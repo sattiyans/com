@@ -7,7 +7,13 @@ export const GET: APIRoute = async ({ request }) => {
     const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
     const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN;
 
+    console.log('Spotify API called - checking credentials...');
+    console.log('Client ID exists:', !!clientId);
+    console.log('Client Secret exists:', !!clientSecret);
+    console.log('Refresh Token exists:', !!refreshToken);
+
     if (!clientId || !clientSecret || !refreshToken) {
+      console.log('Spotify credentials not configured');
       return new Response(JSON.stringify({ 
         error: 'Spotify credentials not configured',
         isPlaying: false
@@ -21,6 +27,7 @@ export const GET: APIRoute = async ({ request }) => {
     }
 
     // Get access token
+    console.log('Requesting access token from Spotify...');
     const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: {
@@ -33,22 +40,31 @@ export const GET: APIRoute = async ({ request }) => {
       }),
     });
 
+    console.log('Token response status:', tokenResponse.status);
+
     if (!tokenResponse.ok) {
-      throw new Error('Failed to get access token');
+      const errorText = await tokenResponse.text();
+      console.error('Failed to get access token:', errorText);
+      throw new Error(`Failed to get access token: ${tokenResponse.status}`);
     }
 
     const tokenData = await tokenResponse.json();
     const accessToken = tokenData.access_token;
+    console.log('Access token obtained successfully');
 
     // Get currently playing track
+    console.log('Fetching currently playing track...');
     const nowPlayingResponse = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       },
     });
 
+    console.log('Now playing response status:', nowPlayingResponse.status);
+
     if (nowPlayingResponse.status === 204) {
       // No content - not playing anything
+      console.log('No music currently playing (204 status)');
       return new Response(JSON.stringify({ 
         isPlaying: false,
         message: 'No music currently playing'
@@ -62,12 +78,16 @@ export const GET: APIRoute = async ({ request }) => {
     }
 
     if (!nowPlayingResponse.ok) {
+      const errorText = await nowPlayingResponse.text();
+      console.error('Spotify API error:', nowPlayingResponse.status, errorText);
       throw new Error(`Spotify API error: ${nowPlayingResponse.status}`);
     }
 
     const data = await nowPlayingResponse.json();
+    console.log('Spotify API data received:', data);
 
     if (!data.item) {
+      console.log('No track data available');
       return new Response(JSON.stringify({ 
         isPlaying: false,
         message: 'No track data available'
@@ -96,6 +116,8 @@ export const GET: APIRoute = async ({ request }) => {
       duration: track.duration_ms,
       progress: data.progress_ms || 0,
     };
+
+    console.log('Returning Spotify data:', response);
 
     return new Response(JSON.stringify(response), {
       status: 200,

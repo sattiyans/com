@@ -72,7 +72,10 @@ import CurrentTime from "@components/CurrentTime.astro";
   
   function checkAndShowFloatingBar() {
     dataLoadedCount++;
+    console.log(`Floating bar: ${dataLoadedCount}/${totalComponents} components loaded`);
+    
     if (dataLoadedCount >= totalComponents) {
+      console.log('All components loaded, showing floating bar');
       const floatingBar = document.getElementById('floating-bar');
       if (floatingBar) {
         floatingBar.style.display = 'flex';
