@@ -4,19 +4,15 @@
 
 <style>
   @keyframes music-wave {
-    0%, 100% { transform: scaleY(0.3); }
-    50% { transform: scaleY(1); }
+    0%, 100% { 
+      transform: scaleY(0.3); 
+      opacity: 0.7;
+    }
+    50% { 
+      transform: scaleY(1); 
+      opacity: 1;
+    }
   }
-  
-  .music-bar {
-    animation: music-wave 1.2s ease-in-out infinite;
-  }
-  
-  .music-bar:nth-child(1) { animation-delay: 0ms; }
-  .music-bar:nth-child(2) { animation-delay: 150ms; }
-  .music-bar:nth-child(3) { animation-delay: 300ms; }
-  .music-bar:nth-child(4) { animation-delay: 450ms; }
-  .music-bar:nth-child(5) { animation-delay: 600ms; }
 </style>
 
 <div class="animate">
@@ -79,11 +75,11 @@
       container.innerHTML = `
         <a href="${data.trackUrl}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-3 py-1 bg-gray-50 dark:bg-gray-900 rounded-full text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">
           <div class="flex items-center gap-0.5 h-4">
-            <div class="music-bar w-0.5 h-2 bg-green-500 rounded-full"></div>
-            <div class="music-bar w-0.5 h-3 bg-green-500 rounded-full"></div>
-            <div class="music-bar w-0.5 h-2 bg-green-500 rounded-full"></div>
-            <div class="music-bar w-0.5 h-4 bg-green-500 rounded-full"></div>
-            <div class="music-bar w-0.5 h-2 bg-green-500 rounded-full"></div>
+            <div class="w-0.5 h-2 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 0ms; transform-origin: bottom;"></div>
+            <div class="w-0.5 h-3 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 150ms; transform-origin: bottom;"></div>
+            <div class="w-0.5 h-2 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 300ms; transform-origin: bottom;"></div>
+            <div class="w-0.5 h-4 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 450ms; transform-origin: bottom;"></div>
+            <div class="w-0.5 h-2 bg-green-500 rounded-full" style="animation: music-wave 1.2s ease-in-out infinite; animation-delay: 600ms; transform-origin: bottom;"></div>
           </div>
           <span class="text-gray-700 dark:text-gray-300 truncate max-w-[200px]">${data.trackName} - ${data.artistName}</span>
         </a>
