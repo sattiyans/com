@@ -91,7 +91,7 @@
       <strong>Message sent successfully!</strong> I'll get back to you soon.
     </div>
     <div id="error-message" class="p-3 border border-red-300 dark:border-red-700 rounded-lg text-red-700 dark:text-red-300 text-sm hidden">
-      <strong>Error sending message.</strong> Please try again or contact me directly at hey@sattiyans.com
+      <strong>Error sending message.</strong> Please try again or contact me directly at satt.works@gmail.com
     </div>
   </div>
 </div>
@@ -147,25 +147,20 @@
       };
 
       try {
-        // For now, we'll simulate sending the email
-        // In a real implementation, you'd send this to your backend
-        console.log('Contact form submission:', data);
+        // Send form data to API endpoint
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData
+        });
         
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        const result = await response.json();
         
-        // For demo purposes, we'll always show success
-        // In production, you'd handle the actual API response
-        showMessage(true);
-        resetForm();
-        
-        // Optional: Open email client as fallback
-        const emailSubject = data.subject ? `[${data.subject}] Contact from ${data.name}` : `Contact from ${data.name}`;
-        const emailBody = `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`;
-        
-        // You can uncomment this to open email client
-        // const mailtoLink = `mailto:hey@sattiyans.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-        // window.open(mailtoLink, '_blank');
+        if (result.success) {
+          showMessage(true);
+          resetForm();
+        } else {
+          showMessage(false);
+        }
         
       } catch (error) {
         console.error('Error sending message:', error);
