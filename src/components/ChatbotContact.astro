@@ -4,7 +4,7 @@
 
 <!-- Enhanced floating input bar -->
 <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 chatbot-wrapper w-full px-4">
-  <div class="chatbot-container bg-white dark:bg-gray-900 rounded-full shadow-2xl border border-gray-200 dark:border-gray-700 max-w-lg w-full mx-auto backdrop-blur-sm">
+  <div class="chatbot-container bg-white/90 dark:bg-gray-900/90 rounded-full shadow-2xl border border-gray-200 dark:border-gray-700 max-w-lg w-full mx-auto backdrop-blur-sm hover:shadow-3xl dark:hover:shadow-3xl transition-all duration-300">
     <div class="px-6 py-4 relative">
       <div class="flex items-center gap-3">
         <!-- AI Icon -->
@@ -19,12 +19,12 @@
           type="text" 
           id="chatbot-input" 
           placeholder="What can I help you with?" 
-          class="chatbot-input chatbot-element w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none text-sm transition-all duration-300"
+          class="chatbot-input chatbot-element w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none text-sm transition-all duration-300 focus:scale-105"
           style="font-size: 16px;"
         />
         
         <!-- Send Icon -->
-        <div class="send-icon flex-shrink-0 opacity-0 transition-all duration-300 chatbot-element">
+        <div class="send-icon flex-shrink-0 opacity-0 transition-all duration-300 chatbot-element hover:text-blue-500 dark:hover:text-blue-400">
           <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
           </svg>
@@ -64,11 +64,6 @@
   .chatbot-container {
     position: relative;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
-  }
-  
-  .dark .chatbot-container {
-    background: linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(17, 24, 39, 0.8) 100%);
   }
   
   .chatbot-container:hover {
@@ -112,10 +107,6 @@
     position: relative;
     z-index: 2;
     font-size: 16px !important; /* Prevent zoom on mobile */
-  }
-  
-  .chatbot-input:focus {
-    transform: scale(1.02);
   }
   
   /* Mobile optimizations */
@@ -179,11 +170,6 @@
   
   .send-icon:hover {
     transform: translateX(0) scale(1.1);
-    color: #3b82f6;
-  }
-  
-  .dark .send-icon:hover {
-    color: #60a5fa;
   }
   
   /* Animated Border */
