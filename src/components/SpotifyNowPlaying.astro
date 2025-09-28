@@ -22,12 +22,22 @@
       if (!container) return;
       
       if (data.error || !data.isPlaying) {
-        container.innerHTML = `
-          <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-            <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
-            <span>Not playing</span>
-          </div>
-        `;
+        // Check if it's a credentials error
+        if (data.error === 'Spotify credentials not configured') {
+          container.innerHTML = `
+            <div class="flex items-center gap-2 text-amber-500 dark:text-amber-400">
+              <div class="w-2 h-2 bg-amber-400 rounded-full"></div>
+              <span>Spotify not configured</span>
+            </div>
+          `;
+        } else {
+          container.innerHTML = `
+            <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+              <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
+              <span>Not playing</span>
+            </div>
+          `;
+        }
         return;
       }
       

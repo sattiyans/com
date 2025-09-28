@@ -1,11 +1,14 @@
 import type { APIRoute } from 'astro';
+import { loadEnv } from 'vite';
 
 export const GET: APIRoute = async ({ request }) => {
   try {
-    // You'll need to set these environment variables
-    const clientId = process.env.SPOTIFY_CLIENT_ID;
-    const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-    const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN;
+    // Load environment variables
+    const env = loadEnv('all', process.cwd(), '');
+    
+    const clientId = env.SPOTIFY_CLIENT_ID;
+    const clientSecret = env.SPOTIFY_CLIENT_SECRET;
+    const refreshToken = env.SPOTIFY_REFRESH_TOKEN;
 
     if (!clientId || !clientSecret || !refreshToken) {
       return new Response(JSON.stringify({ 
