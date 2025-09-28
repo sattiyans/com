@@ -1,0 +1,57 @@
+---
+// Personal Stats component - displays code lines and movies watched
+---
+
+<div id="personal-stats" class="animate flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
+  <div class="flex items-center gap-1">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+    </svg>
+    <span id="code-lines">100,000+ lines of code</span>
+  </div>
+  <div class="flex items-center gap-1">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-10 0a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2M9 12h6m-6 4h6"></path>
+    </svg>
+    <span id="movie-count">Loading movies...</span>
+  </div>
+</div>
+
+<script>
+  async function loadPersonalStats() {
+    try {
+      console.log('Loading personal stats...');
+      const response = await fetch('/api/letterboxd-stats');
+      const data = await response.json();
+      
+      console.log('Personal stats response:', data);
+      
+      const movieCountElement = document.getElementById('movie-count');
+      if (movieCountElement) {
+        if (data.success && data.movieCount > 0) {
+          movieCountElement.textContent = `🎬 ${data.movieCount.toLocaleString()}+ movies watched`;
+        } else {
+          movieCountElement.textContent = '🎬 500+ movies watched'; // Fallback
+        }
+      }
+    } catch (error) {
+      console.error('Error loading personal stats:', error);
+      const movieCountElement = document.getElementById('movie-count');
+      if (movieCountElement) {
+        movieCountElement.textContent = '🎬 500+ movies watched'; // Fallback
+      }
+    }
+  }
+  
+  // Load stats when component is visible
+  document.addEventListener('DOMContentLoaded', () => {
+    loadPersonalStats();
+  });
+  
+  // Refresh stats when page becomes visible (user switches back to tab)
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      loadPersonalStats();
+    }
+  });
+</script>
