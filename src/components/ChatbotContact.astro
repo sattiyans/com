@@ -76,10 +76,19 @@
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.1);
   }
   
+  .dark .chatbot-container:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.2);
+  }
+  
   .chatbot-container.focused {
     transform: translateY(-2px);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.3);
     border-color: rgba(59, 130, 246, 0.3);
+  }
+  
+  .dark .chatbot-container.focused {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.4);
+    border-color: rgba(59, 130, 246, 0.4);
   }
   
   /* AI Icon Animation */
@@ -167,6 +176,10 @@
     color: #3b82f6;
   }
   
+  .dark .send-icon:hover {
+    color: #60a5fa;
+  }
+  
   /* Animated Border */
   .animated-border {
     position: absolute;
@@ -180,9 +193,17 @@
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
+  .dark .animated-border {
+    background: linear-gradient(90deg, #60a5fa, #a78bfa, #22d3ee);
+  }
+  
   .chatbot-input:focus ~ .animated-border {
     width: 80%;
     animation: borderGlow 2s infinite ease-in-out;
+  }
+  
+  .dark .chatbot-input:focus ~ .animated-border {
+    animation: borderGlowDark 2s infinite ease-in-out;
   }
   
   @keyframes borderGlow {
@@ -191,6 +212,15 @@
     }
     50% {
       box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+    }
+  }
+  
+  @keyframes borderGlowDark {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(96, 165, 250, 0.6);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(96, 165, 250, 0.9);
     }
   }
   
