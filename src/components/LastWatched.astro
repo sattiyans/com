@@ -2,6 +2,46 @@
 // Last Watched component - shows the most recent watched item
 ---
 
+<style>
+  @keyframes film-reel {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @keyframes tv-screen {
+    0%, 100% { 
+      background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+      opacity: 0.8;
+    }
+    50% { 
+      background: linear-gradient(45deg, #1d4ed8, #3b82f6);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes tv-static {
+    0%, 100% { 
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 1px, transparent 1px);
+    }
+    50% { 
+      background-image: 
+        radial-gradient(circle at 60% 40%, rgba(255,255,255,0.2) 1px, transparent 1px),
+        radial-gradient(circle at 40% 60%, rgba(255,255,255,0.2) 1px, transparent 1px);
+    }
+  }
+  
+  .film-reel {
+    animation: film-reel 3s linear infinite;
+    transform-origin: center;
+  }
+  
+  .tv-screen {
+    animation: tv-screen 2s ease-in-out infinite, tv-static 0.5s linear infinite;
+  }
+</style>
+
 <div class="animate">
   <div id="last-watched" class="flex items-center gap-2 text-xs">
     <!-- Loading skeleton -->
@@ -38,7 +78,6 @@
       
       // Determine icon and color based on type
       const isFilm = lastItem.type === 'film';
-      const icon = isFilm ? '🎬' : '📺';
       const bgColor = 'bg-gray-50 dark:bg-gray-900';
       const textColor = 'text-gray-700 dark:text-gray-300';
       const dotColor = isFilm ? 'bg-blue-500' : 'bg-purple-500';
@@ -46,10 +85,31 @@
       // Format title with year
       const title = `${lastItem.title} (${lastItem.year})`;
       
+      // Create animated icon based on type
+      let animatedIcon;
+      if (isFilm) {
+        animatedIcon = `
+          <div class="relative w-4 h-4 flex items-center justify-center">
+            <div class="w-3 h-3 border-2 border-blue-500 rounded-full film-reel">
+              <div class="w-1 h-1 bg-blue-500 rounded-full absolute top-0.5 left-0.5"></div>
+              <div class="w-1 h-1 bg-blue-500 rounded-full absolute bottom-0.5 right-0.5"></div>
+            </div>
+          </div>
+        `;
+      } else {
+        animatedIcon = `
+          <div class="relative w-4 h-4 flex items-center justify-center">
+            <div class="w-3 h-2 border border-purple-500 rounded-sm tv-screen relative overflow-hidden">
+              <div class="absolute inset-0 bg-purple-500 opacity-20"></div>
+            </div>
+          </div>
+        `;
+      }
+      
       container.innerHTML = `
         <a href="${lastItem.url}" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-3 py-1 ${bgColor} rounded-full text-xs font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 whitespace-nowrap">
           <div class="flex items-center gap-1">
-            <span class="text-xs group-hover:animate-pulse">${icon}</span>
+            ${animatedIcon}
             <div class="w-1.5 h-1.5 ${dotColor} rounded-full group-hover:animate-pulse"></div>
           </div>
           <span class="${textColor} truncate max-w-[200px]">${title}</span>
