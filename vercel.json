@@ -1,15 +1,4 @@
 {
-  "functions": {
-    "src/pages/api/letterboxd.ts": {
-      "maxDuration": 30
-    },
-    "src/pages/api/letterboxd-analytics.ts": {
-      "maxDuration": 30
-    },
-    "src/pages/api/letterboxd-stats.ts": {
-      "maxDuration": 30
-    }
-  },
   "headers": [
     {
       "source": "/api/letterboxd",
@@ -29,7 +18,7 @@
       ]
     },
     {
-      "source": "/api/letterboxd-analytics",
+      "source": "/api/letterboxd-stats",
       "headers": [
         {
           "key": "Cache-Control",
@@ -46,7 +35,7 @@
       ]
     },
     {
-      "source": "/api/letterboxd-stats",
+      "source": "/api/serializd",
       "headers": [
         {
           "key": "Cache-Control",
