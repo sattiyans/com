@@ -1,0 +1,66 @@
+{
+  "functions": {
+    "src/pages/api/letterboxd.ts": {
+      "maxDuration": 30
+    },
+    "src/pages/api/letterboxd-analytics.ts": {
+      "maxDuration": 30
+    },
+    "src/pages/api/letterboxd-stats.ts": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/letterboxd",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate, max-age=0, private"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "Expires",
+          "value": "Thu, 01 Jan 1970 00:00:00 GMT"
+        }
+      ]
+    },
+    {
+      "source": "/api/letterboxd-analytics",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate, max-age=0, private"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "Expires",
+          "value": "Thu, 01 Jan 1970 00:00:00 GMT"
+        }
+      ]
+    },
+    {
+      "source": "/api/letterboxd-stats",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate, max-age=0, private"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "Expires",
+          "value": "Thu, 01 Jan 1970 00:00:00 GMT"
+        }
+      ]
+    }
+  ]
+}

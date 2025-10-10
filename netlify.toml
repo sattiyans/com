@@ -1,0 +1,27 @@
+[[headers]]
+  for = "/api/letterboxd"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate, max-age=0, private"
+    Pragma = "no-cache"
+    Expires = "Thu, 01 Jan 1970 00:00:00 GMT"
+
+[[headers]]
+  for = "/api/letterboxd-analytics"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate, max-age=0, private"
+    Pragma = "no-cache"
+    Expires = "Thu, 01 Jan 1970 00:00:00 GMT"
+
+[[headers]]
+  for = "/api/letterboxd-stats"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate, max-age=0, private"
+    Pragma = "no-cache"
+    Expires = "Thu, 01 Jan 1970 00:00:00 GMT"
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "src/pages/api"

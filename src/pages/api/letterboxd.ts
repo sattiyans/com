@@ -3,19 +3,28 @@ import type { WatchedItem } from '@types';
 
 export const GET: APIRoute = async ({ request }) => {
   try {
-    // Letterboxd RSS feed URL for user activity with cache busting
+    // Letterboxd RSS feed URL for user activity with aggressive cache busting
     const username = 'sattiyans'; // Your Letterboxd username
-    const cacheBuster = `?t=${Date.now()}&r=${Math.random()}`;
+    const timestamp = Date.now();
+    const randomId = Math.random().toString(36).substring(2, 15);
+    const cacheBuster = `?t=${timestamp}&r=${randomId}&v=${Math.floor(Math.random() * 10000)}`;
     const rssUrl = `https://letterboxd.com/${username}/rss/${cacheBuster}`;
     
-    console.log('Fetching Letterboxd RSS:', rssUrl);
+    console.log('🔄 Fetching Letterboxd RSS with cache busting:', rssUrl);
+    console.log('⏰ Request timestamp:', new Date(timestamp).toISOString());
     
     const response = await fetch(rssUrl, {
       method: 'GET',
       headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
         'Pragma': 'no-cache',
-        'User-Agent': 'Mozilla/5.0 (compatible; PortfolioBot/1.0)'
+        'Expires': '0',
+        'If-Modified-Since': 'Thu, 01 Jan 1970 00:00:00 GMT',
+        'If-None-Match': `"${timestamp}-${randomId}"`,
+        'User-Agent': `Mozilla/5.0 (compatible; PortfolioBot/1.0; ${timestamp})`,
+        'Accept': 'application/rss+xml, application/xml, text/xml, */*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive'
       }
     });
     
@@ -30,18 +39,24 @@ export const GET: APIRoute = async ({ request }) => {
     const watchedItems = await parseLetterboxdRSS(xmlText);
     console.log('Parsed items:', watchedItems.length);
     
+    const responseTimestamp = Date.now();
+    const responseETag = `"${responseTimestamp}-${Math.random().toString(36).substring(2, 15)}"`;
+    
     return new Response(JSON.stringify(watchedItems), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0, private',
         'Pragma': 'no-cache',
-        'Expires': '0',
-        'Last-Modified': new Date().toUTCString(),
-        'ETag': `"${Date.now()}-${Math.random()}"`,
+        'Expires': 'Thu, 01 Jan 1970 00:00:00 GMT',
+        'Last-Modified': new Date(responseTimestamp).toUTCString(),
+        'ETag': responseETag,
+        'Vary': 'Accept-Encoding, User-Agent',
+        'X-Cache-Status': 'MISS',
+        'X-Response-Time': `${Date.now() - timestamp}ms`,
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET',
-        'Access-Control-Allow-Headers': 'Content-Type'
+        'Access-Control-Allow-Headers': 'Content-Type, Cache-Control, Pragma'
       }
     });
     
@@ -50,14 +65,16 @@ export const GET: APIRoute = async ({ request }) => {
     
     return new Response(JSON.stringify({ 
       error: 'Failed to fetch Letterboxd data',
-      items: [] 
+      items: [],
+      timestamp: Date.now()
     }), {
       status: 500,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0, private',
         'Pragma': 'no-cache',
-        'Expires': '0'
+        'Expires': 'Thu, 01 Jan 1970 00:00:00 GMT',
+        'X-Cache-Status': 'ERROR'
       }
     });
   }
