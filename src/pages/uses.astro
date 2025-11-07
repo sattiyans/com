@@ -14,6 +14,7 @@ const uses = {
     { name: "Cursor", description: "AI-powered code editor" },
     { name: "Warp", description: "Terminal emulator" },
     { name: "Safari", description: "Web browser" },
+    { name: "Google Chrome", description: "Web browser" },
     { name: "Figma", description: "Design and prototyping" },
     { name: "Apple Notes", description: "Note-taking" },
     { name: "Spotify", description: "Music streaming" }
@@ -50,23 +51,25 @@ const uses = {
 
 <PageLayout title="Uses" description="Tools, technologies, and services I use for development and productivity.">
   <Container>
-    <!-- Breadcrumb -->
-    <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6">
-      <a 
-        href="/"
-        class="hover:text-black dark:hover:text-white transition-colors duration-200"
-      >
-        Home
-      </a>
-      <span>/</span>
-      <span class="text-black dark:text-white font-medium">Uses</span>
-    </nav>
+    <div class="space-y-8">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+        <a 
+          href="/"
+          class="hover:text-black dark:hover:text-white transition-colors duration-200"
+        >
+          Home
+        </a>
+        <span>/</span>
+        <span class="text-black dark:text-white font-medium">Uses</span>
+      </nav>
 
-    <div class="mb-6">
-      <h1 class="animate text-xl font-semibold text-black dark:text-white mb-2">
-        What I Use
-      </h1>
-    </div>
+      <!-- Header -->
+      <div class="space-y-4">
+        <h1 class="animate text-2xl font-semibold text-black dark:text-white">
+          What I Use
+        </h1>
+      </div>
 
     <div class="space-y-6">
       <section class="animate">

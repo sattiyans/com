@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
-import ArrowCard from "@components/ArrowCard.astro";
+import ProjectCard from "@components/ProjectCard.astro";
 import { PROJECTS } from "@consts";
 
 const projects = (await getCollection("projects"))
@@ -12,7 +12,7 @@ const projects = (await getCollection("projects"))
 
 <PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
   <Container>
-    <div class="space-y-10">
+    <div class="space-y-8">
       <!-- Breadcrumb -->
       <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
         <a 
@@ -25,14 +25,17 @@ const projects = (await getCollection("projects"))
         <span class="text-black dark:text-white font-medium">Projects</span>
       </nav>
 
-      <div class="animate font-semibold text-black dark:text-white">
-        Projects
+      <!-- Header -->
+      <div class="space-y-4">
+        <h1 class="animate text-2xl font-semibold text-black dark:text-white">
+          Projects
+        </h1>
       </div>
-      <ul class="animate flex flex-col gap-4">
+      <ul class="animate flex flex-col gap-6">
         {
           projects.map((project) => (
             <li>
-              <ArrowCard entry={project}/>
+              <ProjectCard project={project} />
             </li>
           ))
         }

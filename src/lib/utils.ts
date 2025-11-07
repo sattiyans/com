@@ -38,3 +38,24 @@ export function dateRange(startDate: Date, endDate?: Date | string): string {
 
   return `${startMonth}${startYear} - ${endMonth}${endYear}`;
 }
+
+export function extractHeadings(content: string): Array<{ depth: number; slug: string; text: string }> {
+  const headingRegex = /^(#{2,3})\s+(.+)$/gm;
+  const headings: Array<{ depth: number; slug: string; text: string }> = [];
+  let match;
+
+  while ((match = headingRegex.exec(content)) !== null) {
+    const depth = match[1].length;
+    const text = match[2].trim();
+    const slug = text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim();
+    
+    headings.push({ depth, slug, text });
+  }
+
+  return headings;
+}

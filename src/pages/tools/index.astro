@@ -122,34 +122,33 @@ const categories = ["All", "Analytics", "Text Tools", "Design Tools", "Security 
     </script>
   </Head>
   <Container>
-    <div class="space-y-12">
+    <div class="space-y-8">
       <!-- Breadcrumb -->
-      <section>
-        <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-          <Link 
-            href="/"
-            class="hover:text-black dark:hover:text-white transition-colors duration-200"
-          >
-            Home
-          </Link>
-          <span>/</span>
-          <span class="text-black dark:text-white font-medium">Tools</span>
-        </nav>
-      </section>
+      <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+        <Link 
+          href="/"
+          underline={false}
+          class="hover:text-black dark:hover:text-white transition-colors duration-200"
+        >
+          Home
+        </Link>
+        <span>/</span>
+        <span class="text-black dark:text-white font-medium">Tools</span>
+      </nav>
 
       <!-- Header -->
-      <section>
-        <h1 class="text-2xl md:text-3xl font-semibold text-black dark:text-white mb-3">
+      <div class="space-y-4">
+        <h1 class="text-2xl font-semibold text-black dark:text-white">
           Tools & Utilities
         </h1>
-        <p class="text-gray-600 dark:text-gray-300 mb-6">
+        <p class="text-gray-600 dark:text-gray-300">
           A collection of tools I've built to help developers, content creators, and movie enthusiasts analyze and understand their data better.
         </p>
-      </section>
+      </div>
 
       <!-- Filter Section -->
-      <section>
-        <div class="flex flex-wrap gap-2 mb-6">
+      <div>
+        <div class="flex flex-wrap gap-2">
           {categories.map((category) => (
             <button
               class={`filter-btn px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${
@@ -163,10 +162,10 @@ const categories = ["All", "Analytics", "Text Tools", "Design Tools", "Security 
             </button>
           ))}
         </div>
-      </section>
+      </div>
 
       <!-- Tools Grid -->
-      <section>
+      <div>
         <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
           {tools.map((tool) => (
             <Link 
@@ -192,7 +191,7 @@ const categories = ["All", "Analytics", "Text Tools", "Design Tools", "Security 
                       }`}>
                         {tool.status}
                       </span>
-                      <span class="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
+                      <span class="text-xs px-2 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200">
                         {tool.category}
                       </span>
                     </div>
@@ -223,10 +222,10 @@ const categories = ["All", "Analytics", "Text Tools", "Design Tools", "Security 
             </Link>
           ))}
         </div>
-      </section>
+      </div>
 
       <!-- Call to Action -->
-      <section>
+      <div>
         <div class="border border-black/10 dark:border-white/10 rounded-lg p-6">
           <h2 class="text-lg font-medium text-black dark:text-white mb-2">
             Have an idea for a tool?
@@ -241,7 +240,7 @@ const categories = ["All", "Analytics", "Text Tools", "Design Tools", "Security 
             Get in Touch →
           </Link>
         </div>
-      </section>
+      </div>
     </div>
   </Container>
 

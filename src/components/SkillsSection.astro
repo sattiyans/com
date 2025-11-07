@@ -2,112 +2,186 @@
 // Skills Section Component
 ---
 
-<div class="space-y-6">
+<div class="space-y-4">
   <h5 class="font-semibold text-black dark:text-white">
     Technologies & Skills
   </h5>
   
-  <!-- Backend Technologies -->
-  <div>
-    <h6 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Backend Development</h6>
-    <div class="flex flex-wrap gap-2">
-      <span class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded-full text-xs font-medium">
+  <!-- Scrollable Skills Container -->
+  <div class="relative">
+    <div 
+      id="skills-scroll"
+      class="flex gap-2 overflow-x-auto scrollbar-hide pb-2"
+      style="scroll-behavior: smooth;"
+    >
+      <!-- Backend Technologies -->
+      <span class="px-3 py-1.5 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         PHP
       </span>
-      <span class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         Laravel
       </span>
-      <span class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         FilamentPHP
       </span>
-      <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         MySQL
       </span>
-      <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         PostgreSQL
       </span>
-      <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         Nginx
       </span>
-    </div>
-  </div>
-
-  <!-- Frontend Technologies -->
-  <div>
-    <h6 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Frontend Development</h6>
-    <div class="flex flex-wrap gap-2">
-      <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 rounded-full text-xs font-medium">
+      
+      <!-- Frontend Technologies -->
+      <span class="px-3 py-1.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         JavaScript
       </span>
-      <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         React
       </span>
-      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900/30 text-slate-800 dark:text-slate-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         Next.js
       </span>
-      <span class="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-800 dark:text-cyan-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-800 dark:text-cyan-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         Tailwind CSS
       </span>
-      <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         Bootstrap
       </span>
-    </div>
-  </div>
-
-  <!-- E-commerce & Platforms -->
-  <div>
-    <h6 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">E-commerce & Platforms</h6>
-    <div class="flex flex-wrap gap-2">
-      <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-full text-xs font-medium">
+      
+      <!-- E-commerce & Platforms -->
+      <span class="px-3 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         Shopify
       </span>
-      <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         WooCommerce
       </span>
-      <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         SaaS Platforms
       </span>
-      <span class="px-3 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         Payment Gateways
       </span>
-    </div>
-  </div>
-
-  <!-- AI & Automation -->
-  <div>
-    <h6 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">AI & Automation</h6>
-    <div class="flex flex-wrap gap-2">
-      <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-full text-xs font-medium">
+      
+      <!-- AI & Automation -->
+      <span class="px-3 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         OpenAI API
       </span>
-      <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         AI Chatbots
       </span>
-      <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         n8n Automation
       </span>
-      <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         WhatsApp API
       </span>
-    </div>
-  </div>
-
-  <!-- Tools & Services -->
-  <div>
-    <h6 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Tools & Services</h6>
-    <div class="flex flex-wrap gap-2">
-      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium">
+      
+      <!-- Tools & Services -->
+      <span class="px-3 py-1.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         Git
       </span>
-      <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         Docker
       </span>
-      <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         VPS Deployment
       </span>
-      <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-full text-xs font-medium">
+      <span class="px-3 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0">
         RapidAPI
       </span>
     </div>
   </div>
 </div>
+
+<style>
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const skillsScroll = document.getElementById('skills-scroll');
+    if (!skillsScroll) return;
+    
+    let scrollPosition = 0;
+    let isScrolling = false;
+    let scrollDirection = 1; // 1 for right, -1 for left
+    const scrollSpeed = 0.5; // pixels per frame
+    let animationFrameId = null;
+    
+    // Clone skills for infinite scroll effect
+    const originalContent = skillsScroll.innerHTML;
+    skillsScroll.innerHTML = originalContent + originalContent;
+    
+    const scrollWidth = skillsScroll.scrollWidth / 2; // Half because we duplicated
+    
+    function autoScroll() {
+      if (isScrolling) {
+        scrollPosition += scrollSpeed * scrollDirection;
+        
+        // Reset to start when reaching the end
+        if (scrollPosition >= scrollWidth) {
+          scrollPosition = 0;
+        }
+        // Reset to end when going backwards
+        if (scrollPosition < 0) {
+          scrollPosition = scrollWidth - 1;
+        }
+        
+        skillsScroll.scrollLeft = scrollPosition;
+        animationFrameId = requestAnimationFrame(autoScroll);
+      }
+    }
+    
+    // Pause auto-scroll on hover
+    skillsScroll.addEventListener('mouseenter', () => {
+      isScrolling = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    });
+    
+    // Resume auto-scroll on mouse leave
+    skillsScroll.addEventListener('mouseleave', () => {
+      isScrolling = true;
+      autoScroll();
+    });
+    
+    // Pause on touch/scroll interaction
+    let userInteracting = false;
+    skillsScroll.addEventListener('touchstart', () => {
+      userInteracting = true;
+      isScrolling = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    });
+    
+    skillsScroll.addEventListener('scroll', () => {
+      if (userInteracting) {
+        scrollPosition = skillsScroll.scrollLeft;
+      }
+    });
+    
+    skillsScroll.addEventListener('touchend', () => {
+      setTimeout(() => {
+        userInteracting = false;
+        isScrolling = true;
+        autoScroll();
+      }, 2000); // Resume after 2 seconds of no interaction
+    });
+    
+    // Start auto-scroll
+    isScrolling = true;
+    autoScroll();
+  });
+</script>

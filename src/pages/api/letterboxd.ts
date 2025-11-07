@@ -1,6 +1,9 @@
 import type { APIRoute } from 'astro';
 import type { WatchedItem } from '@types';
 
+// Ensure this route is never prerendered or cached
+export const prerender = false;
+
 export const GET: APIRoute = async ({ request }) => {
   try {
     // Letterboxd RSS feed URL for user activity with aggressive cache busting
@@ -15,6 +18,7 @@ export const GET: APIRoute = async ({ request }) => {
     
     const response = await fetch(rssUrl, {
       method: 'GET',
+      cache: 'no-store', // Force no caching
       headers: {
         'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
         'Pragma': 'no-cache',
@@ -42,7 +46,14 @@ export const GET: APIRoute = async ({ request }) => {
     const responseTimestamp = Date.now();
     const responseETag = `"${responseTimestamp}-${Math.random().toString(36).substring(2, 15)}"`;
     
-    return new Response(JSON.stringify(watchedItems), {
+    // Add timestamp to response data to help with cache debugging
+    const responseData = {
+      items: watchedItems,
+      timestamp: responseTimestamp,
+      fetchedAt: new Date(responseTimestamp).toISOString()
+    };
+    
+    return new Response(JSON.stringify(responseData), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
@@ -54,6 +65,7 @@ export const GET: APIRoute = async ({ request }) => {
         'Vary': 'Accept-Encoding, User-Agent',
         'X-Cache-Status': 'MISS',
         'X-Response-Time': `${Date.now() - timestamp}ms`,
+        'X-Timestamp': responseTimestamp.toString(),
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET',
         'Access-Control-Allow-Headers': 'Content-Type, Cache-Control, Pragma'

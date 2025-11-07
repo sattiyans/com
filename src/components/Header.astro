@@ -1,74 +1,345 @@
 ---
-import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
-import ThemeToggle from "@components/ThemeToggle.astro";
-import { SITE } from "@consts";
 ---
 
-<header class="relative">
-  <Container>
-    <div class="flex items-center justify-between py-4">
-      <!-- Logo/Brand -->
-      <Link href="/" underline={false} class="group">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
-            <span class="text-white dark:text-black font-bold text-sm">S</span>
-          </div>
-          <div class="hidden md:block font-semibold text-black dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors duration-200">
-            {SITE.NAME}
-          </div>
+<header class="relative !fixed !top-0 !left-0 !right-0 !z-[9999] !py-0 !bg-transparent !backdrop-blur-none">
+  <!-- Floating Navigation Pill -->
+  <div class="fixed top-4 left-1/2 z-[9999]" id="floating-nav" style="transform: translateX(-50%);">
+    <nav class="relative">
+      <!-- Burger Menu Button -->
+      <button 
+        id="burger-menu"
+        class="w-12 h-12 rounded-full bg-gray-100 dark:bg-black border border-black/15 dark:border-white/20 shadow-2xl flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black/20 dark:focus:ring-white/20"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <svg id="burger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="home-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+      </button>
+    </nav>
+    
+    <!-- Horizontal Pill Menu -->
+    <div 
+      id="dropdown-menu"
+      class="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-gray-100 dark:bg-black border border-black/15 dark:border-white/20 rounded-full shadow-2xl py-3 px-4 opacity-0 invisible pointer-events-none transition-all duration-300 ease-out transform translate-y-2 flex flex-row items-center gap-2 overflow-x-auto scrollbar-hide z-[10000]"
+    >
+      <Link href="/work" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="pr-2">
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
         </div>
+        <span class="font-medium text-sm leading-none">Work</span>
       </Link>
-      
-      <!-- Navigation -->
-      <nav class="flex items-center gap-3">
-        <Link href="/work" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
-          Work
-        </Link>
-        <Link href="/watched" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
-          Watched
-        </Link>
-        <Link href="/tools" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
-          Tools
-        </Link>
-        <Link href="/uses" class="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
-          Uses
-        </Link>
-        <ThemeToggle />
-      </nav>
-    </div>
-  </Container>
-  
-  <!-- Dotkod Solutions Banner -->
-  <div>
-    <Container>
-       <div class="border border-black/15 dark:border-white/20 rounded-lg p-3 sm:p-4 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors duration-300 my-2">
-         <div class="flex items-center justify-between gap-2">
-           <div class="flex-1 min-w-0">
-             <div class="flex items-center gap-2 flex-wrap">
-               <span class="text-sm flex-shrink-0">🚀</span>
-               <h3 class="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white leading-tight">
-                 <span class="hidden sm:inline">Automate Your Business & Save Money with AI</span>
-                 <span class="sm:hidden">AI Business Automation</span>
-               </h3>
-                <span class="px-1.5 py-0.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium rounded flex-shrink-0">
-                  via Dotkod
-                </span>
-             </div>
-           </div>
-           <div class="flex-shrink-0">
-             <Link 
-               href="https://dotkod.com" 
-               external
-               class="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
-             >
-               <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-               </svg>
-             </Link>
-           </div>
+      <Link href="/projects" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="pr-2">
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
         </div>
-      </div>
-    </Container>
+        <span class="font-medium text-sm leading-none">Projects</span>
+      </Link>
+      <Link href="/watched" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="pr-2">
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <span class="font-medium text-sm leading-none">Watched</span>
+      </Link>
+      <Link href="/tools" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="pr-2">
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+        <span class="font-medium text-sm leading-none">Tools</span>
+      </Link>
+      <Link href="/uses" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="pr-2">
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <span class="font-medium text-sm leading-none">Uses</span>
+      </Link>
+    </div>
   </div>
+  
+  <!-- Spacer to prevent content from going under fixed header -->
+  <div class="h-20"></div>
 </header>
+
+<style>
+  /* Smooth entrance animation */
+  #floating-nav {
+    animation: slideDown 0.5s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+  
+  /* Enhanced shadow on scroll */
+  #floating-nav.scrolled #burger-menu {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  }
+  
+  .dark #floating-nav.scrolled #burger-menu {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Horizontal pill menu open state */
+  #dropdown-menu.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+  
+  /* Hide scrollbar for horizontal scroll */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Force horizontal layout for navigation links */
+  #dropdown-menu a {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+  
+  #dropdown-menu svg {
+    display: block !important;
+    flex-shrink: 0 !important;
+  }
+  
+  #dropdown-menu span {
+    display: inline-block !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+  }
+</style>
+
+<script is:inline>
+  // Toggle dropdown menu - runs on every page load
+  (function() {
+    // Store references to cleanup old listeners
+    let currentBurgerHandler = null;
+    let currentOutsideClickHandler = null;
+    let currentScrollHandler = null;
+    let isInitialized = false;
+    let retryCount = 0;
+    const MAX_RETRIES = 50; // Try for up to 5 seconds (50 * 100ms)
+    
+    function initMenu() {
+      // Prevent multiple simultaneous initializations
+      if (isInitialized && retryCount === 0) {
+        return;
+      }
+      
+      const floatingNav = document.getElementById('floating-nav');
+      const burgerMenu = document.getElementById('burger-menu');
+      const dropdownMenu = document.getElementById('dropdown-menu');
+      const burgerIcon = document.getElementById('burger-icon');
+      const homeIcon = document.getElementById('home-icon');
+      
+      if (!burgerMenu || !dropdownMenu || !burgerIcon || !homeIcon) {
+        // Retry with exponential backoff
+        retryCount++;
+        if (retryCount < MAX_RETRIES) {
+          const delay = Math.min(100 * retryCount, 500); // Max 500ms delay
+          setTimeout(initMenu, delay);
+        }
+        return;
+      }
+      
+      // Reset retry count on success
+      retryCount = 0;
+      
+      // Ensure menu is closed on page load
+      dropdownMenu.classList.remove('open');
+      burgerIcon.classList.remove('hidden');
+      homeIcon.classList.add('hidden');
+      burgerMenu.setAttribute('aria-expanded', 'false');
+      
+      // Remove old event listeners if they exist
+      if (currentBurgerHandler && burgerMenu) {
+        burgerMenu.removeEventListener('click', currentBurgerHandler);
+      }
+      if (currentOutsideClickHandler) {
+        document.removeEventListener('click', currentOutsideClickHandler, true);
+      }
+      if (currentScrollHandler) {
+        window.removeEventListener('scroll', currentScrollHandler, { passive: true });
+      }
+      
+      // Remove old link handler if it exists
+      if (dropdownMenu._linkClickHandler) {
+        dropdownMenu.removeEventListener('click', dropdownMenu._linkClickHandler);
+      }
+      
+      // Create new click handler
+      currentBurgerHandler = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = dropdownMenu.classList.contains('open');
+        
+        if (isOpen) {
+          // Navigate to home when home icon is clicked
+          window.location.href = '/';
+        } else {
+          // Open menu and show home icon
+          dropdownMenu.classList.add('open');
+          burgerIcon.classList.add('hidden');
+          homeIcon.classList.remove('hidden');
+          burgerMenu.setAttribute('aria-expanded', 'true');
+        }
+      };
+      
+      // Attach new click handler
+      burgerMenu.addEventListener('click', currentBurgerHandler);
+      
+      // Close menu when clicking outside
+      currentOutsideClickHandler = function(e) {
+        if (dropdownMenu.classList.contains('open') && 
+            !dropdownMenu.contains(e.target) && 
+            !burgerMenu.contains(e.target)) {
+          dropdownMenu.classList.remove('open');
+          burgerIcon.classList.remove('hidden');
+          homeIcon.classList.add('hidden');
+          burgerMenu.setAttribute('aria-expanded', 'false');
+        }
+      };
+      
+      document.addEventListener('click', currentOutsideClickHandler, true);
+      
+      // Close menu when clicking a link (using event delegation)
+      dropdownMenu._linkClickHandler = function(e) {
+        // Check if click was on a link
+        const link = e.target.closest('a');
+        if (link && dropdownMenu.contains(link)) {
+          dropdownMenu.classList.remove('open');
+          burgerIcon.classList.remove('hidden');
+          homeIcon.classList.add('hidden');
+          burgerMenu.setAttribute('aria-expanded', 'false');
+        }
+      };
+      
+      // Attach using event delegation
+      dropdownMenu.addEventListener('click', dropdownMenu._linkClickHandler);
+      
+      // Add scroll effect to floating nav
+      currentScrollHandler = function() {
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY > 20) {
+          floatingNav?.classList.add('scrolled');
+        } else {
+          floatingNav?.classList.remove('scrolled');
+        }
+      };
+      
+      window.addEventListener('scroll', currentScrollHandler, { passive: true });
+      currentScrollHandler(); // Check initial state
+      
+      isInitialized = true;
+    }
+    
+    // Use MutationObserver to detect when elements are added to DOM
+    function observeForElements() {
+      const observer = new MutationObserver(function(mutations, obs) {
+        const burgerMenu = document.getElementById('burger-menu');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const burgerIcon = document.getElementById('burger-icon');
+        const homeIcon = document.getElementById('home-icon');
+        
+        if (burgerMenu && dropdownMenu && burgerIcon && homeIcon) {
+          obs.disconnect();
+          initMenu();
+        }
+      });
+      
+      // Start observing
+      if (document.body) {
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      }
+      
+      // Stop observing after 5 seconds
+      setTimeout(function() {
+        observer.disconnect();
+      }, 5000);
+    }
+    
+    // Run initialization with multiple strategies
+    function runInit() {
+      // Reset initialization flag
+      isInitialized = false;
+      retryCount = 0;
+      
+      // Try immediate initialization
+      initMenu();
+      
+      // Also use MutationObserver as backup
+      observeForElements();
+    }
+    
+    // Run on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runInit);
+    } else {
+      // DOM already loaded, run immediately
+      runInit();
+    }
+    
+    // Also try on window load (ensures everything is ready)
+    window.addEventListener('load', function() {
+      runInit();
+    });
+    
+    // Also run when page becomes visible (handles back/forward navigation)
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) {
+        setTimeout(runInit, 100);
+      }
+    });
+    
+    // Run on popstate (back/forward navigation)
+    window.addEventListener('popstate', function() {
+      setTimeout(runInit, 100);
+    });
+    
+    // Listen for Astro View Transitions (client-side navigation)
+    // This is the key fix - Astro uses view transitions for client-side navigation
+    document.addEventListener('astro:page-load', function() {
+      setTimeout(runInit, 50);
+    });
+    
+    // Also listen for astro:after-swap (another view transition event)
+    document.addEventListener('astro:after-swap', function() {
+      setTimeout(runInit, 50);
+    });
+    
+    // Also re-initialize after a short delay to catch any late-loading elements
+    setTimeout(runInit, 200);
+  })();
+</script>

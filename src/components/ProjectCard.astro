@@ -1,0 +1,142 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  project: CollectionEntry<"projects">;
+  compact?: boolean;
+}
+
+const { project, compact = false } = Astro.props;
+
+// Helper function to normalize image paths
+// If it's a full URL, use it as-is
+// If it starts with '/', use it as-is (absolute path)
+// Otherwise, assume it's in public/projects/ folder
+function normalizeImagePath(path: string): string {
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path; // Full URL
+  }
+  if (path.startsWith('/')) {
+    return path; // Already absolute path
+  }
+  // Assume it's in public/projects/ folder
+  return `/projects/${path}`;
+}
+
+// Get featured image: prioritize featuredImage, then thumbnail, then first screenshot, or placeholder
+const featuredImage = project.data.featuredImage 
+  ? normalizeImagePath(project.data.featuredImage)
+  : (project.data.thumbnail 
+      ? normalizeImagePath(project.data.thumbnail)
+      : (project.data.screenshots && project.data.screenshots.length > 0
+          ? normalizeImagePath(project.data.screenshots[0])
+          : null));
+
+// Use featured image if available, otherwise show placeholder
+const hasImage = !!featuredImage;
+---
+
+<a 
+  href={`/projects/${project.slug}`} 
+  class="group relative flex flex-col md:flex-row gap-4 p-4 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:border-black/25 dark:hover:border-white/30 transition-all duration-300 ease-in-out"
+>
+  <!-- Thumbnail Image -->
+  <div class={`flex-shrink-0 w-full rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 border border-black/10 dark:border-white/10 ${compact ? 'md:w-32 md:h-32 h-32' : 'md:w-48 h-48'}`}>
+    {hasImage ? (
+      <img 
+        src={featuredImage} 
+        alt={project.data.title}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        loading="lazy"
+      />
+    ) : (
+      <!-- Placeholder -->
+      <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800">
+        <svg 
+          class="w-12 h-12 text-gray-400 dark:text-gray-500 mb-2" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+            stroke-width="1.5" 
+            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+          />
+        </svg>
+        <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">No Image</span>
+      </div>
+    )}
+  </div>
+
+  <!-- Content -->
+  <div class="flex-1 flex flex-col min-w-0">
+    <div class="flex items-start justify-between gap-4 mb-2">
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 mb-1">
+          <h3 class="font-semibold text-lg text-black dark:text-white group-hover:text-black dark:group-hover:text-white line-clamp-2">
+            {project.data.title}
+          </h3>
+          {project.data.password && (
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          )}
+        </div>
+        <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-2 flex-wrap">
+          <span>{project.data.date.getFullYear()}</span>
+          {project.data.role && (
+            <>
+              <span class="text-gray-400 dark:text-gray-500">&bull;</span>
+              <span>{project.data.role}</span>
+            </>
+          )}
+          {project.data.projectOwner && (
+            <>
+              <span class="text-gray-400 dark:text-gray-500">&bull;</span>
+              <span>{project.data.projectOwner}</span>
+            </>
+          )}
+        </div>
+      </div>
+      <!-- Arrow Icon -->
+      <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 24 24"
+        class="flex-shrink-0 size-5 stroke-2 fill-none stroke-gray-400 dark:stroke-gray-500 group-hover:stroke-black dark:group-hover:stroke-white transition-colors duration-300"
+      >
+        <line x1="5" y1="12" x2="19" y2="12" class="translate-x-3 group-hover:translate-x-0 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out" />
+        <polyline points="12 5 19 12 12 19" class="-translate-x-1 group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
+      </svg>
+    </div>
+
+    {!project.data.password && (
+      <p class={`text-sm text-gray-600 dark:text-gray-400 mb-3 flex-1 ${compact ? 'line-clamp-1' : 'line-clamp-2'}`}>
+        {project.data.description}
+      </p>
+    )}
+    {project.data.password && (
+      <p class={`text-sm text-gray-500 dark:text-gray-500 italic mb-3 flex-1 ${compact ? 'line-clamp-1' : ''}`}>
+        This project is password protected. Enter the password to view full details.
+      </p>
+    )}
+
+    <!-- Tech Stack - Hidden in compact mode -->
+    {!compact && project.data.techStack && project.data.techStack.length > 0 && (
+      <div class="flex flex-wrap gap-2 mt-auto">
+        {project.data.techStack.slice(0, 4).map((tech) => (
+          <span class="px-2 py-1 text-xs font-medium rounded-md bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700/50">
+            {tech}
+          </span>
+        ))}
+        {project.data.techStack.length > 4 && (
+          <span class="px-2 py-1 text-xs font-medium rounded-md bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-200 border border-purple-200 dark:border-purple-700/50">
+            +{project.data.techStack.length - 4} more
+          </span>
+        )}
+      </div>
+    )}
+  </div>
+</a>
+

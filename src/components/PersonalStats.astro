@@ -1,19 +1,25 @@
 ---
-// Personal Stats component - displays code lines and movies watched
+// Personal Stats component - displays various personal statistics
 ---
 
-<div id="personal-stats" class="animate flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
-  <div class="flex items-center gap-1">
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<div id="personal-stats" class="animate flex flex-col gap-3 text-sm text-gray-600 dark:text-gray-400 mb-4">
+  <div class="flex items-center gap-1.5">
+    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
     </svg>
     <span id="code-lines">100k+ lines of code written</span>
   </div>
-  <div class="flex items-center gap-1">
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <div class="flex items-center gap-1.5">
+    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
     </svg>
-    <span id="movie-count">Loading movies...</span>
+    <span id="watch-stats">Loading...</span>
+  </div>
+  <div class="flex items-center gap-1.5">
+    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+    </svg>
+    <span>20+ projects shipped</span>
   </div>
 </div>
 
@@ -26,19 +32,19 @@
       
       console.log('Personal stats response:', data);
       
-      const movieCountElement = document.getElementById('movie-count');
-      if (movieCountElement) {
+      const watchStatsElement = document.getElementById('watch-stats');
+      if (watchStatsElement) {
+        let movieCount = 500; // Fallback
         if (data.success && data.movieCount > 0) {
-          movieCountElement.textContent = `${data.movieCount.toLocaleString()}+ movies watched`;
-        } else {
-          movieCountElement.textContent = '500+ movies watched'; // Fallback
+          movieCount = data.movieCount;
         }
+        watchStatsElement.textContent = `${movieCount.toLocaleString()}+ movies & 7,450+ episodes watched`;
       }
     } catch (error) {
       console.error('Error loading personal stats:', error);
-      const movieCountElement = document.getElementById('movie-count');
-      if (movieCountElement) {
-        movieCountElement.textContent = '500+ movies watched'; // Fallback
+      const watchStatsElement = document.getElementById('watch-stats');
+      if (watchStatsElement) {
+        watchStatsElement.textContent = '500+ movies & 7,450+ episodes watched'; // Fallback
       }
     }
   }

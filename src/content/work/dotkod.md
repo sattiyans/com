@@ -1,6 +1,6 @@
 ---
 company: "Dotkod Solutions"
-role: "Founder & Digital Solutions Manager"
+role: "Founder & Web Developer"
 dateStart: "10/01/2023"
 dateEnd: "Current"
 ---

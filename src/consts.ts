@@ -46,4 +46,24 @@ export const SOCIALS: Socials = [
     NAME: "X",
     HREF: "https://x.com/sattiyans",
   },
+  { 
+    NAME: "Letterboxd",
+    HREF: "https://letterboxd.com/sattiyans",
+  },
+  { 
+    NAME: "Serializd",
+    HREF: "https://serializd.com/user/sattiyans",
+  },
+  { 
+    NAME: "Instagram",
+    HREF: "https://instagram.com/sattiyanss",
+  },
+  { 
+    NAME: "Facebook",
+    HREF: "https://www.facebook.com/people/Sattiyan-Selvarajah/100090108949254/",
+  },
+  { 
+    NAME: "Threads",
+    HREF: "https://threads.com/sattiyanss",
+  },
 ];

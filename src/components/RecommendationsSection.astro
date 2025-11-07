@@ -58,27 +58,139 @@ const recommendations = [
     </Link>
   </div>
   
-  <div class="space-y-6">
-    {recommendations.map((rec, index) => (
-      <div class="border border-black/15 dark:border-white/20 rounded-lg p-6 hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-300">
-        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
-          <div>
-            <h6 class="font-semibold text-black dark:text-white text-sm">
-              {rec.name}
-            </h6>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">
-              {rec.title}
-            </p>
-            <p class="text-xs text-gray-500 dark:text-gray-500">
-              {rec.relationship} • {rec.date}
-            </p>
+  <!-- Scrollable Recommendations Container -->
+  <div class="relative">
+    <!-- Left Arrow -->
+    <button 
+      id="rec-arrow-left"
+      class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-gray-100 dark:bg-black border border-black/15 dark:border-white/20 shadow-lg flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 opacity-0 pointer-events-none"
+      aria-label="Scroll left"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    
+    <!-- Right Arrow -->
+    <button 
+      id="rec-arrow-right"
+      class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-gray-100 dark:bg-black border border-black/15 dark:border-white/20 shadow-lg flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200"
+      aria-label="Scroll right"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+    
+    <div 
+      id="recommendations-scroll"
+      class="flex gap-4 overflow-x-auto scrollbar-hide pb-4"
+      style="scroll-behavior: smooth;"
+    >
+      {recommendations.map((rec, index) => (
+        <div class="flex-shrink-0 w-80 border border-black/15 dark:border-white/20 rounded-lg p-6 hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-300">
+          <div class="flex flex-col gap-2 mb-4">
+            <div>
+              <h6 class="font-semibold text-black dark:text-white text-sm">
+                {rec.name}
+              </h6>
+              <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">
+                {rec.title}
+              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-500">
+                {rec.relationship} • {rec.date}
+              </p>
+            </div>
           </div>
+          
+          <blockquote class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic line-clamp-6">
+            "{rec.content}"
+          </blockquote>
         </div>
-        
-        <blockquote class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic">
-          "{rec.content}"
-        </blockquote>
-      </div>
-    ))}
+      ))}
+    </div>
   </div>
 </section>
+
+<style>
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Line clamp utility */
+  .line-clamp-6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Arrow visibility */
+  #rec-arrow-left.show,
+  #rec-arrow-right.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const scrollContainer = document.getElementById('recommendations-scroll');
+    const leftArrow = document.getElementById('rec-arrow-left');
+    const rightArrow = document.getElementById('rec-arrow-right');
+    
+    if (!scrollContainer || !leftArrow || !rightArrow) return;
+    
+    const cardWidth = 320 + 16; // w-80 (320px) + gap-4 (16px)
+    
+    function updateArrows() {
+      const scrollLeft = scrollContainer.scrollLeft;
+      const scrollWidth = scrollContainer.scrollWidth;
+      const clientWidth = scrollContainer.clientWidth;
+      
+      // Show/hide left arrow
+      if (scrollLeft > 0) {
+        leftArrow.classList.add('show');
+      } else {
+        leftArrow.classList.remove('show');
+      }
+      
+      // Show/hide right arrow
+      if (scrollLeft < scrollWidth - clientWidth - 1) {
+        rightArrow.classList.add('show');
+      } else {
+        rightArrow.classList.remove('show');
+      }
+    }
+    
+    // Scroll left
+    leftArrow.addEventListener('click', () => {
+      scrollContainer.scrollBy({
+        left: -cardWidth,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Scroll right
+    rightArrow.addEventListener('click', () => {
+      scrollContainer.scrollBy({
+        left: cardWidth,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Update arrows on scroll
+    scrollContainer.addEventListener('scroll', updateArrows);
+    
+    // Update arrows on resize
+    window.addEventListener('resize', updateArrows);
+    
+    // Initial check
+    updateArrows();
+  });
+</script>

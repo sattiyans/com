@@ -62,43 +62,41 @@ const seoData = {
     </script>
   </Head>
   <Container>
-    <div class="space-y-12">
+    <div class="space-y-8">
       <!-- Breadcrumb -->
-      <section>
-        <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-          <Link 
-            href="/"
-            class="hover:text-black dark:hover:text-white transition-colors duration-200"
-          >
-            Home
-          </Link>
-          <span>/</span>
-          <Link 
-            href="/tools"
-            class="hover:text-black dark:hover:text-white transition-colors duration-200"
-          >
-            Tools
-          </Link>
-          <span>/</span>
-          <span class="text-black dark:text-white font-medium">Base64 Encoder/Decoder</span>
-        </nav>
-      </section>
+      <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+        <Link 
+          href="/"
+          class="hover:text-black dark:hover:text-white transition-colors duration-200"
+        >
+          Home
+        </Link>
+        <span>/</span>
+        <Link 
+          href="/tools"
+          class="hover:text-black dark:hover:text-white transition-colors duration-200"
+        >
+          Tools
+        </Link>
+        <span>/</span>
+        <span class="text-black dark:text-white font-medium">Base64 Encoder/Decoder</span>
+      </nav>
 
       <!-- Header -->
-      <section>
-        <div class="flex items-center gap-3 mb-3">
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
           <span class="text-2xl">🔤</span>
-          <h1 class="text-2xl md:text-3xl font-semibold text-black dark:text-white">
+          <h1 class="text-2xl font-semibold text-black dark:text-white">
             Base64 Encoder/Decoder
           </h1>
         </div>
-        <p class="text-gray-600 dark:text-gray-300 mb-6">
+        <p class="text-gray-600 dark:text-gray-300">
           Convert text to Base64 encoding or decode Base64 back to text. Simple, fast, and secure text conversion tool.
         </p>
-      </section>
+      </div>
 
       <!-- Tool Interface -->
-      <section>
+      <div>
         <div class="border border-black/10 dark:border-white/10 rounded-lg p-6">
           <div class="space-y-6">
             <!-- Input Section -->
@@ -162,10 +160,10 @@ const seoData = {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       <!-- Info Section -->
-      <section>
+      <div>
         <div class="border border-black/10 dark:border-white/10 rounded-lg p-6">
           <h2 class="text-lg font-medium text-black dark:text-white mb-3">
             About Base64
@@ -180,7 +178,7 @@ const seoData = {
             </p>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   </Container>
 
