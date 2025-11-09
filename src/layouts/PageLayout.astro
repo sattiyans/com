@@ -4,6 +4,7 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import BackToTop from "@components/BackToTop.astro";
 import ChatbotContact from "@components/ChatbotContact.astro";
+import Analytics from "@vercel/analytics/astro";
 import { SITE } from "@consts";
 
 type Props = {
@@ -27,5 +28,6 @@ const { title, description } = Astro.props;
     <Footer />
     <BackToTop />
     <ChatbotContact />
+    <Analytics />
   </body>
 </html>
