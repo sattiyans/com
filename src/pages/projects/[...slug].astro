@@ -232,7 +232,7 @@ const correctPassword = project.data.password || '';
       )}
 
       <!-- Content with TOC -->
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8">
+      <div class={`grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8 ${!project.data.screenshots?.length ? 'mt-8' : ''}`}>
         <!-- Main Content -->
         <article class="prose prose-gray dark:prose-invert max-w-none prose-headings:scroll-mt-20">
           <Content />
