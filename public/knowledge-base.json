@@ -1,0 +1,477 @@
+{
+  "generatedAt": "2025-11-09T06:54:01.810Z",
+  "about": {
+    "name": "Sattiyan Selvarajah",
+    "role": "Senior PHP/Laravel Developer & Founder of Dotkod Solutions",
+    "location": "Kuala Lumpur, Malaysia",
+    "email": "hey@sattiyans.com",
+    "description": "Expert in building scalable web applications, SaaS platforms, and e-commerce solutions. Previously worked as a Game Developer using Unreal Engine 4 and Unity.",
+    "website": "https://sattiyans.com"
+  },
+  "projects": [
+    {
+      "title": "3rd SPACE by Triterra",
+      "description": "A modern community website for The MET Corporate Towers showcasing spaces, events, and community happenings. Built using Wix's drag-and-drop platform to deliver a responsive, content-rich experience.",
+      "content": "Overview\n\n3rd SPACE by Triterra is a community-focused website for The MET Corporate Towers, designed to showcase the concept of \"third places\" - spaces where people come together beyond home and work. The website serves as a digital hub for the community, featuring information about The MET, a directory of businesses and services, blog content, and event listings.\n\nBuilt using Wix's drag-and-drop platform, this project demonstrates the ability to create professional, content-rich websites using visual development tools while maintaining high standards for user experience and design consistency.\n\nFeatures\n\nNavigation & Structure\nMulti-Section Website: Home, The MET, Directory, and Blog sections\nResponsive Design: Mobile-friendly layout that adapts to all screen sizes\nIntuitive Navigation: Clear menu structure for easy content discovery\n\nContent Management\nBlog System: Multiple blog posts covering topics like \"The Many Versions of Third Place\", \"Cultivating 3rd Space as a Developer\", and community-focused articles\nEvent Listings: \"Happenings & Promotions\" section showcasing upcoming events and activities\nTrend Tribune: Content section highlighting trends and community news\n\nCommunity Features\nThe MET Information: Detailed information about The MET Corporate Towers\nDirectory: Business and service directory for the community\nContact Integration: Contact information and location details\nSocial Media Integration: Links to social media platforms\n\nDesign Elements\nModern UI/UX: Clean, professional design that reflects the community-focused brand\nVisual Content: High-quality images and graphics throughout\nBrand Consistency: Cohesive design language across all pages\n\nTech Stack\n\nPlatform\nWix: Chosen for its powerful drag-and-drop interface that allows rapid development without traditional coding\nWix CMS: Built-in content management system for blog posts and dynamic content\nWix Editor: Visual page builder for creating responsive layouts\n\nDevelopment Approach\nDrag & Drop Development: Utilized Wix's visual development tools to build the entire website\nTemplate Customization: Customized Wix templates to match brand requirements\nResponsive Design Tools: Used Wix's responsive design features to ensure mobile compatibility\n\nChallenges & Solutions\n\nChallenge 1: Visual Development Without Traditional Coding\nProblem: Building a professional website using only drag-and-drop tools requires a different approach than traditional code-based development, with limitations on customization.\n\nSolution: \nLeveraged Wix's extensive widget library and customization options\nUtilized Wix's design tools to create custom layouts and styling\nWorked within Wix's framework while maximizing design flexibility\nEnsured brand consistency through careful use of colors, fonts, and spacing\n\nChallenge 2: Content Organization and Structure\nProblem: Organizing multiple content types (blog posts, events, directory listings) in a way that's both user-friendly and easy to manage.\n\nSolution:\nCreated clear section divisions (Home, The MET, Directory, Blog)\nImplemented consistent navigation patterns\nUsed Wix's CMS features to organize blog content effectively\nDesigned intuitive layouts for different content types\n\nChallenge 3: Maintaining Professional Quality with Visual Tools\nProblem: Ensuring the website maintains professional standards and doesn't look like a template, despite using a visual builder.\n\nSolution:\nCustomized templates extensively to create unique layouts\nPaid careful attention to typography, spacing, and visual hierarchy\nUsed custom images and branding elements\nEnsured responsive behavior across all devices\n\nKey Learnings\n\nVisual Development Platforms\nWorking with Wix provided valuable insights into:\nThe capabilities and limitations of drag-and-drop website builders\nHow to maximize visual tools to achieve professional results\nThe importance of understanding platform-specific features and best practices\nBalancing ease of use with design flexibility\n\nClient Communication\nThis project highlighted the importance of:\nUnderstanding client needs and translating them into visual designs\nWorking within platform constraints while meeting client expectations\nProviding solutions that are both functional and maintainable\nDelivering professional results using accessible tools\n\nContent Strategy\nBuilding a content-rich website taught:\nThe importance of clear information architecture\nHow to organize diverse content types effectively\nCreating user journeys that guide visitors to relevant information\nBalancing content density with visual appeal\n\nPlatform-Specific Development\nWorking with Wix specifically:\nUnderstanding Wix's widget system and customization options\nLearning to work within Wix's responsive design framework\nUtilizing Wix CMS for dynamic content management\nOptimizing for Wix's hosting and performance characteristics\n\nDevelopment Experience\n\nThis project was developed under Dotkod Solutions, where I served as the web developer responsible for the entire website creation process. Using Wix's drag-and-drop platform, I was able to deliver a professional, content-rich website that effectively communicates the 3rd SPACE brand and community vision.\n\nThe project required careful attention to design consistency, content organization, and user experience - all achieved through visual development tools rather than traditional coding. This experience demonstrated the value of understanding different development approaches and choosing the right tool for each project's specific needs.\n\nConclusion\n\nThe 3rd SPACE by Triterra website successfully showcases how professional, content-rich websites can be built using visual development platforms like Wix. The project demonstrates that with careful attention to design, content organization, and user experience, drag-and-drop tools can produce results that meet professional standards while offering faster development cycles and easier content management.\n\nThis project highlights the importance of understanding different development approaches and choosing the right platform based on project requirements, client needs, and desired outcomes. Whether using traditional coding or visual builders, the key is delivering solutions that effectively serve the client's goals and provide excellent user experiences.",
+      "role": "Web Developer",
+      "client": "Kontentsu Marketing",
+      "projectOwner": "Dotkod Solutions",
+      "projectURL": "https://www.3rdspacebytriterra.com/home",
+      "repoURL": null,
+      "techStack": [
+        "Wix",
+        "Drag & Drop Builder",
+        "Responsive Design",
+        "CMS"
+      ],
+      "date": "2025-05-28T00:00:00.000Z",
+      "slug": "3rd-space",
+      "url": "/projects/3rd-space"
+    },
+    {
+      "title": "FEMO - Influencer Marketing Platform",
+      "description": "A comprehensive influencer marketing system connecting brands with content creators. Features job posting, bidding, social media integration, payment processing, and real-time messaging.",
+      "content": "Overview\n\nFEMO is a comprehensive influencer marketing platform designed to bridge the gap between brands and content creators. The system facilitates seamless collaboration through job posting, bidding, social media integration, secure payment processing, and real-time communication. \n\nI collaborated on the full project lifecycle, handling project planning, backend architecture, API development, and deployment. The platform includes both a mobile application (developed by a collaborator) and a web-based admin panel built with Filament that replicates mobile app functionality for administrative purposes.\n\nThe platform addresses key challenges in influencer marketing:\nDiscovery: Brands can easily discover influencers based on niche, engagement rates, and social media metrics\nCollaboration: Streamlined job posting, bidding, and proposal submission process\nVerification: Social media account integration for authentic profile verification\nPayment Security: Integrated payment gateway ensuring secure transactions\nCommunication: Real-time messaging system for seamless brand-influencer communication\n\nFeatures\n\nUser Management & Profiles\nDual User Types: Separate profile systems for Influencers and Brands with role-based access\nProfile Completion: Comprehensive profile setup with validation and completion tracking\nSocial Media Integration: Connect TikTok and Instagram accounts for profile verification\nAnalytics Dashboard: Profile insights, engagement rates, and social media metrics tracking\nReviews & Ratings: Two-way review system for both brands and influencers\n\nJob Management System\nJob Posting: Brands can create detailed job posts with budgets, deadlines, and content requirements\nJob Items: Break down jobs into multiple deliverables with individual budgets\nBidding System: Influencers can submit competitive bids for open jobs\nProposal System: Detailed proposal submission with AI-generated descriptions\nHire Management: Direct hiring and collaboration request system\nJob Tracking: Complete activity logs, extensions, disputes, and status management\nPrivate Jobs: Support for private collaboration requests between brands and influencers\n\nSocial Media Integration\nTikTok OAuth: Secure authentication and account linking\nInstagram OAuth: Facebook-based Instagram Business API integration\nVideo Syncing: Automated synchronization of TikTok and Instagram videos\nSocial Insights: Daily tracking of likes, comments, views, and engagement metrics\nAnalytics API: Real-time social media analytics for profile verification\n\nPayment System\nChip Payment Gateway: Integrated payment processing for both brands and influencers\nChip Collect: Brands pay for jobs through multiple payment methods\nChip Send: Automated bank transfers to influencers upon job completion\nPayment Tracking: Complete transaction history and payment status management\nPlatform Fees: Configurable platform fees with automatic calculation\nEscrow System: Secure payment holding until job completion and approval\n\nCommunication & Messaging\nReal-time Messaging: Firebase-powered messaging system between brands and influencers\nFile Attachments: Support for media and document sharing in conversations\nPush Notifications: Firebase Cloud Messaging for instant notifications\nUnread Counts: Message notification tracking and management\nContact Management: Suggested contacts and conversation history\n\nAI-Powered Features\nBio Generation: OpenAI-powered bio generation with multiple style options\nJob Description Generator: AI-assisted job description creation\nProposal Generator: Intelligent proposal description generation based on job requirements\n\nAdmin Panel (Filament)\nUser Management: Complete user administration with profile management\nJob Oversight: Monitor all jobs, bids, proposals, and hires\nTransaction Management: Track all payments and financial transactions\nContent Management: Manage FAQs, help support, announcements, and settings\nReport Management: Handle user reports and profile deletion requests\nAnalytics Dashboard: System-wide analytics and insights\n\nAdditional Features\nSearch & Discovery: Advanced filtering by niche, industry, location, and engagement metrics\nFavorites System: Save favorite brands/influencers for quick access\nActivity Logging: Comprehensive activity tracking for profiles and jobs\nScheduled Jobs: Automated tasks for video syncing, insights fetching, and payment releases\nDocument Templates: Reusable document templates for agreements and deliverables\nPostcode Integration: Location-based services with postcode lookup\n\nTech Stack\n\nBackend Framework\nLaravel 11: Modern PHP framework providing robust architecture, ORM, and built-in features\nPHP 8.2: Latest PHP version for optimal performance and modern language features\n\nAdmin Panel\nFilament 3.2: Rapid admin panel development with beautiful UI components, reducing development time significantly while maintaining consistency with mobile app functionality\n\nAuthentication & Security\nJWT Auth: Stateless authentication for mobile API using \nLaravel Socialite: OAuth integration for social media platforms\nApple Sign-In: Native Apple authentication support\n\nReal-time & Messaging\nFirebase Realtime Database: Real-time messaging infrastructure\nFirebase Cloud Messaging: Push notification service for mobile apps\nLaravel Reverb: WebSocket support for real-time features\n\nPayment Processing\nChip Payment Gateway: Malaysian payment gateway supporting multiple payment methods (credit cards, e-wallets, bank transfers)\nChip Collect SDK: For receiving payments from brands\nChip Send API: For automated bank transfers to influencers\n\nAI Integration\nOpenAI API: GPT-powered content generation for bios, job descriptions, and proposals\n\nSocial Media APIs\nTikTok Open API: User authentication, video listing, and analytics\nInstagram Business API: Media management, insights, and content publishing\n\nStorage & Infrastructure\nGoogle Cloud Storage: Scalable file storage for media and documents\nMySQL: Relational database for structured data\nLaravel Queue: Background job processing for async operations\n\nFrontend Technologies\nTailwind CSS: Utility-first CSS framework for Filament admin panel\nAlpine.js: Lightweight JavaScript framework for interactive components\nVite: Modern build tool for asset compilation\n\nChallenges & Solutions\n\nChallenge 1: Complex Job Workflow Management\nProblem: Managing the lifecycle of jobs with multiple items, bids, proposals, hires, and submissions required complex state management.\n\nSolution: Implemented a comprehensive job system with separate models for each stage (Job, JobItem, JobBid, JobProposal, JobHire, JobItemSubmission) and used Laravel's Eloquent relationships to maintain data integrity. Created activity logging system to track all job-related events.\n\nChallenge 2: Real-time Messaging Across Platforms\nProblem: Ensuring seamless messaging between mobile app and web admin panel while maintaining real-time capabilities.\n\nSolution: Integrated Firebase Realtime Database for messaging infrastructure, allowing both mobile and web clients to access the same data. Implemented Laravel-based message storage for persistence and added Firebase Cloud Messaging for push notifications.\n\nChallenge 3: Social Media API Rate Limits & Token Management\nProblem: TikTok and Instagram APIs have strict rate limits and token expiration policies, requiring careful management.\n\nSolution: Implemented background job queues for video syncing and insights fetching. Created token refresh mechanisms and stored access tokens securely. Added error handling and retry logic for API failures.\n\nChallenge 4: Payment Flow Complexity\nProblem: Managing two-way payment flows (brands paying platform, platform paying influencers) with different fee structures and approval workflows.\n\nSolution: Integrated Chip Collect for incoming payments and Chip Send for outgoing transfers. Created a comprehensive payment tracking system with status management. Implemented automated payment release jobs with approval workflows.\n\nChallenge 5: Admin Panel Feature Parity\nProblem: Ensuring the Filament admin panel replicates all mobile app functionality for administrative purposes.\n\nSolution: Built comprehensive Filament resources with relation managers for complex relationships. Created custom pages and widgets to match mobile app workflows. Implemented proper authorization and role-based access control.\n\nChallenge 6: Scalability & Performance\nProblem: Handling large datasets for user discovery, job listings, and analytics without performance degradation.\n\nSolution: Implemented database indexing on frequently queried fields. Used Laravel's query optimization techniques, eager loading to prevent N+1 queries, and caching for expensive operations like suggested contacts and trending lists.\n\nKey Learnings\nAPI Design: Learned to design RESTful APIs that serve both mobile and web clients efficiently, ensuring consistent data structures and error handling.\nThird-party Integration: Gained extensive experience integrating multiple third-party services (payment gateways, social media APIs, Firebase, OpenAI) and handling their unique authentication and error handling requirements.\nReal-time Systems: Deepened understanding of real-time messaging architectures using Firebase, balancing between real-time updates and data persistence.\nPayment Processing: Acquired knowledge of payment gateway integration, escrow systems, fee calculations, and automated payment workflows.\nBackground Jobs: Mastered Laravel's queue system for handling time-consuming tasks like video syncing, analytics fetching, and payment processing without blocking user requests.\nAdmin Panel Development: Learned to leverage Filament for rapid admin panel development while maintaining flexibility for custom requirements.\nProject Planning: Gained experience in full project lifecycle management, from planning and architecture to deployment, collaborating with mobile developers to ensure seamless integration.\nSecurity Best Practices: Implemented JWT authentication, OAuth flows, input validation, and secure file storage practices throughout the application.\n\nConclusion\n\nFEMO represents a comprehensive solution to the challenges in influencer marketing, providing a complete ecosystem for brands and creators to connect, collaborate, and transact securely. The project showcased the power of modern Laravel development combined with strategic third-party integrations to build a scalable, feature-rich platform.\n\nThe dual-platform approach (mobile app + web admin) required careful API design and consistent data structures, while the integration of multiple external services (payment gateways, social media APIs, Firebase, OpenAI) demonstrated the importance of robust error handling and asynchronous processing.\n\nKey achievements include:\nSuccessfully deployed production-ready system handling real transactions\nSeamless integration between mobile app and backend APIs\nComprehensive admin panel replicating mobile functionality\nSecure payment processing with automated workflows\nReal-time messaging and notification system\nSocial media integration with automated content syncing",
+      "role": "Full-Stack Developer",
+      "client": "Femo Malaysia",
+      "projectOwner": "TriSquare Technology",
+      "projectURL": "https://apps.apple.com/my/app/femo-collab-create-dominate/id6743617250",
+      "repoURL": null,
+      "techStack": [
+        "Laravel 11",
+        "PHP 8.2",
+        "Filament 3.2",
+        "Firebase",
+        "JWT Auth",
+        "Chip Payment Gateway",
+        "OpenAI API",
+        "TikTok API",
+        "Instagram API",
+        "Google Cloud Storage",
+        "Laravel Reverb",
+        "Tailwind CSS",
+        "MySQL"
+      ],
+      "date": "2025-06-10T00:00:00.000Z",
+      "slug": "femo",
+      "url": "/projects/femo"
+    },
+    {
+      "title": "InvestED Portal - Backend API & Admin Dashboard",
+      "description": "A robust backend application management system with RESTful API and comprehensive admin dashboard for InvestED's leadership and foundation programmes, featuring automated workflows, role-based access control, and seamless WordPress integration.",
+      "content": "Overview\n\nInvestED Portal is a backend application management system built to streamline the recruitment and selection process for InvestED's leadership and foundation programmes. This project focuses on the backend infrastructure - a RESTful API that receives application submissions from a WordPress frontend form (built by another developer) and a comprehensive admin dashboard for managing the entire application lifecycle.\n\nThe system was architected as a headless backend solution, separating concerns between the public-facing WordPress application form and the administrative backend. The platform addresses the critical need for an efficient, scalable solution to manage hundreds of applications, track candidate progress through multiple stages, and provide powerful administrative tools for processing applications.\n\nArchitecture: The WordPress frontend form submits applications to the Laravel API endpoint (), which processes the data, creates user accounts, handles document storage, and triggers notifications. Administrators then manage these applications through the Filament-based admin dashboard, which provides real-time updates, filtering, and workflow management.\n\nFeatures\n\nRESTful API\nApplication Submission Endpoint: Secure API endpoint () that receives application data from the WordPress frontend form\nDocument URL Processing: Handles document submissions via URLs (from WordPress form) - validates, fetches, and stores PDF documents securely\nAutomated User Creation: Automatically creates user accounts for new applicants with secure password generation and password reset email delivery\nDuplicate Detection: Intelligent system that detects existing applications by NRIC (National Registration Identity Card) and either updates existing records or prevents duplicate submissions\nMulti-Programme Support: Supports multiple programme applications (Foundation, Leadership) with separate tracking for applied vs. processing programmes\nComprehensive Data Validation: Validates all incoming data including personal details, education history, qualifications, English proficiency test scores, and supporting documents\nError Handling: Robust error handling with clear, developer-friendly error messages for WordPress integration\n\nAdmin Dashboard\nReal-time Statistics: Dashboard widgets showing total applications, new applications, shortlisted candidates, and approved applicants with daily trend indicators\nAdvanced Filtering: Filter applications by programme type, status, date range, and custom criteria\nBulk Operations: Archive, unarchive, and manage multiple applications simultaneously\nStatus Workflow Management: Track applications through stages: New → Shortlisted → Interviewed → Approved → Employed, with support for KIV (Keep In View) and Rejected statuses\nActivity Logging: Complete audit trail of all system actions using Spatie Activity Log\n\nCandidate Portal\nSelf-Service Portal: Candidates can view and update their application details through a dedicated \"My Details\" page\nDocument Management: Upload and update resumes (PDF format) with preview capabilities\nVideo Submission: Support for multiple video formats including direct uploads (max 5MB), YouTube links, TikTok links, and other video platforms\nStatus Tracking: Real-time visibility into application status with email notifications for status changes\nProgramme Information: View applied and processing programme assignments\n\nSecurity & Access Control\nRole-Based Access Control (RBAC): Three-tier permission system (Super Admin, Admin, Candidate) using Filament Shield and Spatie Permissions\nTwo-Factor Authentication: Optional 2FA support via Filament Breezy for enhanced security\nAPI Authentication: Secure API endpoints using Laravel Sanctum for external integrations\nSoft Deletes: Applications can be archived and restored without permanent data loss\n\nNotification System\nEmail Notifications: Automated emails for application status changes, password resets, video uploads, and new application submissions\nIn-App Notifications: Real-time notifications within the Filament admin panel\nSmart Notifications: Different notification types for existing users submitting new applications vs. first-time applicants\n\nUser Experience\nResponsive Design: Modern, mobile-friendly interface built with Filament's responsive components\nReal-time Updates: Live polling on application tables (10-second intervals) for instant status updates\nIntuitive Forms: Tabbed interface organizing information into logical sections (Profile, Education, Document, Video)\nSearch Functionality: Quick search by name or NRIC with search-on-blur optimization\nCustom Branding: InvestED branding with custom logo, colors, and favicon\n\nTech Stack\n\nBackend Framework\nLaravel 10: Chosen for its robust ecosystem, excellent documentation, and built-in features like queues, notifications, and file storage\nPHP 8.1+: Leveraging modern PHP features for better performance and type safety\n\nAdmin Panel\nFilament 3.2: Selected for rapid development of admin interfaces without writing custom frontend code. Filament provides:\nPre-built form components with validation\nTable management with sorting, filtering, and pagination\nBuilt-in authentication and authorization\nResponsive design out of the box\nLivewire integration for reactive components\n\nAdmin Dashboard Frontend\nLivewire: Server-side reactive components that eliminate the need for separate JavaScript frameworks while providing real-time interactivity in the admin panel\nVite: Modern build tool for fast development and optimized production builds of admin dashboard assets\nTailwind CSS: Utility-first CSS framework used by Filament for consistent, customizable styling in the admin interface\n\nNote: The public-facing application form is built in WordPress by another developer. This project focuses solely on the backend API and admin dashboard.\n\nAuthentication & Security\nLaravel Sanctum: Lightweight API authentication for secure external integrations\nFilament Shield: Role and permission management specifically designed for Filament panels\nSpatie Permissions: Robust permission system with role-based access control\nFilament Breezy: Two-factor authentication and enhanced security features\n\nData Management\nMySQL: Relational database for structured application data\nSpatie Activity Log: Comprehensive logging of all user actions and system events\nLaravel Soft Deletes: Non-destructive deletion for data recovery and audit purposes\n\nAdditional Packages\nFilament Phone Input: International phone number input with country code support\nFilament Country Field: Country selection component with flag icons\nFilament Apex Charts: Data visualization for dashboard statistics\nFilament Logger: Enhanced logging interface within the admin panel\n\nChallenges & Solutions\n\nChallenge 1: Handling Duplicate Applications\nProblem: Applicants might submit multiple applications using different email addresses but the same NRIC, leading to duplicate records and data inconsistency.\n\nSolution: Implemented intelligent duplicate detection logic in the API controller that:\nChecks for existing applications by NRIC before creating new records\nUpdates existing applications when the same NRIC applies to a different programme\nSends appropriate notifications to existing users when new applications are detected\nMaintains a single source of truth per applicant while supporting multiple programme applications\n\nChallenge 2: Document Management from WordPress Integration\nProblem: The WordPress frontend form submits document URLs rather than direct file uploads, requiring the backend API to securely fetch and store remote files from WordPress media library or external sources.\n\nSolution: \nImplemented URL validation and file fetching using PHP's  with proper error handling\nAdded comprehensive error handling for inaccessible URLs with developer-friendly error messages for WordPress integration\nGenerated unique filenames with timestamps to prevent conflicts and ensure data integrity\nStored documents in Laravel's storage system with proper path management and access control\nCreated a robust system that handles various URL formats and edge cases from WordPress submissions\n\nChallenge 3: Complex Application Status Workflow\nProblem: Applications move through multiple status stages with different rules and notifications for each transition.\n\nSolution:\nCreated an  enum using ArchTech Enums for type-safe status management\nImplemented status-specific business logic and validation\nBuilt notification system that triggers appropriate emails based on status changes\nUsed Filament's badge components to visually distinguish statuses in the admin interface\n\nChallenge 4: Video Link Formatting and Storage\nProblem: Supporting multiple video platforms (YouTube, TikTok, direct uploads) with different storage requirements and validation rules.\n\nSolution:\nCreated a flexible JSON structure to store video links with type metadata\nImplemented automatic platform detection based on URL patterns\nAdded file size limits (5MB) for direct uploads with helpful hints to use external platforms for larger files\nCreated a repeater component in Filament for managing multiple video links per application\n\nChallenge 5: Role-Based Data Access\nProblem: Different user roles need different views and permissions (candidates see only their data, admins see filtered views, super admins see everything).\n\nSolution:\nImplemented comprehensive RBAC using Filament Shield and Spatie Permissions\nCreated custom query scopes to filter data based on user roles\nBuilt role-specific pages (e.g., \"My Details\" for candidates only)\nUsed Filament's authorization hooks to control access to resources and actions\n\nChallenge 6: Real-time Updates Without Performance Impact\nProblem: Admin users need to see application updates in real-time, but constant polling can impact server performance.\n\nSolution:\nImplemented smart polling (10-second intervals) only on the applications list page\nUsed Laravel's query optimization to ensure efficient database queries\nImplemented proper indexing on frequently queried columns (status, created_at, nric)\nAdded caching where appropriate for static data like university lists\n\nKey Learnings\n\nFilament Framework Mastery\nThis project provided deep experience with Filament, a powerful but relatively new admin panel framework. Key learnings include:\nUnderstanding Livewire's reactive component model and how it integrates with Filament\nMastering Filament's form builder for complex, conditional forms\nLearning to extend Filament with custom components and actions\nImplementing proper authorization patterns within Filament's ecosystem\n\nAPI Design and WordPress Integration\nBuilding a backend API that integrates with a WordPress frontend taught valuable lessons:\nDesigning RESTful APIs that are both secure and developer-friendly for cross-platform integration\nHandling file uploads via URLs from WordPress media library vs. direct uploads\nImplementing proper error handling and validation for external integrations with clear, actionable error messages\nBalancing flexibility (accepting various data formats from WordPress) with strict data integrity requirements\nCreating API contracts that allow frontend developers to work independently while maintaining data consistency\nUnderstanding the challenges of headless architecture and ensuring seamless data flow between WordPress and Laravel\n\nComplex Business Logic\nThe application submission workflow with duplicate detection and status management required:\nCareful consideration of edge cases (same NRIC, different emails, multiple programmes)\nDesigning data models that support complex relationships while maintaining referential integrity\nImplementing state machines for application status transitions\nCreating audit trails for compliance and debugging\n\nUser Experience in Admin Panels\nBuilding an admin panel that serves both technical and non-technical users:\nCreating intuitive interfaces that don't require training\nImplementing helpful tooltips and validation messages\nDesigning workflows that prevent user errors (e.g., disabling certain fields based on status)\nBalancing feature richness with simplicity\n\nPerformance Optimization\nManaging a system that could handle hundreds of applications:\nUnderstanding database query optimization and N+1 problem prevention\nImplementing efficient filtering and search functionality\nUsing Laravel's eager loading to reduce database queries\nBalancing real-time updates with server load\n\nConclusion\n\nThe InvestED Portal successfully transformed a manual, error-prone application management process into an automated, scalable backend system. The platform handles the complete application lifecycle from API submission (via WordPress) to employment status tracking, providing value to all stakeholders: candidates benefit from seamless WordPress form integration, administrators have powerful tools to manage applications efficiently through the admin dashboard, and the organization benefits from data consistency and comprehensive audit trails.\n\nThe headless architecture - separating the WordPress frontend from the Laravel backend - proved to be an excellent design decision. This separation of concerns allowed frontend and backend developers to work independently while maintaining a clean API contract. The choice of Laravel for the backend and Filament for the admin dashboard proved ideal for rapid development while maintaining code quality and extensibility. The modular architecture allows for easy feature additions, and the comprehensive notification system ensures all parties stay informed throughout the process.\n\nKey Achievement: Successfully built a robust backend system that seamlessly integrates with WordPress while providing a powerful, user-friendly admin dashboard for application management - all without requiring custom frontend development for the public-facing application form.",
+      "role": "Backend Developer",
+      "client": "InvestED",
+      "projectOwner": "TriSquare Technology",
+      "projectURL": "https://invested.my",
+      "repoURL": null,
+      "techStack": [
+        "Laravel 10",
+        "PHP 8.1",
+        "Filament 3.2",
+        "Livewire",
+        "MySQL",
+        "Laravel Sanctum",
+        "RESTful API",
+        "WordPress Integration"
+      ],
+      "date": "2024-04-29T00:00:00.000Z",
+      "slug": "invested",
+      "url": "/projects/invested"
+    },
+    {
+      "title": "Lily-th",
+      "description": "An adventure game exploring the story of a person with a dual personality. A narrative-driven experience that delves into the complexities of identity and inner conflict.",
+      "content": "Overview\n\nLily-th is an adventure game that tells the story of a person with a dual personality. The game explores themes of identity, inner conflict, and the complexity of human psychology through an engaging narrative-driven experience.\n\nAs a Game Developer, I was responsible for the full development cycle of this project, including game design, programming, and implementation using Unreal Engine 4 (Blueprint and C++).\n\nFeatures\nNarrative-Driven Gameplay: Immersive story that explores dual personality themes\nAdventure Mechanics: Traditional adventure game elements with exploration and interaction\nCharacter Development: Deep character exploration and psychological themes\nEngaging Storytelling: Compelling narrative that keeps players engaged\n\nTech Stack\nUnreal Engine 4: Game engine used for development\nBlueprint & C++: Programming language for game logic and mechanics\n\nDevelopment Experience\n\nThis project allowed me to explore narrative game design and character development. Working on a story-driven adventure game required careful attention to pacing, dialogue, and player engagement. The dual personality theme presented unique challenges in game design, requiring creative solutions to represent internal conflict through gameplay mechanics.\n\nConclusion\n\nLily-th represents my exploration into narrative-driven game development, focusing on storytelling and character psychology. The project demonstrates my ability to create engaging adventure games that go beyond simple gameplay mechanics to explore deeper themes and human experiences.",
+      "role": "Game Developer",
+      "client": null,
+      "projectOwner": "Universiti Teknikal Malaysia Melaka",
+      "projectURL": "https://sattiyans.itch.io/lily-th",
+      "repoURL": null,
+      "techStack": [
+        "Unreal Engine 4",
+        "Blueprints",
+        "C++"
+      ],
+      "date": "2019-06-15T00:00:00.000Z",
+      "slug": "lily-th",
+      "url": "/projects/lily-th"
+    },
+    {
+      "title": "Oblivion",
+      "description": "A simple adventure game made with Unreal Engine 4. An exploration-based experience showcasing 3D game development and level design capabilities.",
+      "content": "Overview\n\nOblivion is a simple adventure game developed using Unreal Engine 4. This project served as an exploration into 3D game development, focusing on level design, world building, and creating an immersive adventure experience.\n\nAs a Game Developer, I was responsible for the entire development process, including level design, gameplay mechanics, and implementation using Unreal Engine 4's powerful tools and Blueprint visual scripting system.\n\nFeatures\n3D Adventure Gameplay: Exploration-based adventure game in a 3D environment\nLevel Design: Carefully crafted levels and environments\nAdventure Mechanics: Traditional adventure game elements with exploration and discovery\nUnreal Engine 4: Leveraging UE4's powerful rendering and game development tools\n\nTech Stack\nUnreal Engine 4: Industry-standard game engine for 3D game development\nBlueprints: Visual scripting system for rapid prototyping and gameplay logic\nC++: Programming language for custom game mechanics and performance-critical systems\n\nDevelopment Experience\n\nWorking with Unreal Engine 4 provided valuable experience in 3D game development, level design, and the Blueprint visual scripting system. This project allowed me to explore UE4's powerful tools for creating immersive 3D environments and implementing adventure game mechanics. The project demonstrated my ability to work with professional-grade game engines and understand 3D game development workflows.\n\nConclusion\n\nOblivion represents my early exploration into 3D game development using Unreal Engine 4. The project showcases my ability to create adventure games with engaging level design and demonstrates proficiency with industry-standard game development tools.",
+      "role": "Game Developer",
+      "client": null,
+      "projectOwner": "Universiti Teknikal Malaysia Melaka",
+      "projectURL": "https://sattiyans.itch.io/oblivion",
+      "repoURL": null,
+      "techStack": [
+        "Unreal Engine 4",
+        "Blueprints",
+        "C++"
+      ],
+      "date": "2018-11-10T00:00:00.000Z",
+      "slug": "oblivion",
+      "url": "/projects/oblivion"
+    },
+    {
+      "title": "Ravage",
+      "description": "A labyrinth or maze genre game with First Person View camera mode. A puzzle game that challenges players to navigate through complex mazes and solve puzzles.",
+      "content": "Overview\n\nRavage is a labyrinth or maze genre game featuring First Person View (FPV) camera mode. This puzzle game challenges players to navigate through complex mazes, solve puzzles, and find their way to the exit.\n\nAs a Game Developer, I developed this project focusing on maze generation, navigation mechanics, and creating an immersive first-person experience that keeps players engaged while solving spatial puzzles.\n\nFeatures\nFirst Person View: Immersive FPV camera mode for navigation\nMaze Generation: Procedurally generated or hand-crafted maze layouts\nPuzzle Elements: Challenging puzzles integrated into the maze experience\nNavigation Challenges: Complex maze layouts that test spatial awareness and problem-solving skills\n\nTech Stack\nUnity: Game engine with first-person controller capabilities\nC#: Programming language for maze generation, navigation logic, and puzzle mechanics\n\nDevelopment Experience\n\nDeveloping a maze game with first-person perspective required careful attention to camera controls, player movement, and spatial design. The project involved implementing smooth first-person controls, creating engaging maze layouts, and ensuring the gameplay remains challenging yet fair. This project taught me the importance of level design in puzzle games and how camera perspective affects player experience.\n\nConclusion\n\nRavage demonstrates my ability to create engaging puzzle games with first-person mechanics. The project showcases skills in level design, spatial puzzle creation, and understanding how camera perspective impacts gameplay experience in maze-based games.",
+      "role": "Game Developer",
+      "client": null,
+      "projectOwner": "Universiti Teknikal Malaysia Melaka",
+      "projectURL": "https://sattiyans.itch.io/ravage",
+      "repoURL": null,
+      "techStack": [
+        "Unity",
+        "C#"
+      ],
+      "date": "2016-09-05T00:00:00.000Z",
+      "slug": "ravage",
+      "url": "/projects/ravage"
+    },
+    {
+      "title": "TNB Subsidiary Management Dashboard (SMD) - UI Redesign & Integration",
+      "description": "Comprehensive UI rework and backend integration for TNB's Subsidiary Management Dashboard, transforming the interface based on modern Figma designs while maintaining robust data management capabilities.",
+      "content": "Overview\n\nThe TNB Subsidiary Management Dashboard (SMD) is a comprehensive enterprise application designed to manage and monitor subsidiaries, financial performance, ESG metrics, risk management, HSE (Health, Safety, Environment) data, and governance oversight for Tenaga Nasional Berhad. This project involved a complete UI redesign based on modern Figma designs provided by the design team, followed by extensive backend controller updates and seamless integration with the new Blade UI components.\n\nThe application serves as a centralized platform for tracking subsidiary performance, board governance, financial metrics, ESG compliance, and operational oversight across TNB's portfolio of companies. The redesign focused on improving user experience, data visualization, and overall interface aesthetics while maintaining the robust functionality required for enterprise-level data management.\n\nProject Scope\n\nPrimary Focus Areas\nUI/UX Redesign: Complete transformation of the user interface based on Figma design specifications\nController Method Updates: Refactoring and updating backend controllers to support new UI components and data flows\nBlade Template Integration: Seamless integration of new Blade UI components with existing Laravel architecture\nDashboard Modernization: Redesign of multiple dashboard views including visual, workbench, and data entry interfaces\n\nFeatures\n\nDashboard Modules\nHome Dashboard: Comprehensive overview with financial metrics, board governance, HSE data, greenhouse gas emissions, and oversight timeline\nTNB Dashboard: High-level organizational overview\nSubsidiaries Dashboard: \nVisual representation of subsidiary relationships\nWorkbench for detailed subsidiary management\nTree view for hierarchical structure visualization\nMatrix view for cross-referencing data\nFinancial Performance Dashboard: Visual and workbench views for financial data analysis\nESG Dashboard: \nVisual dashboard for ESG metrics\nWorkbench for detailed ESG data entry and analysis\nData maturity tracking\nCO₂ equivalent calculations\nInternal MSCI equivalent metrics\nOne-pager summary views\nRisk Management Dashboard: Visual and workbench interfaces for risk tracking and management\nHSE Dashboard: Health, Safety, and Environment metrics visualization and management\nOversight Dashboard: Governance and oversight tracking with visual and workbench views\n\nData Entry Modules\nSubsidiary Management: Create, edit, and manage subsidiary information with tree and matrix views\nDirectorship Management: Track directors and their appointments across subsidiaries\nFinancial Year Management: Manage financial periods and associated data\nESG Data Entry: \nMateriality assessment and tracking\nESG elements management (active year and all-year views)\nHSE Data Entry: Health, safety, and environment incident tracking\nRisk Management: Active risk tracking and management\nOversight Management: Assurance and audit oversight tracking\nUser & Role Management: Comprehensive user administration with role-based permissions\n\nKey Functionalities\nRole-Based Access Control: Implemented using Spatie Laravel Permission package\nAudit Logging: Complete audit trail using Laravel Auditing package\nData Export: PDF and Excel export capabilities for reports and matrices\nResponsive Design: Mobile-friendly interface with adaptive layouts\nInteractive Charts: Chart.js integration for data visualization\nReal-time Data Filtering: Year-based and cluster-based filtering across dashboards\n\nTech Stack\n\nBackend\nLaravel 11: Modern PHP framework providing robust MVC architecture\nPHP 8.2: Latest PHP version for optimal performance\nMySQL: Relational database for data persistence\nSpatie Laravel Permission: Role and permission management\nLaravel Auditing: Comprehensive audit trail functionality\nMaatwebsite Excel: Excel import/export capabilities\nDomPDF: PDF generation for reports\n\nFrontend\nBlade Templates: Laravel's templating engine for server-side rendering\nBootstrap 5: Responsive CSS framework for layout and components\nChart.js: Interactive chart library for data visualization\nVite: Modern build tool for asset compilation\nSCSS: CSS preprocessor for maintainable stylesheets\nJavaScript/jQuery: Client-side interactivity\nInter Font: Modern typography for improved readability\n\nDevelopment Tools\nVite: Fast build tool replacing Laravel Mix\nLaravel UI: Authentication scaffolding\nComposer: PHP dependency management\n\nImplementation Details\n\nUI Redesign Process\nDesign Analysis: Reviewed Figma designs to understand the new visual language, component structure, and user flow\nComponent Mapping: Identified existing Blade components and mapped them to new design requirements\nStyle System: Implemented consistent color palette, typography (Inter font), spacing, and component styling\nLayout Restructuring: Redesigned dashboard layouts with modern card-based designs, improved spacing, and better visual hierarchy\nResponsive Implementation: Ensured all views work seamlessly across desktop, tablet, and mobile devices\n\nController Updates\nDashboardController: Enhanced with new methods for visual and workbench views across all modules\nSubsidiaryController: Updated to support new UI components, tree views, and matrix exports\nData Entry Controllers: Refactored to work with new form layouts and data entry interfaces\nFiltering & Query Optimization: Improved data fetching methods to support new filtering and visualization requirements\n\nKey UI Components Implemented\nModern Card Designs: Redesigned dashboard cards with improved shadows, borders, and spacing\nInteractive Charts: Integrated Chart.js with custom styling matching design specifications\nResponsive Sidebar: Collapsible sidebar navigation with mobile-friendly behavior\nData Tables: Modern table designs with improved readability and responsive behavior\nForm Components: Updated form inputs, selects, and buttons to match design system\nMetric Displays: Redesigned metric cards with icons, gradients, and improved typography\nTimeline Components: Visual timeline displays for oversight tracking\n\nChallenges & Solutions\n\nChallenge 1: Maintaining Backward Compatibility\nProblem: Updating UI while ensuring existing functionality remained intact.\n\nSolution: \nIncremental migration approach, updating one module at a time\nComprehensive testing after each update\nPreserved existing data structures and relationships\nMaintained API compatibility for existing integrations\n\nChallenge 2: Complex Data Relationships\nProblem: The application manages complex relationships between subsidiaries, directors, financial years, and various metrics.\n\nSolution:\nLeveraged Laravel's Eloquent ORM relationships effectively\nImplemented eager loading to optimize queries\nCreated helper methods for complex data aggregations\nUsed database transactions for data integrity\n\nChallenge 3: Responsive Design Implementation\nProblem: Ensuring the new design works seamlessly across all device sizes while maintaining functionality.\n\nSolution:\nMobile-first approach with progressive enhancement\nFlexible grid layouts using Bootstrap 5\nCustom media queries for specific breakpoints\nTouch-friendly interface elements for mobile devices\nCollapsible sidebar with smooth transitions\n\nChallenge 4: Performance Optimization\nProblem: Dashboard views loading large datasets affecting performance.\n\nSolution:\nImplemented query optimization with eager loading\nAdded pagination where appropriate\nLazy loading for charts and heavy components\nCaching strategies for frequently accessed data\nOptimized asset compilation with Vite\n\nChallenge 5: Design-to-Code Translation\nProblem: Accurately translating Figma designs to functional Blade templates while maintaining design fidelity.\n\nSolution:\nClose collaboration with design team for clarification\nCreated reusable Blade components for consistency\nUsed CSS custom properties for design tokens\nImplemented design system with consistent spacing and typography scales\nRegular design reviews to ensure accuracy\n\nKey Learnings\nDesign System Implementation: Learned the importance of establishing a consistent design system early in the project, which significantly improved development speed and UI consistency.\nLaravel Blade Best Practices: Gained deeper understanding of Blade component architecture, partials, and layout inheritance, enabling more maintainable template structures.\nPerformance Optimization: Discovered the importance of query optimization and eager loading in Laravel, especially when dealing with complex relationships and large datasets.\nResponsive Design Patterns: Enhanced skills in creating truly responsive interfaces that work seamlessly across devices, not just mobile breakpoints.\nChart.js Integration: Learned advanced Chart.js customization techniques to match design specifications while maintaining interactivity and performance.\nVersion Control for UI Changes: Understood the importance of incremental commits and feature branches when making extensive UI changes across multiple files.\nCollaboration with Designers: Improved communication skills in translating design requirements into functional code while maintaining design integrity.\nLaravel 11 Features: Explored and implemented new features in Laravel 11, including improved routing, service providers, and middleware capabilities.\n\nTechnical Highlights\nModern UI/UX: Transformed the interface from a traditional enterprise application to a modern, visually appealing dashboard\nComponent Reusability: Created reusable Blade components reducing code duplication\nAccessibility: Improved keyboard navigation and screen reader compatibility\nData Visualization: Enhanced chart implementations with custom styling and interactivity\nExport Functionality: Implemented PDF and Excel export features for various reports\nAudit Trail: Comprehensive audit logging for data changes and user actions\nSecurity: Role-based access control ensuring users only access appropriate data and features\n\nConclusion\n\nThe TNB SMD UI redesign project successfully transformed the application's user interface while maintaining and enhancing its robust backend functionality. The project demonstrated the importance of close collaboration between design and development teams, incremental implementation strategies, and maintaining code quality during extensive refactoring.\n\nThe new interface provides a significantly improved user experience with modern design patterns, better data visualization, and responsive layouts. The updated controller methods and Blade integration ensure the application remains maintainable and scalable for future enhancements.",
+      "role": "Full-Stack Developer",
+      "client": "Universiti Tenaga Nasional (UNITEN)",
+      "projectOwner": "TriSquare Technology",
+      "projectURL": null,
+      "repoURL": null,
+      "techStack": [
+        "Laravel 11",
+        "PHP 8.2",
+        "Blade Templates",
+        "Bootstrap 5",
+        "Chart.js",
+        "Vite",
+        "JavaScript",
+        "SCSS",
+        "MySQL"
+      ],
+      "date": "2025-06-19T00:00:00.000Z",
+      "slug": "smd-tnb",
+      "url": "/projects/smd-tnb"
+    }
+  ],
+  "work": [
+    {
+      "company": "Crave Asia",
+      "role": "Unity Web Developer",
+      "dateStart": "03/01/2020",
+      "dateEnd": "09/01/2021",
+      "content": "Spearheaded the planning, design, development, and integration of interactive applications for both in-house and external client projects, utilizing Unity and PHP to create engaging and user-friendly applications.\nProvided direct support to clients by assisting with software and hardware installations and troubleshooting technical difficulties, ensuring prompt and efficient problem resolution.\nConducted extensive research and development of various systems and software tools to facilitate brainstorming and inform new and existing projects.\nLed the software development and installation for multiple projects, ensuring on-time delivery and optimal performance.\nDesigned visually compelling promo banners for Clinique Malaysia and crafted landing page mock-ups for Dior Malaysia and Dior Singapore, using Adobe Photoshop and other design tools to create engaging and brand-aligned designs.",
+      "slug": "craveasia_1",
+      "url": "/work/craveasia_1"
+    },
+    {
+      "company": "Crave Asia",
+      "role": "Web Developer",
+      "dateStart": "09/01/2021",
+      "dateEnd": "08/01/2023",
+      "content": "Planned, designed, and developed web applications and EDMs for internal and external clients, including PETRONAS, Hada Labo Malaysia, Moist Diane Malaysia, and Olive Young Malaysia, to ensure optimal functionality, usability, and engagement.\nConducted research and integrated various APIs, including WhatsApp Cloud API, Twilio SMS API, SendGrid API, and others, to improve the functionality and user experience of web applications.\nDesigned and developed high-converting landing pages for both internal and client projects, including Hada Labo Malaysia and KENS Apothecary, utilizing Bootstrap 4 & 5, Tailwind CSS, and Astro JS to create visually appealing and responsive designs.\nManaged and updated content and layouts for Clinique Malaysia, MAC Cosmetics Malaysia, Estee Lauder Malaysia, and Jo Malone Malaysia e-commerce sites, ensuring a seamless user experience and adherence to brand guidelines.\nPlayed a crucial role in the successful launch of e-commerce sites for Jo Malone Malaysia, Jo Malone Singapore, Jo Malone Philippines, Jo Malone Vietnam, Estee Lauder Singapore, and Estee Lauder Vietnam, closely collaborating with the ELC Online Global & Regional team.\nManaged retainer projects for DIOR Malaysia and DIOR Singapore, handling content updates on Shopify platforms as needed.",
+      "slug": "craveasia_2",
+      "url": "/work/craveasia_2"
+    },
+    {
+      "company": "DMC FinCap",
+      "role": "Software Developer",
+      "dateStart": "08/01/2023",
+      "dateEnd": "03/01/2024",
+      "content": "Proficient in TALL stack (Tailwind CSS, Alpine JS, Laravel, and Livewire) along with FilamentPHP, driving the development and evolution of our in-house web application.\nCollaborate with diverse teams to understand their unique requirements and deliver technology solutions that align with DMC FinCap's mission to provide innovative financial services.",
+      "slug": "dmcfincap",
+      "url": "/work/dmcfincap"
+    },
+    {
+      "company": "Dotkod Solutions",
+      "role": "Founder & Web Developer",
+      "dateStart": "10/01/2023",
+      "dateEnd": "Current",
+      "content": "Founded and scaled Dotkod Solutions as a remote-first digital agency providing affordable, high-quality tech solutions for SMEs and startups.\nLed end-to-end client projects: consultation, project planning, development, integration, testing, and deployment.\nSpecialized in e-commerce (Shopify, WooCommerce) and custom web applications (Laravel, React, Next.js).\nDirected branding, marketing, and financial strategy to drive growth and visibility.\nCurrently leading development of the company's first SaaS product, focusing on automation and AI-driven business tools.\nBuilt long-term client relationships by delivering continual support and tailored digital solutions.",
+      "slug": "dotkod",
+      "url": "/work/dotkod"
+    },
+    {
+      "company": "TriSquare Technology (M) Sdn Bhd",
+      "role": "Senior PHP Developer (Laravel)",
+      "dateStart": "04/01/2024",
+      "dateEnd": "Current",
+      "content": "Spearheaded development of new Laravel projects (v9–12), handling end-to-end processes: database design, feature planning, coding, testing, and VPS deployments (Nginx, MySQL, PostgreSQL).\nBuilt and enhanced systems with FilamentPHP v3 & v4, delivering intuitive and efficient admin dashboards.\nIntegrated diverse payment gateways: CHIP (sandbox → production), Spayz, Amopay, and custom international gateways.\nImplemented AI-powered features using OpenAI APIs, including smart automation and chatbot functionality.\nDeveloped and deployed WhatsApp AI chatbot solutions for business communication.\nAutomated workflows with n8n, streamlining data processing and integrations.\nEngineered innovative features like AR-based skin analysis by integrating external APIs (RapidAPI).",
+      "slug": "trisquare",
+      "url": "/work/trisquare"
+    }
+  ],
+  "blog": [
+    {
+      "title": "Getting started",
+      "description": "Hit the ground running.",
+      "content": "The basic configuration of Nano is pretty simple.\n\nEdit \n\nCustomize the base site\n\n| Field | Req | Description |\n| :---- | :-- | :-----------|\n| NAME | Yes | Displayed in header and footer. Used in SEO and RSS. |\n| EMAIL | Yes | Displayed in contact section. |\n| NUMPOSTS | Yes | Limit num of posts on home page. |\n| NUMWORKS | Yes | Limit num of works on home page. |\n| NUM_PROJECTS | Yes | Limit num of projects on home page. |\n\nCustomize your page metadata\n\n| Field | Req | Description |\n| :---- | :-- | :-----------|\n| TITLE | Yes | Displayed in browser tab. Used in SEO and RSS. |\n| DESCRIPTION | Yes | Used in SEO and RSS. |\n\nCustomize your social media\n\n| Field | Req | Description |\n| :---- | :-- | :-----------|\n| NAME | Yes | Displayed in contact section as a link. |\n| HREF | Yes | External url to social media profile. |",
+      "date": "Mar 22 2024",
+      "slug": "01-getting-started",
+      "url": "/blog/01-getting-started"
+    },
+    {
+      "title": "Blog Collection",
+      "description": "How to add posts to your blog.",
+      "content": "The  collections is found in .\n\nWorking with the  collection:\n\nIn the above example, two static pages will be generated, based on the existence of a classic markdown  file or a jsx compatible markdown  file. The folder name represents the slug:\nAll content must be preceded by required metadata in the markdown file in  format, and be enclosed by triple dashes. --- ---\n\nMetadata fields\n\n| Field       | Req | Type    | Remarks                                          |\n| :---------- | :-- | :------ | :----------------------------------------------- |\n| title       | Yes | string  | Title of the content. Used in SEO and RSS.       |\n| description | Yes | string  | Description of the content. Used in SEO and RSS. |\n| date        | Yes | string  | Must be a valid date string (able to be parsed). |\n| draft       | No* | boolean | draft: true, content will not be published.      |\n\nAll that's left to do is write your content under the metadata.\n\n🎉 Congrats, you are now a blogger.",
+      "date": "Mar 21 2024",
+      "slug": "02-blog-collection",
+      "url": "/blog/02-blog-collection"
+    },
+    {
+      "title": "Projects Collection",
+      "description": "How to add projects to your portfolio.",
+      "content": "The  collections is found in .\n\nWorking with the  collection:\n\nIn the above example, two static pages will be generated, based on the existence of a classic markdown  file or a jsx compatible markdown  file. The folder name represents the slug:\nAll content must be preceded by required metadata in the markdown file in  format, and be enclosed by triple dashes. --- ---\n\nMetadata fields\n\n| Field       | Req | Type    | Remarks                                          |\n| :---------- | :-- | :------ | :----------------------------------------------- |\n| title       | Yes | string  | Title of the content. Used in SEO and RSS.       |\n| description | Yes | string  | Description of the content. Used in SEO and RSS. |\n| date        | Yes | string  | Must be a valid date string (able to be parsed). |\n| draft       | No  | boolean | draft: true, content will not be published.      |\n| demoURL     | No  | string  | Link to live project demo, if applicable.        |\n| repoURL     | No  | string  | Link to project repo, if applicable.             |\n\nAll that's left to do is write your content under the metadata.\n\n🎉 Congrats, you are now a blogger, and developer.",
+      "date": "Mar 20 2024",
+      "slug": "03-projects-collection",
+      "url": "/blog/03-projects-collection"
+    },
+    {
+      "title": "Work Collection",
+      "description": "How to add work experience.",
+      "content": "The  collections is found in .\n\nWorking with the  collection:\n\nIn the above example, four entries on the /work page will be generated.\n\n, , , \n\nAll content must be preceded by required metadata in the markdown file in  format, and be enclosed by triple dashes. --- ---\n\nMetadata fields\n\n| Field       | Req | Type    | Remarks                                          |\n| :---------- | :-- | :------ | :----------------------------------------------- |\n| company     | Yes | string  | Company name.                                    |\n| role        | Yes | string  | Role at the company. Ex: Full stack developer.   |\n| dateStart   | Yes | string  | Date string that can be parsed to a date.        |\n| dateEnd     | Yes | string  | Date string that can be parsed to a date.        |\n\n\\* Note: If you are still employed at company, for dateEnd you can enter Current, \nNow or Present instead of a date.\n\nAll that's left to do is write your content under the metadata.\n\n🎉 Congrats, you are now a blogger, and developer, and employed.",
+      "date": "Mar 19 2024",
+      "slug": "04-work-collection",
+      "url": "/blog/04-work-collection"
+    },
+    {
+      "title": "Markdown syntax guide",
+      "description": "Get started writing content in markdown.",
+      "content": "Headings\n\nTo create headings, use hash symbols (#) followed by a space. The number of hash symbols indicates the heading level.\n\n<h1>Heading 1</h1>\n<h2>Heading 2</h2>\n<h3>Heading 3</h3>\n<h4>Heading 4</h4>\n<h5>Heading 5</h5>\n<h6>Heading 6</h6>\n\nParagraphs\n\nSimply type non-indented text, surrounded by empty lines.\n\nI really like using Markdown.\n\nI think I'll use it to format all of my content from now on.\n\nBold\n\nUse double  or  to denote bold text.\n\nIt was the best of times,<br/>\nit was the _worst of times\n\nItalic\n\nUse single  to denote italic text.\n\nit was the age of wisdom,<br/>\nit was the age of foolishness\n\nBold and Italic\n\nUse ,  and  to combine effects.\n\nit was the season of light,<br/> \nit was the season of darkness_\n\nLine breaks\n\nUse triple  to denote a line break.\n\nLinks\n\nLinks can be added using the  pattern.\n\nNano was made with Astro\n\nQuick link\n\nAdd an quick link using the  pattern.\n\n<http://www.example.com>\n\nEmail link\n\nAdd an email link using the  pattern.\n\nEmail me at <markhorn.dev@gmail.com> using your mail app.\n\nOrdered Lists\n\nAdd a number followed by a period for items. For sub items, indent.\nItem 1\nItem 2\nSub item 1\nSub item 2\nItem 3\n\nUnordered List\n\nAdd a  or  for items. Don't mix. For sub items, indent.\nItem 1\nItem 2\nSub item 1\nSub item 2\nItem 3\n\nRelative Image\n\nUse the  pattern relative to the same folder as the markdown file. Notice the period.\n\n!Square Pants\n\nPublic Image\n\nUse the  pattern relative to the public folder. No period.\n\n!Patrick Starfish\n\nExternal Image\n\nUse the  pattern.\n\n!Mr. Krabs\n\nBlockquotes\n\nTo add a blockquote add a  before a paragraph. For multi-line blockquotes,\nadd additional  for each line and include an empty spacer line.\n\n> it was the spring of hope, it was the winter of despair.\n>\n> ~ Charles Dickens\n\nStrikethrough\n\nUse the tilde  symbol to strikethrough text.\n\n~The earth is round.~ The earth is flat.\n\nSubscript\n\nUse the  tag to denote subscript.\n\nH<sub>2</sub>O\n\nSuperscript\n\nUse the  tag to denote superscript.\n\nE=mc<sup>2</sup>\n\nKeyboard\n\nUse the  tag to denote keys on the keyboard.\n\n<kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd>\n\nAbbreviate\n\nUse the  tag to denote abbreviation.\n\n<abbr title=\"Graphics Interchange Format\">GIF</abbr>\n\nHighlight\n\nUse the  tag to denote highlighted text.\n\n<mark>Very important text</mark>\n\nTask Lists\n\nCombine a list with 2 square brackets.  incomplete  complete.\n[x] Take out trash\n[ ] Mow the lawn\n[ ] Buy more bitcoin\n\nTables\n\nUse  for header,  for columns,  for alignment.\n\n| Item    | Buy |\n| :------ | --: |\n| Bread   | 1   |\n| Milk    | 1   |\n| Haribo  | 10  |\n\nFootnotes\n\nAdd a caret and an id inside brackets  to create a footnote.\n\nHere's a simple footnote, [^1] and here's a another one. [^2]\n[^1]: This is the first footnote.\n[^2]: This is the second footnote.\n\nSee the bottom of the page to view the footnotes.\n\nCode\n\nUse backticks package.json\n\nConclusion\n\nPlease refer to markdownguide.org for best practices as well as advanced and extended syntax.\n\nhttps://www.markdownguide.org/basic-syntax\nhttps://www.markdownguide.org/extended-syntax/",
+      "date": "Mar 17 2024",
+      "slug": "05-markdown-syntax",
+      "url": "/blog/05-markdown-syntax"
+    },
+    {
+      "title": "Year sorting example",
+      "description": "Nano groups posts by year.",
+      "content": "This post is to demonstrate the year sorting capabilities.",
+      "date": "12/31/2023",
+      "slug": "07-year-sorting-example",
+      "url": "/blog/07-year-sorting-example"
+    },
+    {
+      "title": "Draft example",
+      "description": "Setting draft flag to true to hide this post.",
+      "content": "This post is to demonstrate the year sorting capabilities.\n\nIf you are seeing this post, edit  and enter  in the metadata.",
+      "date": "12/31/2022",
+      "slug": "08-draft-example",
+      "url": "/blog/08-draft-example"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Letterboxd Analytics",
+      "description": "Analyze your Letterboxd activity with detailed statistics, ratings breakdown, and viewing patterns.",
+      "href": "/tools/letterboxd-analytics",
+      "category": "Analytics"
+    },
+    {
+      "name": "Base64 Encoder/Decoder",
+      "description": "Convert text to Base64 encoding or decode Base64 back to text. Simple and fast text conversion.",
+      "href": "/tools/base64",
+      "category": "Text Tools"
+    },
+    {
+      "name": "Color Converter",
+      "description": "Convert colors between HEX, RGB, HSL, and HSV formats. Pick colors visually and get all format codes.",
+      "href": "/tools/color-converter",
+      "category": "Design Tools"
+    },
+    {
+      "name": "Password Generator",
+      "description": "Generate secure, random passwords with customizable length and character sets. Create strong passwords.",
+      "href": "/tools/password-generator",
+      "category": "Security Tools"
+    }
+  ],
+  "uses": {
+    "hardware": [
+      {
+        "name": "MacBook Air M2",
+        "description": "512GB SSD, 16GB RAM"
+      },
+      {
+        "name": "Acer PM161Q",
+        "description": "15.6\" Portable Monitor"
+      },
+      {
+        "name": "Logitech MX Keys for Mac",
+        "description": "Wireless keyboard"
+      },
+      {
+        "name": "Logitech MX Master 3S for Mac",
+        "description": "Wireless mouse"
+      },
+      {
+        "name": "UGREEN HiTune H6 Pro",
+        "description": "Wireless earbuds"
+      }
+    ],
+    "software": [
+      {
+        "name": "Cursor",
+        "description": "AI-powered code editor"
+      },
+      {
+        "name": "Warp",
+        "description": "Terminal emulator"
+      },
+      {
+        "name": "Safari",
+        "description": "Web browser"
+      },
+      {
+        "name": "Google Chrome",
+        "description": "Web browser"
+      },
+      {
+        "name": "Figma",
+        "description": "Design and prototyping"
+      },
+      {
+        "name": "Apple Notes",
+        "description": "Note-taking"
+      },
+      {
+        "name": "Spotify",
+        "description": "Music streaming"
+      }
+    ],
+    "development": [
+      {
+        "name": "Laravel",
+        "description": "PHP framework"
+      },
+      {
+        "name": "PHP",
+        "description": "Backend language"
+      },
+      {
+        "name": "JavaScript/TypeScript",
+        "description": "Frontend language"
+      },
+      {
+        "name": "React",
+        "description": "Frontend framework"
+      },
+      {
+        "name": "Next.js",
+        "description": "React framework"
+      },
+      {
+        "name": "Tailwind CSS",
+        "description": "CSS framework"
+      },
+      {
+        "name": "Bootstrap",
+        "description": "CSS framework"
+      },
+      {
+        "name": "MySQL",
+        "description": "Database"
+      },
+      {
+        "name": "PostgreSQL",
+        "description": "Database"
+      },
+      {
+        "name": "Git",
+        "description": "Version control"
+      },
+      {
+        "name": "Nginx",
+        "description": "Web server"
+      },
+      {
+        "name": "n8n",
+        "description": "Workflow automation"
+      }
+    ],
+    "services": [
+      {
+        "name": "GitHub",
+        "description": "Code hosting"
+      },
+      {
+        "name": "Vercel",
+        "description": "Frontend deployment"
+      },
+      {
+        "name": "Supabase",
+        "description": "Backend as a Service"
+      },
+      {
+        "name": "Digital Ocean",
+        "description": "VPS hosting"
+      },
+      {
+        "name": "Stripe",
+        "description": "Payment processing"
+      },
+      {
+        "name": "OpenAI API",
+        "description": "AI integration"
+      },
+      {
+        "name": "n8n",
+        "description": "Workflow automation"
+      },
+      {
+        "name": "Figma",
+        "description": "Design collaboration"
+      },
+      {
+        "name": "Redis",
+        "description": "Caching"
+      },
+      {
+        "name": "Sentry",
+        "description": "Error tracking"
+      },
+      {
+        "name": "Resend",
+        "description": "Email service"
+      }
+    ]
+  },
+  "skills": [
+    "Blade Templates",
+    "Blueprints",
+    "Bootstrap 5",
+    "C#",
+    "C++",
+    "CMS",
+    "Chart.js",
+    "Chip Payment Gateway",
+    "Drag & Drop Builder",
+    "Filament 3.2",
+    "Firebase",
+    "Google Cloud Storage",
+    "Instagram API",
+    "JWT Auth",
+    "JavaScript",
+    "Laravel 10",
+    "Laravel 11",
+    "Laravel Reverb",
+    "Laravel Sanctum",
+    "Livewire",
+    "MySQL",
+    "OpenAI API",
+    "PHP 8.1",
+    "PHP 8.2",
+    "RESTful API",
+    "Responsive Design",
+    "SCSS",
+    "Tailwind CSS",
+    "TikTok API",
+    "Unity",
+    "Unreal Engine 4",
+    "Vite",
+    "Wix",
+    "WordPress Integration"
+  ]
+}

@@ -5,5 +5,6 @@ import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
   site: "https://sattiyans.com",
+  output: "hybrid", // Enable server-side rendering for API routes
   integrations: [mdx(), sitemap(), tailwind()],
 });

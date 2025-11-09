@@ -11,7 +11,8 @@
     "preview:network": "astro preview --host",
     "astro": "astro",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "generate:kb": "node scripts/generate-knowledge-base.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.9",

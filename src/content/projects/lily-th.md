@@ -37,3 +37,4 @@ This project allowed me to explore narrative game design and character developme
 
 Lily-th represents my exploration into narrative-driven game development, focusing on storytelling and character psychology. The project demonstrates my ability to create engaging adventure games that go beyond simple gameplay mechanics to explore deeper themes and human experiences.
 
+
