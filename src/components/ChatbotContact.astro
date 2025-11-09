@@ -38,7 +38,7 @@
     </div>
     
     <!-- Input Container -->
-    <div class="bg-gray-100 dark:bg-black rounded-full shadow-2xl border border-black/15 dark:border-white/20 backdrop-blur-sm hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-300">
+    <div id="chatbot-input-container" class="bg-gray-100 dark:bg-black rounded-full shadow-2xl border border-black/15 dark:border-white/20 backdrop-blur-sm hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-300">
       <div class="px-6 py-4 relative">
         <div class="flex items-center gap-3">
           <!-- AI Icon -->
@@ -49,13 +49,16 @@
           </div>
           
           <!-- Input Field -->
-          <input 
-            type="text" 
-            id="chatbot-input" 
-            placeholder="Ask me anything..." 
-            class="chatbot-input chatbot-element w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-700 dark:placeholder-gray-300 focus:outline-none text-sm transition-all duration-300 focus:scale-105"
-            style="font-size: 16px;"
-          />
+          <div class="relative w-full">
+            <input 
+              type="text" 
+              id="chatbot-input" 
+              placeholder="Hi, I'm Luna. Ask me anything about Sattiyan." 
+              class="chatbot-input chatbot-element w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-700 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-none text-sm transition-all duration-300 focus:scale-105"
+              style="font-size: 16px; border: none; outline: none;"
+            />
+            <div id="chatbot-suggestions" class="chatbot-suggestions hidden absolute bottom-full left-0 right-0 mb-2 bg-black dark:bg-black border border-white/20 dark:border-white/20 rounded-lg shadow-lg max-h-48 overflow-y-auto z-50"></div>
+          </div>
           
           <!-- Send Icon -->
           <div class="send-icon flex-shrink-0 opacity-0 transition-all duration-300 chatbot-element hover:text-blue-500 dark:hover:text-blue-400">
@@ -98,7 +101,7 @@
     </div>
     
     <!-- Input Container (Mobile) -->
-    <div class="bg-gray-100 dark:bg-black rounded-full shadow-2xl border border-black/15 dark:border-white/20 backdrop-blur-sm hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-500">
+    <div id="chatbot-mobile-input-container" class="bg-gray-100 dark:bg-black rounded-full shadow-2xl border border-black/15 dark:border-white/20 backdrop-blur-sm hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-500">
       <div class="px-4 py-3 relative">
         <div class="flex items-center gap-2">
           <!-- AI Icon -->
@@ -109,13 +112,16 @@
           </div>
           
           <!-- Input Field -->
-          <input 
-            type="text" 
-            id="chatbot-mobile-input" 
-            placeholder="Ask me anything..." 
-            class="chatbot-mobile-input w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-700 dark:placeholder-gray-300 focus:outline-none text-sm transition-all duration-300"
-            style="font-size: 16px;"
-          />
+          <div class="relative w-full">
+            <input 
+              type="text" 
+              id="chatbot-mobile-input" 
+              placeholder="Hi, I'm Luna. Ask me anything about Sattiyan." 
+              class="chatbot-mobile-input w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-700 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-none text-sm transition-all duration-300"
+              style="font-size: 16px; border: none; outline: none;"
+            />
+            <div id="chatbot-suggestions-mobile" class="chatbot-suggestions hidden absolute bottom-full left-0 right-0 mb-2 bg-black dark:bg-black border border-white/20 dark:border-white/20 rounded-lg shadow-lg max-h-48 overflow-y-auto z-50"></div>
+          </div>
           
           <!-- Send Icon -->
           <div class="send-icon-mobile flex-shrink-0 opacity-0 transition-all duration-300 hover:text-blue-500 dark:hover:text-blue-400">
@@ -202,6 +208,61 @@
     position: relative;
     z-index: 2;
     font-size: 16px !important; /* Prevent zoom on mobile */
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    line-height: 1.5 !important;
+    min-height: 2.5rem !important;
+  }
+  
+  .chatbot-input::placeholder {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .chatbot-input:focus,
+  .chatbot-input:active,
+  .chatbot-input:focus-visible,
+  .chatbot-input:focus-within {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    ring: none !important;
+    --tw-ring-width: 0 !important;
+    --tw-ring-offset-width: 0 !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-opacity: 0 !important;
+  }
+  
+  /* Remove any browser default focus styles */
+  .chatbot-input::-webkit-focus-ring-color {
+    outline: none !important;
+  }
+  
+  /* Prevent container from showing focus border */
+  .chatbot-input:focus ~ *,
+  .chatbot-input:focus + * {
+    border-color: inherit !important;
+  }
+  
+  /* Prevent parent container from showing blue border on focus */
+  #chatbot-input-container:focus-within,
+  #chatbot-input-container:has(.chatbot-input:focus) {
+    border-color: rgba(0, 0, 0, 0.15) !important;
+    outline: none !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    --tw-ring-width: 0 !important;
+    --tw-ring-color: transparent !important;
+  }
+  
+  .dark #chatbot-input-container:focus-within,
+  .dark #chatbot-input-container:has(.chatbot-input:focus) {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    outline: none !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    --tw-ring-width: 0 !important;
+    --tw-ring-color: transparent !important;
   }
   
   /* Mobile collapsed circle animation */
@@ -225,32 +286,78 @@
   }
   
   .chatbot-mobile-expanded .chatbot-mobile-input {
-    min-height: 28px;
+    min-height: 2.5rem;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    line-height: 1.5 !important;
   }
   
+  .chatbot-mobile-input::placeholder {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .chatbot-mobile-input:focus,
+  .chatbot-mobile-input:active,
+  .chatbot-mobile-input:focus-visible,
+  .chatbot-mobile-input:focus-within {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    ring: none !important;
+    --tw-ring-width: 0 !important;
+    --tw-ring-offset-width: 0 !important;
+    --tw-ring-color: transparent !important;
+    --tw-ring-opacity: 0 !important;
+  }
+  
+  /* Remove any browser default focus styles */
+  .chatbot-mobile-input::-webkit-focus-ring-color {
+    outline: none !important;
+  }
+  
+  /* Prevent container from showing focus border */
+  .chatbot-mobile-input:focus ~ *,
+  .chatbot-mobile-input:focus + * {
+    border-color: inherit !important;
+  }
+  
+  /* Prevent parent container from showing blue border on focus */
+  #chatbot-mobile-input-container:focus-within,
+  #chatbot-mobile-input-container:has(.chatbot-mobile-input:focus) {
+    border-color: rgba(0, 0, 0, 0.15) !important;
+    outline: none !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    --tw-ring-width: 0 !important;
+    --tw-ring-color: transparent !important;
+  }
+  
+  .dark #chatbot-mobile-input-container:focus-within,
+  .dark #chatbot-mobile-input-container:has(.chatbot-mobile-input:focus) {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    outline: none !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    --tw-ring-width: 0 !important;
+    --tw-ring-color: transparent !important;
+  }
+  
+  /* Animated Border Mobile - Hidden */
   .chatbot-mobile-expanded .animated-border-mobile {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-    border-radius: 1px;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: none;
   }
   
   .dark .chatbot-mobile-expanded .animated-border-mobile {
-    background: linear-gradient(90deg, #60a5fa, #a78bfa, #22d3ee);
+    display: none;
   }
   
   .chatbot-mobile-input:focus ~ .animated-border-mobile {
-    width: 80%;
-    animation: borderGlow 2s infinite ease-in-out;
+    display: none;
   }
   
   .dark .chatbot-mobile-input:focus ~ .animated-border-mobile {
-    animation: borderGlowDark 2s infinite ease-in-out;
+    display: none;
   }
   
   /* Mobile optimizations */
@@ -282,30 +389,21 @@
     transform: translateX(0) scale(1.1);
   }
   
-  /* Animated Border */
+  /* Animated Border - Hidden */
   .animated-border {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-    border-radius: 1px;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: none;
   }
   
   .dark .animated-border {
-    background: linear-gradient(90deg, #60a5fa, #a78bfa, #22d3ee);
+    display: none;
   }
   
   .chatbot-input:focus ~ .animated-border {
-    width: 80%;
-    animation: borderGlow 2s infinite ease-in-out;
+    display: none;
   }
   
   .dark .chatbot-input:focus ~ .animated-border {
-    animation: borderGlowDark 2s infinite ease-in-out;
+    display: none;
   }
   
   @keyframes borderGlow {
@@ -560,6 +658,41 @@
       
       this.conversationHistory = [];
       this.isLoading = false;
+      this.contactFlow = null; // { type: 'contact'|'service', step: 'name'|'email'|'message'|'project', data: {}, whatsapp?: string }
+      this.suggestionsContainer = document.getElementById('chatbot-suggestions');
+      this.suggestionsContainerMobile = document.getElementById('chatbot-suggestions-mobile');
+      this.suggestionTimeout = null;
+      this.lastTopic = null;
+      
+      // Dynamic placeholders based on context
+      this.contextPlaceholders = {
+        default: "Hi, I'm Luna. Ask me anything about Sattiyan.",
+        films: "Ask me about other films Sattiyan watched, or his movie preferences...",
+        projects: "Ask about other projects, or Sattiyan's work experience...",
+        tools: "Ask about other tools Sattiyan developed, or his skills...",
+        work: "Ask about Sattiyan's other work experience, or his projects...",
+        skills: "Ask about Sattiyan's projects using these skills, or his work...",
+        blog: "Ask about other blog posts, or Sattiyan's thoughts...",
+        contact: "Hi, I'm Luna. Ask me anything about Sattiyan.",
+        service: "Hi, I'm Luna. Ask me anything about Sattiyan."
+      };
+      
+      // Placeholders for contact/service flow steps
+      this.flowPlaceholders = {
+        name: "Your name",
+        email: "Your email address",
+        message: "Your message",
+        project: "Tell us about your project"
+      };
+      
+      // Common suggestions
+      this.suggestions = [
+        "What projects has Sattiyan worked on?",
+        "Tell me about Sattiyan's skills",
+        "What tools has Sattiyan developed?",
+        "I want to get in touch",
+        "I'm interested in hiring Sattiyan"
+      ];
       
       this.init();
     }
@@ -575,14 +708,53 @@
       
       this.input.addEventListener('focus', () => {
         this.addFocusEffects();
+        // Don't show suggestions if in contact/service flow
+        if (this.contactFlow) {
+          if (this.suggestionsContainer) {
+            this.suggestionsContainer.classList.add('hidden');
+          }
+          return;
+        }
+        // Show suggestions immediately on focus if input is empty
+        if (!this.input.value.trim()) {
+          this.showAllSuggestions(this.suggestionsContainer);
+        } else if (this.input.value.trim().length >= 2) {
+          // Only show if user has typed at least 2 characters
+          this.handleSuggestions(this.input.value, this.suggestionsContainer);
+        }
       });
       
       this.input.addEventListener('blur', () => {
         this.removeFocusEffects();
       });
       
-      this.input.addEventListener('input', () => {
+      this.input.addEventListener('input', (e) => {
         this.handleInputChange();
+        // Don't show suggestions if in contact/service flow
+        if (this.contactFlow) {
+          if (this.suggestionsContainer) {
+            this.suggestionsContainer.classList.add('hidden');
+          }
+          return;
+        }
+        // Only show suggestions after typing at least 2 characters
+        if (e.target.value.trim().length >= 2) {
+          this.handleSuggestions(e.target.value, this.suggestionsContainer);
+        } else {
+          // Hide if less than 2 characters
+          if (this.suggestionsContainer) {
+            this.suggestionsContainer.classList.add('hidden');
+          }
+        }
+      });
+      
+      this.input.addEventListener('blur', () => {
+        // Delay hiding suggestions to allow clicking on them
+        setTimeout(() => {
+          if (this.suggestionsContainer) {
+            this.suggestionsContainer.classList.add('hidden');
+          }
+        }, 200);
       });
       
       // Mobile input
@@ -595,14 +767,53 @@
       
       this.mobileInput.addEventListener('focus', () => {
         this.addFocusEffects();
+        // Don't show suggestions if in contact/service flow
+        if (this.contactFlow) {
+          if (this.suggestionsContainerMobile) {
+            this.suggestionsContainerMobile.classList.add('hidden');
+          }
+          return;
+        }
+        // Show suggestions immediately on focus if input is empty
+        if (!this.mobileInput.value.trim()) {
+          this.showAllSuggestions(this.suggestionsContainerMobile);
+        } else if (this.mobileInput.value.trim().length >= 2) {
+          // Only show if user has typed at least 2 characters
+          this.handleSuggestions(this.mobileInput.value, this.suggestionsContainerMobile);
+        }
       });
       
       this.mobileInput.addEventListener('blur', () => {
         this.removeFocusEffects();
       });
       
-      this.mobileInput.addEventListener('input', () => {
+      this.mobileInput.addEventListener('input', (e) => {
         this.handleMobileInputChange();
+        // Don't show suggestions if in contact/service flow
+        if (this.contactFlow) {
+          if (this.suggestionsContainerMobile) {
+            this.suggestionsContainerMobile.classList.add('hidden');
+          }
+          return;
+        }
+        // Only show suggestions after typing at least 2 characters
+        if (e.target.value.trim().length >= 2) {
+          this.handleSuggestions(e.target.value, this.suggestionsContainerMobile);
+        } else {
+          // Hide if less than 2 characters
+          if (this.suggestionsContainerMobile) {
+            this.suggestionsContainerMobile.classList.add('hidden');
+          }
+        }
+      });
+      
+      this.mobileInput.addEventListener('blur', () => {
+        // Delay hiding suggestions to allow clicking on them
+        setTimeout(() => {
+          if (this.suggestionsContainerMobile) {
+            this.suggestionsContainerMobile.classList.add('hidden');
+          }
+        }, 200);
       });
       
       // Desktop send icon click handler
@@ -645,7 +856,7 @@
         });
       }
       
-      this.updatePlaceholder("Ask me anything...");
+      this.updatePlaceholder("Hi, I'm Luna. Ask me anything about Sattiyan.");
     }
     
     addFocusEffects() {
@@ -715,15 +926,101 @@
       }
     }
     
-    handleMobileSend() {
+    async handleMobileSend() {
       const message = this.mobileInput.value.trim();
       if (!message || this.isLoading) return;
       
+      // Hide suggestions
+      if (this.suggestionsContainerMobile) {
+        this.suggestionsContainerMobile.classList.add('hidden');
+      }
+      
+      // Clear input immediately
+      const userMessage = message;
+      this.mobileInput.value = '';
+      this.handleMobileInputChange();
+      
+      // Check if we're in a contact/service flow
+      if (this.handleContactFlow(userMessage)) {
+        return;
+      }
+      
       // Use the same logic as desktop but with mobile input
       const originalInput = this.input;
+      const originalSuggestions = this.suggestionsContainer;
       this.input = this.mobileInput;
-      this.handleSend();
-      this.input = originalInput;
+      this.suggestionsContainer = this.suggestionsContainerMobile;
+      
+      // Add to conversation history
+      this.conversationHistory.push({
+        role: 'user',
+        content: userMessage
+      });
+      
+      // Show typing indicator
+      this.showTypingIndicator();
+      
+      try {
+        // Prepare request body
+        const requestBody = {
+          message: userMessage,
+          conversationHistory: this.conversationHistory.slice(-10) // Keep last 10 messages
+        };
+        
+        const bodyString = JSON.stringify(requestBody);
+        
+        // Use fetch directly
+        const response = await fetch('/api/chatbot', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: bodyString
+        });
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          let errorData;
+          try {
+            errorData = JSON.parse(errorText);
+          } catch (e) {
+            errorData = { error: 'Unknown error', details: errorText };
+          }
+          throw new Error(errorData.error || errorData.details || `HTTP ${response.status}`);
+        }
+        
+        const responseText = await response.text();
+        const data = JSON.parse(responseText);
+        const aiMessage = data.message || 'Sorry, I could not generate a response.';
+        
+        // Handle special actions (contact or service inquiry) - start conversational flow
+        // Don't show AI response if we're starting a flow, the flow will handle the message
+        if (data.action === 'contact' || data.actionType === 'contact_form') {
+          this.startContactFlow();
+        } else if (data.action === 'service' || data.actionType === 'service_inquiry') {
+          this.startServiceFlow(data.whatsapp);
+        } else {
+          // Only show AI response if not starting a flow
+          // Add AI response to conversation history
+          this.conversationHistory.push({
+            role: 'assistant',
+            content: aiMessage
+          });
+          
+          // Show response
+          this.showBotResponse(aiMessage);
+        }
+        
+      } catch (error) {
+        console.error('Chatbot error:', error);
+        const errorMessage = error.message || 'Sorry, there was an error. Please try again.';
+        this.showBotResponse(`❌ ${errorMessage}`);
+      } finally {
+        this.hideTypingIndicator();
+        this.input = originalInput;
+        this.suggestionsContainer = originalSuggestions;
+      }
     }
     
     updatePlaceholder(text) {
@@ -779,6 +1076,9 @@
         this.showResponseAreaMobile();
       }
       
+      // Update placeholder based on conversation context
+      this.updatePlaceholderFromContext();
+      
       // Auto-hide response after 30 seconds (longer for reading long responses)
       // Clear any existing timer
       if (this.autoCloseTimer) {
@@ -788,6 +1088,441 @@
         this.hideResponseArea();
         this.hideResponseAreaMobile();
       }, 30000);
+    }
+    
+    updatePlaceholderFromContext() {
+      // Don't update placeholder if we're in a contact/service flow
+      if (this.contactFlow) {
+        return;
+      }
+      
+      // Get the last user message and bot response to determine context
+      const lastUserMessage = this.conversationHistory
+        .filter(msg => msg.role === 'user')
+        .slice(-1)[0]?.content?.toLowerCase() || '';
+      
+      const lastBotResponse = this.conversationHistory
+        .filter(msg => msg.role === 'assistant')
+        .slice(-1)[0]?.content?.toLowerCase() || '';
+      
+      // Detect topic from user message or bot response
+      let detectedTopic = 'default';
+      
+      // Check user message first
+      if (lastUserMessage.includes('film') || lastUserMessage.includes('movie') || lastUserMessage.includes('watched') || lastUserMessage.includes('letterboxd')) {
+        detectedTopic = 'films';
+      } else if (lastUserMessage.includes('project') || lastUserMessage.includes('built') || lastUserMessage.includes('developed')) {
+        detectedTopic = 'projects';
+      } else if (lastUserMessage.includes('tool') && (lastUserMessage.includes('develop') || lastUserMessage.includes('built') || lastUserMessage.includes('create'))) {
+        detectedTopic = 'tools';
+      } else if (lastUserMessage.includes('work') || lastUserMessage.includes('experience') || lastUserMessage.includes('job') || lastUserMessage.includes('company')) {
+        detectedTopic = 'work';
+      } else if (lastUserMessage.includes('skill') || lastUserMessage.includes('technology') || lastUserMessage.includes('tech stack')) {
+        detectedTopic = 'skills';
+      } else if (lastUserMessage.includes('blog') || lastUserMessage.includes('post') || lastUserMessage.includes('article')) {
+        detectedTopic = 'blog';
+      } else if (lastUserMessage.includes('contact') || lastUserMessage.includes('get in touch') || lastUserMessage.includes('reach')) {
+        detectedTopic = 'contact';
+      } else if (lastUserMessage.includes('hire') || lastUserMessage.includes('service') || lastUserMessage.includes('collaborate')) {
+        detectedTopic = 'service';
+      } else {
+        // Check bot response for context clues
+        if (lastBotResponse.includes('film') || lastBotResponse.includes('movie') || lastBotResponse.includes('watched')) {
+          detectedTopic = 'films';
+        } else if (lastBotResponse.includes('project')) {
+          detectedTopic = 'projects';
+        } else if (lastBotResponse.includes('tool') && lastBotResponse.includes('develop')) {
+          detectedTopic = 'tools';
+        } else if (lastBotResponse.includes('work') || lastBotResponse.includes('experience')) {
+          detectedTopic = 'work';
+        } else if (lastBotResponse.includes('skill')) {
+          detectedTopic = 'skills';
+        } else if (lastBotResponse.includes('blog')) {
+          detectedTopic = 'blog';
+        }
+      }
+      
+      // Update placeholder if topic changed
+      if (detectedTopic !== this.lastTopic) {
+        this.lastTopic = detectedTopic;
+        const placeholder = this.contextPlaceholders[detectedTopic] || this.contextPlaceholders.default;
+        this.updatePlaceholder(placeholder);
+      }
+    }
+    
+    showAllSuggestions(container) {
+      if (!container) return;
+      // Don't show suggestions if in contact/service flow
+      if (this.contactFlow) {
+        container.classList.add('hidden');
+        return;
+      }
+      this.renderSuggestions(this.suggestions, container, '');
+      container.classList.remove('hidden');
+    }
+    
+    handleSuggestions(inputValue, container) {
+      if (!container) return;
+      
+      // Don't show suggestions if in contact/service flow
+      if (this.contactFlow) {
+        container.classList.add('hidden');
+        return;
+      }
+      
+      // Clear previous timeout
+      if (this.suggestionTimeout) {
+        clearTimeout(this.suggestionTimeout);
+      }
+      
+      // Require at least 2 characters before showing suggestions
+      if (!inputValue || inputValue.trim().length < 2) {
+        container.classList.add('hidden');
+        return;
+      }
+      
+      const value = inputValue.toLowerCase();
+      
+      // Filter suggestions based on input
+      const filtered = this.suggestions.filter(s => 
+        s.toLowerCase().includes(value) || 
+        value.includes('want') || 
+        value.includes('contact') || 
+        value.includes('hire') ||
+        value.includes('project') ||
+        value.includes('skill') ||
+        value.includes('tool')
+      );
+      
+      // Show suggestions if we have matches or if user typed trigger words
+      if (filtered.length > 0 || value.includes('want to') || value.includes('i want')) {
+        this.renderSuggestions(filtered.length > 0 ? filtered : this.suggestions, container, inputValue);
+        container.classList.remove('hidden');
+      } else {
+        container.classList.add('hidden');
+      }
+    }
+    
+    renderSuggestions(suggestions, container, currentValue) {
+      container.innerHTML = '';
+      
+      suggestions.slice(0, 5).forEach(suggestion => {
+        const item = document.createElement('div');
+        item.className = 'px-4 py-2 hover:bg-white/10 dark:hover:bg-white/10 cursor-pointer text-sm text-white dark:text-white border-b border-white/10 dark:border-white/10 last:border-b-0';
+        item.textContent = suggestion;
+        item.addEventListener('click', () => {
+          const input = container.id === 'chatbot-suggestions' ? this.input : this.mobileInput;
+          input.value = suggestion;
+          input.focus();
+          container.classList.add('hidden');
+          if (container.id === 'chatbot-suggestions') {
+            this.handleSend();
+          } else {
+            this.handleMobileSend();
+          }
+        });
+        container.appendChild(item);
+      });
+    }
+    
+    startContactFlow() {
+      this.contactFlow = {
+        type: 'contact',
+        step: 'name',
+        data: {}
+      };
+      // Hide suggestions when starting contact flow
+      if (this.suggestionsContainer) {
+        this.suggestionsContainer.classList.add('hidden');
+      }
+      if (this.suggestionsContainerMobile) {
+        this.suggestionsContainerMobile.classList.add('hidden');
+      }
+      this.updatePlaceholder(this.flowPlaceholders.name);
+      this.showBotResponse("Great! I'd be happy to help you get in touch with Sattiyan. What's your name?");
+    }
+    
+    startServiceFlow(whatsapp) {
+      this.contactFlow = {
+        type: 'service',
+        step: 'name',
+        data: {},
+        whatsapp: whatsapp
+      };
+      
+      // Hide suggestions when starting service flow
+      if (this.suggestionsContainer) {
+        this.suggestionsContainer.classList.add('hidden');
+      }
+      if (this.suggestionsContainerMobile) {
+        this.suggestionsContainerMobile.classList.add('hidden');
+      }
+      
+      this.updatePlaceholder(this.flowPlaceholders.name);
+      this.hideTypingIndicator();
+      
+      const whatsappLink = `https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`;
+      const messageHTML = `<p style="margin-bottom: 0.75rem;">Great! Sattiyan would love to hear about your project. You can reach him directly on WhatsApp, or I can help collect your details.</p><a href="${whatsappLink}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: #25D366; color: white; border-radius: 0.5rem; text-decoration: none; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.75rem;"><svg style="width: 1.25rem; height: 1.25rem;" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Contact on WhatsApp</a><p style="font-size: 0.875rem; margin-top: 0.75rem;">Or I can help collect your details. What's your name?</p>`;
+      
+      if (this.responseText) {
+        this.responseText.innerHTML = messageHTML;
+        this.showResponseArea();
+      }
+      
+      if (this.responseTextMobile) {
+        this.responseTextMobile.innerHTML = messageHTML;
+        this.showResponseAreaMobile();
+      }
+      
+      // Auto-hide response after 30 seconds
+      if (this.autoCloseTimer) {
+        clearTimeout(this.autoCloseTimer);
+      }
+      this.autoCloseTimer = setTimeout(() => {
+        this.hideResponseArea();
+        this.hideResponseAreaMobile();
+      }, 30000);
+    }
+    
+    handleContactFlow(message) {
+      if (!this.contactFlow) return false;
+      
+      const flow = this.contactFlow;
+      
+      if (flow.step === 'name') {
+        flow.data.name = message;
+        flow.step = 'email';
+        this.updatePlaceholder(this.flowPlaceholders.email);
+        this.showBotResponse(`Nice to meet you, ${message}! What's your email address?`);
+        return true;
+      } else if (flow.step === 'email') {
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(message)) {
+          this.showBotResponse("That doesn't look like a valid email address. Please provide a valid email.");
+          return true;
+        }
+        flow.data.email = message;
+        if (flow.type === 'contact') {
+          flow.step = 'message';
+          this.updatePlaceholder(this.flowPlaceholders.message);
+          this.showBotResponse("Perfect! What would you like to tell Sattiyan?");
+        } else {
+          flow.step = 'project';
+          this.updatePlaceholder(this.flowPlaceholders.project);
+          this.showBotResponse("Great! Can you tell me a bit about your project?");
+        }
+        return true;
+      } else if (flow.step === 'message') {
+        flow.data.message = message;
+        this.contactFlow = null;
+        this.updatePlaceholder(this.contextPlaceholders.default);
+        this.submitContact(flow.data);
+        return true;
+      } else if (flow.step === 'project') {
+        flow.data.project = message;
+        this.contactFlow = null;
+        this.updatePlaceholder(this.contextPlaceholders.default);
+        this.submitService(flow.data, flow.whatsapp);
+        return true;
+      }
+      
+      return false;
+    }
+    
+    async submitContact(data) {
+      try {
+        const formData = new FormData();
+        formData.append('name', data.name || '');
+        formData.append('email', data.email || '');
+        formData.append('message', data.message || '');
+        formData.append('subject', 'Contact from Chatbot');
+        
+        // Debug: Log FormData contents
+        console.log('Submitting contact form with:', {
+          name: data.name,
+          email: data.email,
+          message: data.message
+        });
+        
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData
+          // Don't set Content-Type header - browser will set it automatically with boundary for FormData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          this.showBotResponse('✅ Thank you! Your message has been sent. Sattiyan will get back to you soon.');
+        } else {
+          this.showBotResponse('❌ Sorry, there was an error sending your message. Please try again or email directly at hey@sattiyans.com');
+        }
+      } catch (error) {
+        console.error('Contact submission error:', error);
+        this.showBotResponse('❌ Sorry, there was an error. Please try again or email directly at hey@sattiyans.com');
+      }
+    }
+    
+    async submitService(data, whatsapp) {
+      try {
+        const formData = new FormData();
+        formData.append('name', data.name || '');
+        formData.append('email', data.email || '');
+        formData.append('message', `Service Inquiry:\n\n${data.project || ''}`);
+        formData.append('subject', 'Service Inquiry from Chatbot');
+        
+        // Debug: Log FormData contents
+        console.log('Submitting service inquiry with:', {
+          name: data.name,
+          email: data.email,
+          project: data.project
+        });
+        
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData
+          // Don't set Content-Type header - browser will set it automatically with boundary for FormData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          this.showBotResponse(`✅ Thank you for your interest! Your inquiry has been sent. Sattiyan will get back to you soon, or you can reach him directly on WhatsApp at ${whatsapp}.`);
+        } else {
+          this.showBotResponse(`❌ Sorry, there was an error. You can reach Sattiyan directly on WhatsApp at ${whatsapp}`);
+        }
+      } catch (error) {
+        console.error('Service submission error:', error);
+        this.showBotResponse(`❌ Sorry, there was an error. You can reach Sattiyan directly on WhatsApp at ${whatsapp}`);
+      }
+    }
+    
+    showServiceInquiry(whatsapp) {
+      const whatsappLink = `https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`;
+      const serviceHTML = `
+        <div class="mt-4 pt-4 border-t border-gray-300 dark:border-gray-700">
+          <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">You can reach Sattiyan directly:</p>
+          <a href="${whatsappLink}" target="_blank" rel="noopener noreferrer" 
+            class="inline-flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors mb-3">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            Contact on WhatsApp
+          </a>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Or fill out the form below:</p>
+          <form id="chatbot-service-form" class="space-y-3">
+            <div>
+              <input type="text" id="service-name" placeholder="Your name" required
+                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400">
+            </div>
+            <div>
+              <input type="email" id="service-email" placeholder="Your email" required
+                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400">
+            </div>
+            <div>
+              <textarea id="service-project" placeholder="Tell us about your project" rows="3" required
+                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 resize-none"></textarea>
+            </div>
+            <button type="submit" class="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-colors">
+              Submit Inquiry
+            </button>
+          </form>
+        </div>
+      `;
+      
+      // Append to response areas
+      if (this.responseText && this.responseText.parentElement) {
+        this.responseText.parentElement.insertAdjacentHTML('beforeend', serviceHTML);
+        const form = document.getElementById('chatbot-service-form');
+        if (form) {
+          form.addEventListener('submit', (e) => this.handleServiceSubmit(e, whatsapp));
+        }
+      }
+    }
+    
+    async handleContactSubmit(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('contact-name');
+      const emailInput = document.getElementById('contact-email');
+      const messageInput = document.getElementById('contact-message');
+      
+      const name = nameInput?.value;
+      const email = emailInput?.value;
+      const message = messageInput?.value;
+      
+      if (!name || !email || !message) {
+        alert('Please fill in all fields');
+        return;
+      }
+      
+      try {
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('message', message);
+        formData.append('subject', 'Contact from Chatbot');
+        
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          this.showBotResponse('✅ Thank you! Your message has been sent. Sattiyan will get back to you soon.');
+          const form = document.getElementById('chatbot-contact-form');
+          if (form) form.remove();
+        } else {
+          this.showBotResponse('❌ Sorry, there was an error sending your message. Please try again or email directly at hey@sattiyans.com');
+        }
+      } catch (error) {
+        console.error('Contact form error:', error);
+        this.showBotResponse('❌ Sorry, there was an error. Please try again or email directly at hey@sattiyans.com');
+      }
+    }
+    
+    async handleServiceSubmit(e, whatsapp) {
+      e.preventDefault();
+      const nameInput = document.getElementById('service-name');
+      const emailInput = document.getElementById('service-email');
+      const projectInput = document.getElementById('service-project');
+      
+      const name = nameInput?.value;
+      const email = emailInput?.value;
+      const project = projectInput?.value;
+      
+      if (!name || !email || !project) {
+        alert('Please fill in all fields');
+        return;
+      }
+      
+      try {
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('message', `Service Inquiry:\n\n${project}`);
+        formData.append('subject', 'Service Inquiry from Chatbot');
+        
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          this.showBotResponse('✅ Thank you for your interest! Your inquiry has been sent. Sattiyan will get back to you soon, or you can reach him directly on WhatsApp.');
+          const form = document.getElementById('chatbot-service-form');
+          if (form) form.remove();
+        } else {
+          this.showBotResponse('❌ Sorry, there was an error. You can reach Sattiyan directly on WhatsApp at +60143072966');
+        }
+      } catch (error) {
+        console.error('Service form error:', error);
+        this.showBotResponse('❌ Sorry, there was an error. You can reach Sattiyan directly on WhatsApp at +60143072966');
+      }
     }
     
     showResponseArea() {
@@ -862,10 +1597,20 @@
       const message = this.input.value.trim();
       if (!message || this.isLoading) return;
       
+      // Hide suggestions
+      if (this.suggestionsContainer) {
+        this.suggestionsContainer.classList.add('hidden');
+      }
+      
       // Clear input immediately
       const userMessage = message;
       this.input.value = '';
       this.handleInputChange();
+      
+      // Check if we're in a contact/service flow
+      if (this.handleContactFlow(userMessage)) {
+        return;
+      }
       
       // Add to conversation history
       this.conversationHistory.push({
@@ -918,14 +1663,23 @@
         const data = JSON.parse(responseText);
         const aiMessage = data.message || 'Sorry, I could not generate a response.';
         
-        // Add AI response to conversation history
-        this.conversationHistory.push({
-          role: 'assistant',
-          content: aiMessage
-        });
-        
-        // Show response
-        this.showBotResponse(aiMessage);
+        // Handle special actions (contact or service inquiry) - start conversational flow
+        // Don't show AI response if we're starting a flow, the flow will handle the message
+        if (data.action === 'contact' || data.actionType === 'contact_form') {
+          this.startContactFlow();
+        } else if (data.action === 'service' || data.actionType === 'service_inquiry') {
+          this.startServiceFlow(data.whatsapp);
+        } else {
+          // Only show AI response if not starting a flow
+          // Add AI response to conversation history
+          this.conversationHistory.push({
+            role: 'assistant',
+            content: aiMessage
+          });
+          
+          // Show response
+          this.showBotResponse(aiMessage);
+        }
         
       } catch (error) {
         console.error('Chatbot error:', error);

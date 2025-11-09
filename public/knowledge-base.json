@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-09T06:54:01.810Z",
+  "generatedAt": "2025-11-09T13:54:08.405Z",
   "about": {
     "name": "Sattiyan Selvarajah",
     "role": "Senior PHP/Laravel Developer & Founder of Dotkod Solutions",
@@ -288,6 +288,81 @@
       "category": "Security Tools"
     }
   ],
+  "watched": {
+    "description": "A collection of films Sattiyan has recently watched, tracked via Letterboxd. The page displays recently watched movies with ratings, posters, and watch dates. Sattiyan's Letterboxd profile: https://letterboxd.com/sattiyans. The page shows the most recent films he has watched, including movie titles, years, ratings (if given), and when they were watched.",
+    "recentFilms": [
+      {
+        "title": "Anweshippin Kandethum",
+        "year": 2024,
+        "watchedDate": "2025-11-08T03:32:41.000Z",
+        "rating": 3,
+        "url": "https://letterboxd.com/sattiyans/film/anweshippin-kandethum/"
+      },
+      {
+        "title": "Kabali",
+        "year": 2016,
+        "watchedDate": "2025-11-06T00:35:25.000Z",
+        "rating": 3,
+        "url": "https://letterboxd.com/sattiyans/film/kabali/1/"
+      },
+      {
+        "title": "Saripodhaa Sanivaaram",
+        "year": 2024,
+        "watchedDate": "2025-11-03T12:20:10.000Z",
+        "rating": 3.5,
+        "url": "https://letterboxd.com/sattiyans/film/saripodhaa-sanivaaram/1/"
+      },
+      {
+        "title": "Mr. Zoo Keeper",
+        "year": 2025,
+        "watchedDate": "2025-11-01T06:50:52.000Z",
+        "rating": 1,
+        "url": "https://letterboxd.com/sattiyans/film/mr-zoo-keeper/"
+      },
+      {
+        "title": "Payanam",
+        "year": 2011,
+        "watchedDate": "2025-10-31T12:54:59.000Z",
+        "rating": 3,
+        "url": "https://letterboxd.com/sattiyans/film/payanam/"
+      },
+      {
+        "title": "Predator",
+        "year": 1987,
+        "watchedDate": "2025-10-31T08:49:37.000Z",
+        "rating": 4,
+        "url": "https://letterboxd.com/sattiyans/film/predator/"
+      },
+      {
+        "title": "Idli Kadai",
+        "year": 2025,
+        "watchedDate": "2025-10-29T11:54:19.000Z",
+        "rating": 3.5,
+        "url": "https://letterboxd.com/sattiyans/film/idli-kadai/"
+      },
+      {
+        "title": "Kill Bill: Vol. 1",
+        "year": 2003,
+        "watchedDate": "2025-10-26T02:32:59.000Z",
+        "rating": 5,
+        "url": "https://letterboxd.com/sattiyans/film/kill-bill-vol-1/"
+      },
+      {
+        "title": "A House of Dynamite",
+        "year": 2025,
+        "watchedDate": "2025-10-25T14:30:27.000Z",
+        "rating": 2,
+        "url": "https://letterboxd.com/sattiyans/film/a-house-of-dynamite/"
+      },
+      {
+        "title": "100",
+        "year": 2019,
+        "watchedDate": "2025-10-23T10:05:51.000Z",
+        "rating": 3,
+        "url": "https://letterboxd.com/sattiyans/film/100-2019/"
+      }
+    ]
+  },
   "uses": {
     "hardware": [
       {

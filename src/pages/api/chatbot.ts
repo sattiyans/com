@@ -131,22 +131,34 @@ export const POST: APIRoute = async ({ request }) => {
     // Prepare context from knowledge base
     const context = buildContext(knowledgeBase);
 
+    // Detect if user wants to contact or inquire about services
+    const contactKeywords = ['contact', 'get in touch', 'reach out', 'email', 'message', 'connect', 'reach', 'talk'];
+    const serviceKeywords = ['hire', 'hiring', 'services', 'work together', 'project', 'collaborate', 'freelance', 'contract', 'available', 'rate', 'pricing', 'cost'];
+    
+    const messageLower = message.toLowerCase();
+    const wantsContact = contactKeywords.some(keyword => messageLower.includes(keyword));
+    const wantsService = serviceKeywords.some(keyword => messageLower.includes(keyword));
+    
     // Build conversation messages
     const messages = [
       {
         role: 'system',
-        content: `You are a helpful AI assistant for Sattiyan Selvarajah's portfolio website. Your role is to answer questions about Sattiyan, his projects, work experience, skills, tools, and blog posts based ONLY on the provided knowledge base.
+        content: `You are Luna, a helpful AI assistant for Sattiyan Selvarajah's portfolio website. Your role is to answer questions about Sattiyan, his projects, work experience, skills, blog posts, recently watched films, and website content based ONLY on the provided knowledge base.
 
 IMPORTANT RULES:
 1. Answer questions ONLY based on the knowledge base provided below
-2. If a question is about something NOT in the knowledge base, politely decline: "I'm sorry, but I can only answer questions about Sattiyan's portfolio, projects, work experience, and website content. Could you ask me something about his work, projects, or skills instead?"
+2. If a question is about something NOT in the knowledge base, politely decline: "I'm sorry, but I can only answer questions about Sattiyan's portfolio, projects, work experience, skills, blog posts, recently watched films, and website content. Could you ask me something about his work, projects, skills, or interests instead?"
 3. Be friendly, concise, and helpful
 4. When mentioning projects or work, include relevant details like tech stack, role, and dates when available
-5. If asked about contact information, you can mention the email from the knowledge base
-6. Do not make up information that isn't in the knowledge base
-7. If asked about topics outside the portfolio (like general programming, unrelated questions), politely redirect to portfolio-related topics
-8. DO NOT mention the website URL or provide links to the website - users are already on the website, so mentioning it is redundant
-9. DO NOT say things like "You can find more on the website" or "Check the website" - just provide the information directly
+5. DO NOT mention the website URL or provide links to the website - users are already on the website, so mentioning it is redundant
+6. DO NOT say things like "You can find more on the website" or "Check the website" - just provide the information directly
+7. If asked about contact information or wanting to get in touch, respond with: "I'd be happy to help you get in touch with Sattiyan! Please provide your name, email, and a brief message, and I'll make sure he receives it."
+8. If asked about hiring, services, working together, or collaboration, respond with: "Great! Sattiyan would love to hear about your project. I can help collect your details or you can reach him directly on WhatsApp."
+9. CRITICAL: When asked about "tools", you MUST distinguish between:
+   - "TOOLS DEVELOPED BY SATTIYAN" (in the knowledge base): These are online tools/utilities that Sattiyan has BUILT and CREATED (e.g., Letterboxd Analytics, Base64 Encoder, Color Converter, Password Generator). These are tools he DEVELOPED.
+   - "SETUP & TOOLS USED" (in the knowledge base): These are hardware, software, development stack, and services that Sattiyan USES in his work (e.g., his computer, software he uses, development tools, services he subscribes to). These are tools he USES.
+   - If someone asks "what tools does Sattiyan use?" or "what tools does Sattiyan have?", clarify: Do you mean tools he DEVELOPED (built/created) or tools he USES (his setup/software)?
+10. Include information about tools developed, setup/tools used (hardware, software, development stack, services), and any other relevant data from the knowledge base when answering questions
 
 KNOWLEDGE BASE:
 ${context}`
@@ -210,12 +222,24 @@ ${context}`
         headers: { 'Content-Type': 'application/json' }
       });
     }
-    const aiMessage = data.choices[0]?.message?.content || 'Sorry, I could not generate a response.';
-
-    return new Response(JSON.stringify({ 
+    let aiMessage = data.choices[0]?.message?.content || 'Sorry, I could not generate a response.';
+    
+    // Add special flags for contact/service inquiries
+    const responseData: any = {
       message: aiMessage,
       usage: data.usage
-    }), {
+    };
+    
+    if (wantsContact) {
+      responseData.action = 'contact';
+      responseData.actionType = 'contact_form';
+    } else if (wantsService) {
+      responseData.action = 'service';
+      responseData.actionType = 'service_inquiry';
+      responseData.whatsapp = '+60143072966';
+    }
+
+    return new Response(JSON.stringify(responseData), {
       status: 200,
       headers: { 
         'Content-Type': 'application/json',
@@ -300,9 +324,10 @@ function buildContext(kb: any): string {
     });
   }
 
-  // Tools
+  // Tools developed by Sattiyan
   if (kb.tools && kb.tools.length > 0) {
-    context += `TOOLS (${kb.tools.length} tools):\n`;
+    context += `TOOLS DEVELOPED BY SATTIYAN (${kb.tools.length} tools):\n`;
+    context += `These are online tools and utilities that Sattiyan has built and developed, NOT tools that he uses.\n`;
     kb.tools.forEach((tool: any, index: number) => {
       context += `${index + 1}. ${tool.name} - ${tool.description}\n`;
       context += `   Category: ${tool.category}\n`;
@@ -319,12 +344,40 @@ function buildContext(kb: any): string {
   // Uses
   if (kb.uses) {
     context += `SETUP & TOOLS USED:\n`;
+    if (kb.uses.hardware && kb.uses.hardware.length > 0) {
+      context += `Hardware: ${kb.uses.hardware.map((u: any) => `${u.name} (${u.description})`).join(', ')}\n`;
+    }
+    if (kb.uses.software && kb.uses.software.length > 0) {
+      context += `Software: ${kb.uses.software.map((u: any) => `${u.name} (${u.description})`).join(', ')}\n`;
+    }
     if (kb.uses.development && kb.uses.development.length > 0) {
-      context += `Development: ${kb.uses.development.map((u: any) => u.name).join(', ')}\n`;
+      context += `Development Stack: ${kb.uses.development.map((u: any) => `${u.name} (${u.description})`).join(', ')}\n`;
     }
     if (kb.uses.services && kb.uses.services.length > 0) {
-      context += `Services: ${kb.uses.services.map((u: any) => u.name).join(', ')}\n`;
+      context += `Services: ${kb.uses.services.map((u: any) => `${u.name} (${u.description})`).join(', ')}\n`;
     }
+    context += '\n';
+  }
+
+  // Watched (Recently Watched Films)
+  if (kb.watched) {
+    context += `RECENTLY WATCHED FILMS:\n`;
+    if (kb.watched.description) {
+      context += `${kb.watched.description}\n`;
+    }
+    if (kb.watched.recentFilms && kb.watched.recentFilms.length > 0) {
+      context += `\nRecent films Sattiyan has watched (most recent first):\n`;
+      kb.watched.recentFilms.forEach((film: any, index: number) => {
+        context += `${index + 1}. ${film.title} (${film.year})`;
+        if (film.rating) {
+          context += ` - Rating: ${film.rating}/5`;
+        }
+        const watchedDate = new Date(film.watchedDate);
+        context += ` - Watched: ${watchedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+        context += `\n`;
+      });
+    }
+    context += `Page URL: /watched\n\n`;
   }
 
   return context;

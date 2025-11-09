@@ -121,6 +121,9 @@ async function generateKnowledgeBase() {
     work: [],
     blog: [],
     tools: [],
+    watched: {
+      description: "A collection of films Sattiyan has recently watched, tracked via Letterboxd. The page displays recently watched movies with ratings, posters, and watch dates. Sattiyan's Letterboxd profile: https://letterboxd.com/sattiyans. The page shows the most recent films he has watched, including movie titles, years, ratings (if given), and when they were watched."
+    },
     uses: {
       hardware: [],
       software: [],
@@ -206,37 +209,64 @@ async function generateKnowledgeBase() {
     }
     console.log(`   ✓ Found ${knowledgeBase.blog.length} blog posts\n`);
 
-    // Add tools
+    // Add tools - read from tools/index.astro
     console.log('🛠️  Gathering tools...');
-    knowledgeBase.tools = [
-      {
-        name: "Letterboxd Analytics",
-        description: "Analyze your Letterboxd activity with detailed statistics, ratings breakdown, and viewing patterns.",
-        href: "/tools/letterboxd-analytics",
-        category: "Analytics"
-      },
-      {
-        name: "Base64 Encoder/Decoder",
-        description: "Convert text to Base64 encoding or decode Base64 back to text. Simple and fast text conversion.",
-        href: "/tools/base64",
-        category: "Text Tools"
-      },
-      {
-        name: "Color Converter",
-        description: "Convert colors between HEX, RGB, HSL, and HSV formats. Pick colors visually and get all format codes.",
-        href: "/tools/color-converter",
-        category: "Design Tools"
-      },
-      {
-        name: "Password Generator",
-        description: "Generate secure, random passwords with customizable length and character sets. Create strong passwords.",
-        href: "/tools/password-generator",
-        category: "Security Tools"
+    try {
+      const toolsPagePath = join(rootDir, 'src', 'pages', 'tools', 'index.astro');
+      const toolsPageContent = readFileSync(toolsPagePath, 'utf-8');
+      
+      // Extract tools array from the page
+      const toolsMatch = toolsPageContent.match(/const tools = \[([\s\S]*?)\];/);
+      if (toolsMatch) {
+        // Simple extraction - get tool names and descriptions
+        const toolsArray = [];
+        const toolMatches = toolsPageContent.matchAll(/name:\s*"([^"]+)",[\s\S]*?description:\s*"([^"]+)",[\s\S]*?href:\s*"([^"]+)",[\s\S]*?category:\s*"([^"]+)"/g);
+        for (const match of toolMatches) {
+          toolsArray.push({
+            name: match[1],
+            description: match[2],
+            href: match[3],
+            category: match[4]
+          });
+        }
+        knowledgeBase.tools = toolsArray.length > 0 ? toolsArray : knowledgeBase.tools;
       }
-    ];
+    } catch (e) {
+      console.log('   ⚠️  Could not read tools page, using default list');
+    }
+    
+    // Fallback to default if extraction failed
+    if (knowledgeBase.tools.length === 0) {
+      knowledgeBase.tools = [
+        {
+          name: "Letterboxd Analytics",
+          description: "Analyze your Letterboxd activity with detailed statistics, ratings breakdown, and viewing patterns.",
+          href: "/tools/letterboxd-analytics",
+          category: "Analytics"
+        },
+        {
+          name: "Base64 Encoder/Decoder",
+          description: "Convert text to Base64 encoding or decode Base64 back to text. Simple and fast text conversion.",
+          href: "/tools/base64",
+          category: "Text Tools"
+        },
+        {
+          name: "Color Converter",
+          description: "Convert colors between HEX, RGB, HSL, and HSV formats. Pick colors visually and get all format codes.",
+          href: "/tools/color-converter",
+          category: "Design Tools"
+        },
+        {
+          name: "Password Generator",
+          description: "Generate secure, random passwords with customizable length and character sets. Create strong passwords.",
+          href: "/tools/password-generator",
+          category: "Security Tools"
+        }
+      ];
+    }
     console.log(`   ✓ Found ${knowledgeBase.tools.length} tools\n`);
 
-    // Add uses data
+    // Add uses data - already correctly defined, just ensure it's included
     console.log('🎯 Gathering uses/setup...');
     knowledgeBase.uses = {
       hardware: [
@@ -296,6 +326,92 @@ async function generateKnowledgeBase() {
     knowledgeBase.skills = Array.from(allTechStacks).sort();
     console.log(`   ✓ Found ${knowledgeBase.skills.length} unique skills\n`);
 
+    // Add recently watched films from Letterboxd
+    console.log('🎬 Gathering recently watched films...');
+    try {
+      const username = 'sattiyans';
+      const rssUrl = `https://letterboxd.com/${username}/rss/`;
+      
+      const response = await fetch(rssUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; KnowledgeBaseBot/1.0)',
+          'Accept': 'application/rss+xml, application/xml, text/xml, */*'
+        }
+      });
+      
+      if (response.ok) {
+        const xmlText = await response.text();
+        
+        // Parse RSS XML to extract watched films
+        const itemRegex = /<item>([\s\S]*?)<\/item>/g;
+        const itemsMatch = xmlText.match(itemRegex);
+        
+        if (itemsMatch) {
+          const recentFilms = [];
+          
+          for (const itemXml of itemsMatch.slice(0, 10)) { // Get latest 10 films
+            try {
+              // Extract title
+              const titleMatch = itemXml.match(/<title>(.*?)<\/title>/);
+              if (!titleMatch) continue;
+              
+              const fullTitle = titleMatch[1].trim();
+              
+              // Extract year from title (e.g., "Film Title, 2023 - ★★★★")
+              const yearMatch = fullTitle.match(/, (\d{4}) - /);
+              const year = yearMatch ? parseInt(yearMatch[1]) : new Date().getFullYear();
+              
+              // Clean title - remove year and rating
+              let cleanTitle = fullTitle.replace(/, \d{4} - [★☆½]+$/, '').replace(/ - [★☆½]+$/, '').trim();
+              
+              // Extract link
+              const linkMatch = itemXml.match(/<link>(.*?)<\/link>/);
+              const url = linkMatch ? linkMatch[1].trim() : '';
+              
+              // Extract pubDate (watched date)
+              const dateMatch = itemXml.match(/<pubDate>(.*?)<\/pubDate>/);
+              const watchedDate = dateMatch ? new Date(dateMatch[1].trim()) : new Date();
+              
+              // Extract rating if available
+              let rating = null;
+              const ratingMatch = fullTitle.match(/([★☆½]+)$/);
+              if (ratingMatch) {
+                const stars = ratingMatch[1];
+                rating = stars.split('★').length - 1;
+                if (stars.includes('½')) rating += 0.5;
+              }
+              
+              // Only include films (not lists)
+              if (cleanTitle && url && url.includes('/film/') && !url.includes('/list/')) {
+                recentFilms.push({
+                  title: cleanTitle,
+                  year: year,
+                  watchedDate: watchedDate.toISOString(),
+                  rating: rating,
+                  url: url
+                });
+              }
+            } catch (itemError) {
+              console.log(`   ⚠️  Error parsing film item: ${itemError.message}`);
+              continue;
+            }
+          }
+          
+          // Sort by watched date (most recent first)
+          recentFilms.sort((a, b) => new Date(b.watchedDate) - new Date(a.watchedDate));
+          
+          knowledgeBase.watched.recentFilms = recentFilms;
+          console.log(`   ✓ Found ${recentFilms.length} recently watched films\n`);
+        } else {
+          console.log('   ⚠️  No films found in RSS feed\n');
+        }
+      } else {
+        console.log(`   ⚠️  Could not fetch Letterboxd RSS (status: ${response.status})\n`);
+      }
+    } catch (e) {
+      console.log(`   ⚠️  Could not fetch recently watched films: ${e.message}\n`);
+    }
+
     // Write to public folder
     const outputPath = join(rootDir, 'public', 'knowledge-base.json');
     writeFileSync(outputPath, JSON.stringify(knowledgeBase, null, 2), 'utf-8');
@@ -308,6 +424,7 @@ async function generateKnowledgeBase() {
     console.log(`   - Blog Posts: ${knowledgeBase.blog.length}`);
     console.log(`   - Tools: ${knowledgeBase.tools.length}`);
     console.log(`   - Skills: ${knowledgeBase.skills.length}`);
+    console.log(`   - Watched: Page information included`);
     
   } catch (error) {
     console.error('❌ Error generating knowledge base:', error);

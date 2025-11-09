@@ -1,8 +1,38 @@
 import type { APIRoute } from 'astro';
 
+// Ensure this route is never prerendered
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const formData = await request.formData();
+    // Check Content-Type header for debugging
+    const contentType = request.headers.get('content-type') || '';
+    console.log('Received Content-Type:', contentType);
+    
+    // Try to parse as formData
+    let formData: FormData;
+    try {
+      formData = await request.formData();
+    } catch (error: any) {
+      console.error('Error parsing formData:', error);
+      console.error('Content-Type was:', contentType);
+      
+      // If formData parsing fails, try to read as text for debugging
+      try {
+        const bodyText = await request.clone().text();
+        console.error('Request body (as text):', bodyText.substring(0, 200));
+      } catch (e) {
+        console.error('Could not read request body');
+      }
+      
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'Failed to parse form data. Please ensure the request is sent as multipart/form-data.' 
+      }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
     
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
