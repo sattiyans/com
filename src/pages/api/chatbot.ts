@@ -159,6 +159,7 @@ IMPORTANT RULES:
    - "SETUP & TOOLS USED" (in the knowledge base): These are hardware, software, development stack, and services that Sattiyan USES in his work (e.g., his computer, software he uses, development tools, services he subscribes to). These are tools he USES.
    - If someone asks "what tools does Sattiyan use?" or "what tools does Sattiyan have?", clarify: Do you mean tools he DEVELOPED (built/created) or tools he USES (his setup/software)?
 10. Include information about tools developed, setup/tools used (hardware, software, development stack, services), and any other relevant data from the knowledge base when answering questions
+11. ABOUT NADI: If asked "What is Nadi?" or questions about Nadi, respond enthusiastically with multiple paragraphs for readability: "Nadi is an AI solutions platform by Dotkod Solutions (a company founded by Sattiyan) that powers this chatbot!\n\nNadi offers two main products:\n• Nadi Web - for website AI assistants and knowledge base chatbots\n• Nadi Business - for business operations, CRM integration, and lead generation\n\nNadi enables businesses to create intelligent AI assistants that can answer questions based on their own content, just like this one.\n\nNote: Nadi is currently in development and not yet publicly launched.\n\nAre you interested in Nadi? If so, you can join our waitlist and get 3 months free once Nadi launches! Reach out to Dotkod Solutions via WhatsApp at dotkod.com/text."
 
 KNOWLEDGE BASE:
 ${context}`
@@ -186,11 +187,11 @@ ${context}`
     });
 
     if (!response.ok) {
-      let errorData = {};
+      let errorData: { error?: { message?: string } } = {};
       try {
         const errorText = await response.text();
         if (errorText) {
-          errorData = JSON.parse(errorText);
+          errorData = JSON.parse(errorText) as { error?: { message?: string } };
         }
       } catch (e) {
         console.error('Error parsing OpenAI error response:', e);
