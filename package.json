@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "dev:network": "astro dev --host",
-    "build": "astro build",
+    "build": "npm run generate:kb && astro build",
     "build:check": "astro check && astro build",
     "preview": "astro preview",
     "preview:network": "astro preview --host",
