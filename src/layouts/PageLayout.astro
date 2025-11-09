@@ -10,9 +10,10 @@ import { SITE } from "@consts";
 type Props = {
   title: string;
   description: string;
+  hideChatbot?: boolean;
 };
 
-const { title, description } = Astro.props;
+const { title, description, hideChatbot = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -27,7 +28,7 @@ const { title, description } = Astro.props;
     </main>
     <Footer />
     <BackToTop />
-    <ChatbotContact />
+    {!hideChatbot && <ChatbotContact />}
     <Analytics />
   </body>
 </html>
