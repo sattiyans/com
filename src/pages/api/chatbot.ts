@@ -56,32 +56,61 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Load knowledge base
-    // In Astro, public folder is served from dist/public in production, but from public/ in dev
-    // Try multiple paths to handle both dev and production
+    // Try file system first (for local dev and some serverless environments)
+    const cwd = process.cwd();
     const possiblePaths = [
-      join(process.cwd(), 'public', 'knowledge-base.json'),
-      join(process.cwd(), 'dist', 'public', 'knowledge-base.json')
+      join(cwd, 'public', 'knowledge-base.json'),
+      join(cwd, 'dist', 'public', 'knowledge-base.json'),
+      join(cwd, '.vercel', 'output', 'static', 'knowledge-base.json'),
+      join('/var/task', 'public', 'knowledge-base.json'),
+      join('/var/task', 'dist', 'public', 'knowledge-base.json'),
+      join('/var/task', 'knowledge-base.json'),
     ];
     
     let knowledgeBase;
     let knowledgeBasePath = null;
+    const triedPaths = [];
     
+    // First, try file system paths
     for (const path of possiblePaths) {
+      triedPaths.push(path);
       try {
         const kbContent = readFileSync(path, 'utf-8');
         knowledgeBase = JSON.parse(kbContent);
         knowledgeBasePath = path;
+        console.log(`✅ Knowledge base loaded from file system: ${path}`);
         break;
-      } catch (e) {
+      } catch (e: any) {
         // Try next path
         continue;
       }
     }
     
+    // If file system fails, try fetching from public URL (for Vercel serverless)
     if (!knowledgeBase) {
-      console.error('Knowledge base not found. Tried paths:', possiblePaths);
+      const siteUrl = import.meta.env.SITE || 'https://sattiyans.com';
+      const publicUrl = `${siteUrl}/knowledge-base.json`;
+      try {
+        console.log(`Attempting to fetch knowledge base from: ${publicUrl}`);
+        const response = await fetch(publicUrl);
+        if (response.ok) {
+          knowledgeBase = await response.json();
+          knowledgeBasePath = publicUrl;
+          console.log(`✅ Knowledge base loaded from public URL: ${publicUrl}`);
+        } else {
+          console.error(`Failed to fetch from ${publicUrl}: ${response.status} ${response.statusText}`);
+        }
+      } catch (fetchError: any) {
+        console.error(`Error fetching knowledge base: ${fetchError.message}`);
+      }
+    }
+    
+    if (!knowledgeBase) {
+      console.error('❌ Knowledge base not found. Tried file paths:', triedPaths);
+      console.error('Current working directory:', cwd);
       return new Response(JSON.stringify({ 
-        error: 'Knowledge base not found. Please run: npm run generate:kb' 
+        error: 'Knowledge base not found. Please ensure the build process generates knowledge-base.json',
+        details: `Tried ${triedPaths.length} file paths and public URL. Current directory: ${cwd}`
       }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }

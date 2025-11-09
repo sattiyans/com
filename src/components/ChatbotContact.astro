@@ -605,6 +605,28 @@
         this.handleMobileInputChange();
       });
       
+      // Desktop send icon click handler
+      const sendIcon = document.querySelector('.send-icon');
+      if (sendIcon) {
+        sendIcon.addEventListener('click', () => {
+          if (!this.isLoading && this.input.value.trim()) {
+            this.handleSend();
+          }
+        });
+        sendIcon.style.cursor = 'pointer';
+      }
+      
+      // Mobile send icon click handler
+      const sendIconMobile = document.querySelector('.send-icon-mobile');
+      if (sendIconMobile) {
+        sendIconMobile.addEventListener('click', () => {
+          if (!this.isLoading && this.mobileInput.value.trim()) {
+            this.handleMobileSend();
+          }
+        });
+        sendIconMobile.style.cursor = 'pointer';
+      }
+      
       // Mobile collapsed click handler
       this.mobileCollapsed.addEventListener('click', () => {
         this.toggleMobileExpanded();
