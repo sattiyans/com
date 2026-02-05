@@ -6,7 +6,7 @@ draft: false
 role: "Web Developer"
 client: "Kontentsu Marketing"
 projectOwner: "Dotkod Solutions"
-projectURL: "https://www.3rdspacebytriterra.com/home"
+# projectURL: "https://www.3rdspacebytriterra.com/home"
 techStack: ["Wix", "Drag & Drop Builder", "Responsive Design", "CMS"]
 featuredImage: "3rd-space.png"
 screenshots: ["3rd-space1.png", "3rd-space2.png", "3rd-space3.png", "3rd-space4.png"]

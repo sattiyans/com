@@ -1,5 +1,6 @@
 ---
 import Head from "@components/Head.astro";
+import ChatbotContact from "@components/ChatbotContact.astro";
 import Analytics from "@vercel/analytics/astro";
 import { SITE } from "@consts";
 
@@ -20,6 +21,7 @@ const { title, description } = Astro.props;
     <main style="padding: 0 !important; margin: 0 !important;">
       <slot />
     </main>
+    <ChatbotContact />
     <Analytics />
   </body>
 </html>
