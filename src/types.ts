@@ -24,6 +24,7 @@ export type WatchedItem = {
   platform: 'letterboxd' | 'serializd';
   watchedDate: Date;
   rating?: number;
+  reviewText?: string;
   posterUrl?: string;
   url?: string;
   episode?: string;

@@ -123,7 +123,7 @@ async function parseLetterboxdRSS(xmlText: string): Promise<WatchedItem[]> {
         const pubDate = dateMatch ? new Date(dateMatch[1].trim()) : new Date();
         
         // Extract description to check if it's a review
-        const descMatch = itemXml.match(/<description>(.*?)<\/description>/);
+        const descMatch = itemXml.match(/<description>([\s\S]*?)<\/description>/);
         const description = descMatch ? descMatch[1].trim() : '';
         
         // Only include films (not lists or other activity)
@@ -165,7 +165,8 @@ async function parseLetterboxdRSS(xmlText: string): Promise<WatchedItem[]> {
             url: link,
             posterUrl,
             // Extract rating if available
-            rating: extractRating(title)
+            rating: extractRating(title),
+            reviewText: extractReviewText(description)
           });
         }
       } catch (itemError) {
@@ -237,3 +238,49 @@ function extractRating(title: string): number | undefined {
   
   return undefined;
 } 
+
+function extractReviewText(description: string): string | undefined {
+  if (!description) return undefined;
+
+  // RSS description can be wrapped in CDATA and include HTML paragraphs.
+  const raw = description
+    .replace(/^\s*<!\[CDATA\[/i, '')
+    .replace(/\]\]>\s*$/i, '')
+    .trim();
+
+  const withParagraphBreaks = raw
+    .replace(/<\/p>\s*<p[^>]*>/gi, '\n\n')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/?p[^>]*>/gi, '')
+    .replace(/<[^>]*>/g, '');
+
+  const decoded = decodeHtmlEntities(withParagraphBreaks);
+  const normalized = decoded
+    .split('\n')
+    .map((line) => line.replace(/\s+/g, ' ').trim())
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
+  return normalized || undefined;
+}
+
+function decodeHtmlEntities(input: string): string {
+  const namedDecoded = input
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+
+  return namedDecoded
+    .replace(/&#(\d+);/g, (_, dec) => {
+      const code = Number(dec);
+      return Number.isFinite(code) ? String.fromCharCode(code) : _;
+    })
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+      const code = Number.parseInt(hex, 16);
+      return Number.isFinite(code) ? String.fromCharCode(code) : _;
+    });
+}

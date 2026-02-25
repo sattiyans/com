@@ -24,7 +24,7 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
       <div class="w-full text-center mb-6 animate">
         <div class="w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden border-2 border-black/15 dark:border-white/20">
           <img 
-            src="/patrick.webp" 
+            src="/photo.jpg" 
             alt="Sattiyan Selvarajah" 
             class="w-full h-full object-cover"
           />
@@ -33,7 +33,7 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
           Sattiyan Selvarajah
         </h1>
         <p class="text-xs text-gray-600 dark:text-gray-400">
-          Senior PHP/Laravel Developer & Founder of Dotkod Solutions
+          Software Developer & Founder of Dotkod Solutions
         </p>
       </div>
 
@@ -116,6 +116,7 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
               </svg>
               <div class="flex-1 md:flex-none md:text-center">
                 <div class="text-sm font-medium text-black dark:text-white">Instagram</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 md:mt-1">Follow</div>
               </div>
             </a>
 
@@ -161,7 +162,76 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
             </a>
         </div>
 
-        <!-- Row 3: 3 cards (Desktop: 6 columns with 2-span each, Mobile: full width) -->
+        <!-- Row 3: Latest watched film (full width) -->
+        <div class="mb-3">
+          <div class="bento-card latest-film-card border border-black/15 dark:border-white/20 rounded-xl p-3 md:p-4 animate bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20">
+            <div class="flex items-center justify-between gap-3 mb-2">
+              <div class="text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300">Recently watched</div>
+            </div>
+
+            <div id="latest-film-loading" class="latest-film-loading">
+              <svg class="w-4 h-4 animate-spin text-gray-500 dark:text-gray-400" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+              </svg>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Loading latest film...</span>
+            </div>
+
+            <div id="latest-film-content" class="latest-film-content hidden min-w-0">
+              <div class="latest-film-top min-w-0">
+                <a
+                  id="latest-film-poster-link"
+                  href={letterboxd}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-14 h-20 md:w-16 md:h-24 rounded-md overflow-hidden border border-black/10 dark:border-white/20 flex-shrink-0 bg-black/5 dark:bg-white/5"
+                >
+                  <img
+                    id="latest-film-poster"
+                    src=""
+                    alt="Latest watched film poster"
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </a>
+                <div class="min-w-0 flex-1 w-full">
+                  <div class="flex items-baseline gap-2 min-w-0">
+                    <div id="latest-film-title" class="text-sm md:text-base font-semibold text-black dark:text-white truncate">
+                      -
+                    </div>
+                    <div id="latest-film-meta" class="text-[11px] md:text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">
+                      -
+                    </div>
+                  </div>
+                  <div id="latest-film-rating" class="text-[11px] md:text-xs text-amber-500 mt-1 tracking-[0.02em]">
+                    -
+                  </div>
+                </div>
+              </div>
+              <div id="latest-film-review-text" class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2 whitespace-pre-line">
+                -
+              </div>
+              <button
+                id="latest-film-expand-btn"
+                type="button"
+                class="latest-film-expand-btn hidden mt-1 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+                aria-label="Expand review"
+              >
+                <svg
+                  class="latest-film-expand-icon w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4: 3 cards (Desktop: 6 columns with 2-span each, Mobile: full width) -->
         <div class="grid grid-cols-1 md:grid-cols-6 gap-3">
             <!-- Letterboxd - Medium Card -->
             <a 
@@ -273,20 +343,87 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
 </BioLayout>
 
 <script is:inline>
+  let latestFilmReviewExpanded = false;
+
   // Load dynamic stats
   async function loadStats() {
-    // Load Letterboxd stats
+    // Load latest Letterboxd film card + platform count
     try {
-      const letterboxdResponse = await fetch('/api/letterboxd-stats');
-      if (letterboxdResponse.ok) {
-        const letterboxdData = await letterboxdResponse.json();
-        const letterboxdStatsEl = document.getElementById('letterboxd-stats');
-        if (letterboxdStatsEl) {
-          if (letterboxdData.success && letterboxdData.movieCount > 0) {
-            letterboxdStatsEl.textContent = `${letterboxdData.movieCount.toLocaleString()}+ films watched`;
-          } else {
-            letterboxdStatsEl.textContent = 'Film reviews & ratings';
+      const letterboxdStatsEl = document.getElementById('letterboxd-stats');
+      const latestFilmTitleEl = document.getElementById('latest-film-title');
+      const latestFilmMetaEl = document.getElementById('latest-film-meta');
+      const latestFilmRatingEl = document.getElementById('latest-film-rating');
+      const latestFilmReviewTextEl = document.getElementById('latest-film-review-text');
+      const latestFilmExpandBtnEl = document.getElementById('latest-film-expand-btn');
+      const latestFilmPosterEl = document.getElementById('latest-film-poster');
+      const latestFilmPosterLinkEl = document.getElementById('latest-film-poster-link');
+      const latestFilmLoadingEl = document.getElementById('latest-film-loading');
+      const latestFilmContentEl = document.getElementById('latest-film-content');
+
+      const letterboxdRecentResponse = await fetch('/api/letterboxd');
+      if (letterboxdRecentResponse.ok) {
+        const letterboxdRecentData = await letterboxdRecentResponse.json();
+        const items = Array.isArray(letterboxdRecentData?.items)
+          ? letterboxdRecentData.items
+          : Array.isArray(letterboxdRecentData)
+            ? letterboxdRecentData
+            : [];
+
+        if (items.length > 0) {
+          const latestFilm = items
+            .map((item) => ({
+              ...item,
+              watchedDate: item?.watchedDate ? new Date(item.watchedDate) : new Date(0)
+            }))
+            .sort((a, b) => b.watchedDate.getTime() - a.watchedDate.getTime())[0];
+
+          if (latestFilm?.title && latestFilmTitleEl && latestFilmMetaEl && latestFilmRatingEl) {
+            latestFilmTitleEl.textContent = latestFilm.title;
+            const watchedOn = formatWatchedDate(latestFilm.watchedDate);
+            const yearText = latestFilm.year ? `${latestFilm.year}` : '';
+            latestFilmMetaEl.textContent = yearText && watchedOn
+              ? `${yearText} · ${watchedOn}`
+              : watchedOn
+                ? watchedOn
+                : yearText;
+            latestFilmRatingEl.textContent = latestFilm.rating
+              ? `${formatRating(latestFilm.rating)}`
+              : 'Not rated';
+            if (latestFilmReviewTextEl) {
+              const reviewText = latestFilm.reviewText?.trim() || 'No written review text.';
+              latestFilmReviewTextEl.textContent = reviewText;
+              updateLatestFilmExpandState(reviewText);
+            } else if (latestFilmExpandBtnEl instanceof HTMLButtonElement) {
+              latestFilmExpandBtnEl.classList.add('hidden');
+            }
+
+            if (latestFilm?.posterUrl && latestFilmPosterEl instanceof HTMLImageElement) {
+              latestFilmPosterEl.src = latestFilm.posterUrl;
+              latestFilmPosterEl.alt = `Poster for ${latestFilm.title}`;
+            }
+
+            if (latestFilm?.url) {
+              if (latestFilmPosterLinkEl instanceof HTMLAnchorElement) {
+                latestFilmPosterLinkEl.href = latestFilm.url;
+              }
+            }
+
+            if (latestFilmLoadingEl) latestFilmLoadingEl.classList.add('hidden');
+            if (latestFilmContentEl) {
+              latestFilmContentEl.classList.remove('hidden');
+              latestFilmContentEl.classList.add('flex');
+            }
           }
+        }
+      }
+
+      const letterboxdCountResponse = await fetch('/api/letterboxd-stats');
+      if (letterboxdCountResponse.ok && letterboxdStatsEl) {
+        const letterboxdCountData = await letterboxdCountResponse.json();
+        if (letterboxdCountData.success && letterboxdCountData.movieCount > 0) {
+          letterboxdStatsEl.textContent = `${letterboxdCountData.movieCount.toLocaleString()}+ films watched`;
+        } else {
+          letterboxdStatsEl.textContent = 'Film reviews & ratings';
         }
       }
     } catch (error) {
@@ -294,6 +431,52 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
       const letterboxdStatsEl = document.getElementById('letterboxd-stats');
       if (letterboxdStatsEl) {
         letterboxdStatsEl.textContent = 'Film reviews & ratings';
+      }
+
+      const latestFilmTitleEl = document.getElementById('latest-film-title');
+      const latestFilmMetaEl = document.getElementById('latest-film-meta');
+      const latestFilmRatingEl = document.getElementById('latest-film-rating');
+      const latestFilmReviewTextEl = document.getElementById('latest-film-review-text');
+      const latestFilmExpandBtnEl = document.getElementById('latest-film-expand-btn');
+      const latestFilmLoadingEl = document.getElementById('latest-film-loading');
+      const latestFilmContentEl = document.getElementById('latest-film-content');
+      if (latestFilmTitleEl) latestFilmTitleEl.textContent = 'Latest film unavailable';
+      if (latestFilmMetaEl) latestFilmMetaEl.textContent = '';
+      if (latestFilmRatingEl) latestFilmRatingEl.textContent = '-';
+      if (latestFilmReviewTextEl) latestFilmReviewTextEl.textContent = 'Could not load review text.';
+      if (latestFilmExpandBtnEl instanceof HTMLButtonElement) latestFilmExpandBtnEl.classList.add('hidden');
+      if (latestFilmLoadingEl) latestFilmLoadingEl.classList.add('hidden');
+      if (latestFilmContentEl) {
+        latestFilmContentEl.classList.remove('hidden');
+        latestFilmContentEl.classList.add('flex');
+      }
+    }
+
+    // Load latest Serializd episode (best effort)
+    try {
+      const serializdResponse = await fetch('/api/serializd');
+      if (serializdResponse.ok) {
+        const serializdData = await serializdResponse.json();
+        const serializdStatsEl = document.getElementById('serializd-stats');
+        if (serializdStatsEl) {
+          const latestEpisode = serializdData?.latestEpisode;
+          if (serializdData?.success && latestEpisode?.showTitle) {
+            const seasonPart = latestEpisode.season ? `S${latestEpisode.season}` : '';
+            const episodePart = latestEpisode.episode ? `E${latestEpisode.episode}` : '';
+            const seasonEpisode = `${seasonPart}${episodePart}`.trim();
+            serializdStatsEl.textContent = seasonEpisode
+              ? `Latest: ${latestEpisode.showTitle} ${seasonEpisode}`
+              : `Latest: ${latestEpisode.showTitle}`;
+          } else {
+            serializdStatsEl.textContent = '7,744+ episodes watched';
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error loading Serializd latest episode:', error);
+      const serializdStatsEl = document.getElementById('serializd-stats');
+      if (serializdStatsEl) {
+        serializdStatsEl.textContent = '7,744+ episodes watched';
       }
     }
 
@@ -320,9 +503,65 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
     }
   }
 
+  function formatRating(rating) {
+    if (typeof rating !== 'number') return '';
+    const normalized = Math.max(0, Math.min(5, rating));
+    const fullStars = Math.floor(normalized);
+    const hasHalfStar = normalized % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    return `${'★'.repeat(fullStars)}${hasHalfStar ? '½' : ''}${'☆'.repeat(Math.max(0, emptyStars))}`;
+  }
+
+  function formatWatchedDate(dateValue) {
+    const date = new Date(dateValue);
+    if (Number.isNaN(date.getTime())) return '';
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    }).format(date);
+  }
+
+  function setLatestFilmExpanded(expanded) {
+    latestFilmReviewExpanded = expanded;
+    const reviewTextEl = document.getElementById('latest-film-review-text');
+    const expandBtnEl = document.getElementById('latest-film-expand-btn');
+    if (!reviewTextEl || !(expandBtnEl instanceof HTMLButtonElement)) return;
+
+    if (expanded) {
+      reviewTextEl.classList.remove('line-clamp-2');
+      expandBtnEl.classList.add('is-expanded');
+      expandBtnEl.setAttribute('aria-label', 'Collapse review');
+    } else {
+      reviewTextEl.classList.add('line-clamp-2');
+      expandBtnEl.classList.remove('is-expanded');
+      expandBtnEl.setAttribute('aria-label', 'Expand review');
+    }
+  }
+
+  function updateLatestFilmExpandState(reviewText) {
+    const expandBtnEl = document.getElementById('latest-film-expand-btn');
+    if (!(expandBtnEl instanceof HTMLButtonElement)) return;
+
+    if (reviewText.length > 160) {
+      expandBtnEl.classList.remove('hidden');
+      setLatestFilmExpanded(false);
+    } else {
+      expandBtnEl.classList.add('hidden');
+      setLatestFilmExpanded(false);
+    }
+  }
+
   // Animate elements on load
   document.addEventListener('DOMContentLoaded', () => {
     loadStats();
+
+    const expandBtnEl = document.getElementById('latest-film-expand-btn');
+    if (expandBtnEl instanceof HTMLButtonElement) {
+      expandBtnEl.addEventListener('click', () => {
+        setLatestFilmExpanded(!latestFilmReviewExpanded);
+      });
+    }
     
     // Animate elements
     const animateElements = document.querySelectorAll('.animate');
@@ -364,6 +603,91 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
     min-height: 80px;
   }
 
+  .latest-film-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-height: 0;
+  }
+
+  .latest-film-link {
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.45);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .latest-film-link {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .latest-film-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 0;
+  }
+
+  .latest-film-loading.hidden {
+    display: none !important;
+  }
+
+  .latest-film-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .latest-film-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .latest-film-content.hidden {
+    display: none !important;
+  }
+
+  .latest-film-expand-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .latest-film-expand-icon {
+    transition: transform 220ms ease, opacity 220ms ease;
+    animation: latest-film-chevron-bob 1.4s ease-in-out infinite;
+  }
+
+  .latest-film-expand-btn.is-expanded .latest-film-expand-icon {
+    transform: rotate(180deg);
+    animation: none;
+  }
+
+  @keyframes latest-film-chevron-bob {
+    0%, 100% {
+      transform: translateY(0);
+      opacity: 0.85;
+    }
+    50% {
+      transform: translateY(2px);
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .latest-film-top {
+      gap: 1rem;
+    }
+  }
+
   /* Ensure vertical centering for all card types */
   .bento-card.aspect-square {
     align-items: center;
@@ -391,6 +715,10 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
     .bento-medium,
     .bento-wide {
       min-height: 80px;
+    }
+
+    .latest-film-card {
+      min-height: 0;
     }
 
     /* Ensure grid items stack properly on mobile */
