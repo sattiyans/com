@@ -111,7 +111,7 @@ async function generateKnowledgeBase() {
     generatedAt: new Date().toISOString(),
     about: {
       name: "Sattiyan Selvarajah",
-      role: "Senior PHP/Laravel Developer & Founder of Dotkod Solutions",
+      role: "Software Developer & Founder of Dotkod Solutions",
       location: "Kuala Lumpur, Malaysia",
       email: "hey@sattiyans.com",
       description: "Expert in building scalable web applications, SaaS platforms, and e-commerce solutions. Previously worked as a Game Developer using Unreal Engine 4 and Unity.",
@@ -157,6 +157,8 @@ async function generateKnowledgeBase() {
         projectURL: frontmatter.projectURL || frontmatter.demoURL || null,
         repoURL: frontmatter.repoURL || null,
         techStack: Array.isArray(frontmatter.techStack) ? frontmatter.techStack : [],
+        featuredImage: frontmatter.featuredImage || null,
+        screenshots: Array.isArray(frontmatter.screenshots) ? frontmatter.screenshots : [],
         date: frontmatter.date || new Date().toISOString(),
         slug: slug,
         url: `/projects/${slug}`
@@ -278,11 +280,11 @@ async function generateKnowledgeBase() {
       ],
       software: [
         { name: "Cursor", description: "AI-powered code editor" },
-        { name: "Warp", description: "Terminal emulator" },
+        { name: "macOS Terminal", description: "Built-in terminal app" },
         { name: "Safari", description: "Web browser" },
         { name: "Google Chrome", description: "Web browser" },
         { name: "Figma", description: "Design and prototyping" },
-        { name: "Apple Notes", description: "Note-taking" },
+        { name: "Notion", description: "Note-taking and docs" },
         { name: "Spotify", description: "Music streaming" }
       ],
       development: [
@@ -291,8 +293,15 @@ async function generateKnowledgeBase() {
         { name: "JavaScript/TypeScript", description: "Frontend language" },
         { name: "React", description: "Frontend framework" },
         { name: "Next.js", description: "React framework" },
+        { name: "Express.js", description: "Node.js backend framework" },
+        { name: "TypeScript", description: "Typed JavaScript for full-stack apps" },
+        { name: "Blade", description: "Laravel templating engine" },
+        { name: "ShadCN UI", description: "Component system for React apps" },
+        { name: "Zod", description: "Schema validation for APIs" },
         { name: "Tailwind CSS", description: "CSS framework" },
         { name: "Bootstrap", description: "CSS framework" },
+        { name: "Vite", description: "Frontend build tool" },
+        { name: "Chart.js", description: "Data visualization library" },
         { name: "MySQL", description: "Database" },
         { name: "PostgreSQL", description: "Database" },
         { name: "Git", description: "Version control" },
@@ -304,13 +313,13 @@ async function generateKnowledgeBase() {
         { name: "Vercel", description: "Frontend deployment" },
         { name: "Supabase", description: "Backend as a Service" },
         { name: "Digital Ocean", description: "VPS hosting" },
+        { name: "Ultahost", description: "VPS and managed hosting" },
         { name: "Stripe", description: "Payment processing" },
-        { name: "OpenAI API", description: "AI integration" },
+        { name: "Resend", description: "Email delivery platform" },
         { name: "n8n", description: "Workflow automation" },
         { name: "Figma", description: "Design collaboration" },
         { name: "Redis", description: "Caching" },
-        { name: "Sentry", description: "Error tracking" },
-        { name: "Resend", description: "Email service" }
+        { name: "Sentry", description: "Error tracking" }
       ]
     };
     console.log(`   ✓ Found uses data\n`);

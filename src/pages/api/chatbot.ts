@@ -44,7 +44,7 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    const { message, conversationHistory = [] } = body;
+    const { message, conversationHistory = [], stream = false } = body;
 
     if (!message || typeof message !== 'string') {
       return new Response(JSON.stringify({ 
@@ -133,11 +133,57 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Detect if user wants to contact or inquire about services
     const contactKeywords = ['contact', 'get in touch', 'reach out', 'email', 'message', 'connect', 'reach', 'talk'];
-    const serviceKeywords = ['hire', 'hiring', 'services', 'work together', 'project', 'collaborate', 'freelance', 'contract', 'available', 'rate', 'pricing', 'cost'];
+    // Keep service intent strict so portfolio questions like "What projects has Sattiyan worked on?"
+    // don't get misclassified as hiring/service inquiries.
+    const serviceKeywords = ['hire', 'hiring', 'services', 'work together', 'collaborate', 'freelance', 'contract', 'available', 'rate', 'pricing', 'cost', 'quotation', 'quote'];
     
     const messageLower = message.toLowerCase();
     const wantsContact = contactKeywords.some(keyword => messageLower.includes(keyword));
-    const wantsService = serviceKeywords.some(keyword => messageLower.includes(keyword));
+    const portfolioQueryHints = ['projects', 'project', 'worked on', 'built', 'portfolio', 'experience', 'skills'];
+    const looksLikePortfolioQuestion = portfolioQueryHints.some(keyword => messageLower.includes(keyword));
+    const directServicePhrases = ['my project', 'our project', 'need a developer', 'looking for developer', 'looking to hire'];
+    const wantsService = (
+      serviceKeywords.some(keyword => messageLower.includes(keyword)) ||
+      directServicePhrases.some(keyword => messageLower.includes(keyword))
+    ) && !looksLikePortfolioQuestion;
+    const wantsProjectsShowcase =
+      !wantsContact &&
+      !wantsService &&
+      (messageLower.includes('projects') || messageLower.includes('latest project') || messageLower.includes('recent project'));
+
+    if (wantsProjectsShowcase && Array.isArray(knowledgeBase.projects) && knowledgeBase.projects.length > 0) {
+      const latestProjects = [...knowledgeBase.projects]
+        .sort((a: any, b: any) => new Date(b.date || 0).valueOf() - new Date(a.date || 0).valueOf())
+        .slice(0, 4)
+        .map((project: any) => ({
+          title: project.title,
+          description: project.description,
+          role: project.role || null,
+          techStack: Array.isArray(project.techStack) ? project.techStack.slice(0, 5) : [],
+          date: project.date || null,
+          url: project.url || null,
+          image: normalizeProjectImage(
+            project.featuredImage ||
+            (Array.isArray(project.screenshots) && project.screenshots.length > 0 ? project.screenshots[0] : null)
+          ),
+        }));
+
+      return new Response(JSON.stringify({
+        action: 'projects',
+        actionType: 'projects_showcase',
+        message: `Here are Sattiyan's latest ${latestProjects.length} projects:`,
+        projects: latestProjects
+      }), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        }
+      });
+    }
     
     // Build conversation messages
     const messages = [
@@ -159,7 +205,6 @@ IMPORTANT RULES:
    - "SETUP & TOOLS USED" (in the knowledge base): These are hardware, software, development stack, and services that Sattiyan USES in his work (e.g., his computer, software he uses, development tools, services he subscribes to). These are tools he USES.
    - If someone asks "what tools does Sattiyan use?" or "what tools does Sattiyan have?", clarify: Do you mean tools he DEVELOPED (built/created) or tools he USES (his setup/software)?
 10. Include information about tools developed, setup/tools used (hardware, software, development stack, services), and any other relevant data from the knowledge base when answering questions
-11. ABOUT NADI: If asked "What is Nadi?" or questions about Nadi, respond enthusiastically with multiple paragraphs for readability: "Nadi is an AI solutions platform by Dotkod Solutions (a company founded by Sattiyan) that powers this chatbot!\n\nNadi offers two main products:\n• Nadi Web - for website AI assistants and knowledge base chatbots\n• Nadi Business - for business operations, CRM integration, and lead generation\n\nNadi enables businesses to create intelligent AI assistants that can answer questions based on their own content, just like this one.\n\nNote: Nadi is currently in development and not yet publicly launched.\n\nAre you interested in Nadi? If so, you can join our waitlist and get 3 months free once Nadi launches! Reach out to Dotkod Solutions via WhatsApp at dotkod.com/text."
 
 KNOWLEDGE BASE:
 ${context}`
@@ -171,7 +216,103 @@ ${context}`
       }
     ];
 
-    // Call OpenAI API
+    // Stream normal Q&A responses for smoother UX on ask page.
+    // Keep JSON responses for contact/service flows so existing action handling still works.
+    if (stream && !wantsContact && !wantsService) {
+      const streamResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: messages,
+          temperature: 0.7,
+          max_tokens: 500,
+          stream: true
+        })
+      });
+
+      if (!streamResponse.ok) {
+        let errorData: { error?: { message?: string } } = {};
+        try {
+          const errorText = await streamResponse.text();
+          if (errorText) {
+            errorData = JSON.parse(errorText) as { error?: { message?: string } };
+          }
+        } catch (e) {
+          console.error('Error parsing OpenAI stream error response:', e);
+        }
+        return new Response(JSON.stringify({
+          error: 'Failed to stream response from AI',
+          details: errorData.error?.message || `HTTP ${streamResponse.status}: ${streamResponse.statusText}`
+        }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+
+      const encoder = new TextEncoder();
+      const decoder = new TextDecoder();
+
+      const textStream = new ReadableStream({
+        async start(controller) {
+          try {
+            const reader = streamResponse.body?.getReader();
+            if (!reader) {
+              controller.close();
+              return;
+            }
+
+            let buffer = '';
+
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+
+              buffer += decoder.decode(value, { stream: true });
+              const lines = buffer.split('\n');
+              buffer = lines.pop() || '';
+
+              for (const line of lines) {
+                const trimmed = line.trim();
+                if (!trimmed.startsWith('data:')) continue;
+
+                const payload = trimmed.slice(5).trim();
+                if (!payload || payload === '[DONE]') continue;
+
+                try {
+                  const parsed = JSON.parse(payload);
+                  const token = parsed?.choices?.[0]?.delta?.content;
+                  if (token) controller.enqueue(encoder.encode(token));
+                } catch {
+                  // Ignore malformed SSE chunks and continue streaming.
+                }
+              }
+            }
+
+            controller.close();
+          } catch (err) {
+            controller.error(err);
+          }
+        }
+      });
+
+      return new Response(textStream, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST',
+          'Access-Control-Allow-Headers': 'Content-Type',
+          'X-Accel-Buffering': 'no'
+        }
+      });
+    }
+
+    // Non-streaming path (used for contact/service flows and fallback clients)
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -382,5 +523,12 @@ function buildContext(kb: any): string {
   }
 
   return context;
+}
+
+function normalizeProjectImage(image: string | null): string {
+  if (!image) return '/og-image.png';
+  if (image.startsWith('http://') || image.startsWith('https://')) return image;
+  if (image.startsWith('/')) return image;
+  return `/projects/${image}`;
 }
 

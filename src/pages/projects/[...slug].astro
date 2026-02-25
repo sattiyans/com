@@ -46,9 +46,24 @@ function normalizeProjectImagePath(path: string): string {
 const isProtected = !!project.data.password;
 const projectSlug = project.slug;
 const correctPassword = project.data.password || '';
+const projectImage = project.data.featuredImage
+  ? normalizeProjectImagePath(project.data.featuredImage)
+  : "/og-image.png";
+const projectKeywords = [
+  project.data.title,
+  "project",
+  ...(project.data.techStack || []),
+]
+  .filter(Boolean)
+  .join(", ");
 ---
 
-<PageLayout title={project.data.title} description={project.data.description}>
+<PageLayout
+  title={project.data.title}
+  description={project.data.description}
+  keywords={projectKeywords}
+  image={projectImage}
+>
   <Container>
     <div class="space-y-8">
       <!-- Breadcrumb -->

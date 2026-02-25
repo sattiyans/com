@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2025-11-09T13:54:08.405Z",
+  "generatedAt": "2026-02-25T06:42:29.310Z",
   "about": {
     "name": "Sattiyan Selvarajah",
-    "role": "Senior PHP/Laravel Developer & Founder of Dotkod Solutions",
+    "role": "Software Developer & Founder of Dotkod Solutions",
     "location": "Kuala Lumpur, Malaysia",
     "email": "hey@sattiyans.com",
     "description": "Expert in building scalable web applications, SaaS platforms, and e-commerce solutions. Previously worked as a Game Developer using Unreal Engine 4 and Unity.",
@@ -16,13 +16,20 @@
       "role": "Web Developer",
       "client": "Kontentsu Marketing",
       "projectOwner": "Dotkod Solutions",
-      "projectURL": "https://www.3rdspacebytriterra.com/home",
+      "projectURL": null,
       "repoURL": null,
       "techStack": [
         "Wix",
         "Drag & Drop Builder",
         "Responsive Design",
         "CMS"
+      ],
+      "featuredImage": "3rd-space.png",
+      "screenshots": [
+        "3rd-space1.png",
+        "3rd-space2.png",
+        "3rd-space3.png",
+        "3rd-space4.png"
       ],
       "date": "2025-05-28T00:00:00.000Z",
       "slug": "3rd-space",
@@ -52,6 +59,14 @@
         "Tailwind CSS",
         "MySQL"
       ],
+      "featuredImage": "femo.png",
+      "screenshots": [
+        "femo1.png",
+        "femo2.png",
+        "femo3.png",
+        "femo4.png",
+        "femo5.png"
+      ],
       "date": "2025-06-10T00:00:00.000Z",
       "slug": "femo",
       "url": "/projects/femo"
@@ -75,6 +90,14 @@
         "RESTful API",
         "WordPress Integration"
       ],
+      "featuredImage": "invested.png",
+      "screenshots": [
+        "invested1.png",
+        "invested2.png",
+        "invested3.png",
+        "invested4.png",
+        "invested5.png"
+      ],
       "date": "2024-04-29T00:00:00.000Z",
       "slug": "invested",
       "url": "/projects/invested"
@@ -92,6 +115,12 @@
         "Unreal Engine 4",
         "Blueprints",
         "C++"
+      ],
+      "featuredImage": "lilyth.png",
+      "screenshots": [
+        "lilyth1.png",
+        "lilyth2.png",
+        "lilyth3.png"
       ],
       "date": "2019-06-15T00:00:00.000Z",
       "slug": "lily-th",
@@ -111,6 +140,11 @@
         "Blueprints",
         "C++"
       ],
+      "featuredImage": "oblivion.png",
+      "screenshots": [
+        "oblivion1.png",
+        "oblivion2.png"
+      ],
       "date": "2018-11-10T00:00:00.000Z",
       "slug": "oblivion",
       "url": "/projects/oblivion"
@@ -128,33 +162,15 @@
         "Unity",
         "C#"
       ],
+      "featuredImage": "ravage.png",
+      "screenshots": [
+        "ravage1.png",
+        "ravage2.png",
+        "ravage3.png"
+      ],
       "date": "2016-09-05T00:00:00.000Z",
       "slug": "ravage",
       "url": "/projects/ravage"
-    },
-    {
-      "title": "TNB Subsidiary Management Dashboard (SMD) - UI Redesign & Integration",
-      "description": "Comprehensive UI rework and backend integration for TNB's Subsidiary Management Dashboard, transforming the interface based on modern Figma designs while maintaining robust data management capabilities.",
-      "content": "Overview\n\nThe TNB Subsidiary Management Dashboard (SMD) is a comprehensive enterprise application designed to manage and monitor subsidiaries, financial performance, ESG metrics, risk management, HSE (Health, Safety, Environment) data, and governance oversight for Tenaga Nasional Berhad. This project involved a complete UI redesign based on modern Figma designs provided by the design team, followed by extensive backend controller updates and seamless integration with the new Blade UI components.\n\nThe application serves as a centralized platform for tracking subsidiary performance, board governance, financial metrics, ESG compliance, and operational oversight across TNB's portfolio of companies. The redesign focused on improving user experience, data visualization, and overall interface aesthetics while maintaining the robust functionality required for enterprise-level data management.\n\nProject Scope\n\nPrimary Focus Areas\nUI/UX Redesign: Complete transformation of the user interface based on Figma design specifications\nController Method Updates: Refactoring and updating backend controllers to support new UI components and data flows\nBlade Template Integration: Seamless integration of new Blade UI components with existing Laravel architecture\nDashboard Modernization: Redesign of multiple dashboard views including visual, workbench, and data entry interfaces\n\nFeatures\n\nDashboard Modules\nHome Dashboard: Comprehensive overview with financial metrics, board governance, HSE data, greenhouse gas emissions, and oversight timeline\nTNB Dashboard: High-level organizational overview\nSubsidiaries Dashboard: \nVisual representation of subsidiary relationships\nWorkbench for detailed subsidiary management\nTree view for hierarchical structure visualization\nMatrix view for cross-referencing data\nFinancial Performance Dashboard: Visual and workbench views for financial data analysis\nESG Dashboard: \nVisual dashboard for ESG metrics\nWorkbench for detailed ESG data entry and analysis\nData maturity tracking\nCO₂ equivalent calculations\nInternal MSCI equivalent metrics\nOne-pager summary views\nRisk Management Dashboard: Visual and workbench interfaces for risk tracking and management\nHSE Dashboard: Health, Safety, and Environment metrics visualization and management\nOversight Dashboard: Governance and oversight tracking with visual and workbench views\n\nData Entry Modules\nSubsidiary Management: Create, edit, and manage subsidiary information with tree and matrix views\nDirectorship Management: Track directors and their appointments across subsidiaries\nFinancial Year Management: Manage financial periods and associated data\nESG Data Entry: \nMateriality assessment and tracking\nESG elements management (active year and all-year views)\nHSE Data Entry: Health, safety, and environment incident tracking\nRisk Management: Active risk tracking and management\nOversight Management: Assurance and audit oversight tracking\nUser & Role Management: Comprehensive user administration with role-based permissions\n\nKey Functionalities\nRole-Based Access Control: Implemented using Spatie Laravel Permission package\nAudit Logging: Complete audit trail using Laravel Auditing package\nData Export: PDF and Excel export capabilities for reports and matrices\nResponsive Design: Mobile-friendly interface with adaptive layouts\nInteractive Charts: Chart.js integration for data visualization\nReal-time Data Filtering: Year-based and cluster-based filtering across dashboards\n\nTech Stack\n\nBackend\nLaravel 11: Modern PHP framework providing robust MVC architecture\nPHP 8.2: Latest PHP version for optimal performance\nMySQL: Relational database for data persistence\nSpatie Laravel Permission: Role and permission management\nLaravel Auditing: Comprehensive audit trail functionality\nMaatwebsite Excel: Excel import/export capabilities\nDomPDF: PDF generation for reports\n\nFrontend\nBlade Templates: Laravel's templating engine for server-side rendering\nBootstrap 5: Responsive CSS framework for layout and components\nChart.js: Interactive chart library for data visualization\nVite: Modern build tool for asset compilation\nSCSS: CSS preprocessor for maintainable stylesheets\nJavaScript/jQuery: Client-side interactivity\nInter Font: Modern typography for improved readability\n\nDevelopment Tools\nVite: Fast build tool replacing Laravel Mix\nLaravel UI: Authentication scaffolding\nComposer: PHP dependency management\n\nImplementation Details\n\nUI Redesign Process\nDesign Analysis: Reviewed Figma designs to understand the new visual language, component structure, and user flow\nComponent Mapping: Identified existing Blade components and mapped them to new design requirements\nStyle System: Implemented consistent color palette, typography (Inter font), spacing, and component styling\nLayout Restructuring: Redesigned dashboard layouts with modern card-based designs, improved spacing, and better visual hierarchy\nResponsive Implementation: Ensured all views work seamlessly across desktop, tablet, and mobile devices\n\nController Updates\nDashboardController: Enhanced with new methods for visual and workbench views across all modules\nSubsidiaryController: Updated to support new UI components, tree views, and matrix exports\nData Entry Controllers: Refactored to work with new form layouts and data entry interfaces\nFiltering & Query Optimization: Improved data fetching methods to support new filtering and visualization requirements\n\nKey UI Components Implemented\nModern Card Designs: Redesigned dashboard cards with improved shadows, borders, and spacing\nInteractive Charts: Integrated Chart.js with custom styling matching design specifications\nResponsive Sidebar: Collapsible sidebar navigation with mobile-friendly behavior\nData Tables: Modern table designs with improved readability and responsive behavior\nForm Components: Updated form inputs, selects, and buttons to match design system\nMetric Displays: Redesigned metric cards with icons, gradients, and improved typography\nTimeline Components: Visual timeline displays for oversight tracking\n\nChallenges & Solutions\n\nChallenge 1: Maintaining Backward Compatibility\nProblem: Updating UI while ensuring existing functionality remained intact.\n\nSolution: \nIncremental migration approach, updating one module at a time\nComprehensive testing after each update\nPreserved existing data structures and relationships\nMaintained API compatibility for existing integrations\n\nChallenge 2: Complex Data Relationships\nProblem: The application manages complex relationships between subsidiaries, directors, financial years, and various metrics.\n\nSolution:\nLeveraged Laravel's Eloquent ORM relationships effectively\nImplemented eager loading to optimize queries\nCreated helper methods for complex data aggregations\nUsed database transactions for data integrity\n\nChallenge 3: Responsive Design Implementation\nProblem: Ensuring the new design works seamlessly across all device sizes while maintaining functionality.\n\nSolution:\nMobile-first approach with progressive enhancement\nFlexible grid layouts using Bootstrap 5\nCustom media queries for specific breakpoints\nTouch-friendly interface elements for mobile devices\nCollapsible sidebar with smooth transitions\n\nChallenge 4: Performance Optimization\nProblem: Dashboard views loading large datasets affecting performance.\n\nSolution:\nImplemented query optimization with eager loading\nAdded pagination where appropriate\nLazy loading for charts and heavy components\nCaching strategies for frequently accessed data\nOptimized asset compilation with Vite\n\nChallenge 5: Design-to-Code Translation\nProblem: Accurately translating Figma designs to functional Blade templates while maintaining design fidelity.\n\nSolution:\nClose collaboration with design team for clarification\nCreated reusable Blade components for consistency\nUsed CSS custom properties for design tokens\nImplemented design system with consistent spacing and typography scales\nRegular design reviews to ensure accuracy\n\nKey Learnings\nDesign System Implementation: Learned the importance of establishing a consistent design system early in the project, which significantly improved development speed and UI consistency.\nLaravel Blade Best Practices: Gained deeper understanding of Blade component architecture, partials, and layout inheritance, enabling more maintainable template structures.\nPerformance Optimization: Discovered the importance of query optimization and eager loading in Laravel, especially when dealing with complex relationships and large datasets.\nResponsive Design Patterns: Enhanced skills in creating truly responsive interfaces that work seamlessly across devices, not just mobile breakpoints.\nChart.js Integration: Learned advanced Chart.js customization techniques to match design specifications while maintaining interactivity and performance.\nVersion Control for UI Changes: Understood the importance of incremental commits and feature branches when making extensive UI changes across multiple files.\nCollaboration with Designers: Improved communication skills in translating design requirements into functional code while maintaining design integrity.\nLaravel 11 Features: Explored and implemented new features in Laravel 11, including improved routing, service providers, and middleware capabilities.\n\nTechnical Highlights\nModern UI/UX: Transformed the interface from a traditional enterprise application to a modern, visually appealing dashboard\nComponent Reusability: Created reusable Blade components reducing code duplication\nAccessibility: Improved keyboard navigation and screen reader compatibility\nData Visualization: Enhanced chart implementations with custom styling and interactivity\nExport Functionality: Implemented PDF and Excel export features for various reports\nAudit Trail: Comprehensive audit logging for data changes and user actions\nSecurity: Role-based access control ensuring users only access appropriate data and features\n\nConclusion\n\nThe TNB SMD UI redesign project successfully transformed the application's user interface while maintaining and enhancing its robust backend functionality. The project demonstrated the importance of close collaboration between design and development teams, incremental implementation strategies, and maintaining code quality during extensive refactoring.\n\nThe new interface provides a significantly improved user experience with modern design patterns, better data visualization, and responsive layouts. The updated controller methods and Blade integration ensure the application remains maintainable and scalable for future enhancements.",
-      "role": "Full-Stack Developer",
-      "client": "Universiti Tenaga Nasional (UNITEN)",
-      "projectOwner": "TriSquare Technology",
-      "projectURL": null,
-      "repoURL": null,
-      "techStack": [
-        "Laravel 11",
-        "PHP 8.2",
-        "Blade Templates",
-        "Bootstrap 5",
-        "Chart.js",
-        "Vite",
-        "JavaScript",
-        "SCSS",
-        "MySQL"
-      ],
-      "date": "2025-06-19T00:00:00.000Z",
-      "slug": "smd-tnb",
-      "url": "/projects/smd-tnb"
     }
   ],
   "work": [
@@ -196,10 +212,10 @@
     },
     {
       "company": "TriSquare Technology (M) Sdn Bhd",
-      "role": "Senior PHP Developer (Laravel)",
+      "role": "Senior Software Developer",
       "dateStart": "04/01/2024",
       "dateEnd": "Current",
-      "content": "Spearheaded development of new Laravel projects (v9–12), handling end-to-end processes: database design, feature planning, coding, testing, and VPS deployments (Nginx, MySQL, PostgreSQL).\nBuilt and enhanced systems with FilamentPHP v3 & v4, delivering intuitive and efficient admin dashboards.\nIntegrated diverse payment gateways: CHIP (sandbox → production), Spayz, Amopay, and custom international gateways.\nImplemented AI-powered features using OpenAI APIs, including smart automation and chatbot functionality.\nDeveloped and deployed WhatsApp AI chatbot solutions for business communication.\nAutomated workflows with n8n, streamlining data processing and integrations.\nEngineered innovative features like AR-based skin analysis by integrating external APIs (RapidAPI).",
+      "content": "Built and scaled production platforms at TriSquare, including GBoost.ai, GSendr, FEMO, Invested, and sports web applications.\nLed end-to-end delivery across architecture, database design, API development, QA, and VPS deployments using Nginx and PostgreSQL.\nImplemented integration-heavy workflows with Google Business APIs, Resend, OpenAI APIs, and webhook-driven event handling.\nDelivered various Laravel-based and React-based CMS solutions with tailored workflows, permissions, and admin governance controls.\nDeveloped analytics and reporting systems for campaign performance, engagement tracking, and operational visibility.\nIntegrated multiple payment gateways across projects and automated recurring jobs with scheduler/cron and n8n to improve reliability at scale.",
       "slug": "trisquare",
       "url": "/work/trisquare"
     }
@@ -292,74 +308,74 @@
     "description": "A collection of films Sattiyan has recently watched, tracked via Letterboxd. The page displays recently watched movies with ratings, posters, and watch dates. Sattiyan's Letterboxd profile: https://letterboxd.com/sattiyans. The page shows the most recent films he has watched, including movie titles, years, ratings (if given), and when they were watched.",
     "recentFilms": [
       {
-        "title": "Anweshippin Kandethum",
-        "year": 2024,
-        "watchedDate": "2025-11-08T03:32:41.000Z",
-        "rating": 3,
-        "url": "https://letterboxd.com/sattiyans/film/anweshippin-kandethum/"
-      },
-      {
-        "title": "Kabali",
-        "year": 2016,
-        "watchedDate": "2025-11-06T00:35:25.000Z",
-        "rating": 3,
-        "url": "https://letterboxd.com/sattiyans/film/kabali/1/"
-      },
-      {
-        "title": "Saripodhaa Sanivaaram",
-        "year": 2024,
-        "watchedDate": "2025-11-03T12:20:10.000Z",
-        "rating": 3.5,
-        "url": "https://letterboxd.com/sattiyans/film/saripodhaa-sanivaaram/1/"
-      },
-      {
-        "title": "Mr. Zoo Keeper",
-        "year": 2025,
-        "watchedDate": "2025-11-01T06:50:52.000Z",
-        "rating": 1,
-        "url": "https://letterboxd.com/sattiyans/film/mr-zoo-keeper/"
-      },
-      {
-        "title": "Payanam",
-        "year": 2011,
-        "watchedDate": "2025-10-31T12:54:59.000Z",
-        "rating": 3,
-        "url": "https://letterboxd.com/sattiyans/film/payanam/"
-      },
-      {
-        "title": "Predator",
-        "year": 1987,
-        "watchedDate": "2025-10-31T08:49:37.000Z",
+        "title": "Taxi Driver",
+        "year": 1976,
+        "watchedDate": "2026-02-24T13:18:43.000Z",
         "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/predator/"
+        "url": "https://letterboxd.com/sattiyans/film/taxi-driver/"
       },
       {
-        "title": "Idli Kadai",
-        "year": 2025,
-        "watchedDate": "2025-10-29T11:54:19.000Z",
-        "rating": 3.5,
-        "url": "https://letterboxd.com/sattiyans/film/idli-kadai/"
-      },
-      {
-        "title": "Kill Bill: Vol. 1",
-        "year": 2003,
-        "watchedDate": "2025-10-26T02:32:59.000Z",
-        "rating": 5,
-        "url": "https://letterboxd.com/sattiyans/film/kill-bill-vol-1/"
-      },
-      {
-        "title": "A House of Dynamite",
-        "year": 2025,
-        "watchedDate": "2025-10-25T14:30:27.000Z",
-        "rating": 2,
-        "url": "https://letterboxd.com/sattiyans/film/a-house-of-dynamite/"
-      },
-      {
-        "title": "100",
-        "year": 2019,
-        "watchedDate": "2025-10-23T10:05:51.000Z",
+        "title": "Thalaivar Thambi Thalaimaiyil",
+        "year": 2026,
+        "watchedDate": "2026-02-18T08:35:16.000Z",
         "rating": 3,
-        "url": "https://letterboxd.com/sattiyans/film/100-2019/"
+        "url": "https://letterboxd.com/sattiyans/film/thalaivar-thambi-thalaimaiyil/"
+      },
+      {
+        "title": "One Battle After Another",
+        "year": 2025,
+        "watchedDate": "2026-02-15T14:01:46.000Z",
+        "rating": 5,
+        "url": "https://letterboxd.com/sattiyans/film/one-battle-after-another/"
+      },
+      {
+        "title": "Jeans",
+        "year": 1998,
+        "watchedDate": "2026-02-13T14:02:17.000Z",
+        "rating": 3.5,
+        "url": "https://letterboxd.com/sattiyans/film/jeans/1/"
+      },
+      {
+        "title": "Gravity",
+        "year": 2013,
+        "watchedDate": "2026-02-11T05:00:07.000Z",
+        "rating": 4,
+        "url": "https://letterboxd.com/sattiyans/film/gravity-2013/"
+      },
+      {
+        "title": "Transformers: The Last Knight",
+        "year": 2017,
+        "watchedDate": "2026-02-10T09:02:42.000Z",
+        "rating": 0.5,
+        "url": "https://letterboxd.com/sattiyans/film/transformers-the-last-knight/"
+      },
+      {
+        "title": "Transformers: Age of Extinction",
+        "year": 2014,
+        "watchedDate": "2026-02-08T09:56:44.000Z",
+        "rating": 1,
+        "url": "https://letterboxd.com/sattiyans/film/transformers-age-of-extinction/"
+      },
+      {
+        "title": "Night at the Museum: Secret of the Tomb",
+        "year": 2014,
+        "watchedDate": "2026-02-07T02:43:49.000Z",
+        "rating": 3,
+        "url": "https://letterboxd.com/sattiyans/film/night-at-the-museum-secret-of-the-tomb/"
+      },
+      {
+        "title": "Blade Runner",
+        "year": 1982,
+        "watchedDate": "2026-02-06T03:04:12.000Z",
+        "rating": 4,
+        "url": "https://letterboxd.com/sattiyans/film/blade-runner/"
+      },
+      {
+        "title": "Kuberaa",
+        "year": 2025,
+        "watchedDate": "2026-02-03T11:12:03.000Z",
+        "rating": 2.5,
+        "url": "https://letterboxd.com/sattiyans/film/kuberaa/"
       }
     ]
   },
@@ -392,8 +408,8 @@
         "description": "AI-powered code editor"
       },
       {
-        "name": "Warp",
-        "description": "Terminal emulator"
+        "name": "macOS Terminal",
+        "description": "Built-in terminal app"
       },
       {
         "name": "Safari",
@@ -408,8 +424,8 @@
         "description": "Design and prototyping"
       },
       {
-        "name": "Apple Notes",
-        "description": "Note-taking"
+        "name": "Notion",
+        "description": "Note-taking and docs"
       },
       {
         "name": "Spotify",
@@ -438,12 +454,40 @@
         "description": "React framework"
       },
       {
+        "name": "Express.js",
+        "description": "Node.js backend framework"
+      },
+      {
+        "name": "TypeScript",
+        "description": "Typed JavaScript for full-stack apps"
+      },
+      {
+        "name": "Blade",
+        "description": "Laravel templating engine"
+      },
+      {
+        "name": "ShadCN UI",
+        "description": "Component system for React apps"
+      },
+      {
+        "name": "Zod",
+        "description": "Schema validation for APIs"
+      },
+      {
         "name": "Tailwind CSS",
         "description": "CSS framework"
       },
       {
         "name": "Bootstrap",
         "description": "CSS framework"
+      },
+      {
+        "name": "Vite",
+        "description": "Frontend build tool"
+      },
+      {
+        "name": "Chart.js",
+        "description": "Data visualization library"
       },
       {
         "name": "MySQL",
@@ -484,12 +528,16 @@
         "description": "VPS hosting"
       },
       {
+        "name": "Ultahost",
+        "description": "VPS and managed hosting"
+      },
+      {
         "name": "Stripe",
         "description": "Payment processing"
       },
       {
-        "name": "OpenAI API",
-        "description": "AI integration"
+        "name": "Resend",
+        "description": "Email delivery platform"
       },
       {
         "name": "n8n",
@@ -506,21 +554,14 @@
       {
         "name": "Sentry",
         "description": "Error tracking"
-      },
-      {
-        "name": "Resend",
-        "description": "Email service"
       }
     ]
   },
   "skills": [
-    "Blade Templates",
     "Blueprints",
-    "Bootstrap 5",
     "C#",
     "C++",
     "CMS",
-    "Chart.js",
     "Chip Payment Gateway",
     "Drag & Drop Builder",
     "Filament 3.2",
@@ -528,7 +569,6 @@
     "Google Cloud Storage",
     "Instagram API",
     "JWT Auth",
-    "JavaScript",
     "Laravel 10",
     "Laravel 11",
     "Laravel Reverb",
@@ -540,12 +580,10 @@
     "PHP 8.2",
     "RESTful API",
     "Responsive Design",
-    "SCSS",
     "Tailwind CSS",
     "TikTok API",
     "Unity",
     "Unreal Engine 4",
-    "Vite",
     "Wix",
     "WordPress Integration"
   ]

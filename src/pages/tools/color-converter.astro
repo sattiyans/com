@@ -2,35 +2,16 @@
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import Link from "@components/Link.astro";
-import Head from "@components/Head.astro";
 
 const seoData = {
   title: "Color Converter - Free Online HEX RGB HSL HSV Color Tool | Sattiyan Selvarajah",
   description: "Free online color converter tool. Convert colors between HEX, RGB, HSL, and HSV formats with visual color picker. Perfect for designers and developers.",
-  keywords: "color converter, hex to rgb, rgb to hex, hsl converter, hsv converter, color picker, color tool, design tools, color format converter",
-  canonical: "https://sattiyans.com/tools/color-converter"
+  keywords: "color converter, hex to rgb, rgb to hex, hsl converter, hsv converter, color picker, color tool, design tools, color format converter"
 };
 ---
 
-<PageLayout title={seoData.title} description={seoData.description}>
-  <Head title={seoData.title} description={seoData.description}>
-    <meta name="keywords" content={seoData.keywords} />
-    <link rel="canonical" href={seoData.canonical} />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={seoData.canonical} />
-    <meta property="og:title" content={seoData.title} />
-    <meta property="og:description" content={seoData.description} />
-    <meta property="og:image" content="https://sattiyans.com/og-color-converter.png" />
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={seoData.canonical} />
-    <meta property="twitter:title" content={seoData.title} />
-    <meta property="twitter:description" content={seoData.description} />
-    <meta property="twitter:image" content="https://sattiyans.com/og-color-converter.png" />
-    
+<PageLayout title={seoData.title} description={seoData.description} keywords={seoData.keywords} image="/og-image.png">
+  <Fragment slot="head">
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" is:inline>
       {
@@ -62,7 +43,7 @@ const seoData = {
         ]
       }
     </script>
-  </Head>
+  </Fragment>
   <Container>
     <div class="space-y-8">
       <!-- Breadcrumb -->

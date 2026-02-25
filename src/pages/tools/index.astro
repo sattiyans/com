@@ -2,13 +2,11 @@
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import Link from "@components/Link.astro";
-import Head from "@components/Head.astro";
 
 const seoData = {
   title: "Free Online Tools - Developer Utilities & Web Tools | Sattiyan Selvarajah",
   description: "Collection of free online tools for developers: Base64 encoder/decoder, color converter, password generator, Letterboxd analytics. Simple, fast, and reliable web utilities.",
-  keywords: "online tools, developer tools, base64 encoder, color converter, password generator, regex tester, free web tools, utility tools, coding tools",
-  canonical: "https://sattiyans.com/tools"
+  keywords: "online tools, developer tools, base64 encoder, color converter, password generator, regex tester, free web tools, utility tools, coding tools"
 };
 
 const tools = [
@@ -49,25 +47,8 @@ const tools = [
 const categories = ["All", "Analytics", "Text Tools", "Design Tools", "Security Tools"];
 ---
 
-<PageLayout title={seoData.title} description={seoData.description}>
-  <Head title={seoData.title} description={seoData.description}>
-    <meta name="keywords" content={seoData.keywords} />
-    <link rel="canonical" href={seoData.canonical} />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={seoData.canonical} />
-    <meta property="og:title" content={seoData.title} />
-    <meta property="og:description" content={seoData.description} />
-    <meta property="og:image" content="https://sattiyans.com/og-tools.png" />
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={seoData.canonical} />
-    <meta property="twitter:title" content={seoData.title} />
-    <meta property="twitter:description" content={seoData.description} />
-    <meta property="twitter:image" content="https://sattiyans.com/og-tools.png" />
-    
+<PageLayout title={seoData.title} description={seoData.description} keywords={seoData.keywords} image="/og-image.png">
+  <Fragment slot="head">
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" is:inline>
       {
@@ -120,7 +101,7 @@ const categories = ["All", "Analytics", "Text Tools", "Design Tools", "Security 
         }
       }
     </script>
-  </Head>
+  </Fragment>
   <Container>
     <div class="space-y-8">
       <!-- Breadcrumb -->
@@ -148,15 +129,16 @@ const categories = ["All", "Analytics", "Text Tools", "Design Tools", "Security 
 
       <!-- Filter Section -->
       <div>
-        <div class="flex flex-wrap gap-2">
+        <div id="tools-filters" class="flex flex-wrap gap-2 rounded-full">
           {categories.map((category) => (
             <button
-              class={`filter-btn px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${
+              class={`filter-btn px-3 py-1 rounded-full text-xs font-medium border transition-all duration-200 ${
                 category === 'All' 
-                  ? 'bg-black dark:bg-white text-white dark:text-black' 
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white'
+                  ? 'bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-black dark:border-white' 
+                  : 'bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200 hover:text-black dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white'
               }`}
               data-category={category}
+              type="button"
             >
               {category}
             </button>
@@ -234,7 +216,7 @@ const categories = ["All", "Analytics", "Text Tools", "Design Tools", "Security 
             I'm always looking for new problems to solve. If you have an idea for a tool that would be useful, let me know!
           </p>
           <Link 
-            href="/#contact"
+            href="mailto:hey@sattiyans.com"
             class="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-200"
           >
             Get in Touch →
@@ -244,80 +226,64 @@ const categories = ["All", "Analytics", "Text Tools", "Design Tools", "Security 
     </div>
   </Container>
 
-  <script>
-    function initToolsPage() {
-      const filterButtons = document.querySelectorAll('.filter-btn') as NodeListOf<HTMLButtonElement>;
-      const toolCards = document.querySelectorAll('.tool-card') as NodeListOf<HTMLElement>;
-      const toolsGrid = document.getElementById('tools-grid') as HTMLElement | null;
+  <script is:inline>
+    (() => {
+      const ACTIVE_CLASS = "filter-btn px-3 py-1 rounded-full text-xs font-medium border transition-all duration-200 bg-gray-900 text-white border-gray-900 dark:bg-white dark:text-black dark:border-white";
+      const INACTIVE_CLASS = "filter-btn px-3 py-1 rounded-full text-xs font-medium border transition-all duration-200 bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200 hover:text-black dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white";
 
-      if (!toolsGrid) {
-        console.error('Tools grid not found');
-        return;
-      }
+      function setupToolsFilters() {
+        const filtersRoot = document.getElementById("tools-filters");
+        const toolsGrid = document.getElementById("tools-grid");
+        if (!filtersRoot || !toolsGrid) return;
 
-    function filterTools(category: string) {
-      // Update button states
-      filterButtons.forEach(btn => {
-        if (btn.dataset.category === category) {
-          btn.className = 'filter-btn px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 bg-black dark:bg-white text-white dark:text-black';
-        } else {
-          btn.className = 'filter-btn px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white';
-        }
-      });
+        const filterButtons = Array.from(filtersRoot.querySelectorAll("button.filter-btn[data-category]"));
+        const toolCards = Array.from(toolsGrid.querySelectorAll(".tool-card"));
+        if (!filterButtons.length || !toolCards.length) return;
 
-      // Filter and show/hide tool cards
-      toolCards.forEach(card => {
-        const cardCategory = card.dataset.category;
-        
-        if (category === 'All' || cardCategory === category) {
-          card.style.display = 'block';
-          card.style.animation = 'fadeIn 0.3s ease-in-out';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-          // Update grid layout for better spacing
-          setTimeout(() => {
-            const visibleCards = Array.from(toolCards).filter(card => card.style.display !== 'none');
-            if (visibleCards.length === 0 && toolsGrid) {
-              toolsGrid.innerHTML = `
-                <div class="col-span-full text-center py-12">
-                  <div class="text-6xl mb-4">🔍</div>
-                  <h3 class="text-lg font-medium text-gray-600 dark:text-gray-400 mb-2">No tools found</h3>
-                  <p class="text-sm text-gray-500 dark:text-gray-500">Try selecting a different category</p>
-                </div>
-              `;
-            }
-          }, 300);
-    }
-
-        // Add click event listeners to filter buttons
-        filterButtons.forEach(button => {
-          button.addEventListener('click', () => {
-            const category = button.dataset.category;
-            if (category) {
-              filterTools(category);
-            }
+        const applyFilter = (category) => {
+          filterButtons.forEach((btn) => {
+            const isActive = btn.dataset.category === category;
+            btn.className = isActive ? ACTIVE_CLASS : INACTIVE_CLASS;
+            btn.setAttribute("aria-selected", isActive ? "true" : "false");
           });
+
+          toolCards.forEach((card) => {
+            const matches = category === "All" || card.dataset.category === category;
+            card.style.display = matches ? "block" : "none";
+            if (matches) card.style.animation = "fadeIn 0.25s ease-in-out";
+          });
+        };
+
+        filterButtons.forEach((button) => {
+          button.onclick = () => {
+            const category = button.dataset.category || "All";
+            applyFilter(category);
+          };
         });
 
-      // Add CSS animation
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `;
-      document.head.appendChild(style);
-    }
+        applyFilter("All");
 
-    // Initialize the tools page when DOM is loaded
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initToolsPage);
-    } else {
-      initToolsPage();
-    }
+        if (!document.getElementById("tools-filter-animations")) {
+          const style = document.createElement("style");
+          style.id = "tools-filter-animations";
+          style.textContent = `
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(8px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+          `;
+          document.head.appendChild(style);
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", setupToolsFilters, { once: true });
+      } else {
+        setupToolsFilters();
+      }
+
+      document.addEventListener("astro:page-load", setupToolsFilters);
+      document.addEventListener("astro:after-swap", setupToolsFilters);
+    })();
   </script>
 </PageLayout>

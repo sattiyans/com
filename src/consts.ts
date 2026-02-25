@@ -9,28 +9,28 @@ export const SITE: Site = {
 };
 
 export const HOME: Metadata = {
-  TITLE: "Home",
-  DESCRIPTION: "Sattiyan Selvarajah is a Senior PHP/Laravel Developer and Founder of Dotkod Solutions, specializing in scalable web applications, SaaS platforms, and e-commerce solutions.",
+  TITLE: "Sattiyan Selvarajah - Senior Software Developer",
+  DESCRIPTION: "Sattiyan Selvarajah is a Senior Software Developer and founder of Dotkod Solutions, building scalable web platforms, SaaS products, and automation solutions.",
 };
 
 export const BLOG: Metadata = {
   TITLE: "Blog",
-  DESCRIPTION: "A collection of articles on topics I am passionate about.",
+  DESCRIPTION: "Articles and insights on web development, SaaS engineering, automation, and product-building.",
 };
 
 export const WORK: Metadata = {
   TITLE: "Work",
-  DESCRIPTION: "Where I have worked and what I have done.",
+  DESCRIPTION: "Professional experience across software development, SaaS platforms, integrations, and product delivery.",
 };
 
 export const PROJECTS: Metadata = {
   TITLE: "Projects",
-  DESCRIPTION: "A collection of my projects, with links to repositories and demos.",
+  DESCRIPTION: "A portfolio of projects covering SaaS products, web applications, AI integrations, and automation systems.",
 };
 
 export const WATCHED: Metadata = {
   TITLE: "Watched",
-  DESCRIPTION: "A collection of films and TV series I've recently watched.",
+  DESCRIPTION: "Recently watched films and TV series, including ratings and activity updates from Letterboxd.",
 };
 
 export const SOCIALS: Socials = [

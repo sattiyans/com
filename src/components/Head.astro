@@ -14,11 +14,18 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  keywords?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = "/nano.png" } = Astro.props;
+const {
+  title,
+  description,
+  image = "/og-image.png",
+  keywords = "sattiyan selvarajah, software developer, full-stack developer, laravel developer, next.js developer, saas development, web applications, automation, dotkod solutions",
+} = Astro.props;
+const metaImage = new URL(image, Astro.site ?? Astro.url);
 ---
 
 <!-- Global Metadata -->
@@ -48,13 +55,14 @@ const { title, description, image = "/nano.png" } = Astro.props;
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={metaImage} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:site_name" content="Sattiyan Selvarajah" />
@@ -65,7 +73,7 @@ const { title, description, image = "/nano.png" } = Astro.props;
 <meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:image" content={metaImage} />
 <meta property="twitter:creator" content="@sattiyans" />
 <meta property="twitter:site" content="@sattiyans" />
 
@@ -81,10 +89,10 @@ const { title, description, image = "/nano.png" } = Astro.props;
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Sattiyan Selvarajah",
-  "jobTitle": "Senior PHP/Laravel Developer & Founder",
-  "description": "Senior PHP/Laravel Developer and Founder of Dotkod Solutions, specializing in scalable web applications, SaaS platforms, and e-commerce solutions.",
+  "jobTitle": "Senior Software Developer & Founder",
+  "description": "Senior Software Developer and founder of Dotkod Solutions, building scalable web platforms, SaaS products, and automation solutions.",
   "url": "https://sattiyans.com",
-  "image": "https://sattiyans.com/astro-nano.png",
+  "image": "https://sattiyans.com/og-image.png",
   "sameAs": [
     "https://github.com/sattiyans",
     "https://www.linkedin.com/in/sattiyans",

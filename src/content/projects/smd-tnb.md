@@ -2,7 +2,7 @@
 title: "TNB Subsidiary Management Dashboard (SMD) - UI Redesign & Integration"
 description: "Comprehensive UI rework and backend integration for TNB's Subsidiary Management Dashboard, transforming the interface based on modern Figma designs while maintaining robust data management capabilities."
 date: "2025-06-19"
-draft: false
+draft: true
 role: "Full-Stack Developer"
 client: "Universiti Tenaga Nasional (UNITEN)"
 projectOwner: "TriSquare Technology"

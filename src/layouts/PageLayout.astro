@@ -10,16 +10,20 @@ import { SITE } from "@consts";
 type Props = {
   title: string;
   description: string;
+  keywords?: string;
+  image?: string;
   hideChatbot?: boolean;
 };
 
-const { title, description, hideChatbot = false } = Astro.props;
+const { title, description, keywords, image, hideChatbot = false } = Astro.props;
+const pageTitle = title.includes(SITE.NAME) ? title : `${title} | ${SITE.NAME}`;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <Head title={`${title} | ${SITE.NAME}`} description={description} />
+    <Head title={pageTitle} description={description} keywords={keywords} image={image} />
+    <slot name="head" />
   </head>
   <body>
     <Header />
