@@ -42,6 +42,45 @@ function normalizeProjectImagePath(path: string): string {
   return `/projects/${path}`;
 }
 
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\u0060{3}[\s\S]*?\u0060{3}/g, " ")
+    .replace(/\u0060([^\u0060]+)\u0060/g, "$1")
+    .replace(/!\[.*?\]\(.*?\)/g, " ")
+    .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+    .replace(/[*_>#-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getOverviewSummary(body: string): string | null {
+  const match = body.match(/##\s+Overview\s+([\s\S]*?)(\n##\s+|\n###\s+|$)/i);
+  if (!match?.[1]) return null;
+  const firstParagraph = match[1].split(/\n\s*\n/).find((paragraph) => paragraph.trim().length > 0);
+  if (!firstParagraph) return null;
+  return stripMarkdown(firstParagraph);
+}
+
+function getResultsFromBody(body: string): string[] {
+  const keyAchievementsBlock = body.match(/Key achievements include:\s*([\s\S]*?)(\n##\s+|$)/i);
+  if (keyAchievementsBlock?.[1]) {
+    const bullets = keyAchievementsBlock[1]
+      .split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line.startsWith("-"))
+      .map((line) => stripMarkdown(line.replace(/^-+\s*/, "")))
+      .filter(Boolean);
+    if (bullets.length > 0) return bullets.slice(0, 4);
+  }
+
+  const singleAchievement = body.match(/\*\*Key Achievement\*\*:\s*(.+)/i);
+  if (singleAchievement?.[1]) {
+    return [stripMarkdown(singleAchievement[1])];
+  }
+
+  return [];
+}
+
 // Check if project is password protected
 const isProtected = !!project.data.password;
 const projectSlug = project.slug;
@@ -56,6 +95,14 @@ const projectKeywords = [
 ]
   .filter(Boolean)
   .join(", ");
+
+const caseStudyProblem = project.data.problem || project.data.description;
+const caseStudySolution = project.data.solution || getOverviewSummary(project.body) || project.data.description;
+const caseStudyResults = Array.isArray(project.data.results)
+  ? project.data.results
+  : project.data.results
+    ? [project.data.results]
+    : getResultsFromBody(project.body);
 ---
 
 <PageLayout
@@ -181,6 +228,38 @@ const projectKeywords = [
           </div>
         )}
       </div>
+
+      <!-- Case Study Snapshot -->
+      <section class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Problem</h2>
+          <p class="text-sm text-gray-700 dark:text-gray-300">{caseStudyProblem}</p>
+        </div>
+        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Solution</h2>
+          <p class="text-sm text-gray-700 dark:text-gray-300">{caseStudySolution}</p>
+        </div>
+        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Tech Stack</h2>
+          <p class="text-sm text-gray-700 dark:text-gray-300">
+            {project.data.techStack && project.data.techStack.length > 0 ? project.data.techStack.join(", ") : "See detailed stack in the sections below."}
+          </p>
+        </div>
+        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Results</h2>
+          {caseStudyResults.length > 0 ? (
+            <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
+              {caseStudyResults.map((result) => (
+                <li>{result}</li>
+              ))}
+            </ul>
+          ) : (
+            <p class="text-sm text-gray-700 dark:text-gray-300">
+              Delivered end-to-end implementation with production-ready outcomes.
+            </p>
+          )}
+        </div>
+      </section>
 
       <!-- Screenshots Slider -->
       {project.data.screenshots && project.data.screenshots.length > 0 && (

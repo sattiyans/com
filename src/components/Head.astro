@@ -9,6 +9,7 @@ import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2";
 import lora400 from "@fontsource/lora/files/lora-latin-400-normal.woff2";
 import lora600 from "@fontsource/lora/files/lora-latin-600-normal.woff2";
 import { ViewTransitions } from "astro:transitions";
+import { SITE, SOCIALS } from "@consts";
 
 interface Props {
   title: string;
@@ -26,6 +27,46 @@ const {
   keywords = "sattiyan selvarajah, software developer, full-stack developer, laravel developer, next.js developer, saas development, web applications, automation, dotkod solutions",
 } = Astro.props;
 const metaImage = new URL(image, Astro.site ?? Astro.url);
+const socialLinks = SOCIALS.map((social) => social.HREF);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://sattiyans.com/#person",
+      name: SITE.NAME,
+      jobTitle: "Senior Software Developer & Founder",
+      description: "Senior Software Developer and founder of Dotkod Solutions, building scalable web platforms, SaaS products, and automation solutions.",
+      url: "https://sattiyans.com",
+      image: "https://sattiyans.com/og-image.png",
+      sameAs: socialLinks,
+      worksFor: { "@id": "https://sattiyans.com/#organization" },
+      knowsAbout: [
+        "PHP",
+        "Laravel",
+        "SaaS Development",
+        "E-commerce",
+        "AI Integration",
+        "Web Development"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://sattiyans.com/#organization",
+      name: "Dotkod Solutions",
+      url: "https://dotkod.com",
+      founder: { "@id": "https://sattiyans.com/#person" }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://sattiyans.com/#website",
+      url: "https://sattiyans.com",
+      name: `${SITE.NAME} Portfolio`,
+      description
+    }
+  ]
+};
 ---
 
 <!-- Global Metadata -->
@@ -84,37 +125,7 @@ const metaImage = new URL(image, Astro.site ?? Astro.url);
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)" />
 
 <!-- JSON-LD Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Sattiyan Selvarajah",
-  "jobTitle": "Senior Software Developer & Founder",
-  "description": "Senior Software Developer and founder of Dotkod Solutions, building scalable web platforms, SaaS products, and automation solutions.",
-  "url": "https://sattiyans.com",
-  "image": "https://sattiyans.com/og-image.png",
-  "sameAs": [
-    "https://github.com/sattiyans",
-    "https://www.linkedin.com/in/sattiyans",
-    "https://x.com/sattiyans",
-    "https://threads.com/sattiyanss",
-    "https://letterboxd.com/sattiyans",
-    "https://serializd.com/user/sattiyans"
-  ],
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Dotkod Solutions"
-  },
-  "knowsAbout": [
-    "PHP",
-    "Laravel",
-    "SaaS Development",
-    "E-commerce",
-    "AI Integration",
-    "Web Development"
-  ]
-}
-</script>
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
 <ViewTransitions  />
 

@@ -1,0 +1,63 @@
+---
+import Container from "@components/Container.astro";
+import Link from "@components/Link.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+
+const title = "Hire Sattiyan Selvarajah - Laravel & SaaS Developer";
+const description = "Hire Sattiyan Selvarajah, a Senior Laravel/PHP developer in Malaysia for SaaS development, API integrations, automation, and production-ready web platforms.";
+const keywords = "hire laravel developer malaysia, hire php developer malaysia, saas developer malaysia, laravel consultant, api integration developer";
+---
+
+<PageLayout title={title} description={description} keywords={keywords}>
+  <Container>
+    <div class="space-y-8">
+      <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+        <Link href="/" underline={false} class="hover:text-black dark:hover:text-white transition-colors duration-200">Home</Link>
+        <span>/</span>
+        <span class="text-black dark:text-white font-medium">Hire</span>
+      </nav>
+
+      <header class="space-y-4">
+        <h1 class="text-2xl font-semibold text-black dark:text-white">Hire Sattiyan Selvarajah</h1>
+        <p class="text-gray-700 dark:text-gray-300">
+          Senior Software Developer specializing in Laravel/PHP, SaaS platform engineering, API integrations, and automation workflows for startups and SMEs.
+        </p>
+      </header>
+
+      <section class="space-y-3">
+        <h2 class="text-lg font-semibold text-black dark:text-white">What I Can Help You Build</h2>
+        <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
+          <li>Custom SaaS products with scalable backend architecture</li>
+          <li>Laravel and React-based admin portals and CMS solutions</li>
+          <li>Integration-heavy workflows with payment gateways, AI APIs, and webhooks</li>
+          <li>Automation pipelines using schedulers, cron, and n8n</li>
+          <li>Production deployment and performance-focused delivery</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-lg font-semibold text-black dark:text-white">Engagement Types</h2>
+        <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
+          <li>Contract and freelance product development</li>
+          <li>Fixed-scope MVP and feature delivery</li>
+          <li>Ongoing technical support and optimization</li>
+        </ul>
+      </section>
+
+      <section class="rounded-lg border border-black/15 dark:border-white/20 p-5 space-y-3">
+        <h2 class="text-lg font-semibold text-black dark:text-white">Start a Conversation</h2>
+        <p class="text-sm text-gray-700 dark:text-gray-300">
+          Share your goals, current stack, and timeline. I will review and respond with next steps.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <Link href="/ask?message=I%20want%20to%20get%20in%20touch" class="inline-flex items-center px-4 py-2 rounded-lg bg-black dark:bg-white text-white dark:text-black text-sm font-medium no-underline hover:bg-black/85 dark:hover:bg-white/85 transition-colors duration-200">
+            Book a Call
+          </Link>
+          <Link href="/projects" class="inline-flex items-center px-4 py-2 rounded-lg border border-black/15 dark:border-white/20 text-sm font-medium no-underline hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200">
+            View Case Studies
+          </Link>
+        </div>
+      </section>
+    </div>
+  </Container>
+</PageLayout>

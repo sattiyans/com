@@ -473,6 +473,15 @@ import { SITE } from '@consts';
 
       // Focus input on load
       this.input.focus();
+
+      // Auto-send prefilled message from query param, e.g. /ask?message=I%20want%20to%20get%20in%20touch
+      const params = new URLSearchParams(window.location.search);
+      const prefilledMessage = params.get('message');
+      if (prefilledMessage) {
+        this.input.value = prefilledMessage;
+        this.handleSend();
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
     }
 
     sleep(ms) {

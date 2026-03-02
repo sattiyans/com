@@ -35,6 +35,9 @@ const projects = defineCollection({
     demoURL: z.string().url().optional(), // Live project URL (legacy field, kept for backward compatibility)
     repoURL: z.string().url().optional(), // GitHub repository URL
     techStack: z.array(z.string()).optional(), // Array of technologies used
+    problem: z.string().optional(), // Optional case-study problem summary
+    solution: z.string().optional(), // Optional case-study solution summary
+    results: z.union([z.string(), z.array(z.string())]).optional(), // Optional case-study outcomes
     screenshots: z.array(z.string()).optional(), // Array of screenshot image paths/URLs
     thumbnail: z.string().optional(), // Thumbnail image for project listing (path or URL) - legacy, use featuredImage instead
     featuredImage: z.string().optional(), // Featured image for project listing page (path or URL)

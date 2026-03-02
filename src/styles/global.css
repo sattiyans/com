@@ -24,7 +24,7 @@ body {
   @apply text-black/50 dark:text-white/75;
 }
 
-header {
+body > header {
   @apply fixed top-0 left-0 right-0 z-50 py-5;
   @apply bg-transparent;
 }

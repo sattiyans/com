@@ -1,0 +1,260 @@
+---
+import { getCollection } from "astro:content";
+import { SITE } from "@consts";
+
+const workCollection = (await getCollection("work"))
+  .filter((entry) => entry.data.company !== "Dotkod Solutions")
+  .sort((a, b) => new Date(b.data.dateStart).valueOf() - new Date(a.data.dateStart).valueOf());
+
+const work = await Promise.all(
+  workCollection.map(async (entry) => {
+    const { Content } = await entry.render();
+    return { ...entry, Content };
+  })
+);
+
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{`CV | ${SITE.NAME}`}</title>
+    <meta
+      name="description"
+      content="ATS-friendly CV and resume for Sattiyan Selvarajah."
+    />
+    <style>
+      :root { color-scheme: light; }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: "Times New Roman", Times, serif;
+        background: #efefef;
+        color: #111;
+        font-size: 10.5pt;
+      }
+      main {
+        width: min(210mm, calc(100% - 2rem));
+        min-height: 297mm;
+        margin: 0 auto;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+        padding: 14mm 12mm;
+        position: relative;
+      }
+      .cv-download-btn {
+        position: fixed;
+        top: 0.85rem;
+        right: 0.85rem;
+        width: 2.3rem;
+        height: 2.3rem;
+        border: 1px solid rgba(0, 0, 0, 0.45);
+        background: #fff;
+        color: #111;
+        border-radius: 9999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+        z-index: 50;
+      }
+      article { display: flex; flex-direction: column; gap: 0.62rem; }
+      header { text-align: left; border-bottom: 1px solid #111; padding-bottom: 0.4rem; }
+      h1 { font-size: 2.2rem; margin: 0 0 0.1rem; }
+      h2 {
+        font-size: 1.27rem;
+        margin: 0;
+        border-bottom: 1px solid #111;
+        padding-bottom: 0.12rem;
+      }
+      h3 { font-size: 1rem; margin: 0; }
+      p { margin: 0.13rem 0; line-height: 1.22; }
+      ul { margin: 0.14rem 0 0.14rem 0.9rem; padding: 0; }
+      li { margin: 0.04rem 0; line-height: 1.2; font-size: 0.9rem; }
+      .meta { font-size: 0.84rem; }
+      .small { font-size: 0.9rem; }
+      .entry { margin-top: 0.24rem; list-style: none; }
+      .entry-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: baseline;
+      }
+      .entry-date { white-space: nowrap; font-style: italic; font-size: 0.88rem; }
+      .role-line { font-weight: 600; }
+      .experience-details { margin-top: 0.08rem; }
+      .experience-details :global(p) { margin: 0.08rem 0; line-height: 1.2; }
+      .experience-details :global(ul) {
+        margin: 0.08rem 0 0.1rem 0.86rem;
+        padding-left: 0.65rem;
+        list-style: disc !important;
+      }
+      .experience-details :global(li) {
+        margin: 0.02rem 0;
+        list-style: disc !important;
+      }
+      .data-list, .education-list { margin-left: 0; }
+      .data-list > li, .education-list > li { list-style: none; }
+      .detail-list { margin: 0.08rem 0 0.1rem 0.86rem; padding-left: 0.65rem; }
+      .detail-list > li { list-style: disc; margin: 0.02rem 0; }
+      .section-body { margin-top: 0.08rem; }
+      @media (max-width: 900px) {
+        main {
+          width: calc(100% - 1rem);
+          min-height: auto;
+          padding: 1rem;
+          margin: 0.5rem auto;
+        }
+      }
+      @media print {
+        body { background: #fff; }
+        main {
+          width: 100%;
+          min-height: auto;
+          margin: 0;
+          box-shadow: none;
+          padding: 0;
+        }
+        .cv-download-btn { display: none !important; }
+        section, .entry {
+          break-inside: avoid-page;
+          page-break-inside: avoid;
+        }
+        h2 {
+          break-after: avoid-page;
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/cv?print=1" class="cv-download-btn" id="cv-download-btn" aria-label="Download PDF">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v11"></path>
+        <path d="M8 10l4 4 4-4"></path>
+        <path d="M4 17v3h16v-3"></path>
+      </svg>
+    </a>
+    <main>
+      <article>
+        <header>
+          <h1>{SITE.NAME}</h1>
+          <p class="small">
+            Software Developer. I build scalable web applications, SaaS platforms, integrations, and automation workflows.
+          </p>
+          <p class="meta">
+            Kuala Lumpur, Malaysia · {SITE.EMAIL} · linkedin.com/in/sattiyans · github.com/sattiyans
+          </p>
+        </header>
+
+        <section>
+          <h2>Summary</h2>
+          <p class="small">
+            Full-stack engineer focused on Laravel ecosystems, API integrations, AI-assisted features, and delivery of production-ready SaaS products. Experienced across architecture, backend systems, CMS platforms, payment integration, and deployment automation.
+          </p>
+        </section>
+
+        <section>
+          <h2>Experience</h2>
+          <ul class="data-list">
+            {work.map((entry) => (
+              <li class="entry">
+                <div class="entry-head">
+                  <h3>{entry.data.company} | Kuala Lumpur, Malaysia</h3>
+                  <span class="entry-date">
+                    {new Date(entry.data.dateStart).toLocaleDateString("en-US", { month: "short", year: "numeric" })} - {entry.data.dateEnd === "Current" ? "Present" : new Date(entry.data.dateEnd).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                  </span>
+                </div>
+                <p class="role-line">{entry.data.role}</p>
+                <div class="experience-details small">
+                  <entry.Content />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section>
+          <h2>Education</h2>
+          <ul class="education-list">
+            <li class="entry">
+              <div class="entry-head">
+                <h3>Universiti Teknikal Malaysia Melaka</h3>
+                <span class="entry-date">2016 - 2020</span>
+              </div>
+              <p class="role-line">Bachelor of Information Technology (Game Technology)</p>
+              <p class="small">Focus: game development, software engineering fundamentals, and team-based project execution.</p>
+            </li>
+            <li class="entry">
+              <div class="entry-head">
+                <h3>Politeknik Tuanku Syed Sirajuddin</h3>
+                <span class="entry-date">2013 - 2016</span>
+              </div>
+              <p class="role-line">Diploma in Information Technology (Games Technology)</p>
+              <p class="small">Focus: programming basics, data structures, and practical game engine workflows.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Skills</h2>
+          <ul class="data-list">
+            <li class="entry">
+              <h3>Technical Skills</h3>
+              <p class="role-line">Core Backend, Frontend, and Infrastructure Stack</p>
+              <p class="small">Laravel, PHP, Filament, Livewire, JavaScript/TypeScript, React, Next.js, MySQL, PostgreSQL, Nginx, API Integrations, OpenAI API, n8n, Payment Gateway Integration.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Language</h2>
+          <ul class="data-list">
+            <li class="entry">
+              <div class="entry-head">
+                <h3>English</h3>
+                <span class="entry-date">Professional working proficiency</span>
+              </div>
+              <p class="small">Used for technical documentation, collaboration, and stakeholder communication.</p>
+            </li>
+            <li class="entry">
+              <div class="entry-head">
+                <h3>Malay</h3>
+                <span class="entry-date">Professional working proficiency</span>
+              </div>
+              <p class="small">Used in workplace communication and cross-functional coordination.</p>
+            </li>
+            <li class="entry">
+              <div class="entry-head">
+                <h3>Tamil</h3>
+                <span class="entry-date">Native or bilingual proficiency</span>
+              </div>
+              <p class="small">Primary language for daily and professional communication.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>References</h2>
+          <ul class="data-list">
+            <li class="entry">
+              <p class="small">Available upon request.</p>
+            </li>
+          </ul>
+        </section>
+      </article>
+    </main>
+    <script is:inline>
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("print") === "1") {
+        setTimeout(() => {
+          window.print();
+        }, 120);
+      }
+    </script>
+  </body>
+</html>
