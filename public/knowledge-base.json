@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-25T06:42:29.310Z",
+  "generatedAt": "2026-03-02T09:23:11.614Z",
   "about": {
     "name": "Sattiyan Selvarajah",
     "role": "Software Developer & Founder of Dotkod Solutions",
@@ -308,6 +308,20 @@
     "description": "A collection of films Sattiyan has recently watched, tracked via Letterboxd. The page displays recently watched movies with ratings, posters, and watch dates. Sattiyan's Letterboxd profile: https://letterboxd.com/sattiyans. The page shows the most recent films he has watched, including movie titles, years, ratings (if given), and when they were watched.",
     "recentFilms": [
       {
+        "title": "Mask",
+        "year": 2025,
+        "watchedDate": "2026-03-01T09:10:27.000Z",
+        "rating": 2,
+        "url": "https://letterboxd.com/sattiyans/film/mask-2025-1/"
+      },
+      {
+        "title": "The Perks of Being a Wallflower",
+        "year": 2012,
+        "watchedDate": "2026-02-27T16:33:08.000Z",
+        "rating": 5,
+        "url": "https://letterboxd.com/sattiyans/film/the-perks-of-being-a-wallflower/"
+      },
+      {
         "title": "Taxi Driver",
         "year": 1976,
         "watchedDate": "2026-02-24T13:18:43.000Z",
@@ -362,20 +376,6 @@
         "watchedDate": "2026-02-07T02:43:49.000Z",
         "rating": 3,
         "url": "https://letterboxd.com/sattiyans/film/night-at-the-museum-secret-of-the-tomb/"
-      },
-      {
-        "title": "Blade Runner",
-        "year": 1982,
-        "watchedDate": "2026-02-06T03:04:12.000Z",
-        "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/blade-runner/"
-      },
-      {
-        "title": "Kuberaa",
-        "year": 2025,
-        "watchedDate": "2026-02-03T11:12:03.000Z",
-        "rating": 2.5,
-        "url": "https://letterboxd.com/sattiyans/film/kuberaa/"
       }
     ]
   },

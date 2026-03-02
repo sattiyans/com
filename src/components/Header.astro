@@ -2,9 +2,9 @@
 import Link from "@components/Link.astro";
 ---
 
-<header class="relative !fixed !top-0 !left-0 !right-0 !z-[9999] !py-0 !bg-transparent !backdrop-blur-none">
+<header class="relative !fixed !top-0 !left-0 !right-0 !z-[10001] !py-0 !bg-transparent !backdrop-blur-none">
   <!-- Floating Navigation Pill -->
-  <div class="fixed top-4 left-1/2 z-[9999]" id="floating-nav" style="transform: translateX(-50%);">
+  <div class="fixed top-4 inset-x-0 z-[9999] flex justify-center" id="floating-nav">
     <nav class="relative">
       <!-- Burger Menu Button -->
       <button 
@@ -23,44 +23,48 @@ import Link from "@components/Link.astro";
     </nav>
     
     <!-- Horizontal Pill Menu -->
-    <div 
+    <div
       id="dropdown-menu"
-      class="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-gray-100 dark:bg-black border border-black/15 dark:border-white/20 rounded-full shadow-2xl py-3 px-4 opacity-0 invisible pointer-events-none transition-all duration-300 ease-out transform translate-y-2 flex flex-row items-center gap-2 overflow-x-auto scrollbar-hide z-[10000]"
+      class="fixed inset-0 z-[10000] flex items-center justify-center px-6 bg-black/80 backdrop-blur-sm opacity-0 invisible pointer-events-none transition-all duration-300"
     >
-      <Link href="/work" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
-        <div class="pr-2">
+      <div
+        id="dropdown-menu-panel"
+        class="w-full max-w-xs bg-transparent border-0 shadow-none p-0 flex flex-col gap-2 transition-all duration-300 ease-out"
+      >
+      <Link href="/work" underline={false} class="inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="w-4 flex items-center justify-center">
           <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
         </div>
         <span class="font-medium text-sm leading-none">Work</span>
       </Link>
-      <Link href="/projects" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
-        <div class="pr-2">
+      <Link href="/projects" underline={false} class="inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="w-4 flex items-center justify-center">
           <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
         </div>
         <span class="font-medium text-sm leading-none">Projects</span>
       </Link>
-      <Link href="/hire" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
-        <div class="pr-2">
+      <Link href="/hire" underline={false} class="inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="w-4 flex items-center justify-center">
           <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 8a2 2 0 00-2-2h-3l-2-2h-4L8 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8z" />
           </svg>
         </div>
         <span class="font-medium text-sm leading-none">Hire</span>
       </Link>
-      <Link href="/watched" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
-        <div class="pr-2">
+      <Link href="/watched" underline={false} class="inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="w-4 flex items-center justify-center">
           <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
           </svg>
         </div>
         <span class="font-medium text-sm leading-none">Watched</span>
       </Link>
-      <Link href="/tools" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
-        <div class="pr-2">
+      <Link href="/tools" underline={false} class="inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="w-4 flex items-center justify-center">
           <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -68,22 +72,23 @@ import Link from "@components/Link.astro";
         </div>
         <span class="font-medium text-sm leading-none">Tools</span>
       </Link>
-      <Link href="/uses" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
-        <div class="pr-2">
+      <Link href="/uses" underline={false} class="inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="w-4 flex items-center justify-center">
           <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
         </div>
         <span class="font-medium text-sm leading-none">Uses</span>
       </Link>
-      <Link href="/cv" underline={false} class="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
-        <div class="pr-2">
+      <Link href="/cv" underline={false} class="inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap">
+        <div class="w-4 flex items-center justify-center">
           <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h10M7 11h10M7 15h6M7 3h6l4 4v14H7z" />
           </svg>
         </div>
         <span class="font-medium text-sm leading-none">CV</span>
       </Link>
+      </div>
     </div>
   </div>
   
@@ -100,11 +105,11 @@ import Link from "@components/Link.astro";
   @keyframes slideDown {
     from {
       opacity: 0;
-      transform: translateX(-50%) translateY(-20px);
+      transform: translateY(-20px);
     }
     to {
       opacity: 1;
-      transform: translateX(-50%) translateY(0);
+      transform: translateY(0);
     }
   }
   
@@ -122,7 +127,10 @@ import Link from "@components/Link.astro";
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translateX(-50%) translateY(0) !important;
+  }
+
+  #dropdown-menu.open #dropdown-menu-panel {
+    transform: translateY(0) !important;
   }
   
   /* Hide scrollbar for horizontal scroll */
@@ -139,18 +147,121 @@ import Link from "@components/Link.astro";
     display: inline-flex !important;
     flex-direction: row !important;
     align-items: center !important;
+    column-gap: 0.8rem !important;
   }
   
   #dropdown-menu svg {
     display: block !important;
     flex-shrink: 0 !important;
+    width: 1.05rem !important;
+    height: 1.05rem !important;
   }
   
   #dropdown-menu span {
     display: inline-block !important;
     white-space: nowrap !important;
     line-height: 1 !important;
+    font-size: 0.98rem !important;
   }
+
+  /* Full-page overlay menu (all sizes) */
+  #dropdown-menu {
+    width: 100vw !important;
+    height: 100dvh !important;
+    padding: 1.5rem !important;
+    background: rgba(0, 0, 0, 0.82) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+
+  #dropdown-menu.open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  /* Mobile default: centered vertical list */
+  #dropdown-menu-panel {
+    width: 100% !important;
+    max-width: 22rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    transform: none !important;
+  }
+
+  #dropdown-menu a {
+    width: 100% !important;
+    justify-content: flex-start !important;
+    padding: 1rem 1.15rem !important;
+    border-radius: 0.85rem !important;
+    color: #e5e7eb !important;
+    background: transparent !important;
+    column-gap: 0.95rem !important;
+  }
+
+  #dropdown-menu a > div {
+    width: 1.5rem !important;
+    min-width: 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  #dropdown-menu a svg {
+    width: 1.3rem !important;
+    height: 1.3rem !important;
+  }
+
+  #dropdown-menu a span {
+    font-size: 1.18rem !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+  }
+
+  #dropdown-menu a:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #fff !important;
+  }
+
+  /* Desktop/tablet: same overlay, but horizontal row */
+  @media (min-width: 1100px) {
+    #dropdown-menu {
+      align-items: flex-start !important;
+      padding-top: 5.5rem !important;
+    }
+
+    #dropdown-menu-panel {
+      max-width: none !important;
+      width: auto !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 0.35rem !important;
+      background: rgba(0, 0, 0, 0.45) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 9999px !important;
+      padding: 0.5rem 0.65rem !important;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35) !important;
+    }
+
+    #dropdown-menu a {
+      width: auto !important;
+      justify-content: center !important;
+      padding: 0.55rem 0.85rem !important;
+      border-radius: 9999px !important;
+      font-size: 0.98rem !important;
+    }
+
+    #dropdown-menu a span {
+      font-size: 1.04rem !important;
+    }
+
+    #dropdown-menu a svg {
+      width: 1.05rem !important;
+      height: 1.05rem !important;
+    }
+  }
+
 </style>
 
 <script is:inline>
@@ -212,14 +323,21 @@ import Link from "@components/Link.astro";
       }
       
       // Create new click handler
+      const closeMenu = function() {
+        dropdownMenu.classList.remove('open');
+        burgerIcon.classList.remove('hidden');
+        homeIcon.classList.add('hidden');
+        burgerMenu.setAttribute('aria-expanded', 'false');
+      };
+
       currentBurgerHandler = function(e) {
         e.preventDefault();
         e.stopPropagation();
         const isOpen = dropdownMenu.classList.contains('open');
         
         if (isOpen) {
-          // Navigate to home when home icon is clicked
-          window.location.href = '/';
+          // Close overlay/menu when icon is clicked again
+          closeMenu();
         } else {
           // Open menu and show home icon
           dropdownMenu.classList.add('open');
@@ -237,10 +355,7 @@ import Link from "@components/Link.astro";
         if (dropdownMenu.classList.contains('open') && 
             !dropdownMenu.contains(e.target) && 
             !burgerMenu.contains(e.target)) {
-          dropdownMenu.classList.remove('open');
-          burgerIcon.classList.remove('hidden');
-          homeIcon.classList.add('hidden');
-          burgerMenu.setAttribute('aria-expanded', 'false');
+          closeMenu();
         }
       };
       
@@ -251,10 +366,13 @@ import Link from "@components/Link.astro";
         // Check if click was on a link
         const link = e.target.closest('a');
         if (link && dropdownMenu.contains(link)) {
-          dropdownMenu.classList.remove('open');
-          burgerIcon.classList.remove('hidden');
-          homeIcon.classList.add('hidden');
-          burgerMenu.setAttribute('aria-expanded', 'false');
+          closeMenu();
+          return;
+        }
+
+        // Close when clicking anywhere else inside the open menu area
+        if (dropdownMenu.classList.contains('open')) {
+          closeMenu();
         }
       };
       

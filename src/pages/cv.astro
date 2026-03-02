@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { SITE } from "@consts";
+import { SITE, SOCIALS } from "@consts";
 
 const workCollection = (await getCollection("work"))
   .filter((entry) => entry.data.company !== "Dotkod Solutions")
@@ -13,6 +13,25 @@ const work = await Promise.all(
   })
 );
 
+const pageTitle = `CV | ${SITE.NAME}`;
+const pageDescription = "ATS-friendly CV and resume for Sattiyan Selvarajah.";
+const canonicalURL = "https://sattiyans.com/cv";
+const pageImage = "https://sattiyans.com/og-image.png";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  mainEntity: {
+    "@type": "Person",
+    name: SITE.NAME,
+    url: canonicalURL,
+    sameAs: SOCIALS.map((social) => social.HREF),
+    jobTitle: "Software Developer"
+  },
+  url: canonicalURL,
+  name: pageTitle,
+  description: pageDescription
+};
+
 ---
 
 <!doctype html>
@@ -20,11 +39,21 @@ const work = await Promise.all(
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>{`CV | ${SITE.NAME}`}</title>
-    <meta
-      name="description"
-      content="ATS-friendly CV and resume for Sattiyan Selvarajah."
-    />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={pageImage} />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={pageDescription} />
+    <meta property="twitter:image" content={pageImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <style>
       :root { color-scheme: light; }
       * { box-sizing: border-box; }
