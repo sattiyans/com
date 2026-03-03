@@ -10,46 +10,29 @@ projectURL: "https://gboost.ai"
 techStack: ["Laravel 9", "PHP 8.2", "PostgreSQL", "Blade", "React", "Vite", "Tailwind CSS", "Google Business APIs", "OpenAI API", "Nginx"]
 featuredImage: "gboost.png"
 screenshots: ["gboost1.png", "gboost2.png", "gboost3.png"]
+problem: "Multi-location teams were spending significant manual effort to keep Google Business Profiles active, respond to reviews consistently, and compile location-level performance reports. The work was repetitive, error-prone, and difficult to standardize across branches, which reduced both execution speed and local SEO consistency."
+solution: "I built a centralized SaaS workflow that automates core profile operations such as post generation, review response drafting, scheduling, and reporting from one control plane. The platform combines API integrations and AI-assisted workflows so teams can scale operations across locations while keeping quality and governance intact."
+results:
+  - "Reduced repetitive GBP operational tasks across locations."
+  - "Improved review response turnaround with AI-assisted drafts."
+  - "Enabled unified visibility through analytics and scheduled reports."
 ---
 
 ## Overview
 
-GBoost.ai is a SaaS platform built to reduce the manual work involved in managing Google Business Profiles at scale. Teams that manage one or many locations often struggle with repetitive posting, review response delays, fragmented analytics, and inconsistent reporting.
-
-The platform centralizes these workflows into one system: connect Google accounts and locations, generate and manage local posts, monitor and reply to reviews, track insights/keywords, and automate recurring reports and scheduled tasks.
+GBoost.ai is a local SEO operations platform for teams managing one or many Google Business Profile locations. It combines content workflows, review handling, and reporting in a single admin system.
 
 ## Features
 
-- Google OAuth authentication and account/location synchronization.
-- Local post pipeline with draft generation, approval/rejection, scheduling, and publish-now actions.
-- AI-assisted content generation for posts, review replies, and customer-facing review pages.
-- Review management dashboard with sync, filtering, response history, and automated reply workflows.
-- Insights and keyword tracking to monitor profile visibility and performance trends.
-- Scheduled reports and operational cron jobs for consistent automation.
-- Super admin panel for user management, plans, OpenAI settings, system controls, and job monitoring.
+- Google account and location sync with centralized management.
+- Post workflow for draft, approval, scheduling, and publish actions.
+- AI-assisted generation for posts and review responses.
+- Review queue with filtering, history, and response tracking.
+- Insights and scheduled reports for recurring local SEO operations.
 
-## Tech Stack
+## Future Improvements
 
-Laravel was used as the core framework to move quickly with a structured backend, routing, queues/commands, and Eloquent models for a data-heavy business domain. Blade templates enabled fast delivery of server-rendered pages, while React components were added selectively for richer admin/sidebar interactions without turning the entire UI into a SPA.
-
-Vite and Tailwind CSS provided a fast frontend workflow and consistent UI system. Google Business APIs power account, location, post, review, and performance integrations. OpenAI API powers AI generation and automation features. This combination balanced speed of delivery, maintainability, and operational reliability for a production SaaS product.
-
-## Challenges & Solutions
-
-One challenge was handling multiple external APIs with different data formats, auth lifecycles, and failure modes. I addressed this by organizing integration logic into service classes, adding token refresh handling, and building graceful fallback/error capture paths for operational visibility.
-
-Another challenge was keeping automation safe and controllable for production users. I implemented scheduler-driven commands with centralized system settings so jobs can be enabled/disabled, monitored, and audited from admin tooling rather than hard-coded behavior.
-
-A third challenge was avoiding frontend over-complexity while shipping quickly. The solution was a pragmatic hybrid approach: Blade for most pages and focused React components only where interactivity justified the extra complexity.
-
-## Key Learnings
-
-- Designing for operations is as important as core feature development in SaaS products.
-- External API-driven systems need strong observability and resilient error handling from day one.
-- Selective use of frontend frameworks can deliver strong UX without unnecessary architecture overhead.
-- Automation should always include governance controls (approval flows, toggles, and logs).
-
-## Conclusion
-
-GBoost.ai delivers a practical automation layer for Google Business Profile operations, combining AI-assisted workflows with admin governance and reporting. Future improvements include deeper test coverage for critical automation flows, tighter module boundaries in large controllers, and expanded observability for external API reliability.
+- Add deeper anomaly alerts for ranking/performance drops.
+- Expand template and workflow customization by organization.
+- Improve integration observability for API failure diagnostics.
 

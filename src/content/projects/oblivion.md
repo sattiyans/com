@@ -9,33 +9,27 @@ techStack: ["Unreal Engine 4", "Blueprints", "C++"]
 projectURL: "https://sattiyans.itch.io/oblivion"
 featuredImage: "oblivion.png"
 screenshots: ["oblivion1.png", "oblivion2.png"]
+problem: "The project needed to demonstrate strong 3D adventure fundamentals within a constrained scope, which required balancing immersion, performance, and production time. Without careful structure, prototypes can feel visually complete but mechanically shallow."
+solution: "I implemented exploration-driven gameplay loops, intentional level progression, and core interaction mechanics in Unreal Engine to keep the experience complete and playable. The build focused on practical game flow, environment readability, and stable implementation rather than feature bloat."
+results:
+  - "Produced a functional 3D adventure prototype with clear player flow."
+  - "Demonstrated environment building and gameplay system integration."
+  - "Established reusable Unreal workflows for later game projects."
 ---
 
 ## Overview
 
-Oblivion is a simple adventure game developed using Unreal Engine 4. This project served as an exploration into 3D game development, focusing on level design, world building, and creating an immersive adventure experience.
-
-As a Game Developer, I was responsible for the entire development process, including level design, gameplay mechanics, and implementation using Unreal Engine 4's powerful tools and Blueprint visual scripting system.
+Oblivion is an exploration-based 3D adventure project built in Unreal Engine 4. The focus was delivering a complete prototype with playable progression and immersive level design.
 
 ## Features
 
-- **3D Adventure Gameplay**: Exploration-based adventure game in a 3D environment
-- **Level Design**: Carefully crafted levels and environments
-- **Adventure Mechanics**: Traditional adventure game elements with exploration and discovery
-- **Unreal Engine 4**: Leveraging UE4's powerful rendering and game development tools
+- Exploration-first gameplay in a 3D environment.
+- Scene and level composition for guided progression.
+- Blueprint + C++ implementation for mechanics and interactions.
+- Adventure pacing tuned for consistent player movement.
 
-## Tech Stack
+## Future Improvements
 
-- **Unreal Engine 4**: Industry-standard game engine for 3D game development
-- **Blueprints**: Visual scripting system for rapid prototyping and gameplay logic
-- **C++**: Programming language for custom game mechanics and performance-critical systems
-
-## Development Experience
-
-Working with Unreal Engine 4 provided valuable experience in 3D game development, level design, and the Blueprint visual scripting system. This project allowed me to explore UE4's powerful tools for creating immersive 3D environments and implementing adventure game mechanics. The project demonstrated my ability to work with professional-grade game engines and understand 3D game development workflows.
-
-## Conclusion
-
-Oblivion represents my early exploration into 3D game development using Unreal Engine 4. The project showcases my ability to create adventure games with engaging level design and demonstrates proficiency with industry-standard game development tools.
-
-
+- Add richer objectives and mission checkpoints.
+- Improve environmental feedback and interaction cues.
+- Expand performance tuning for lower-end devices.

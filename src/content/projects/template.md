@@ -12,37 +12,27 @@ repoURL: "https://github.com/username/project"  # Optional: GitHub repository UR
 techStack: ["React", "TypeScript", "Tailwind CSS", "Node.js"]  # Optional: Array of technologies used
 featuredImage: "featured-image.png"  # Optional: Featured image for project listing page (place images in public/projects/ folder or use full URLs)
 screenshots: ["screenshot1.png", "screenshot2.png"]  # Optional: Screenshot paths (place images in public/projects/ folder or use full URLs)
+problem: "Describe the real operational or user pain this project addressed, including why existing workflows or tools were insufficient."
+solution: "Explain the implementation approach clearly: what you built, how the architecture/workflow solved the problem, and what changed after launch."
+results:
+  - "One clear outcome from this implementation."
+  - "Another measurable or practical outcome."
 ---
 
 ## Overview
 
-Write a brief overview of your project here. What problem does it solve? What was your motivation for building it?
+Write a concise 2-4 sentence summary of the project context and what was delivered.
 
 ## Features
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Key feature or workflow delivered.
+- Another core feature users rely on.
+- Important system behavior or integration.
+- Monitoring/reporting/admin capability (if relevant).
 
-## Tech Stack
+## Future Improvements
 
-Explain why you chose the technologies you used and how they contributed to the project.
-
-## Challenges & Solutions
-
-Describe any challenges you faced during development and how you solved them.
-
-## Key Learnings
-
-What did you learn from building this project?
-
-## Screenshots
-
-You can reference screenshots in your markdown content as well:
-
-![Screenshot 1](/screenshot1.png)
-
-## Conclusion
-
-Wrap up your case study with final thoughts and any future improvements you'd like to make.
+- Practical next improvement to increase value.
+- Scalability/performance improvement.
+- UX/automation enhancement.
 

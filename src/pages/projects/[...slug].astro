@@ -2,10 +2,8 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
-import FormattedDate from "@components/FormattedDate.astro";
-import { readingTime, extractHeadings } from "@lib/utils";
+import { readingTime } from "@lib/utils";
 import Link from "@components/Link.astro";
-import TableOfContents from "@components/TableOfContents.astro";
 
 export async function getStaticPaths() {
   const projects = (await getCollection("projects"))
@@ -19,13 +17,9 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"projects">;
 
 const project = Astro.props;
-const { Content } = await project.render();
 
 // Support both old demoURL and new projectURL for backward compatibility
 const projectURL = project.data.projectURL || project.data.demoURL;
-
-// Extract headings for table of contents
-const headings = extractHeadings(project.body);
 
 // Helper function to normalize image paths for projects folder
 // If it's a full URL, use it as-is
@@ -81,6 +75,27 @@ function getResultsFromBody(body: string): string[] {
   return [];
 }
 
+function getSectionBlock(body: string, headings: string[]): string | null {
+  for (const heading of headings) {
+    const escapedHeading = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const regex = new RegExp(`##\\s+${escapedHeading}\\s+([\\s\\S]*?)(\\n##\\s+|$)`, "i");
+    const match = body.match(regex);
+    if (match?.[1]) return match[1].trim();
+  }
+  return null;
+}
+
+function getBulletsFromBlock(block: string | null, max = 5): string[] {
+  if (!block) return [];
+  const bullets = block
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => /^(-|\*|\d+\.)\s+/.test(line))
+    .map((line) => stripMarkdown(line.replace(/^(-|\*|\d+\.)\s+/, "")))
+    .filter(Boolean);
+  return bullets.slice(0, max);
+}
+
 // Check if project is password protected
 const isProtected = !!project.data.password;
 const projectSlug = project.slug;
@@ -103,6 +118,39 @@ const caseStudyResults = Array.isArray(project.data.results)
   : project.data.results
     ? [project.data.results]
     : getResultsFromBody(project.body);
+
+const keyFeatures = (() => {
+  const featureBlock = getSectionBlock(project.body, [
+    "Features",
+    "Key Features",
+    "Core Features",
+    "What I Built",
+    "Implementation"
+  ]);
+  const featureBullets = getBulletsFromBlock(featureBlock, 5);
+  if (featureBullets.length > 0) return featureBullets;
+  if (caseStudyResults.length > 0) return caseStudyResults.slice(0, 5).map((result) => stripMarkdown(result));
+  if (project.data.techStack?.length) {
+    return project.data.techStack.slice(0, 5).map((tech) => `Built using ${tech}.`);
+  }
+  return ["Delivered a production-ready implementation with core user flows in place."];
+})();
+
+const nextSteps = (() => {
+  const nextBlock = getSectionBlock(project.body, [
+    "Future Improvements",
+    "Next Steps",
+    "What Can Be Improved",
+    "Roadmap"
+  ]);
+  const nextBullets = getBulletsFromBlock(nextBlock, 4);
+  if (nextBullets.length > 0) return nextBullets;
+  return [
+    "Expand analytics and reporting for stronger business visibility.",
+    "Improve performance and UX based on usage patterns.",
+    "Add more automation to reduce manual operations."
+  ];
+})();
 ---
 
 <PageLayout
@@ -229,38 +277,6 @@ const caseStudyResults = Array.isArray(project.data.results)
         )}
       </div>
 
-      <!-- Case Study Snapshot -->
-      <section class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
-          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Problem</h2>
-          <p class="text-sm text-gray-700 dark:text-gray-300">{caseStudyProblem}</p>
-        </div>
-        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
-          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Solution</h2>
-          <p class="text-sm text-gray-700 dark:text-gray-300">{caseStudySolution}</p>
-        </div>
-        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
-          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Tech Stack</h2>
-          <p class="text-sm text-gray-700 dark:text-gray-300">
-            {project.data.techStack && project.data.techStack.length > 0 ? project.data.techStack.join(", ") : "See detailed stack in the sections below."}
-          </p>
-        </div>
-        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
-          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Results</h2>
-          {caseStudyResults.length > 0 ? (
-            <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
-              {caseStudyResults.map((result) => (
-                <li>{result}</li>
-              ))}
-            </ul>
-          ) : (
-            <p class="text-sm text-gray-700 dark:text-gray-300">
-              Delivered end-to-end implementation with production-ready outcomes.
-            </p>
-          )}
-        </div>
-      </section>
-
       <!-- Screenshots Slider -->
       {project.data.screenshots && project.data.screenshots.length > 0 && (
         <div class="mt-8 mb-8">
@@ -325,20 +341,36 @@ const caseStudyResults = Array.isArray(project.data.results)
         </div>
       )}
 
-      <!-- Content with TOC -->
-      <div class={`grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8 ${!project.data.screenshots?.length ? 'mt-8' : ''}`}>
-        <!-- Main Content -->
-        <article class="prose prose-gray dark:prose-invert max-w-none prose-headings:scroll-mt-20">
-          <Content />
-        </article>
+      <!-- Concise Project Snapshot -->
+      <section class="mt-8 space-y-4">
+        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Problem Solved</h2>
+          <p class="text-sm text-gray-700 dark:text-gray-300">{caseStudyProblem}</p>
+        </div>
+        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
+          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">How I Solved It</h2>
+          <p class="text-sm text-gray-700 dark:text-gray-300">{caseStudySolution}</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
+            <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Key Features Delivered</h2>
+            <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
+              {keyFeatures.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
+            <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">What Can Be Done Next</h2>
+            <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
+              {nextSteps.map((step) => (
+                <li>{step}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
 
-        <!-- Table of Contents -->
-        {headings.length > 0 && (
-          <aside class="hidden lg:block">
-            <TableOfContents headings={headings} />
-          </aside>
-        )}
-      </div>
       </div>
     </div>
   </Container>
@@ -395,20 +427,6 @@ const caseStudyResults = Array.isArray(project.data.results)
     })();
   `}></script>
 )}
-
-<script is:inline>
-  // Add IDs to headings for anchor links
-  document.querySelectorAll('article h2, article h3').forEach((heading) => {
-    const text = heading.textContent || '';
-    const slug = text
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim();
-    heading.id = slug;
-  });
-</script>
 
 {project.data.screenshots && project.data.screenshots.length > 1 && (
   <script is:inline set:html={`

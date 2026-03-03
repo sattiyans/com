@@ -9,32 +9,27 @@ techStack: ["Unreal Engine 4", "Blueprints", "C++"]
 projectURL: "https://sattiyans.itch.io/lily-th"
 featuredImage: "lilyth.png"
 screenshots: ["lilyth1.png", "lilyth2.png", "lilyth3.png"]
+problem: "The core challenge was translating a sensitive dual-personality narrative into gameplay that felt emotionally coherent instead of purely abstract or confusing. Story-heavy games can lose player engagement if pacing, interaction, and scene transitions are not tightly coordinated."
+solution: "I built a narrative-first adventure structure in Unreal Engine with designed progression beats, interaction checkpoints, and controlled scene pacing tied to story intent. The implementation prioritized player readability and emotional flow so the psychological theme remained clear throughout gameplay."
+results:
+  - "Delivered a playable narrative experience with consistent theme execution."
+  - "Validated level flow and engagement through iterative playtesting."
+  - "Showcased storytelling-oriented game development capability."
 ---
 
 ## Overview
 
-Lily-th is an adventure game that tells the story of a person with a dual personality. The game explores themes of identity, inner conflict, and the complexity of human psychology through an engaging narrative-driven experience.
-
-As a Game Developer, I was responsible for the full development cycle of this project, including game design, programming, and implementation using Unreal Engine 4 (Blueprint and C++).
+Lily-th is a narrative adventure game centered on identity and inner conflict. I handled the full game development cycle from concept and level flow to implementation.
 
 ## Features
 
-- **Narrative-Driven Gameplay**: Immersive story that explores dual personality themes
-- **Adventure Mechanics**: Traditional adventure game elements with exploration and interaction
-- **Character Development**: Deep character exploration and psychological themes
-- **Engaging Storytelling**: Compelling narrative that keeps players engaged
+- Story-driven progression with exploration and interaction points.
+- Character-focused scene design to support emotional pacing.
+- Blueprint and C++ gameplay logic for core mechanics.
+- Visual and level composition aligned to narrative tone.
 
-## Tech Stack
+## Future Improvements
 
-- **Unreal Engine 4**: Game engine used for development
-- **Blueprint & C++**: Programming language for game logic and mechanics
-
-## Development Experience
-
-This project allowed me to explore narrative game design and character development. Working on a story-driven adventure game required careful attention to pacing, dialogue, and player engagement. The dual personality theme presented unique challenges in game design, requiring creative solutions to represent internal conflict through gameplay mechanics.
-
-## Conclusion
-
-Lily-th represents my exploration into narrative-driven game development, focusing on storytelling and character psychology. The project demonstrates my ability to create engaging adventure games that go beyond simple gameplay mechanics to explore deeper themes and human experiences.
-
-
+- Expand branching narrative outcomes based on player decisions.
+- Improve environmental storytelling and audio layering.
+- Add broader QA coverage for pacing and difficulty balance.
