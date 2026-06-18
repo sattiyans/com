@@ -1,0 +1,274 @@
+---
+import Link from "@components/Link.astro";
+import WhatIDoVisual from "@components/WhatIDoVisual.astro";
+
+type VisualVariant =
+  | "saas"
+  | "genai"
+  | "payments"
+  | "freelance"
+  | "product"
+  | "dashboard";
+
+const services: {
+  id: string;
+  visual: VisualVariant;
+  title: string;
+  description: string;
+  href?: string;
+}[] = [
+  {
+    id: "01",
+    visual: "saas",
+    title: "SaaS architecture",
+    description:
+      "Event-driven backends, multi-tenant systems, and platforms built to handle real traffic.",
+  },
+  {
+    id: "02",
+    visual: "genai",
+    title: "GenAI automation",
+    description:
+      "Workflow design with OpenAI, n8n, and custom pipelines that cut repetitive manual ops.",
+  },
+  {
+    id: "03",
+    visual: "payments",
+    title: "Payment & API integrations",
+    description:
+      "Stripe, payment gateways, third-party APIs, and webhooks wired into production systems.",
+  },
+  {
+    id: "04",
+    visual: "product",
+    title: "Product engineering",
+    description:
+      "Full-stack delivery from scoping and UI through APIs, data models, and deployment.",
+  },
+  {
+    id: "05",
+    visual: "dashboard",
+    title: "Admin dashboards",
+    description:
+      "Internal ops tools, reporting panels, and workflow UIs for teams running at scale.",
+  },
+  {
+    id: "06",
+    visual: "freelance",
+    title: "Freelance consulting",
+    description:
+      "Scoped builds for startups and SMEs — from discovery through production deployment.",
+    href: "/hire",
+  },
+];
+---
+
+<section class="not-prose animate wid" aria-label="What I do">
+  <div class="wid-head">
+    <h5 class="font-semibold text-black dark:text-white m-0">What I do</h5>
+    <p class="wid-lead m-0">
+      From system design to production — the work I take on most often.
+    </p>
+  </div>
+
+  <div class="wid-grid">
+    {services.map((service) => (
+      <article class:list={["wid-card group", service.href && "wid-card--link"]}>
+        <div class="wid-visual-wrap">
+          <WhatIDoVisual variant={service.visual} />
+          <span class="wid-num">{service.id}</span>
+        </div>
+
+        {service.href ? (
+          <Link href={service.href} underline={false} class="wid-card-inner">
+            <h6 class="wid-title">{service.title}</h6>
+            <p class="wid-desc">{service.description}</p>
+            <span class="wid-action">
+              Hire me
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </Link>
+        ) : (
+          <div class="wid-card-inner">
+            <h6 class="wid-title">{service.title}</h6>
+            <p class="wid-desc">{service.description}</p>
+          </div>
+        )}
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .wid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .wid-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .wid-lead {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: rgb(107 114 128);
+  }
+
+  :global(.dark) .wid-lead {
+    color: rgb(156 163 175);
+  }
+
+  .wid-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .wid-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .wid-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .wid-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    border: 1px solid rgb(0 0 0 / 0.1);
+    background: rgb(0 0 0 / 0.015);
+    overflow: hidden;
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  :global(.dark) .wid-card {
+    border-color: rgb(255 255 255 / 0.12);
+    background: rgb(255 255 255 / 0.02);
+  }
+
+  .wid-card:hover {
+    border-color: rgb(0 0 0 / 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.06);
+  }
+
+  :global(.dark) .wid-card:hover {
+    border-color: rgb(255 255 255 / 0.22);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
+  }
+
+  .wid-visual-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .wid-num {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    z-index: 2;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: rgb(255 255 255 / 0.55);
+    padding: 0.2rem 0.45rem;
+    border-radius: 9999px;
+    background: rgb(0 0 0 / 0.35);
+    backdrop-filter: blur(6px);
+  }
+
+  .wid-card-inner {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0.9375rem 1.125rem 1.125rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .wid-title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: rgb(0 0 0);
+  }
+
+  :global(.dark) .wid-title {
+    color: rgb(255 255 255);
+  }
+
+  .wid-desc {
+    margin: 0.4rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: rgb(107 114 128);
+  }
+
+  :global(.dark) .wid-desc {
+    color: rgb(156 163 175);
+  }
+
+  .wid-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgb(75 85 99);
+    transition: gap 0.2s ease, color 0.2s ease;
+  }
+
+  :global(.dark) .wid-action {
+    color: rgb(209 213 219);
+  }
+
+  .wid-card--link:hover .wid-action {
+    gap: 0.45rem;
+    color: rgb(0 0 0);
+  }
+
+  :global(.dark) .wid-card--link:hover .wid-action {
+    color: rgb(255 255 255);
+  }
+
+  .wid-action svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    transition: transform 0.2s ease;
+  }
+
+  .wid-card--link:hover .wid-action svg {
+    transform: translateX(2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wid-card,
+    .wid-action,
+    .wid-action svg {
+      transition: none !important;
+    }
+
+    .wid-card:hover {
+      transform: none;
+    }
+  }
+</style>

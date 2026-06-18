@@ -1,5 +1,10 @@
 import type { APIRoute } from 'astro';
 import type { WatchedItem } from '@types';
+import {
+  cleanLetterboxdTitle,
+  extractLetterboxdRating,
+  stripLetterboxdTitleSuffixes,
+} from '@lib/letterboxd-rss';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -104,21 +109,13 @@ async function parseLetterboxdRSS(xmlText: string): Promise<WatchedItem[]> {
       continue;
     }
     
-    const fullTitle = titleMatch[1];
+    const fullTitle = stripLetterboxdTitleSuffixes(titleMatch[1]);
     console.log('Full title:', fullTitle);
     
-    const rating = extractRating(fullTitle);
+    const rating = extractLetterboxdRating(fullTitle) ?? 0;
     console.log('Extracted rating:', rating);
     
-    // Extract year from title
-    const yearMatch = fullTitle.match(/(\d{4})/);
-    const year = yearMatch ? parseInt(yearMatch[1]) : new Date().getFullYear();
-    
-    // Clean title (remove year and rating)
-    const cleanTitle = fullTitle
-      .replace(/, \d{4} - [★☆½]+$/, '')
-      .replace(/ - [★☆½]+$/, '')
-      .trim();
+    const { title: cleanTitle, year } = cleanLetterboxdTitle(fullTitle);
     
     console.log('Clean title:', cleanTitle);
     
@@ -153,26 +150,6 @@ async function parseLetterboxdRSS(xmlText: string): Promise<WatchedItem[]> {
   
   console.log('Total items parsed:', items.length);
   return items;
-}
-
-function extractRating(title: string): number {
-  // Extract rating from title like "Film Title, 2023 - ★★★½" or "Film Title - ★★★½"
-  const ratingMatch = title.match(/(?:, \d{4} - | - )([★☆½]+)$/);
-  if (!ratingMatch) return 0;
-  
-  const ratingStr = ratingMatch[1];
-  let rating = 0;
-  
-  // Count full stars
-  const fullStars = (ratingStr.match(/★/g) || []).length;
-  rating += fullStars;
-  
-  // Check for half star
-  if (ratingStr.includes('½')) {
-    rating += 0.5;
-  }
-  
-  return rating;
 }
 
 function calculateAnalytics(films: WatchedItem[]) {

@@ -2,11 +2,11 @@
 title: "GSendr - Enterprise Email Infrastructure. Built for Control & Deliverability."
 description: "The email campaign platform for organizations and teams requiring reliable delivery, integrated validation, and structured communication at scale."
 date: "2026-02-25"
-draft: true
+draft: false
 role: "Full-Stack Developer"
 password: ""
 client: "GSendr"
-projectOwner: "Trisquare Technology"
+projectOwner: "G6 Labs Asia"
 projectURL: "https://gsendr.com/"
 techStack:
   [

@@ -3,6 +3,8 @@ company: "Crave Asia"
 role: "Web Developer"
 dateStart: "09/01/2021"
 dateEnd: "08/01/2023"
+summary: "Built web apps and e-commerce for PETRONAS, Jo Malone, Estée Lauder, DIOR, Clinique, and MAC."
+logo: "craveasia.png"
 ---
 
 - Planned, designed, and developed web applications and EDMs for internal and external clients, including PETRONAS, Hada Labo Malaysia, Moist Diane Malaysia, and Olive Young Malaysia, to ensure optimal functionality, usability, and engagement.

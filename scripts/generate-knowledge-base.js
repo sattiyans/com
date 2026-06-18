@@ -111,10 +111,10 @@ async function generateKnowledgeBase() {
     generatedAt: new Date().toISOString(),
     about: {
       name: "Sattiyan Selvarajah",
-      role: "Software Developer & Founder of Dotkod Solutions",
+      role: "Technology Lead at G6 Labs Asia & Founder of Dotkod Solutions",
       location: "Kuala Lumpur, Malaysia",
       email: "hey@sattiyans.com",
-      description: "Expert in building scalable web applications, SaaS platforms, and e-commerce solutions. Previously worked as a Game Developer using Unreal Engine 4 and Unity.",
+      description: "Technology Lead specializing in system architecture, product engineering, and GenAI automation. Builds fault-tolerant, event-driven SaaS platforms using Laravel, Node.js, and Python. Previously at TriSquare Technology and worked as a Game Developer using Unreal Engine 4 and Unity.",
       website: "https://sattiyans.com"
     },
     projects: [],
@@ -180,6 +180,7 @@ async function generateKnowledgeBase() {
         role: frontmatter.role || '',
         dateStart: frontmatter.dateStart || new Date().toISOString(),
         dateEnd: frontmatter.dateEnd || 'Current',
+        summary: frontmatter.summary || '',
         content: plainText,
         slug: slug,
         url: `/work/${slug}`

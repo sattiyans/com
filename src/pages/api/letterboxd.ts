@@ -1,5 +1,10 @@
 import type { APIRoute } from 'astro';
 import type { WatchedItem } from '@types';
+import {
+  cleanLetterboxdTitle,
+  extractLetterboxdRating,
+  stripLetterboxdTitleSuffixes,
+} from '@lib/letterboxd-rss';
 
 // Ensure this route is never prerendered or cached
 export const prerender = false;
@@ -111,7 +116,7 @@ async function parseLetterboxdRSS(xmlText: string): Promise<WatchedItem[]> {
       try {
         // Extract title
         const titleMatch = itemXml.match(/<title>(.*?)<\/title>/);
-        const title = titleMatch ? titleMatch[1].trim() : '';
+        const title = titleMatch ? stripLetterboxdTitleSuffixes(titleMatch[1].trim()) : '';
         console.log('Raw RSS title:', title);
         
         // Extract link
@@ -128,26 +133,7 @@ async function parseLetterboxdRSS(xmlText: string): Promise<WatchedItem[]> {
         
         // Only include films (not lists or other activity)
         if (title && link && link.includes('/film/') && !link.includes('/list/')) {
-          // Clean title - remove rating and year from title
-          let cleanTitle = title;
-          let year = new Date().getFullYear();
-          
-          // Extract year from title (e.g., "Film Title, 2023 - ★★★★")
-          const yearMatch = title.match(/, (\d{4}) - /);
-          if (yearMatch) {
-            year = parseInt(yearMatch[1]);
-            // Remove year and rating from title
-            cleanTitle = title.replace(/, \d{4} - [★☆½]+$/, '');
-          } else {
-            // Try to extract year from link
-            const linkYearMatch = link.match(/\/film\/.*?(\d{4})\//);
-            if (linkYearMatch) {
-              year = parseInt(linkYearMatch[1]);
-            }
-          }
-          
-          // Remove any remaining rating from title
-          cleanTitle = cleanTitle.replace(/ - [★☆½]+$/, '');
+          const { title: cleanTitle, year } = cleanLetterboxdTitle(title, link);
           
           // Only fetch poster for first 12 items to keep it fast
           let posterUrl: string | undefined = undefined;
@@ -165,7 +151,7 @@ async function parseLetterboxdRSS(xmlText: string): Promise<WatchedItem[]> {
             url: link,
             posterUrl,
             // Extract rating if available
-            rating: extractRating(title),
+            rating: extractLetterboxdRating(title),
             reviewText: extractReviewText(description)
           });
         }
@@ -207,37 +193,6 @@ async function getPosterUrl(title: string, year: number): Promise<string | undef
   
   return undefined;
 }
-
-function extractRating(title: string): number | undefined {
-  console.log('Extracting rating from title:', title);
-  
-  // Look for patterns like "Film Title, 2023 - ★★★½" or "Film Title - ★★★½"
-  const ratingMatch = title.match(/(?:, \d{4} - | - )([★☆½]+)$/);
-  if (ratingMatch) {
-    const ratingStr = ratingMatch[1];
-    console.log('Found rating string:', ratingStr);
-    
-    // Count full stars
-    const fullStars = (ratingStr.match(/★/g) || []).length;
-    
-    // Check for half star
-    const hasHalfStar = ratingStr.includes('½');
-    
-    const rating = fullStars + (hasHalfStar ? 0.5 : 0);
-    console.log('Calculated rating:', rating);
-    return rating;
-  }
-  
-  // Fallback: look for any star pattern in the title
-  const starMatch = title.match(/★{1,5}/);
-  if (starMatch) {
-    const fullStars = starMatch[0].length;
-    const hasHalfStar = title.includes('½');
-    return fullStars + (hasHalfStar ? 0.5 : 0);
-  }
-  
-  return undefined;
-} 
 
 function extractReviewText(description: string): string | undefined {
   if (!description) return undefined;

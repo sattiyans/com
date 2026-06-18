@@ -1,0 +1,39 @@
+---
+import Link from "@components/Link.astro";
+
+const quote = {
+  text: "His commitment to excellence and his inherent curiosity make him a valuable asset to any team or endeavor he embarks upon.",
+  name: "Ahmad Azamuddin Hasni",
+  title: "PHP Laravel Developer at ALPHV Technologies",
+  relationship: "Worked together on the same team",
+};
+---
+
+<section class="not-prose animate" aria-label="Featured recommendation">
+  <blockquote class="rounded-2xl border border-black/10 dark:border-white/15 bg-black/[0.015] dark:bg-white/[0.02] px-6 py-6 sm:px-8 sm:py-7">
+    <p class="text-base sm:text-lg leading-relaxed text-black dark:text-white m-0">
+      &ldquo;{quote.text}&rdquo;
+    </p>
+    <footer class="mt-4 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <cite class="not-italic text-sm font-medium text-black dark:text-white">
+          {quote.name}
+        </cite>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5 m-0">
+          {quote.title} · {quote.relationship}
+        </p>
+      </div>
+      <Link
+        href="https://www.linkedin.com/in/sattiyans"
+        external
+        underline={false}
+        class="group inline-flex items-center gap-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white shrink-0"
+      >
+        More on LinkedIn
+        <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </Link>
+    </footer>
+  </blockquote>
+</section>

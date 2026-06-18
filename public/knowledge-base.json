@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-03-03T05:48:35.643Z",
+  "generatedAt": "2026-06-18T03:07:05.211Z",
   "about": {
     "name": "Sattiyan Selvarajah",
-    "role": "Software Developer & Founder of Dotkod Solutions",
+    "role": "Technology Lead at G6 Labs Asia & Founder of Dotkod Solutions",
     "location": "Kuala Lumpur, Malaysia",
     "email": "hey@sattiyans.com",
-    "description": "Expert in building scalable web applications, SaaS platforms, and e-commerce solutions. Previously worked as a Game Developer using Unreal Engine 4 and Unity.",
+    "description": "Technology Lead specializing in system architecture, product engineering, and GenAI automation. Builds fault-tolerant, event-driven SaaS platforms using Laravel, Node.js, and Python. Previously at TriSquare Technology and worked as a Game Developer using Unreal Engine 4 and Unity.",
     "website": "https://sattiyans.com"
   },
   "projects": [
@@ -72,6 +72,58 @@
       "url": "/projects/femo"
     },
     {
+      "title": "GBoost.ai - Next-Gen Local SEO Engine",
+      "description": "GBoost.ai helps multi-location businesses automate Google Business Profile content, review responses, analytics, and reporting from one centralized dashboard.",
+      "content": "Overview\n\nGBoost.ai is a local SEO operations platform for teams managing one or many Google Business Profile locations. It combines content workflows, review handling, and reporting in a single admin system.\n\nFeatures\nGoogle account and location sync with centralized management.\nPost workflow for draft, approval, scheduling, and publish actions.\nAI-assisted generation for posts and review responses.\nReview queue with filtering, history, and response tracking.\nInsights and scheduled reports for recurring local SEO operations.\n\nFuture Improvements\nAdd deeper anomaly alerts for ranking/performance drops.\nExpand template and workflow customization by organization.\nImprove integration observability for API failure diagnostics.",
+      "role": "Full-Stack Developer",
+      "client": "Gboost.ai",
+      "projectOwner": "G6 Labs Asia",
+      "projectURL": "https://gboost.ai",
+      "repoURL": null,
+      "techStack": [
+        "Laravel 9",
+        "PHP 8.2",
+        "PostgreSQL",
+        "Blade",
+        "React",
+        "Vite",
+        "Tailwind CSS",
+        "Google Business APIs",
+        "OpenAI API",
+        "Nginx"
+      ],
+      "featuredImage": "gboost.png",
+      "screenshots": [
+        "gboost1.png",
+        "gboost2.png",
+        "gboost3.png"
+      ],
+      "date": "2026-01-01T00:00:00.000Z",
+      "slug": "gboost",
+      "url": "/projects/gboost"
+    },
+    {
+      "title": "GSendr - Enterprise Email Infrastructure. Built for Control & Deliverability.",
+      "description": "The email campaign platform for organizations and teams requiring reliable delivery, integrated validation, and structured communication at scale.",
+      "content": "Overview\n\nGSendr is a multi-tenant campaign platform for controlled email operations. It combines domain setup, template management, recipient workflows, and campaign analytics in one operational dashboard.\n\nFeatures\nMulti-tenant organization model with scoped resources and teams.\nCampaign lifecycle from draft to schedule/send with status controls.\nDomain verification and sender identity management.\nRecipient import and template workflows with variable support.\nOpen/click tracking and analytics surfaces for campaign decisions.\n\nFuture Improvements\nAdd deeper audience segmentation and lifecycle automation.\nExpand deliverability diagnostics and inbox placement insights.\nStrengthen org-level policy controls and compliance tooling.",
+      "role": "Full-Stack Developer",
+      "client": "GSendr",
+      "projectOwner": "G6 Labs Asia",
+      "projectURL": "https://gsendr.com/",
+      "repoURL": null,
+      "techStack": [],
+      "featuredImage": "gsendr.png",
+      "screenshots": [
+        "gsendr1.png",
+        "gsendr2.png",
+        "gsendr3.png",
+        "gsendr4.png"
+      ],
+      "date": "2026-02-25T00:00:00.000Z",
+      "slug": "gsendr",
+      "url": "/projects/gsendr"
+    },
+    {
       "title": "InvestED Portal - Backend API & Admin Dashboard",
       "description": "A robust backend application management system with RESTful API and comprehensive admin dashboard for InvestED's leadership and foundation programmes, featuring automated workflows, role-based access control, and seamless WordPress integration.",
       "content": "Overview\n\nInvestED Portal is a headless backend system for programme applications. A WordPress frontend sends submissions to Laravel APIs, and internal teams process everything in a Filament dashboard with role-based access and audit visibility.\n\nFeatures\nAPI endpoint for WordPress submissions with strong validation and error handling.\nDuplicate detection and safe update logic based on applicant identity.\nAdmin dashboard for review workflows, bulk actions, and status transitions.\nCandidate-facing updates for profile, document, and application progress.\nAudit logging and role-based permissions for governance and accountability.\n\nFuture Improvements\nAdd SLA tracking and reviewer workload balancing.\nIntroduce richer scoring/ranking support for shortlisting.\nExpand automation for reminders and incomplete applications.",
@@ -98,9 +150,27 @@
         "invested4.png",
         "invested5.png"
       ],
-      "date": "2024-04-29T00:00:00.000Z",
+      "date": "2024-09-29T00:00:00.000Z",
       "slug": "invested",
       "url": "/projects/invested"
+    },
+    {
+      "title": "lapar.la - Viral Recipe Platform for Malaysia",
+      "description": "A bilingual, mobile-first recipe platform that ingests creator content from Instagram, converts it into structured recipes, and serves it through a fast PWA experience.",
+      "content": "Overview\n\nlapar.la is a Malaysian food platform focused on viral creator recipes, designed for users deciding what to cook quickly (\"lapar\" moments). The app combines a polished, animated frontend with a structured backend ingestion pipeline so social media content can be normalized into searchable, bilingual recipe data.  \nThe system currently emphasizes recipe browsing, quality feedback loops, and admin-assisted content operations, while keeping the original \"Makan Out vs Masak In\" product vision and navigation structure.\n\nFeatures\n\nUser-facing product\nBilingual language system (/) with browser-locale detection, localStorage persistence, and localized UI copy.\nFast recipe discovery homepage with search, creator filters, local-pick filters (sahur, berbuka, budget, quick), and infinite scroll.\nRich recipe detail pages with ingredient checklists (auto-saved), step tracking, nutrition/cost heuristics, shopping list copy, and creator/source deep links.\nCommunity feedback loop: \"tried it\" scoring (thumbs up/down) plus issue reporting with rate limiting and admin status handling.\n7-day meal planner mode (Puasa/Normal) with local persistence and generated shopping list output.\nPWA behavior: web manifest, service worker caching strategy, install prompt, and push notification hooks.\n\nAdmin and content operations\nPassword-gated admin dashboard with secure session cookie handling.\nManual ingestion modes: single Instagram URL, multi-URL batch, and creator-handle ingestion.\nScheduled ingestion via cron-compatible Node script targeting .\nCreator management tools (avatar curation/upload), recipe CRUD/editing, and report moderation workflow.\nBackfill and localization endpoints for operational data hygiene.\n\nData and ingestion architecture\nRelational schema in PostgreSQL for recipes, creators, tags, ingestion sources, user try signals, and issue reports.\nDrizzle ORM repository layer and migrations via Drizzle Kit.\nIngestion pipeline steps:\nDiscover/fetch Instagram content (URL or handle timeline)\nOptionally transcribe media audio (OpenAI Whisper, with ffmpeg fallback/chunking)\nParse structured recipe fields (OpenAI chat parsing with deterministic fallback parser)\nPersist with dedupe protection (unique source URL/hash/platform post IDs)\nStore failures into  dead-letter JSON for traceability\n\nTech Stack\n\nFrontend\nNext.js 16 (App Router), React 19, TypeScript\nTailwind CSS v4 design system with custom Malaysian color palette tokens\nFramer Motion for transitions, micro-interactions, and animated UI states\nLucide icons and optimized Next image rendering patterns\n\nBackend and data\nNext.js Route Handlers for API endpoints and admin backend surface\nPostgreSQL as primary datastore\nDrizzle ORM + Drizzle Kit for schema, queries, and migration lifecycle\nNode driver for Postgres connectivity\n\nIngestion and AI workflow\nprovider plus Instagram web/oEmbed fallback logic\nOptional OpenAI integrations:\nWhisper transcription for video/audio ingestion\nstructured extraction for recipe parsing and visual hinting\nffmpeg-assisted compression/chunking for large media transcription reliability\n\nPlatform and deployment\nDeployed on VPS with Node.js runtime\nNginx as reverse proxy in front of the Next.js application\nPostgreSQL hosted for persistent production data\nCron-based scheduled ingestion job for creator handle sync\nGoogle Analytics tag integration for traffic instrumentation\n\nQuality and developer workflow\nESLint configuration for code quality checks\nType-safe domain models and API payloads across UI and backend\n\nFuture Improvements\nComplete the original \"Makan Out\" geolocation restaurant roulette and social group-vote flow currently stubbed in navigation.\nAdd full observability stack (structured logs, alerting, dashboard metrics) for ingestion success rate and API health.\nIntroduce queue-based ingestion workers for higher throughput and better retry isolation under larger creator sets.\nAdd automated tests (unit + integration + API contract) for parser logic, admin actions, and critical route handlers.\nExpand recommendation quality with personalized signals from try/report data and stronger nutrition estimation models.",
+      "role": "Full-Stack Developer",
+      "client": null,
+      "projectOwner": "Dotkod Solutions",
+      "projectURL": "https://lapar.la",
+      "repoURL": null,
+      "techStack": [],
+      "featuredImage": "lapar-la.png",
+      "screenshots": [
+        "lapar-la-1.png"
+      ],
+      "date": "2026-03-04T00:00:00.000Z",
+      "slug": "lapar-la",
+      "url": "/projects/lapar-la"
     },
     {
       "title": "Lily-th",
@@ -179,6 +249,7 @@
       "role": "Unity Web Developer",
       "dateStart": "03/01/2020",
       "dateEnd": "09/01/2021",
+      "summary": "",
       "content": "Spearheaded the planning, design, development, and integration of interactive applications for both in-house and external client projects, utilizing Unity and PHP to create engaging and user-friendly applications.\nProvided direct support to clients by assisting with software and hardware installations and troubleshooting technical difficulties, ensuring prompt and efficient problem resolution.\nConducted extensive research and development of various systems and software tools to facilitate brainstorming and inform new and existing projects.\nLed the software development and installation for multiple projects, ensuring on-time delivery and optimal performance.\nDesigned visually compelling promo banners for Clinique Malaysia and crafted landing page mock-ups for Dior Malaysia and Dior Singapore, using Adobe Photoshop and other design tools to create engaging and brand-aligned designs.",
       "slug": "craveasia_1",
       "url": "/work/craveasia_1"
@@ -188,6 +259,7 @@
       "role": "Web Developer",
       "dateStart": "09/01/2021",
       "dateEnd": "08/01/2023",
+      "summary": "Built web apps and e-commerce for PETRONAS, Jo Malone, Estée Lauder, DIOR, Clinique, and MAC.",
       "content": "Planned, designed, and developed web applications and EDMs for internal and external clients, including PETRONAS, Hada Labo Malaysia, Moist Diane Malaysia, and Olive Young Malaysia, to ensure optimal functionality, usability, and engagement.\nConducted research and integrated various APIs, including WhatsApp Cloud API, Twilio SMS API, SendGrid API, and others, to improve the functionality and user experience of web applications.\nDesigned and developed high-converting landing pages for both internal and client projects, including Hada Labo Malaysia and KENS Apothecary, utilizing Bootstrap 4 & 5, Tailwind CSS, and Astro JS to create visually appealing and responsive designs.\nManaged and updated content and layouts for Clinique Malaysia, MAC Cosmetics Malaysia, Estee Lauder Malaysia, and Jo Malone Malaysia e-commerce sites, ensuring a seamless user experience and adherence to brand guidelines.\nPlayed a crucial role in the successful launch of e-commerce sites for Jo Malone Malaysia, Jo Malone Singapore, Jo Malone Philippines, Jo Malone Vietnam, Estee Lauder Singapore, and Estee Lauder Vietnam, closely collaborating with the ELC Online Global & Regional team.\nManaged retainer projects for DIOR Malaysia and DIOR Singapore, handling content updates on Shopify platforms as needed.",
       "slug": "craveasia_2",
       "url": "/work/craveasia_2"
@@ -197,6 +269,7 @@
       "role": "Software Developer",
       "dateStart": "08/01/2023",
       "dateEnd": "03/01/2024",
+      "summary": "",
       "content": "Proficient in TALL stack (Tailwind CSS, Alpine JS, Laravel, and Livewire) along with FilamentPHP, driving the development and evolution of our in-house web application.\nCollaborate with diverse teams to understand their unique requirements and deliver technology solutions that align with DMC FinCap's mission to provide innovative financial services.",
       "slug": "dmcfincap",
       "url": "/work/dmcfincap"
@@ -206,16 +279,28 @@
       "role": "Founder & Web Developer",
       "dateStart": "10/01/2023",
       "dateEnd": "Current",
+      "summary": "Founder delivering custom web, e-commerce, and AI systems for startups and SMEs.",
       "content": "Founded and scaled Dotkod Solutions as a remote-first digital agency providing affordable, high-quality tech solutions for SMEs and startups.\nLed end-to-end client projects: consultation, project planning, development, integration, testing, and deployment.\nSpecialized in e-commerce (Shopify, WooCommerce) and custom web applications (Laravel, React, Next.js).\nDirected branding, marketing, and financial strategy to drive growth and visibility.\nCurrently leading development of the company's first SaaS product, focusing on automation and AI-driven business tools.\nBuilt long-term client relationships by delivering continual support and tailored digital solutions.",
       "slug": "dotkod",
       "url": "/work/dotkod"
     },
     {
+      "company": "G6 Labs Asia Sdn. Bhd.",
+      "role": "Technology Lead, Software Development",
+      "dateStart": "05/01/2026",
+      "dateEnd": "Current",
+      "summary": "Leading architecture and engineering for proprietary SaaS platforms including GBoost.ai and GSendr.",
+      "content": "Lead technical direction, system frameworks, and engineering standards for core software applications and proprietary SaaS platforms.\nBuilt and scaled proprietary SaaS products including GBoost.ai and GSendr.\nArchitect and scale the foundations of primary SaaS engines with isolated, containerized runtimes and event-driven workflows for fault-tolerant, zero-downtime automated processing.\nCollaborate on the product lifecycle, translating business logic into technical roadmaps and optimizing generative AI pipelines for automated capabilities.\nDrive engineering standards across the development lifecycle, owning code review and optimizing deployment workflows for seamless product delivery.",
+      "slug": "g6labs",
+      "url": "/work/g6labs"
+    },
+    {
       "company": "TriSquare Technology (M) Sdn Bhd",
       "role": "Senior Software Developer",
       "dateStart": "04/01/2024",
-      "dateEnd": "Current",
-      "content": "Built and scaled production platforms at TriSquare, including GBoost.ai, GSendr, FEMO, Invested, and sports web applications.\nLed end-to-end delivery across architecture, database design, API development, QA, and VPS deployments using Nginx and PostgreSQL.\nImplemented integration-heavy workflows with Google Business APIs, Resend, OpenAI APIs, and webhook-driven event handling.\nDelivered various Laravel-based and React-based CMS solutions with tailored workflows, permissions, and admin governance controls.\nDeveloped analytics and reporting systems for campaign performance, engagement tracking, and operational visibility.\nIntegrated multiple payment gateways across projects and automated recurring jobs with scheduler/cron and n8n to improve reliability at scale.",
+      "dateEnd": "04/30/2026",
+      "summary": "Built and scaled FEMO, Invested, and integration-heavy Laravel/React platforms with payment gateways and GenAI workflows.",
+      "content": "Built and scaled production platforms at TriSquare, including FEMO, Invested, and sports web applications.\nLed end-to-end delivery across architecture, database design, API development, QA, and VPS deployments using Nginx and PostgreSQL.\nImplemented integration-heavy workflows with Google Business APIs, Resend, OpenAI APIs, and webhook-driven event handling.\nDelivered various Laravel-based and React-based CMS solutions with tailored workflows, permissions, and admin governance controls.\nDeveloped analytics and reporting systems for campaign performance, engagement tracking, and operational visibility.\nIntegrated multiple payment gateways across projects and automated recurring jobs with scheduler/cron and n8n to improve reliability at scale.",
       "slug": "trisquare",
       "url": "/work/trisquare"
     }
@@ -308,74 +393,74 @@
     "description": "A collection of films Sattiyan has recently watched, tracked via Letterboxd. The page displays recently watched movies with ratings, posters, and watch dates. Sattiyan's Letterboxd profile: https://letterboxd.com/sattiyans. The page shows the most recent films he has watched, including movie titles, years, ratings (if given), and when they were watched.",
     "recentFilms": [
       {
-        "title": "Roofman",
-        "year": 2025,
-        "watchedDate": "2026-03-02T15:21:03.000Z",
-        "rating": 3.5,
-        "url": "https://letterboxd.com/sattiyans/film/roofman/"
+        "title": "Scream VI, 2023 - ★★★★ (contains spoilers)",
+        "year": 2023,
+        "watchedDate": "2026-06-17T11:43:36.000Z",
+        "rating": null,
+        "url": "https://letterboxd.com/sattiyans/film/scream-vi/"
       },
       {
-        "title": "Mask",
-        "year": 2025,
-        "watchedDate": "2026-03-01T09:10:27.000Z",
-        "rating": 2,
-        "url": "https://letterboxd.com/sattiyans/film/mask-2025-1/"
-      },
-      {
-        "title": "The Perks of Being a Wallflower",
-        "year": 2012,
-        "watchedDate": "2026-02-27T16:33:08.000Z",
-        "rating": 5,
-        "url": "https://letterboxd.com/sattiyans/film/the-perks-of-being-a-wallflower/"
-      },
-      {
-        "title": "Taxi Driver",
-        "year": 1976,
-        "watchedDate": "2026-02-24T13:18:43.000Z",
+        "title": "Scream",
+        "year": 2022,
+        "watchedDate": "2026-06-14T10:33:33.000Z",
         "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/taxi-driver/"
+        "url": "https://letterboxd.com/sattiyans/film/scream-2022/"
       },
       {
-        "title": "Thalaivar Thambi Thalaimaiyil",
-        "year": 2026,
-        "watchedDate": "2026-02-18T08:35:16.000Z",
+        "title": "Scream 4",
+        "year": 2011,
+        "watchedDate": "2026-06-13T12:51:32.000Z",
         "rating": 3,
-        "url": "https://letterboxd.com/sattiyans/film/thalaivar-thambi-thalaimaiyil/"
+        "url": "https://letterboxd.com/sattiyans/film/scream-4/"
       },
       {
-        "title": "One Battle After Another",
-        "year": 2025,
-        "watchedDate": "2026-02-15T14:01:46.000Z",
-        "rating": 5,
-        "url": "https://letterboxd.com/sattiyans/film/one-battle-after-another/"
-      },
-      {
-        "title": "Jeans",
-        "year": 1998,
-        "watchedDate": "2026-02-13T14:02:17.000Z",
-        "rating": 3.5,
-        "url": "https://letterboxd.com/sattiyans/film/jeans/1/"
-      },
-      {
-        "title": "Gravity",
-        "year": 2013,
-        "watchedDate": "2026-02-11T05:00:07.000Z",
+        "title": "Karuppu",
+        "year": 2026,
+        "watchedDate": "2026-06-12T08:44:10.000Z",
         "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/gravity-2013/"
+        "url": "https://letterboxd.com/sattiyans/film/karuppu/1/"
       },
       {
-        "title": "Transformers: The Last Knight",
-        "year": 2017,
-        "watchedDate": "2026-02-10T09:02:42.000Z",
-        "rating": 0.5,
-        "url": "https://letterboxd.com/sattiyans/film/transformers-the-last-knight/"
-      },
-      {
-        "title": "Transformers: Age of Extinction",
+        "title": "The Maze Runner",
         "year": 2014,
-        "watchedDate": "2026-02-08T09:56:44.000Z",
-        "rating": 1,
-        "url": "https://letterboxd.com/sattiyans/film/transformers-age-of-extinction/"
+        "watchedDate": "2026-06-08T01:36:55.000Z",
+        "rating": 4,
+        "url": "https://letterboxd.com/sattiyans/film/the-maze-runner/"
+      },
+      {
+        "title": "The Italian Job",
+        "year": 2003,
+        "watchedDate": "2026-06-06T14:11:18.000Z",
+        "rating": 3,
+        "url": "https://letterboxd.com/sattiyans/film/the-italian-job-2003/"
+      },
+      {
+        "title": "Jinn-The Pet",
+        "year": 2025,
+        "watchedDate": "2026-06-02T10:42:09.000Z",
+        "rating": 0.5,
+        "url": "https://letterboxd.com/sattiyans/film/jinn-the-pet/"
+      },
+      {
+        "title": "I Saw the Devil",
+        "year": 2010,
+        "watchedDate": "2026-06-02T02:48:41.000Z",
+        "rating": 5,
+        "url": "https://letterboxd.com/sattiyans/film/i-saw-the-devil/"
+      },
+      {
+        "title": "We&#039;re the Millers",
+        "year": 2013,
+        "watchedDate": "2026-06-01T08:34:29.000Z",
+        "rating": 4,
+        "url": "https://letterboxd.com/sattiyans/film/were-the-millers/"
+      },
+      {
+        "title": "The Thing",
+        "year": 1982,
+        "watchedDate": "2026-05-31T14:53:33.000Z",
+        "rating": 4,
+        "url": "https://letterboxd.com/sattiyans/film/the-thing/"
       }
     ]
   },
@@ -558,6 +643,7 @@
     ]
   },
   "skills": [
+    "Blade",
     "Blueprints",
     "C#",
     "C++",
@@ -566,24 +652,30 @@
     "Drag & Drop Builder",
     "Filament 3.2",
     "Firebase",
+    "Google Business APIs",
     "Google Cloud Storage",
     "Instagram API",
     "JWT Auth",
     "Laravel 10",
     "Laravel 11",
+    "Laravel 9",
     "Laravel Reverb",
     "Laravel Sanctum",
     "Livewire",
     "MySQL",
+    "Nginx",
     "OpenAI API",
     "PHP 8.1",
     "PHP 8.2",
+    "PostgreSQL",
     "RESTful API",
+    "React",
     "Responsive Design",
     "Tailwind CSS",
     "TikTok API",
     "Unity",
     "Unreal Engine 4",
+    "Vite",
     "Wix",
     "WordPress Integration"
   ]

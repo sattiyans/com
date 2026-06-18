@@ -3,6 +3,8 @@ company: "Dotkod Solutions"
 role: "Founder & Web Developer"
 dateStart: "10/01/2023"
 dateEnd: "Current"
+summary: "Founder delivering custom web, e-commerce, and AI systems for startups and SMEs."
+logo: "dotkod.png"
 ---
 
 - Founded and scaled Dotkod Solutions as a remote-first digital agency providing affordable, high-quality tech solutions for SMEs and startups.

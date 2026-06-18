@@ -1,0 +1,473 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Link from "@components/Link.astro";
+import ProjectVisual from "@components/ProjectVisual.astro";
+
+type Props = {
+  projects: CollectionEntry<"projects">[];
+};
+
+const { projects } = Astro.props;
+
+function shortTech(name: string): string {
+  return name
+    .replace(/\s*\([^)]*\)$/, "")
+    .replace(/\s+\d+(\.\d+)?$/, "")
+    .trim();
+}
+
+const slideData = projects.map((project) => {
+  const [shortTitle] = project.data.title.split(" - ");
+  const stack = (project.data.techStack ?? [])
+    .map(shortTech)
+    .filter((tech, index, list) => list.indexOf(tech) === index)
+    .slice(0, 4);
+
+  const results = project.data.results;
+  const outcome = Array.isArray(results) ? results[0] : results;
+  const detail = stack.length > 0 ? stack.join(" · ") : outcome ?? "";
+
+  return {
+    slug: project.slug,
+    title: shortTitle.trim(),
+    owner: project.data.projectOwner ?? project.data.role ?? "",
+    year: project.data.date.getFullYear(),
+    detail,
+  };
+});
+---
+
+<section class="not-prose animate space-y-4" aria-label="Recent projects">
+  <div class="flex flex-wrap gap-y-2 items-center justify-between">
+    <h5 class="font-semibold text-black dark:text-white m-0">Recent projects</h5>
+    <Link
+      href="/projects"
+      underline={false}
+      class="group inline-flex items-center gap-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
+    >
+      See all projects
+      <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </Link>
+  </div>
+
+  {projects.length === 0 ? (
+    <p class="text-sm text-gray-500 dark:text-gray-400 m-0">No projects to show yet.</p>
+  ) : (
+    <div class="fp" data-featured-projects>
+      <div class="fp-stage">
+        {slideData.map((slide, index) => (
+          <a
+            href={`/projects/${slide.slug}`}
+            class="fp-slide group"
+            data-project-slide
+            data-index={index}
+            aria-hidden={index === 0 ? "false" : "true"}
+            tabindex={index === 0 ? "0" : "-1"}
+          >
+            <ProjectVisual variant={slide.slug} />
+
+            <div class="fp-scrim"></div>
+
+            <div class="fp-content">
+              <div class="fp-text">
+                <h3 class="fp-title">{slide.title}</h3>
+                {slide.owner && <p class="fp-owner">{slide.owner}</p>}
+                {slide.detail && <p class="fp-detail">{slide.detail}</p>}
+              </div>
+              <span class="fp-cta">
+                View project
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+
+        <button type="button" class="fp-nav fp-nav-prev" aria-label="Previous project" data-project-prev>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button type="button" class="fp-nav fp-nav-next" aria-label="Next project" data-project-next>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="fp-dots" role="tablist" aria-label="Choose project">
+        {slideData.map((slide, index) => (
+          <button
+            type="button"
+            class="fp-dot"
+            data-project-dot={index}
+            role="tab"
+            aria-selected={index === 0 ? "true" : "false"}
+            aria-label={`Show ${slide.title}`}
+          >
+            <span class="fp-dot-fill" aria-hidden="true"></span>
+          </button>
+        ))}
+      </div>
+    </div>
+  )}
+</section>
+
+<style>
+  .fp {
+    position: relative;
+  }
+
+  .fp-stage {
+    position: relative;
+    height: 200px;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: rgb(17 17 17);
+  }
+
+  @media (min-width: 640px) {
+    .fp-stage {
+      height: 240px;
+    }
+  }
+
+  .fp-slide {
+    position: absolute;
+    inset: 0;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.02);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 0.6s;
+  }
+
+  .fp-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s;
+    z-index: 1;
+  }
+
+  .fp-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgb(0 0 0 / 0.85) 0%,
+      rgb(0 0 0 / 0.5) 28%,
+      rgb(0 0 0 / 0.05) 55%,
+      transparent 75%
+    );
+  }
+
+  .fp-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .fp-content {
+      padding: 1.75rem 2rem;
+    }
+  }
+
+  .fp-text {
+    min-width: 0;
+  }
+
+  .fp-title {
+    margin: 0;
+    font-size: 1.375rem;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #fff;
+    text-shadow: 0 1px 12px rgb(0 0 0 / 0.4);
+  }
+
+  @media (min-width: 640px) {
+    .fp-title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .fp-owner {
+    margin: 0.35rem 0 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgb(255 255 255 / 0.75);
+  }
+
+  .fp-detail {
+    margin: 0.35rem 0 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgb(255 255 255 / 0.6);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .fp-cta {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #000;
+    background: rgb(255 255 255 / 0.95);
+    transform: translateY(0);
+    transition: background 0.2s ease, gap 0.2s ease;
+  }
+
+  .fp-cta svg {
+    transition: transform 0.2s ease;
+  }
+
+  .fp-slide:hover .fp-cta {
+    background: #fff;
+  }
+
+  .fp-slide:hover .fp-cta svg {
+    transform: translateX(2px);
+  }
+
+  @media (max-width: 480px) {
+    .fp-cta span,
+    .fp-content .fp-cta {
+      font-size: 0.75rem;
+    }
+  }
+
+  .fp-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    border: none;
+    background: rgb(0 0 0 / 0.35);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.25s ease, background 0.2s ease;
+  }
+
+  .fp:hover .fp-nav {
+    opacity: 1;
+  }
+
+  .fp-nav:hover {
+    background: rgb(0 0 0 / 0.6);
+  }
+
+  .fp-nav-prev {
+    left: 0.75rem;
+  }
+
+  .fp-nav-next {
+    right: 0.75rem;
+  }
+
+  /* Always show nav on touch devices */
+  @media (hover: none) {
+    .fp-nav {
+      opacity: 1;
+    }
+  }
+
+  .fp-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .fp-dot {
+    position: relative;
+    width: 1.75rem;
+    height: 0.25rem;
+    padding: 0;
+    border: none;
+    border-radius: 9999px;
+    background: rgb(0 0 0 / 0.12);
+    cursor: pointer;
+    overflow: hidden;
+    transition: background 0.25s ease;
+  }
+
+  :global(.dark) .fp-dot {
+    background: rgb(255 255 255 / 0.15);
+  }
+
+  .fp-dot-fill {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: rgb(0 0 0 / 0.7);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  :global(.dark) .fp-dot-fill {
+    background: rgb(255 255 255 / 0.85);
+  }
+
+  .fp-dot.is-active .fp-dot-fill {
+    animation: fp-dot-progress var(--slide-duration, 6s) linear forwards;
+  }
+
+  @keyframes fp-dot-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fp-slide {
+      animation: none !important;
+      transition: opacity 0.2s ease, visibility 0s !important;
+      transform: none !important;
+    }
+
+    .fp-dot-fill {
+      animation: none !important;
+      transform: scaleX(1) !important;
+    }
+  }
+</style>
+
+<script>
+  const SLIDE_DURATION = 6000;
+
+  function initFeaturedProjects(root: HTMLElement) {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>("[data-project-slide]"));
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-project-dot]"));
+    const prevBtn = root.querySelector<HTMLButtonElement>("[data-project-prev]");
+    const nextBtn = root.querySelector<HTMLButtonElement>("[data-project-next]");
+
+    root.style.setProperty("--slide-duration", `${SLIDE_DURATION}ms`);
+
+    if (slides.length <= 1) {
+      prevBtn?.setAttribute("hidden", "true");
+      nextBtn?.setAttribute("hidden", "true");
+      root.querySelector(".fp-dots")?.setAttribute("hidden", "true");
+      slides[0]?.classList.add("is-active");
+      return;
+    }
+
+    let current = 0;
+    let timer: ReturnType<typeof setInterval> | null = null;
+    let paused = false;
+
+    function render(index: number) {
+      slides.forEach((slide, i) => {
+        const active = i === index;
+        slide.classList.toggle("is-active", active);
+        slide.setAttribute("aria-hidden", active ? "false" : "true");
+        slide.setAttribute("tabindex", active ? "0" : "-1");
+      });
+
+      dots.forEach((dot, i) => {
+        const active = i === index;
+        dot.classList.toggle("is-active", active);
+        dot.setAttribute("aria-selected", active ? "true" : "false");
+        const fill = dot.querySelector<HTMLElement>(".fp-dot-fill");
+        if (fill) {
+          fill.style.animation = "none";
+          void fill.offsetWidth;
+          if (active && !paused) fill.style.animation = "";
+        }
+      });
+    }
+
+    function goTo(index: number) {
+      current = (index + slides.length) % slides.length;
+      render(current);
+      restart();
+    }
+
+    function next() {
+      goTo(current + 1);
+    }
+
+    function prev() {
+      goTo(current - 1);
+    }
+
+    function restart() {
+      if (timer) clearInterval(timer);
+      if (!paused) timer = setInterval(next, SLIDE_DURATION);
+    }
+
+    function pause() {
+      paused = true;
+      if (timer) clearInterval(timer);
+      const fill = dots[current]?.querySelector<HTMLElement>(".fp-dot-fill");
+      if (fill) fill.style.animationPlayState = "paused";
+    }
+
+    function resume() {
+      if (!paused) return;
+      paused = false;
+      const fill = dots[current]?.querySelector<HTMLElement>(".fp-dot-fill");
+      if (fill) fill.style.animationPlayState = "running";
+      restart();
+    }
+
+    prevBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      prev();
+    });
+    nextBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      next();
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const index = Number(dot.dataset.projectDot);
+        if (!Number.isNaN(index)) goTo(index);
+      });
+    });
+
+    root.addEventListener("mouseenter", pause);
+    root.addEventListener("mouseleave", resume);
+    root.addEventListener("focusin", pause);
+    root.addEventListener("focusout", resume);
+
+    render(0);
+    restart();
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-featured-projects]").forEach(initFeaturedProjects);
+</script>

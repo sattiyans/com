@@ -2,10 +2,10 @@
 title: "GBoost.ai - Next-Gen Local SEO Engine"
 description: "GBoost.ai helps multi-location businesses automate Google Business Profile content, review responses, analytics, and reporting from one centralized dashboard."
 date: "2026-01-01"
-draft: true
+draft: false
 role: "Full-Stack Developer"
 client: "Gboost.ai"
-projectOwner: "G Angle Tech & TriSquare Technology"
+projectOwner: "G6 Labs Asia"
 projectURL: "https://gboost.ai"
 techStack: ["Laravel 9", "PHP 8.2", "PostgreSQL", "Blade", "React", "Vite", "Tailwind CSS", "Google Business APIs", "OpenAI API", "Nginx"]
 featuredImage: "gboost.png"

@@ -1,0 +1,150 @@
+---
+const techs = [
+  { name: "Laravel", file: "laravel.svg" },
+  { name: "PHP", file: "php.svg" },
+  { name: "Node.js", file: "nodedotjs.svg" },
+  { name: "Python", file: "python.svg" },
+  { name: "TypeScript", file: "typescript.svg" },
+  { name: "React", file: "react.svg" },
+  { name: "Next.js", file: "nextdotjs.svg" },
+  { name: "Tailwind CSS", file: "tailwindcss.svg" },
+  { name: "PostgreSQL", file: "postgresql.svg" },
+  { name: "Redis", file: "redis.svg" },
+  { name: "OpenAI", file: "openai.svg" },
+  { name: "n8n", file: "n8n.svg" },
+  { name: "Docker", file: "docker.svg" },
+  { name: "Nginx", file: "nginx.svg" },
+  { name: "Firebase", file: "firebase.svg" },
+  { name: "Vite", file: "vite.svg" },
+];
+
+const loop = [...techs, ...techs];
+---
+
+<section class="not-prose animate space-y-4" aria-label="Technologies I work with">
+  <h5 class="font-semibold text-black dark:text-white m-0">Tech I work with</h5>
+
+  <div class="tm">
+    <div class="tm-track">
+      {loop.map((tech, i) => (
+        <div class="tm-item" title={tech.name} aria-hidden={i >= techs.length ? "true" : "false"}>
+          <img src={`/tech/${tech.file}`} alt={tech.name} loading="lazy" width="28" height="28" />
+          <span>{tech.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tm {
+    position: relative;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 7%,
+      #000 93%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 7%,
+      #000 93%,
+      transparent 100%
+    );
+  }
+
+  .tm-track {
+    display: flex;
+    width: max-content;
+    gap: 0.625rem;
+    animation: tm-scroll 38s linear infinite;
+  }
+
+  .tm:hover .tm-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes tm-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .tm-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    flex-shrink: 0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    border: none;
+    background: rgb(243 244 246);
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  :global(.dark) .tm-item {
+    background: rgb(31 41 55);
+  }
+
+  .tm-item img {
+    width: 22px;
+    height: 22px;
+    filter: grayscale(1);
+    opacity: 0.7;
+    transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  :global(.dark) .tm-item img {
+    /* keep brand colours but slightly muted until hover */
+    opacity: 0.6;
+  }
+
+  .tm-item span {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgb(55 65 81);
+    white-space: nowrap;
+    transition: color 0.25s ease;
+  }
+
+  :global(.dark) .tm-item span {
+    color: rgb(209 213 219);
+  }
+
+  .tm-item:hover {
+    transform: translateY(-2px);
+    background: rgb(229 231 235);
+  }
+
+  :global(.dark) .tm-item:hover {
+    background: rgb(55 65 81);
+  }
+
+  .tm-item:hover img {
+    filter: grayscale(0);
+    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  .tm-item:hover span {
+    color: rgb(0 0 0);
+  }
+
+  :global(.dark) .tm-item:hover span {
+    color: rgb(255 255 255);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tm-track {
+      animation: none;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+    .tm {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+</style>

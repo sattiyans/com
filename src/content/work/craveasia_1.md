@@ -3,6 +3,7 @@ company: "Crave Asia"
 role: "Unity Web Developer"
 dateStart: "03/01/2020"
 dateEnd: "09/01/2021"
+logo: "craveasia.png"
 ---
 
 - Spearheaded the planning, design, development, and integration of interactive applications for both in-house and external client projects, utilizing Unity and PHP to create engaging and user-friendly applications.

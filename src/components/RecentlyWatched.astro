@@ -1,0 +1,290 @@
+---
+import Link from "@components/Link.astro";
+---
+
+<section class="not-prose animate space-y-4" aria-label="Recently watched films">
+  <div class="flex flex-wrap gap-y-2 items-center justify-between">
+    <h5 class="font-semibold text-black dark:text-white m-0">Recently watched</h5>
+    <Link
+      href="/watched"
+      underline={false}
+      class="group inline-flex items-center gap-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
+    >
+      See all films
+      <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </Link>
+  </div>
+
+  <div class="rw-reel">
+    <div class="rw-strip">
+      <div class="rw-perfs rw-perfs-top" aria-hidden="true"></div>
+      <div class="rw-shine" aria-hidden="true"></div>
+
+      <div class="rw-frames" data-recently-watched>
+        {[0, 1, 2].map(() => (
+          <div class="rw-frame rw-skeleton">
+            <div class="rw-skeleton-fill"></div>
+          </div>
+        ))}
+      </div>
+
+      <div class="rw-perfs rw-perfs-bottom" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .rw-reel {
+    position: relative;
+  }
+
+  .rw-strip {
+    position: relative;
+    border-radius: 0.875rem;
+    overflow: hidden;
+    background: #0c0c0d;
+    padding: 14px 0;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+  }
+
+  /* Scrolling sprocket holes */
+  .rw-perfs {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 14px;
+    background-image: linear-gradient(
+      90deg,
+      rgb(255 255 255 / 0.16) 0 7px,
+      transparent 7px 100%
+    );
+    background-size: 22px 7px;
+    background-repeat: repeat-x;
+    background-position: 0 center;
+    animation: rw-film 4s linear infinite;
+  }
+
+  .rw-perfs-top { top: 4px; }
+  .rw-perfs-bottom { bottom: 4px; }
+
+  @keyframes rw-film {
+    to { background-position: 22px center; }
+  }
+
+  /* Periodic light sweep */
+  .rw-shine {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(
+      115deg,
+      transparent 38%,
+      rgb(255 255 255 / 0.12) 50%,
+      transparent 62%
+    );
+    transform: translateX(-120%);
+    animation: rw-sweep 6.5s ease-in-out infinite;
+  }
+
+  @keyframes rw-sweep {
+    0%, 72% { transform: translateX(-120%); }
+    100% { transform: translateX(120%); }
+  }
+
+  .rw-frames {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 3px;
+    padding: 0 4px;
+  }
+
+  .rw-frame {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #18181b;
+  }
+
+  @media (min-width: 640px) {
+    .rw-frame {
+      height: 180px;
+    }
+  }
+
+  .rw-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
+  }
+
+  a.rw-frame:hover img {
+    transform: scale(1.06);
+    filter: brightness(1.05);
+  }
+
+  .rw-frame-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgb(156 163 175);
+    background: linear-gradient(135deg, #27272a, #18181b);
+  }
+
+  .rw-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.82) 0%, rgb(0 0 0 / 0.2) 38%, transparent 62%);
+    z-index: 1;
+  }
+
+  .rw-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .rw-title {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-shadow: 0 1px 4px rgb(0 0 0 / 0.6);
+  }
+
+  .rw-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.1rem;
+    font-size: 0.65rem;
+    color: rgb(255 255 255 / 0.75);
+  }
+
+  .rw-rating {
+    color: #fde047;
+    font-weight: 600;
+  }
+
+  .rw-dot {
+    opacity: 0.5;
+  }
+
+  /* Skeleton */
+  .rw-skeleton-fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #27272a, #18181b);
+    animation: rw-pulse 1.6s ease-in-out infinite;
+  }
+
+  @keyframes rw-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .rw-frame-enter {
+    animation: rw-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes rw-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rw-perfs,
+    .rw-shine,
+    .rw-frame-enter,
+    .rw-skeleton-fill {
+      animation: none !important;
+    }
+    .rw-shine { display: none; }
+  }
+</style>
+
+<script>
+  function formatRating(rating: number): string {
+    if (!rating || typeof rating !== "number") return "";
+    const full = Math.floor(rating);
+    const half = rating % 1 >= 0.5;
+    return "★".repeat(full) + (half ? "½" : "");
+  }
+
+  function escapeHtml(value: string): string {
+    const div = document.createElement("div");
+    div.textContent = value;
+    return div.innerHTML;
+  }
+
+  async function loadRecentlyWatched(container: HTMLElement) {
+    try {
+      const res = await fetch(`/api/letterboxd?t=${Date.now()}`, {
+        cache: "no-store",
+        headers: { "Cache-Control": "no-cache" },
+      });
+      if (!res.ok) throw new Error(`status ${res.status}`);
+
+      const data = await res.json();
+      const items = (data.items || data || []) as any[];
+      if (!Array.isArray(items) || items.length === 0) return;
+
+      const top = items
+        .map((item) => ({ ...item, watchedDate: new Date(item.watchedDate) }))
+        .sort((a, b) => b.watchedDate.getTime() - a.watchedDate.getTime())
+        .slice(0, 3);
+
+      container.innerHTML = top
+        .map((item, i) => {
+          const poster = item.posterUrl
+            ? `<img src="${escapeHtml(item.posterUrl)}" alt="Poster for ${escapeHtml(item.title)}" loading="lazy" />`
+            : `<span class="rw-frame-fallback">${escapeHtml(item.title)}</span>`;
+          const rating = item.rating
+            ? `<span class="rw-dot">·</span><span class="rw-rating">${formatRating(item.rating)}</span>`
+            : "";
+          const href = item.url || "https://letterboxd.com/sattiyans";
+          return `
+            <a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" class="rw-frame rw-frame-enter" style="animation-delay:${i * 0.1}s">
+              ${poster}
+              <div class="rw-scrim"></div>
+              <div class="rw-overlay">
+                <span class="rw-title">${escapeHtml(item.title)}</span>
+                <div class="rw-meta">
+                  <span>${escapeHtml(String(item.year ?? ""))}</span>
+                  ${rating}
+                </div>
+              </div>
+            </a>`;
+        })
+        .join("");
+    } catch (error) {
+      console.warn("Recently watched unavailable:", error);
+      const section = container.closest("section");
+      if (section) (section as HTMLElement).style.display = "none";
+    }
+  }
+
+  document
+    .querySelectorAll<HTMLElement>("[data-recently-watched]")
+    .forEach(loadRecentlyWatched);
+</script>

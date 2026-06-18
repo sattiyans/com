@@ -1,7 +1,13 @@
 ---
 import Link from "@components/Link.astro";
 
-// Recommendations data
+interface Props {
+  limit?: number;
+}
+
+const { limit } = Astro.props;
+
+// Recommendations data — strongest first for recruiter scanning
 const recommendations = [
   {
     name: "Ahmad Farhan Hamsani",
@@ -46,15 +52,25 @@ const recommendations = [
     content: "A hardworking and fast learner. Very focus and detailed person when dealing with any problems. He has a very good analytical approach to anything. Fantastic R&D skill set."
   }
 ];
+
+const visibleRecommendations = limit ? recommendations.slice(0, limit) : recommendations;
 ---
 
-<section class="animate space-y-6">
+<section class="animate space-y-4">
   <div class="flex flex-wrap gap-y-2 items-center justify-between">
-    <h5 class="font-semibold text-black dark:text-white">
+    <h5 class="font-semibold text-black dark:text-white m-0">
       Recommendations
     </h5>
-    <Link href="https://www.linkedin.com/in/sattiyans" external class="text-sm text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-200">
+    <Link
+      href="https://www.linkedin.com/in/sattiyans"
+      external
+      underline={false}
+      class="group inline-flex items-center gap-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
+    >
       View all on LinkedIn
+      <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
     </Link>
   </div>
   
@@ -87,7 +103,7 @@ const recommendations = [
       class="flex gap-4 overflow-x-auto scrollbar-hide pb-4"
       style="scroll-behavior: smooth;"
     >
-      {recommendations.map((rec, index) => (
+      {visibleRecommendations.map((rec, index) => (
         <div class="flex-shrink-0 w-80 border border-black/15 dark:border-white/20 rounded-lg p-6 hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-300">
           <div class="flex flex-col gap-2 mb-4">
             <div>

@@ -1,0 +1,24 @@
+---
+import Link from "@components/Link.astro";
+
+type Props = {
+  href?: string;
+  external?: boolean;
+  "aria-label"?: string;
+};
+
+const { href, external, "aria-label": ariaLabel } = Astro.props;
+
+const badgeClass =
+  "inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 shrink-0";
+---
+
+{href ? (
+  <Link href={href} external={external} underline={false} aria-label={ariaLabel} class={badgeClass}>
+    <slot />
+  </Link>
+) : (
+  <span class={badgeClass} aria-label={ariaLabel}>
+    <slot />
+  </span>
+)}

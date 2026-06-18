@@ -1,11 +1,18 @@
 ---
 import Container from "@components/Container.astro";
+import ContactForm from "@components/ContactForm.astro";
 import Link from "@components/Link.astro";
 import PageLayout from "@layouts/PageLayout.astro";
+import { SOCIALS } from "@consts";
 
-const title = "Hire Sattiyan Selvarajah - Laravel & SaaS Developer";
-const description = "Hire Sattiyan Selvarajah, a Senior Laravel/PHP developer in Malaysia for SaaS development, API integrations, automation, and production-ready web platforms.";
-const keywords = "hire laravel developer malaysia, hire php developer malaysia, saas developer malaysia, laravel consultant, api integration developer";
+const title = "Hire Sattiyan Selvarajah - Technology Lead · Freelance SaaS & AI";
+const description =
+  "Hire Sattiyan Selvarajah, Technology Lead at G6 Labs Asia, for freelance SaaS development, system architecture, API integrations, GenAI automation, and production-ready web platforms.";
+const keywords =
+  "hire laravel developer malaysia, hire php developer malaysia, saas developer malaysia, technology lead freelance, api integration developer, genai automation";
+const linkedinUrl =
+  SOCIALS.find((social) => social.NAME === "LinkedIn")?.HREF ??
+  "https://www.linkedin.com/in/sattiyans";
 ---
 
 <PageLayout title={title} description={description} keywords={keywords}>
@@ -20,7 +27,7 @@ const keywords = "hire laravel developer malaysia, hire php developer malaysia, 
       <header class="space-y-4">
         <h1 class="text-2xl font-semibold text-black dark:text-white">Hire Sattiyan Selvarajah</h1>
         <p class="text-gray-700 dark:text-gray-300">
-          Senior Software Developer specializing in Laravel/PHP, SaaS platform engineering, API integrations, and automation workflows for startups and SMEs.
+          Technology Lead specializing in system architecture, Laravel/PHP, SaaS platform engineering, GenAI automation, API integrations, and production workflows for startups and SMEs.
         </p>
       </header>
 
@@ -45,18 +52,25 @@ const keywords = "hire laravel developer malaysia, hire php developer malaysia, 
       </section>
 
       <section class="rounded-lg border border-black/15 dark:border-white/20 p-5 space-y-3">
-        <h2 class="text-lg font-semibold text-black dark:text-white">Start a Conversation</h2>
-        <p class="text-sm text-gray-700 dark:text-gray-300">
-          Share your goals, current stack, and timeline. I will review and respond with next steps.
-        </p>
+        <h2 class="text-lg font-semibold text-black dark:text-white">Quick links</h2>
         <div class="flex flex-wrap gap-3">
-          <Link href="/ask?message=I%20want%20to%20get%20in%20touch" class="inline-flex items-center px-4 py-2 rounded-lg bg-black dark:bg-white text-white dark:text-black text-sm font-medium no-underline hover:bg-black/85 dark:hover:bg-white/85 transition-colors duration-200">
-            Book a Call
+          <Link href="/cv" class="inline-flex items-center px-4 py-2 rounded-lg bg-black dark:bg-white text-white dark:text-black text-sm font-medium no-underline hover:bg-black/85 dark:hover:bg-white/85 transition-colors duration-200">
+            Download CV
+          </Link>
+          <Link href={linkedinUrl} external class="inline-flex items-center px-4 py-2 rounded-lg border border-black/15 dark:border-white/20 text-sm font-medium no-underline hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200">
+            LinkedIn
           </Link>
           <Link href="/projects" class="inline-flex items-center px-4 py-2 rounded-lg border border-black/15 dark:border-white/20 text-sm font-medium no-underline hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200">
-            View Case Studies
+            View projects
+          </Link>
+          <Link href="/ask?message=I%20want%20to%20get%20in%20touch" class="inline-flex items-center px-4 py-2 rounded-lg border border-black/15 dark:border-white/20 text-sm font-medium no-underline hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200">
+            Chat with Luna
           </Link>
         </div>
+      </section>
+
+      <section class="rounded-lg border border-black/15 dark:border-white/20 p-5">
+        <ContactForm />
       </section>
     </div>
   </Container>
