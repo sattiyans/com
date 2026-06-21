@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 240" width="800" height="240" role="img" aria-label="Systems and GenAI constellation">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.45"/>
+      <stop offset="65%" stop-color="#22c55e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fade" cx="50%" cy="50%" r="60%">
+      <stop offset="20%" stop-color="#fff"/>
+      <stop offset="78%" stop-color="#000"/>
+    </radialGradient>
+    <radialGradient id="coreDot" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </radialGradient>
+    <linearGradient id="chip" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#86efac"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#9ca3af" stroke-opacity="0.16" stroke-width="1"/>
+    </pattern>
+    <mask id="gridmask"><rect x="0" y="0" width="800" height="240" fill="url(#fade)"/></mask>
+  </defs>
+
+  <!-- grid -->
+  <rect x="0" y="0" width="800" height="240" fill="url(#grid)" mask="url(#gridmask)"/>
+
+  <!-- central glow -->
+  <circle cx="400" cy="120" r="80" fill="url(#glow)">
+    <animate attributeName="opacity" values="0.5;0.9;0.5" dur="4.5s" repeatCount="indefinite"/>
+    <animateTransform attributeName="transform" type="scale" additive="sum"
+      values="1;1.08;1" dur="4.5s" repeatCount="indefinite"
+      keyTimes="0;0.5;1"/>
+  </circle>
+
+  <!-- connecting links (core -> nodes) -->
+  <g fill="none" stroke="#9ca3af" stroke-opacity="0.5" stroke-width="1.2" stroke-dasharray="3 5">
+    <path id="l0" d="M400 120 L150 70"/>
+    <path id="l1" d="M400 120 L650 75"/>
+    <path id="l2" d="M400 120 L150 175"/>
+    <path id="l3" d="M400 120 L650 170"/>
+    <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="1.6s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- traveling packets along links -->
+  <g fill="#22c55e">
+    <circle r="3.5">
+      <animateMotion dur="2.8s" begin="0s" repeatCount="indefinite"><mpath xlink:href="#l0"/></animateMotion>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2.8s" begin="0s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="3.5">
+      <animateMotion dur="2.8s" begin="0.7s" repeatCount="indefinite"><mpath xlink:href="#l1"/></animateMotion>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2.8s" begin="0.7s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="3.5">
+      <animateMotion dur="2.8s" begin="1.4s" repeatCount="indefinite"><mpath xlink:href="#l2"/></animateMotion>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2.8s" begin="1.4s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="3.5">
+      <animateMotion dur="2.8s" begin="2.1s" repeatCount="indefinite"><mpath xlink:href="#l3"/></animateMotion>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2.8s" begin="2.1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- core rings -->
+  <circle cx="400" cy="120" r="28" fill="none" stroke="#9ca3af" stroke-opacity="0.55" stroke-width="1" stroke-dasharray="4 6">
+    <animateTransform attributeName="transform" type="rotate" from="0 400 120" to="360 400 120" dur="9s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="400" cy="120" r="20" fill="none" stroke="#22c55e" stroke-opacity="0.6" stroke-width="1" stroke-dasharray="3 7">
+    <animateTransform attributeName="transform" type="rotate" from="360 400 120" to="0 400 120" dur="6s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- orbiting satellites -->
+  <g>
+    <animateTransform attributeName="transform" type="rotate" from="0 400 120" to="360 400 120" dur="12s" repeatCount="indefinite"/>
+    <circle cx="446" cy="120" r="3.5" fill="#9ca3af"/>
+    <circle cx="400" cy="166" r="3.5" fill="#9ca3af"/>
+    <circle cx="354" cy="120" r="3.5" fill="#9ca3af"/>
+    <circle cx="400" cy="74"  r="3.5" fill="#9ca3af"/>
+  </g>
+
+  <!-- core dot -->
+  <circle cx="400" cy="120" r="9" fill="url(#coreDot)">
+    <animate attributeName="r" values="8;9.5;8" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.85;1;0.85" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- node: top-left (status) -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0; 0 -5; 0 0" dur="3.4s" repeatCount="indefinite"/>
+    <rect x="98" y="50" width="60" height="40" rx="7" fill="#9ca3af" fill-opacity="0.08" stroke="#9ca3af" stroke-opacity="0.28"/>
+    <circle cx="111" cy="63" r="3.5" fill="#22c55e">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <rect x="120" y="60" width="28" height="3" rx="1.5" fill="#9ca3af" fill-opacity="0.55"/>
+    <rect x="108" y="73" width="42" height="3" rx="1.5" fill="#9ca3af" fill-opacity="0.45"/>
+    <rect x="108" y="80" width="26" height="3" rx="1.5" fill="#9ca3af" fill-opacity="0.45"/>
+  </g>
+
+  <!-- node: top-right (code) -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0; 0 -5; 0 0" dur="3.4s" begin="0.5s" repeatCount="indefinite"/>
+    <rect x="620" y="55" width="58" height="40" rx="7" fill="#9ca3af" fill-opacity="0.08" stroke="#9ca3af" stroke-opacity="0.28"/>
+    <text x="649" y="81" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" font-weight="700" fill="#9ca3af" text-anchor="middle">{ }</text>
+  </g>
+
+  <!-- node: bottom-left (bars) -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0; 0 -5; 0 0" dur="3.4s" begin="0.9s" repeatCount="indefinite"/>
+    <rect x="100" y="155" width="58" height="36" rx="7" fill="#9ca3af" fill-opacity="0.08" stroke="#9ca3af" stroke-opacity="0.28"/>
+    <rect x="110" y="166" width="38" height="3" rx="1.5" fill="#9ca3af" fill-opacity="0.5"/>
+    <rect x="110" y="174" width="24" height="3" rx="1.5" fill="#9ca3af" fill-opacity="0.4"/>
+    <rect x="110" y="182" width="32" height="3" rx="1.5" fill="#9ca3af" fill-opacity="0.4"/>
+  </g>
+
+  <!-- node: bottom-right (AI chip) -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0; 0 -5; 0 0" dur="3.4s" begin="1.3s" repeatCount="indefinite"/>
+    <rect x="636" y="152" width="34" height="34" rx="8" fill="url(#chip)"/>
+    <text x="653" y="174" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="700" fill="#0c0c0e" text-anchor="middle">AI</text>
+  </g>
+</svg>

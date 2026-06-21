@@ -1,0 +1,56 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/chatbot\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/contact\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/letterboxd\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/serializd\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/api\\/statsfm\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/bio\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/cv\\/download\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "^\\/watched\\/?$",
+			"dest": "render"
+		},
+		{
+			"src": "/.*",
+			"dest": "/404.html",
+			"status": 404
+		}
+	]
+}

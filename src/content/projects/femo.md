@@ -13,9 +13,9 @@ screenshots: ["femo1.png", "femo2.png", "femo3.png", "femo4.png", "femo5.png"]
 problem: "Brands and creators were managing discovery, collaboration, communication, and payouts across disconnected tools, which caused delays, missing context, and inconsistent campaign execution. As campaign volume grew, operational visibility dropped and teams had no single source of truth for job status, approvals, and payment progress."
 solution: "I implemented a unified platform that combines creator discovery, job workflow management, real-time messaging, social verification, and payout control in one end-to-end flow. The system was structured so both mobile and admin users operate on the same data model, reducing handoff friction and making campaign operations traceable from brief to completion."
 results:
-  - "Reduced manual coordination by centralizing jobs, bids, proposals, and approvals."
-  - "Enabled faster creator onboarding through TikTok/Instagram integration."
-  - "Improved campaign execution visibility with admin-side workflow tracking."
+  - "Collapsed manual coordination into one flow for jobs, bids, proposals, and approvals."
+  - "Onboarded creators faster via native TikTok/Instagram integration."
+  - "Gave admins end-to-end visibility over campaign execution."
 ---
 
 ## Overview

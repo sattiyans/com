@@ -5,8 +5,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import Link from "@components/Link.astro";
 import RecommendationsSection from "@components/RecommendationsSection.astro";
 import AvailabilityStatus from "@components/AvailabilityStatus.astro";
-import HeroBadge from "@components/HeroBadge.astro";
-import PersonalStats from "@components/PersonalStats.astro";
+import HeroVisual from "@components/HeroVisual.astro";
 import WorkExperienceCard from "@components/WorkExperienceCard.astro";
 import FeaturedProjectsShowcase from "@components/FeaturedProjectsShowcase.astro";
 import RecentlyWatched from "@components/RecentlyWatched.astro";
@@ -36,57 +35,69 @@ const projects = (await getCollection("projects"))
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <Container>
     <!-- Hero Section -->
-    <section class="mb-8">
-      <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
-        <!-- Left Column: Main Content -->
+    <section class="mb-10">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_minmax(300px,360px)] gap-8 lg:gap-12 items-center mb-8">
+        <!-- Left: intro + positioning + CTA -->
         <div>
-          <div class="animate flex flex-col gap-2 sm:gap-3 mb-3">
-            <h1 class="text-2xl md:text-3xl font-semibold text-black dark:text-white">
-              Hey, I'm Sattiyan <span class="text-3xl">👋🏻</span>
-            </h1>
-            <div class="animate flex flex-wrap items-center gap-2">
-              <AvailabilityStatus />
-              <HeroBadge href="/hire">Hire me</HeroBadge>
-              <HeroBadge href="/cv" aria-label="Download CV">CV</HeroBadge>
-              <HeroBadge href={linkedinUrl} external>LinkedIn</HeroBadge>
-            </div>
+      <!-- Top: avatar + greeting + availability -->
+      <div class="animate flex items-center gap-4 mb-4">
+        <img
+          src="/photo.jpg"
+          alt="Sattiyan Selvarajah"
+          width="64"
+          height="64"
+          loading="eager"
+          class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-black/10 dark:border-white/15 shrink-0"
+        />
+        <div class="flex flex-col gap-2">
+          <h1 class="text-2xl md:text-3xl font-semibold text-black dark:text-white leading-tight">
+            Hey, I'm <span class="name-shimmer">Sattiyan</span> <span class="inline-block text-3xl wave">👋🏻</span>
+          </h1>
+          <div class="flex flex-wrap items-center gap-2">
+            <AvailabilityStatus />
+            <span class="text-xs text-gray-500 dark:text-gray-400">Open to freelance engagements</span>
           </div>
-          <p class="animate text-lg text-gray-600 dark:text-gray-300 font-medium mb-1">
-            Technology Lead at G6 Labs Asia
-          </p>
-          <p class="animate text-sm text-gray-500 dark:text-gray-400 mb-3">
-            System architecture, product engineering, and GenAI automation
-          </p>
-
-          <!-- Quick Stats -->
-          <div class="animate flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
-            <div class="flex items-center gap-1">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-              <span>Based in Kuala Lumpur, Malaysia</span>
-            </div>
-          </div>
-
         </div>
+      </div>
 
-        <!-- Right Column: Stats & Social Links -->
-        <div class="lg:pt-12 space-y-6">
-          <!-- Personal Stats -->
-          <PersonalStats />
+      <!-- Positioning -->
+      <p class="animate text-lg text-gray-700 dark:text-gray-200 font-medium mb-1">
+        Technology Lead @ G6 Labs Asia · Founder, Dotkod Solutions
+      </p>
+      <p class="animate text-sm text-gray-500 dark:text-gray-400 mb-2">
+        System architecture, product engineering & GenAI automation — Laravel, Node.js & Python
+      </p>
+      <p class="animate flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 mb-5">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+        Kuala Lumpur, Malaysia · Remote-friendly
+      </p>
 
-          <!-- Social Links (Icons Only) -->
-          <div class="animate">
-            <div class="flex flex-nowrap items-center gap-2.5">
-              {SOCIALS.map(SOCIAL => (
-                <Link 
-                  href={SOCIAL.HREF} 
-                  external 
-                  underline={false}
-                  aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
-                  class="inline-flex shrink-0 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-200"
-                >
+      <!-- CTA row: primary loud, secondary ghost, socials -->
+      <div class="animate flex flex-wrap items-center gap-2.5 mb-8">
+        <Link
+          href="/hire"
+          underline={false}
+          class="group inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition-opacity duration-200"
+        >
+          Hire me
+          <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
+        <Link href="/cv" underline={false} aria-label="View CV" class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium border border-black/15 dark:border-white/20 text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200">CV</Link>
+        <Link href={linkedinUrl} external underline={false} class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium border border-black/15 dark:border-white/20 text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200">LinkedIn</Link>
+        <div class="flex items-center gap-2 pl-1">
+          {SOCIALS.filter(SOCIAL => ['GitHub', 'X'].includes(SOCIAL.NAME)).map(SOCIAL => (
+            <Link
+              href={SOCIAL.HREF}
+              external
+              underline={false}
+              aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
+              class="inline-flex shrink-0 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-200"
+            >
                   {SOCIAL.NAME === 'GitHub' && (
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -129,8 +140,32 @@ const projects = (await getCollection("projects"))
                   )}
                 </Link>
               ))}
-            </div>
           </div>
+        </div>
+        </div>
+        <!-- Right: animated systems + AI visual -->
+        <div class="hidden lg:block">
+          <HeroVisual />
+        </div>
+      </div>
+
+      <!-- Proof strip -->
+      <div class="animate grid grid-cols-2 sm:grid-cols-4 gap-px rounded-xl border border-black/10 dark:border-white/10 overflow-hidden bg-black/[0.06] dark:bg-white/[0.08]">
+        <div class="bg-white dark:bg-black p-4">
+          <div class="text-lg font-semibold text-black dark:text-white">7+ yrs</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">shipping production software</div>
+        </div>
+        <div class="bg-white dark:bg-black p-4">
+          <div class="text-lg font-semibold text-black dark:text-white">20+</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">projects shipped</div>
+        </div>
+        <div class="bg-white dark:bg-black p-4">
+          <div class="text-lg font-semibold text-black dark:text-white">SaaS · AI</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">& payment integrations</div>
+        </div>
+        <div class="bg-white dark:bg-black p-4">
+          <div class="text-lg font-semibold text-black dark:text-white">Zero-downtime</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">event-driven architecture</div>
         </div>
       </div>
     </section>
@@ -195,3 +230,41 @@ const projects = (await getCollection("projects"))
     </div>
   </Container>
 </PageLayout>
+
+<style>
+  .name-shimmer {
+    background: linear-gradient(90deg, #111827 0%, #16a34a 45%, #111827 90%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: name-shimmer 5s ease-in-out infinite;
+  }
+  :global(.dark) .name-shimmer {
+    background: linear-gradient(90deg, #ffffff 0%, #4ade80 45%, #ffffff 90%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  @keyframes name-shimmer {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+  .wave {
+    transform-origin: 70% 70%;
+    animation: wave 2.6s ease-in-out infinite;
+  }
+  @keyframes wave {
+    0%, 60%, 100% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .name-shimmer { animation: none; }
+    .wave { animation: none; }
+  }
+</style>

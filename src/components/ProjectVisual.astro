@@ -12,45 +12,94 @@ const scene = known.includes(variant) ? variant : "default";
 <div class:list={["pv", `pv--${scene}`]} aria-hidden="true">
   {scene === "gboost" && (
     <div class="pv-stage">
-      <!-- Local SEO: map pin + reviews + analytics -->
+      <!-- AI Google Ads: live ad -> AI engine -> rising CTR & clicks -->
       <div class="gb-grid"></div>
-      <div class="gb-pin">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M12 22s7-6.16 7-12A7 7 0 0 0 5 10c0 5.84 7 12 7 12Z" fill="currentColor" />
-          <circle cx="12" cy="10" r="2.6" fill="#0e0e10" />
-        </svg>
-        <span class="gb-pulse"></span>
+
+      <svg class="gb-flow" viewBox="0 0 320 180" preserveAspectRatio="none">
+        <path d="M88 92 H150" />
+        <path d="M186 92 H250" />
+        <path d="M160 76 V46" />
+      </svg>
+
+      <!-- Left: live Google search ad -->
+      <div class="gb-ad">
+        <span class="gb-ad-tag">Ad</span>
+        <span class="gb-ad-line"></span>
+        <span class="gb-ad-line short"></span>
+        <span class="gb-ad-url"></span>
+        <span class="gb-cursor">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 7-6 2-2 6-6-15z" /></svg>
+          <span class="gb-click"></span>
+        </span>
       </div>
-      <div class="gb-stars">
+
+      <!-- packets -->
+      <span class="gb-packet gb-packet--1"></span>
+      <span class="gb-packet gb-packet--2"></span>
+
+      <!-- Center: AI engine -->
+      <div class="gb-ai">AI</div>
+
+      <!-- Top: GBP reviews (profile signal) -->
+      <div class="gb-reviews">
         {[0, 1, 2, 3, 4].map((i) => (
           <svg viewBox="0 0 24 24" style={`--d:${i * 0.18}s`}>
             <path d="M12 2l2.9 6.2 6.6.7-4.9 4.5 1.4 6.6L12 17.7 6 20.5l1.4-6.6L2.5 8.9l6.6-.7L12 2z" />
           </svg>
         ))}
       </div>
+
+      <!-- Right: rising performance -->
+      <div class="gb-ctr">4.17%<span>↑</span></div>
       <div class="gb-bars">
-        {[0.45, 0.7, 0.55, 0.9, 0.65, 1].map((h, i) => (
+        {[0.4, 0.55, 0.5, 0.72, 0.84, 1].map((h, i) => (
           <span style={`--h:${h};--d:${i * 0.12}s`}></span>
         ))}
       </div>
-      <div class="gb-chip">AI</div>
     </div>
   )}
 
   {scene === "gsendr" && (
     <div class="pv-stage">
-      <!-- Email infra: hub sends envelopes to nodes + verified shield -->
-      <svg class="gs-lines" viewBox="0 0 200 120" preserveAspectRatio="none">
-        <path d="M100 60 C140 30 160 30 184 24" />
-        <path d="M100 60 C140 60 160 64 186 60" />
-        <path d="M100 60 C140 90 160 92 184 98" />
+      <!-- Email infra pipeline: compose -> verified server -> fan-out delivery -->
+      <svg class="gs-lines" viewBox="0 0 320 180" preserveAspectRatio="none">
+        <!-- composer -> hub -->
+        <path d="M78 90 H150" />
+        <!-- hub -> recipients (fan out) -->
+        <path d="M172 90 C214 58 246 44 304 34" />
+        <path d="M172 90 C214 90 248 90 306 90" />
+        <path d="M172 90 C214 122 246 136 304 146" />
       </svg>
+
+      <!-- Campaign composer (left) -->
+      <div class="gs-compose">
+        <span class="gs-compose-bar"></span>
+        <span class="gs-compose-line"></span>
+        <span class="gs-compose-line short"></span>
+        <span class="gs-compose-type"></span>
+      </div>
+
+      <!-- packet: composer -> hub -->
+      <span class="gs-feed-packet"></span>
+
+      <!-- Central mail server -->
       <div class="gs-hub">
+        <span class="gs-hub-ping"></span>
         <svg viewBox="0 0 24 24" fill="none">
           <rect x="2.5" y="5" width="19" height="14" rx="2.5" fill="currentColor" />
           <path d="M3.5 7l8.5 6 8.5-6" stroke="#fafafa" stroke-width="1.6" fill="none" stroke-linecap="round" />
         </svg>
       </div>
+
+      <!-- Verified-domain badge on the server -->
+      <div class="gs-shield">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" fill="currentColor" />
+          <path d="M8.5 12l2.3 2.3L15.5 9.8" stroke="#0e0e10" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <!-- envelopes: hub -> recipients -->
       {[0, 1, 2].map((i) => (
         <span class="gs-envelope" style={`--t:${i};--d:${i * 0.5}s`}>
           <svg viewBox="0 0 24 24" fill="none">
@@ -59,15 +108,11 @@ const scene = known.includes(variant) ? variant : "default";
           </svg>
         </span>
       ))}
+
+      <!-- recipient nodes -->
       {[0, 1, 2].map((i) => (
         <span class="gs-node" style={`--n:${i}`}></span>
       ))}
-      <div class="gs-shield">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" fill="currentColor" />
-          <path d="M8.5 12l2.3 2.3L15.5 9.8" stroke="#0e0e10" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </div>
     </div>
   )}
 
@@ -203,53 +248,151 @@ const scene = known.includes(variant) ? variant : "default";
     background-size: 28px 28px;
     mask-image: radial-gradient(circle at 30% 40%, #000 30%, transparent 75%);
   }
-  .gb-pin {
-    position: absolute;
-    left: 26%;
-    top: 38%;
-    width: 46px;
-    height: 46px;
-    color: #fafafa;
-    transform: translate(-50%, -50%);
-    animation: gb-bob 3s ease-in-out infinite;
-  }
-  .gb-pin svg { width: 100%; height: 100%; filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.4)); }
-  .gb-pulse {
-    position: absolute;
-    left: 50%;
-    bottom: -6px;
-    width: 30px;
-    height: 10px;
-    transform: translateX(-50%);
-    border-radius: 50%;
-    background: rgb(0 0 0 / 0.4);
-    animation: gb-shadow 3s ease-in-out infinite;
-  }
   @keyframes gb-bob {
     0%, 100% { transform: translate(-50%, -50%); }
-    50% { transform: translate(-50%, -62%); }
+    50% { transform: translate(-50%, -58%); }
   }
-  @keyframes gb-shadow {
-    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.4; }
-    50% { transform: translateX(-50%) scale(0.7); opacity: 0.25; }
-  }
-  .gb-stars {
+  .gb-flow {
     position: absolute;
-    right: 7%;
-    top: 24%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .gb-flow path {
+    fill: none;
+    stroke: rgb(255 255 255 / 0.26);
+    stroke-width: 1.4;
+    stroke-dasharray: 4 5;
+    animation: gs-dash 1.2s linear infinite;
+  }
+  /* Left: live search ad */
+  .gb-ad {
+    position: absolute;
+    left: 9%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 96px;
+    padding: 9px 10px;
+    border-radius: 9px;
+    background: #fafafa;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    animation: gb-bob-y 3.4s ease-in-out infinite;
+  }
+  @keyframes gb-bob-y {
+    0%, 100% { transform: translateY(-50%); }
+    50% { transform: translateY(calc(-50% - 5px)); }
+  }
+  .gb-ad-tag {
+    align-self: flex-start;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #16a34a;
+    background: rgb(22 163 74 / 0.14);
+    border: 1px solid rgb(22 163 74 / 0.4);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+  .gb-ad-line { height: 4px; border-radius: 9999px; background: #3f3f46; }
+  .gb-ad-line.short { width: 62%; }
+  .gb-ad-url { height: 3px; width: 48%; border-radius: 9999px; background: #16a34a; }
+  .gb-cursor {
+    position: absolute;
+    right: -6px;
+    bottom: -8px;
+    width: 16px;
+    height: 16px;
+    color: #18181b;
+  }
+  .gb-cursor svg { width: 100%; height: 100%; filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.4)); }
+  .gb-click {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgb(22 163 74 / 0.7);
+    animation: gb-click 2s ease-out infinite;
+  }
+  @keyframes gb-click {
+    0% { transform: scale(0.3); opacity: 0.9; }
+    100% { transform: scale(1.4); opacity: 0; }
+  }
+  /* Center: AI engine */
+  .gb-ai {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0c0c0e;
+    background: linear-gradient(135deg, #86efac, #4ade80);
+    box-shadow: 0 6px 18px rgb(74 222 128 / 0.4);
+    animation: gb-bob 3s ease-in-out infinite;
+  }
+  .gb-ai::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    border: 1px solid rgb(74 222 128 / 0.6);
+    animation: gs-ping 2.4s ease-out infinite;
+  }
+  /* Top: GBP reviews */
+  .gb-reviews {
+    position: absolute;
+    left: 50%;
+    top: 13%;
+    transform: translateX(-50%);
     display: flex;
     gap: 4px;
   }
-  .gb-stars svg {
-    width: 18px;
-    height: 18px;
+  .gb-reviews svg {
+    width: 16px;
+    height: 16px;
     fill: rgb(255 255 255 / 0.25);
     animation: gb-star 3s ease-in-out infinite both;
     animation-delay: var(--d);
   }
   @keyframes gb-star {
     0%, 60%, 100% { fill: rgb(255 255 255 / 0.25); transform: scale(1); }
-    30% { fill: #fafafa; transform: scale(1.18); }
+    30% { fill: #fbbf24; transform: scale(1.18); }
+  }
+  /* packets */
+  .gb-packet {
+    position: absolute;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px 1px rgb(74 222 128 / 0.7);
+    transform: translateY(-50%);
+  }
+  .gb-packet--1 { animation: gb-p1 2.2s ease-in-out infinite; }
+  .gb-packet--2 { animation: gb-p2 2.2s ease-in-out infinite 0.4s; }
+  @keyframes gb-p1 {
+    0% { left: 27%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { left: 46%; opacity: 0; }
+  }
+  @keyframes gb-p2 {
+    0% { left: 54%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { left: 74%; opacity: 0; }
   }
   .gb-bars {
     position: absolute;
@@ -273,19 +416,26 @@ const scene = known.includes(variant) ? variant : "default";
     0%, 100% { transform: scaleY(0.55); opacity: 0.6; }
     50% { transform: scaleY(1); opacity: 1; }
   }
-  .gb-chip {
+  .gb-ctr {
     position: absolute;
-    left: 16%;
-    bottom: 20%;
-    font-size: 11px;
+    right: 9%;
+    top: 22%;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.05em;
-    color: #18181b;
-    background: #fafafa;
-    padding: 3px 9px;
+    color: #0c0c0e;
+    background: linear-gradient(135deg, #86efac, #4ade80);
+    padding: 4px 9px;
     border-radius: 9999px;
-    box-shadow: 0 4px 12px rgb(0 0 0 / 0.3);
-    animation: gb-bob 3s ease-in-out infinite 0.6s;
+    box-shadow: 0 4px 12px rgb(74 222 128 / 0.4);
+    animation: gb-ctr-bob 3s ease-in-out infinite;
+  }
+  .gb-ctr span { font-size: 10px; }
+  @keyframes gb-ctr-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
   }
 
   /* ============ GSENDR ============ */
@@ -358,14 +508,84 @@ const scene = known.includes(variant) ? variant : "default";
   .gs-node:nth-of-type(3) { top: 78%; }
   .gs-shield {
     position: absolute;
-    left: 12%;
-    bottom: 18%;
-    width: 30px;
-    height: 30px;
-    color: #e7e7ea;
+    left: calc(50% + 14px);
+    top: calc(50% + 12px);
+    width: 22px;
+    height: 22px;
+    color: #4ade80;
     animation: gs-hub 3s ease-in-out infinite 0.4s;
   }
-  .gs-shield svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 8px rgb(0 0 0 / 0.35)); }
+  .gs-shield svg { width: 100%; height: 100%; filter: drop-shadow(0 3px 6px rgb(0 0 0 / 0.4)); }
+
+  /* composer panel */
+  .gs-compose {
+    position: absolute;
+    left: 9%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 74px;
+    padding: 8px;
+    border-radius: 9px;
+    background: #fafafa;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    animation: gs-compose-float 3.4s ease-in-out infinite;
+  }
+  @keyframes gs-compose-float {
+    0%, 100% { transform: translateY(-50%); }
+    50% { transform: translateY(calc(-50% - 5px)); }
+  }
+  .gs-compose-bar { height: 4px; width: 58%; border-radius: 9999px; background: #18181b; }
+  .gs-compose-line { height: 3px; border-radius: 9999px; background: #c7c7cc; }
+  .gs-compose-line.short { width: 64%; }
+  .gs-compose-type {
+    height: 3px;
+    width: 30%;
+    border-radius: 9999px;
+    background: #16a34a;
+    transform-origin: left;
+    animation: gs-type 2.2s ease-in-out infinite;
+  }
+  @keyframes gs-type {
+    0% { transform: scaleX(0.2); }
+    50% { transform: scaleX(1); }
+    100% { transform: scaleX(0.2); }
+  }
+
+  /* packet: composer -> hub */
+  .gs-feed-packet {
+    position: absolute;
+    top: 50%;
+    left: 24%;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px 1px rgb(74 222 128 / 0.7);
+    transform: translateY(-50%);
+    animation: gs-feed-move 2.2s ease-in-out infinite;
+  }
+  @keyframes gs-feed-move {
+    0% { left: 24%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { left: 46%; opacity: 0; }
+  }
+
+  /* server ping */
+  .gs-hub-ping {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    border: 1px solid rgb(74 222 128 / 0.55);
+    animation: gs-ping 2.4s ease-out infinite;
+  }
+  @keyframes gs-ping {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
 
   /* ============ LAPAR.LA ============ */
   .ll-post {

@@ -13,9 +13,9 @@ screenshots: ["invested1.png", "invested2.png", "invested3.png", "invested4.png"
 problem: "The admissions workflow depended on manual handling across form submissions, candidate records, document checks, and reviewer updates, which created bottlenecks and inconsistent decision trails. Teams struggled to keep application state accurate at scale, especially when multiple reviewers and status transitions were involved."
 solution: "I built a structured Laravel backend with API intake from WordPress and a centralized admin workflow for status management, document handling, and reviewer actions. The system enforces cleaner state transitions and identity checks so processing is faster, auditable, and easier to operate as application volume increases."
 results:
-  - "Standardized application lifecycle from submission to final review."
-  - "Improved admin efficiency with filtering, bulk actions, and status workflows."
-  - "Reduced duplicate/inconsistent records through NRIC-based checks."
+  - "Standardized the application lifecycle from submission through final review."
+  - "Sped up admin work with filtering, bulk actions, and status workflows."
+  - "Cut duplicate and inconsistent records via NRIC-based validation."
 ---
 
 ## Overview

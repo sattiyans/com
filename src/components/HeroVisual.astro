@@ -1,0 +1,307 @@
+---
+// Abstract "systems + GenAI" constellation for the hero.
+// Decorative only — central AI core, orbiting satellites, service nodes
+// linked by animated data flows. Container-less + theme-adaptive so it
+// blends seamlessly into the page background (no card).
+---
+
+<div class="hv" aria-hidden="true">
+  <div class="hv-grid"></div>
+  <div class="hv-glow"></div>
+
+  <!-- Connecting data flows -->
+  <svg class="hv-links" viewBox="0 0 320 220" preserveAspectRatio="xMidYMid meet">
+    <path d="M160 110 L70 56" />
+    <path d="M160 110 L256 60" />
+    <path d="M160 110 L60 168" />
+    <path d="M160 110 L262 158" />
+  </svg>
+
+  <!-- Traveling packets -->
+  {[0, 1, 2, 3].map((i) => (
+    <span class={`hv-packet hv-packet--${i}`} style={`--d:${i * 0.7}s`}></span>
+  ))}
+
+  <!-- Service nodes -->
+  <div class="hv-node hv-node--tl">
+    <span class="hv-node-dot"></span>
+    <span class="hv-node-bar"></span>
+    <span class="hv-node-bar short"></span>
+  </div>
+  <div class="hv-node hv-node--tr">
+    <span class="hv-mono">{`{ }`}</span>
+  </div>
+  <div class="hv-node hv-node--bl">
+    <span class="hv-node-bar"></span>
+    <span class="hv-node-bar short"></span>
+  </div>
+  <div class="hv-node hv-node--br hv-node--chip">
+    <span class="hv-chip">AI</span>
+  </div>
+
+  <!-- Central core -->
+  <div class="hv-core">
+    <span class="hv-ring hv-ring--1"></span>
+    <span class="hv-ring hv-ring--2"></span>
+    <span class="hv-core-dot"></span>
+  </div>
+
+  <!-- Orbiting satellites -->
+  <div class="hv-orbit">
+    {[0, 1, 2, 3].map((i) => (
+      <span class="hv-sat" style={`--i:${i}`}></span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .hv {
+    /* theme-adaptive tokens — light defaults */
+    --ink: #18181b;
+    --soft: rgb(24 24 27 / 0.45);
+    --line: rgb(24 24 27 / 0.1);
+    --card: rgb(255 255 255 / 0.7);
+    --card-border: rgb(24 24 27 / 0.12);
+    --card-shadow: 0 6px 18px rgb(0 0 0 / 0.1);
+    --accent: #16a34a;
+    --accent-soft: rgb(22 163 74 / 0.4);
+
+    position: relative;
+    width: 100%;
+    height: 16rem;
+    overflow: hidden;
+    color: var(--ink);
+  }
+
+  :global(.dark) .hv {
+    --ink: #fafafa;
+    --soft: rgb(255 255 255 / 0.55);
+    --line: rgb(255 255 255 / 0.06);
+    --card: rgb(255 255 255 / 0.06);
+    --card-border: rgb(255 255 255 / 0.16);
+    --card-shadow: 0 6px 18px rgb(0 0 0 / 0.35);
+    --accent: #4ade80;
+    --accent-soft: rgb(74 222 128 / 0.45);
+  }
+
+  .hv-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(circle at 50% 50%, #000 28%, transparent 78%);
+  }
+
+  .hv-glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 9rem;
+    height: 9rem;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 65%);
+    animation: hv-breathe 4.5s ease-in-out infinite;
+  }
+
+  @keyframes hv-breathe {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
+    50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.08); }
+  }
+
+  /* ── Links ── */
+  .hv-links {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hv-links path {
+    fill: none;
+    stroke: var(--soft);
+    stroke-width: 1.1;
+    opacity: 0.4;
+    stroke-dasharray: 3 5;
+    animation: hv-dash 1.6s linear infinite;
+  }
+
+  @keyframes hv-dash {
+    to { stroke-dashoffset: -16; }
+  }
+
+  /* ── Traveling packets ── */
+  .hv-packet {
+    position: absolute;
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: -0.2rem 0 0 -0.2rem;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px 1px var(--accent-soft);
+    opacity: 0;
+    animation: var(--anim, hv-p0) 2.8s ease-in-out infinite both;
+    animation-delay: var(--d);
+  }
+
+  .hv-packet--0 { --anim: hv-p0; }
+  .hv-packet--1 { --anim: hv-p1; }
+  .hv-packet--2 { --anim: hv-p2; }
+  .hv-packet--3 { --anim: hv-p3; }
+
+  @keyframes hv-p0 {
+    0% { left: 50%; top: 50%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { left: 22%; top: 25%; opacity: 0; }
+  }
+  @keyframes hv-p1 {
+    0% { left: 50%; top: 50%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { left: 80%; top: 27%; opacity: 0; }
+  }
+  @keyframes hv-p2 {
+    0% { left: 50%; top: 50%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { left: 19%; top: 76%; opacity: 0; }
+  }
+  @keyframes hv-p3 {
+    0% { left: 50%; top: 50%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { left: 82%; top: 72%; opacity: 0; }
+  }
+
+  /* ── Service nodes ── */
+  .hv-node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 2.4rem;
+    padding: 0.4rem 0.45rem;
+    border-radius: 0.45rem;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: blur(4px);
+    animation: hv-float 3.4s ease-in-out infinite both;
+  }
+
+  .hv-node--tl { left: 12%; top: 18%; animation-delay: 0s; }
+  .hv-node--tr { right: 13%; top: 20%; animation-delay: 0.5s; }
+  .hv-node--bl { left: 11%; bottom: 18%; animation-delay: 0.9s; }
+  .hv-node--br { right: 14%; bottom: 19%; animation-delay: 1.3s; }
+  .hv-node--chip { background: transparent; border: 0; box-shadow: none; backdrop-filter: none; padding: 0; }
+
+  @keyframes hv-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .hv-node-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: hv-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes hv-pulse {
+    0%, 100% { opacity: 0.5; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  .hv-node-bar {
+    height: 0.2rem;
+    border-radius: 9999px;
+    background: var(--soft);
+  }
+
+  .hv-node-bar.short { width: 60%; }
+
+  .hv-mono {
+    font-family: ui-monospace, monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .hv-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #0c0c0e;
+    background: linear-gradient(135deg, #86efac, #4ade80);
+    box-shadow: 0 4px 14px rgb(74 222 128 / 0.4);
+  }
+
+  /* ── Central core ── */
+  .hv-core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 3.4rem;
+    height: 3.4rem;
+    transform: translate(-50%, -50%);
+  }
+
+  .hv-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid var(--soft);
+    opacity: 0.5;
+  }
+
+  .hv-ring--1 { animation: hv-spin 9s linear infinite; }
+  .hv-ring--2 { inset: 0.5rem; border-color: var(--accent-soft); opacity: 1; animation: hv-spin 6s linear infinite reverse; }
+
+  @keyframes hv-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .hv-core-dot {
+    position: absolute;
+    inset: 1.15rem;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffffff, var(--accent));
+    box-shadow: 0 0 14px 2px var(--accent-soft);
+    animation: hv-pulse 2.4s ease-in-out infinite;
+  }
+
+  /* ── Orbiting satellites ── */
+  .hv-orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    animation: hv-spin 12s linear infinite;
+  }
+
+  .hv-sat {
+    position: absolute;
+    width: 0.45rem;
+    height: 0.45rem;
+    margin: -0.225rem 0 0 -0.225rem;
+    border-radius: 50%;
+    background: var(--ink);
+    opacity: 0.7;
+    transform: rotate(calc(var(--i) * 90deg)) translateX(3rem);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hv * { animation: none !important; }
+  }
+</style>

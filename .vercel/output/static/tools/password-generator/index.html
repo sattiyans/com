@@ -1,0 +1,389 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="generator" content="Astro v4.6.3"><!-- Favicon --><link rel="icon" type="image/svg+xml" href="/favicon-light.svg" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><!-- Font preloads --><link rel="preload" href="/_astro/inter-latin-400-normal.BT1H-PT_.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/inter-latin-600-normal.B2Ssfs8e.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/lora-latin-400-normal.CvHVDnm4.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/lora-latin-600-normal.DUWh3m6k.woff2" as="font" type="font/woff2" crossorigin><!-- Canonical URL --><link rel="canonical" href="https://sattiyans.com/tools/password-generator/"><!-- Primary Meta Tags --><title>Password Generator - Free Secure Random Password Creator | Sattiyan Selvarajah</title><meta name="title" content="Password Generator - Free Secure Random Password Creator | Sattiyan Selvarajah"><meta name="description" content="Free online password generator tool. Create secure, random passwords with customizable length and character sets. Generate strong passwords for your accounts and applications."><meta name="keywords" content="password generator, secure password, random password, password creator, strong password, password tool, security tools, password strength"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://sattiyans.com/tools/password-generator/"><meta property="og:title" content="Password Generator - Free Secure Random Password Creator | Sattiyan Selvarajah"><meta property="og:description" content="Free online password generator tool. Create secure, random passwords with customizable length and character sets. Generate strong passwords for your accounts and applications."><meta property="og:image" content="https://sattiyans.com/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:site_name" content="Sattiyan Selvarajah"><meta property="og:locale" content="en_US"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://sattiyans.com/tools/password-generator/"><meta property="twitter:title" content="Password Generator - Free Secure Random Password Creator | Sattiyan Selvarajah"><meta property="twitter:description" content="Free online password generator tool. Create secure, random passwords with customizable length and character sets. Generate strong passwords for your accounts and applications."><meta property="twitter:image" content="https://sattiyans.com/og-image.png"><meta property="twitter:creator" content="@sattiyans"><meta property="twitter:site" content="@sattiyans"><!-- Additional Meta Tags --><meta name="robots" content="index, follow"><meta name="author" content="Sattiyan Selvarajah"><meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)"><!-- JSON-LD Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://sattiyans.com/#person","name":"Sattiyan Selvarajah","jobTitle":"Technology Lead & Founder","description":"Technology Lead at G6 Labs Asia and founder of Dotkod Solutions, specializing in system architecture, product engineering, and GenAI automation.","url":"https://sattiyans.com","image":"https://sattiyans.com/og-image.png","sameAs":["https://github.com/sattiyans","https://www.linkedin.com/in/sattiyans","https://x.com/sattiyans","https://letterboxd.com/sattiyans","https://serializd.com/user/sattiyans","https://instagram.com/sattiyanss","https://www.facebook.com/people/Sattiyan-Selvarajah/100090108949254/","https://threads.com/sattiyanss"],"worksFor":{"@id":"https://sattiyans.com/#organization"},"knowsAbout":["PHP","Laravel","SaaS Development","E-commerce","AI Integration","Web Development"]},{"@type":"Organization","@id":"https://sattiyans.com/#organization","name":"Dotkod Solutions","url":"https://dotkod.com","founder":{"@id":"https://sattiyans.com/#person"}},{"@type":"WebSite","@id":"https://sattiyans.com/#website","url":"https://sattiyans.com","name":"Sattiyan Selvarajah Portfolio","description":"Free online password generator tool. Create secure, random passwords with customizable length and character sets. Generate strong passwords for your accounts and applications."}]}</script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script>
+  function init() {
+    preloadTheme();
+    onScroll();
+    animate();
+
+    const backToTop = document.getElementById("back-to-top");
+    backToTop?.addEventListener("click", (event) => scrollToTop(event));
+
+    const backToPrev = document.getElementById("back-to-prev");
+    backToPrev?.addEventListener("click", () => window.history.back());
+
+    const lightThemeButton = document.getElementById("light-theme-button");
+    lightThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "light");
+      toggleTheme(false);
+    });
+
+    const darkThemeButton = document.getElementById("dark-theme-button");
+    darkThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "dark");
+      toggleTheme(true);
+    });
+
+    const systemThemeButton = document.getElementById("system-theme-button");
+    systemThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "system");
+      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    });
+
+    window.matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", event => {
+        if (localStorage.theme === "system") {
+          toggleTheme(event.matches);
+        }
+      }
+    );
+
+    document.addEventListener("scroll", onScroll);
+  }
+
+  function animate() {
+    const animateElements = document.querySelectorAll(".animate");
+
+    animateElements.forEach((element, index) => {
+      setTimeout(() => {
+        element.classList.add("show");
+      }, index * 150);
+    });
+  }
+
+  function onScroll() {
+    if (window.scrollY > 0) {
+      document.documentElement.classList.add("scrolled");
+    } else {
+      document.documentElement.classList.remove("scrolled");
+    }
+  }
+
+  function scrollToTop(event) {
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+function toggleTheme(dark) {
+    const css = document.createElement("style");
+
+    css.appendChild(
+      document.createTextNode(
+        `* {
+             -webkit-transition: none !important;
+             -moz-transition: none !important;
+             -o-transition: none !important;
+             -ms-transition: none !important;
+             transition: none !important;
+          }
+        `,
+      )
+    );
+
+    document.head.appendChild(css);
+
+    if (dark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+  window.getComputedStyle(css).opacity;
+    document.head.removeChild(css);
+  }
+
+  function preloadTheme() {
+    const userTheme = localStorage.theme;
+
+    if (userTheme === "light" || userTheme === "dark") {
+      toggleTheme(userTheme === "dark");
+    } else {
+      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => init());
+  document.addEventListener("astro:after-swap", () => init());
+  preloadTheme();
+</script>  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Password Generator",
+        "description": "Free online tool to generate secure, random passwords with customizable options",
+        "url": "https://sattiyans.com/tools/password-generator",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Sattiyan Selvarajah",
+          "url": "https://sattiyans.com"
+        },
+        "featureList": [
+          "Customizable password length",
+          "Character set selection",
+          "Password strength indicator",
+          "Multiple password generation",
+          "Copy to clipboard",
+          "Exclude similar characters",
+          "Exclude ambiguous characters"
+        ]
+      }
+    </script> <link rel="stylesheet" href="/_astro/ask.DGA3AxnA.css">
+<link rel="stylesheet" href="/_astro/bio.Di_g72Me.css">
+<style>#floating-nav[data-astro-cid-3ef6ksr2]{animation:slideDown .5s ease-out}@keyframes slideDown{0%{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}#floating-nav[data-astro-cid-3ef6ksr2].scrolled #burger-menu[data-astro-cid-3ef6ksr2]{box-shadow:0 25px 50px -12px #00000040,0 0 0 1px #0000000d}.dark[data-astro-cid-3ef6ksr2] #floating-nav[data-astro-cid-3ef6ksr2].scrolled #burger-menu[data-astro-cid-3ef6ksr2]{box-shadow:0 25px 50px -12px #00000080,0 0 0 1px #ffffff1a}#dropdown-menu[data-astro-cid-3ef6ksr2].open{opacity:1;visibility:visible;pointer-events:auto}#dropdown-menu[data-astro-cid-3ef6ksr2].open #dropdown-menu-panel[data-astro-cid-3ef6ksr2]{transform:translateY(0)!important}.scrollbar-hide[data-astro-cid-3ef6ksr2]{-ms-overflow-style:none;scrollbar-width:none}.scrollbar-hide[data-astro-cid-3ef6ksr2]::-webkit-scrollbar{display:none}#dropdown-menu[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2]{display:inline-flex!important;flex-direction:row!important;align-items:center!important;-moz-column-gap:.8rem!important;column-gap:.8rem!important}#dropdown-menu[data-astro-cid-3ef6ksr2] svg[data-astro-cid-3ef6ksr2]{display:block!important;flex-shrink:0!important;width:1.05rem!important;height:1.05rem!important}#dropdown-menu[data-astro-cid-3ef6ksr2] span[data-astro-cid-3ef6ksr2]{display:inline-block!important;white-space:nowrap!important;line-height:1!important;font-size:.98rem!important}#dropdown-menu[data-astro-cid-3ef6ksr2]{width:100vw!important;height:100dvh!important;padding:1.5rem!important;background:#000000d1!important;backdrop-filter:blur(6px)!important;-webkit-backdrop-filter:blur(6px)!important}#dropdown-menu[data-astro-cid-3ef6ksr2].open{opacity:1!important;visibility:visible!important;pointer-events:auto!important}#dropdown-menu-panel[data-astro-cid-3ef6ksr2]{width:100%!important;max-width:22rem!important;display:flex!important;flex-direction:column!important;gap:.5rem!important;transform:none!important}#dropdown-menu[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2]{width:100%!important;justify-content:flex-start!important;padding:1rem 1.15rem!important;border-radius:.85rem!important;color:#e5e7eb!important;background:transparent!important;-moz-column-gap:.95rem!important;column-gap:.95rem!important}#dropdown-menu[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2]>div[data-astro-cid-3ef6ksr2]{width:1.5rem!important;min-width:1.5rem!important;display:flex!important;align-items:center!important;justify-content:center!important}#dropdown-menu[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2] svg[data-astro-cid-3ef6ksr2]{width:1.3rem!important;height:1.3rem!important}#dropdown-menu[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2] span[data-astro-cid-3ef6ksr2]{font-size:1.18rem!important;line-height:1.2!important;font-weight:500!important}#dropdown-menu[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2]:hover{background:#ffffff14!important;color:#fff!important}@media (min-width: 1100px){#dropdown-menu[data-astro-cid-3ef6ksr2]{align-items:flex-start!important;padding-top:5.5rem!important}#dropdown-menu-panel[data-astro-cid-3ef6ksr2]{max-width:none!important;width:auto!important;flex-direction:row!important;align-items:center!important;gap:.35rem!important;background:#00000073!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:9999px!important;padding:.5rem .65rem!important;box-shadow:0 16px 40px #00000059!important}#dropdown-menu[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2]{width:auto!important;justify-content:center!important;padding:.55rem .85rem!important;border-radius:9999px!important;font-size:.98rem!important}#dropdown-menu[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2] span[data-astro-cid-3ef6ksr2]{font-size:1.04rem!important}#dropdown-menu[data-astro-cid-3ef6ksr2] a[data-astro-cid-3ef6ksr2] svg[data-astro-cid-3ef6ksr2]{width:1.05rem!important;height:1.05rem!important}}
+</style>
+<link rel="stylesheet" href="/_astro/bio.CDRVEVvQ.css"><script type="module" src="/_astro/hoisted.QmbxBKvb.js"></script></head> <body> <header class="relative !fixed !top-0 !left-0 !right-0 !z-[10001] !py-0 !bg-transparent !backdrop-blur-none" data-astro-cid-3ef6ksr2> <!-- Floating Navigation Pill --> <div class="fixed top-4 inset-x-0 z-[9999] flex justify-center" id="floating-nav" data-astro-cid-3ef6ksr2> <nav class="relative" data-astro-cid-3ef6ksr2> <!-- Burger Menu Button --> <button id="burger-menu" class="w-12 h-12 rounded-full bg-gray-100 dark:bg-black border border-black/15 dark:border-white/20 shadow-2xl flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black/20 dark:focus:ring-white/20" aria-label="Toggle menu" aria-expanded="false" data-astro-cid-3ef6ksr2> <svg id="burger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-3ef6ksr2></path> </svg> <svg id="home-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" data-astro-cid-3ef6ksr2></path> </svg> </button> </nav> <!-- Horizontal Pill Menu --> <div id="dropdown-menu" class="fixed inset-0 z-[10000] flex items-center justify-center px-6 bg-black/80 backdrop-blur-sm opacity-0 invisible pointer-events-none transition-all duration-300" data-astro-cid-3ef6ksr2> <div id="dropdown-menu-panel" class="w-full max-w-xs bg-transparent border-0 shadow-none p-0 flex flex-col gap-2 transition-all duration-300 ease-out" data-astro-cid-3ef6ksr2> <a href="/work" target="_self" class="ease-in-out inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap" data-astro-cid-3ef6ksr2>  <div class="w-4 flex items-center justify-center" data-astro-cid-3ef6ksr2> <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" data-astro-cid-3ef6ksr2></path> </svg> </div> <span class="font-medium text-sm leading-none" data-astro-cid-3ef6ksr2>Work</span>  </a> <a href="/projects" target="_self" class="ease-in-out inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap" data-astro-cid-3ef6ksr2>  <div class="w-4 flex items-center justify-center" data-astro-cid-3ef6ksr2> <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" data-astro-cid-3ef6ksr2></path> </svg> </div> <span class="font-medium text-sm leading-none" data-astro-cid-3ef6ksr2>Projects</span>  </a> <a href="/hire" target="_self" class="ease-in-out inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap" data-astro-cid-3ef6ksr2>  <div class="w-4 flex items-center justify-center" data-astro-cid-3ef6ksr2> <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 8a2 2 0 00-2-2h-3l-2-2h-4L8 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8z" data-astro-cid-3ef6ksr2></path> </svg> </div> <span class="font-medium text-sm leading-none" data-astro-cid-3ef6ksr2>Hire</span>  </a> <a href="/watched" target="_self" class="ease-in-out inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap" data-astro-cid-3ef6ksr2>  <div class="w-4 flex items-center justify-center" data-astro-cid-3ef6ksr2> <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" data-astro-cid-3ef6ksr2></path> </svg> </div> <span class="font-medium text-sm leading-none" data-astro-cid-3ef6ksr2>Watched</span>  </a> <a href="/tools" target="_self" class="ease-in-out inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap" data-astro-cid-3ef6ksr2>  <div class="w-4 flex items-center justify-center" data-astro-cid-3ef6ksr2> <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" data-astro-cid-3ef6ksr2></path> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" data-astro-cid-3ef6ksr2></path> </svg> </div> <span class="font-medium text-sm leading-none" data-astro-cid-3ef6ksr2>Tools</span>  </a> <a href="/uses" target="_self" class="ease-in-out inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap" data-astro-cid-3ef6ksr2>  <div class="w-4 flex items-center justify-center" data-astro-cid-3ef6ksr2> <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" data-astro-cid-3ef6ksr2></path> </svg> </div> <span class="font-medium text-sm leading-none" data-astro-cid-3ef6ksr2>Uses</span>  </a> <a href="/cv" target="_self" class="ease-in-out inline-flex w-full md:w-auto justify-center items-center gap-3 px-4 py-3.5 md:py-2.5 rounded-xl md:rounded-full text-gray-200 md:text-gray-600 md:dark:text-gray-400 hover:text-white md:hover:text-black md:dark:hover:text-white hover:bg-white/10 md:hover:bg-gray-200 md:dark:hover:bg-black/80 transition-all duration-200 no-underline whitespace-nowrap" data-astro-cid-3ef6ksr2>  <div class="w-4 flex items-center justify-center" data-astro-cid-3ef6ksr2> <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-3ef6ksr2> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h10M7 11h10M7 15h6M7 3h6l4 4v14H7z" data-astro-cid-3ef6ksr2></path> </svg> </div> <span class="font-medium text-sm leading-none" data-astro-cid-3ef6ksr2>CV</span>  </a> </div> </div> </div> <!-- Spacer to prevent content from going under fixed header --> <div class="h-20" data-astro-cid-3ef6ksr2></div> </header>  <script>
+  // Toggle dropdown menu - runs on every page load
+  (function() {
+    // Store references to cleanup old listeners
+    let currentBurgerHandler = null;
+    let currentOutsideClickHandler = null;
+    let currentScrollHandler = null;
+    let isInitialized = false;
+    let retryCount = 0;
+    const MAX_RETRIES = 50; // Try for up to 5 seconds (50 * 100ms)
+    
+    function initMenu() {
+      // Prevent multiple simultaneous initializations
+      if (isInitialized && retryCount === 0) {
+        return;
+      }
+      
+      const floatingNav = document.getElementById('floating-nav');
+      const burgerMenu = document.getElementById('burger-menu');
+      const dropdownMenu = document.getElementById('dropdown-menu');
+      const burgerIcon = document.getElementById('burger-icon');
+      const homeIcon = document.getElementById('home-icon');
+      
+      if (!burgerMenu || !dropdownMenu || !burgerIcon || !homeIcon) {
+        // Retry with exponential backoff
+        retryCount++;
+        if (retryCount < MAX_RETRIES) {
+          const delay = Math.min(100 * retryCount, 500); // Max 500ms delay
+          setTimeout(initMenu, delay);
+        }
+        return;
+      }
+      
+      // Reset retry count on success
+      retryCount = 0;
+      
+      // Ensure menu is closed on page load
+      dropdownMenu.classList.remove('open');
+      burgerIcon.classList.remove('hidden');
+      homeIcon.classList.add('hidden');
+      burgerMenu.setAttribute('aria-expanded', 'false');
+      
+      // Remove old event listeners if they exist
+      if (currentBurgerHandler && burgerMenu) {
+        burgerMenu.removeEventListener('click', currentBurgerHandler);
+      }
+      if (currentOutsideClickHandler) {
+        document.removeEventListener('click', currentOutsideClickHandler, true);
+      }
+      if (currentScrollHandler) {
+        window.removeEventListener('scroll', currentScrollHandler, { passive: true });
+      }
+      
+      // Remove old link handler if it exists
+      if (dropdownMenu._linkClickHandler) {
+        dropdownMenu.removeEventListener('click', dropdownMenu._linkClickHandler);
+      }
+      
+      // Create new click handler
+      const closeMenu = function() {
+        dropdownMenu.classList.remove('open');
+        burgerIcon.classList.remove('hidden');
+        homeIcon.classList.add('hidden');
+        burgerMenu.setAttribute('aria-expanded', 'false');
+      };
+
+      currentBurgerHandler = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = dropdownMenu.classList.contains('open');
+        
+        if (isOpen) {
+          // Close overlay/menu when icon is clicked again
+          closeMenu();
+        } else {
+          // Open menu and show home icon
+          dropdownMenu.classList.add('open');
+          burgerIcon.classList.add('hidden');
+          homeIcon.classList.remove('hidden');
+          burgerMenu.setAttribute('aria-expanded', 'true');
+        }
+      };
+      
+      // Attach new click handler
+      burgerMenu.addEventListener('click', currentBurgerHandler);
+      
+      // Close menu when clicking outside
+      currentOutsideClickHandler = function(e) {
+        if (dropdownMenu.classList.contains('open') && 
+            !dropdownMenu.contains(e.target) && 
+            !burgerMenu.contains(e.target)) {
+          closeMenu();
+        }
+      };
+      
+      document.addEventListener('click', currentOutsideClickHandler, true);
+      
+      // Close menu when clicking a link (using event delegation)
+      dropdownMenu._linkClickHandler = function(e) {
+        // Check if click was on a link
+        const link = e.target.closest('a');
+        if (link && dropdownMenu.contains(link)) {
+          closeMenu();
+          return;
+        }
+
+        // Close when clicking anywhere else inside the open menu area
+        if (dropdownMenu.classList.contains('open')) {
+          closeMenu();
+        }
+      };
+      
+      // Attach using event delegation
+      dropdownMenu.addEventListener('click', dropdownMenu._linkClickHandler);
+      
+      // Add scroll effect to floating nav
+      currentScrollHandler = function() {
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY > 20) {
+          floatingNav?.classList.add('scrolled');
+        } else {
+          floatingNav?.classList.remove('scrolled');
+        }
+      };
+      
+      window.addEventListener('scroll', currentScrollHandler, { passive: true });
+      currentScrollHandler(); // Check initial state
+      
+      isInitialized = true;
+    }
+    
+    // Use MutationObserver to detect when elements are added to DOM
+    function observeForElements() {
+      const observer = new MutationObserver(function(mutations, obs) {
+        const burgerMenu = document.getElementById('burger-menu');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const burgerIcon = document.getElementById('burger-icon');
+        const homeIcon = document.getElementById('home-icon');
+        
+        if (burgerMenu && dropdownMenu && burgerIcon && homeIcon) {
+          obs.disconnect();
+          initMenu();
+        }
+      });
+      
+      // Start observing
+      if (document.body) {
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      }
+      
+      // Stop observing after 5 seconds
+      setTimeout(function() {
+        observer.disconnect();
+      }, 5000);
+    }
+    
+    // Run initialization with multiple strategies
+    function runInit() {
+      // Reset initialization flag
+      isInitialized = false;
+      retryCount = 0;
+      
+      // Try immediate initialization
+      initMenu();
+      
+      // Also use MutationObserver as backup
+      observeForElements();
+    }
+    
+    // Run on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', runInit);
+    } else {
+      // DOM already loaded, run immediately
+      runInit();
+    }
+    
+    // Also try on window load (ensures everything is ready)
+    window.addEventListener('load', function() {
+      runInit();
+    });
+    
+    // Also run when page becomes visible (handles back/forward navigation)
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) {
+        setTimeout(runInit, 100);
+      }
+    });
+    
+    // Run on popstate (back/forward navigation)
+    window.addEventListener('popstate', function() {
+      setTimeout(runInit, 100);
+    });
+    
+    // Listen for Astro View Transitions (client-side navigation)
+    // This is the key fix - Astro uses view transitions for client-side navigation
+    document.addEventListener('astro:page-load', function() {
+      setTimeout(runInit, 50);
+    });
+    
+    // Also listen for astro:after-swap (another view transition event)
+    document.addEventListener('astro:after-swap', function() {
+      setTimeout(runInit, 50);
+    });
+    
+    // Also re-initialize after a short delay to catch any late-loading elements
+    setTimeout(runInit, 200);
+  })();
+</script> <main>   <div class="mx-auto max-w-5xl px-5">  <div class="space-y-8"> <!-- Breadcrumb --> <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400"> <a href="/" target="_self" class="ease-in-out inline-block underline underline-offset-2 decoration-black/15 dark:decoration-white/30 hover:decoration-black/25 hover:dark:decoration-white/50 text-current hover:text-black dark:hover:text-white transition-colors duration-200"> 
+Home
+ </a> <span>/</span> <a href="/tools" target="_self" class="ease-in-out inline-block underline underline-offset-2 decoration-black/15 dark:decoration-white/30 hover:decoration-black/25 hover:dark:decoration-white/50 text-current hover:text-black dark:hover:text-white transition-colors duration-200"> 
+Tools
+ </a> <span>/</span> <span class="text-black dark:text-white font-medium">Password Generator</span> </nav> <!-- Header --> <div class="space-y-4"> <div class="flex items-center gap-3"> <span class="text-2xl">🔐</span> <h1 class="text-2xl font-semibold text-black dark:text-white">
+Password Generator
+</h1> </div> <p class="text-gray-600 dark:text-gray-300">
+Generate secure, random passwords with customizable options. Create strong passwords for your accounts and applications.
+</p> </div> <!-- Tool Interface --> <section> <div class="border border-black/10 dark:border-white/10 rounded-lg p-6"> <div class="space-y-6"> <!-- Password Output --> <div> <label for="password-output" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+Generated Password
+</label> <div class="flex gap-2"> <input type="text" id="password-output" readonly placeholder="Your password will appear here..." class="flex-1 px-3 py-2 border border-black/15 dark:border-white/20 rounded-md bg-gray-50 dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 font-mono"> <button id="copy-password" class="px-4 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+Copy
+</button> </div> </div> <!-- Password Options --> <div class="space-y-4"> <!-- Length --> <div> <label for="password-length" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+Length: <span id="length-value">16</span> characters
+</label> <input type="range" id="password-length" min="4" max="128" value="16" class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer"> <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1"> <span>4</span> <span>128</span> </div> </div> <!-- Character Sets --> <div> <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+Character Sets
+</label> <div class="space-y-2"> <label class="flex items-center"> <input type="checkbox" id="include-uppercase" checked class="mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500"> <span class="text-sm text-gray-700 dark:text-gray-300">Uppercase letters (A-Z)</span> </label> <label class="flex items-center"> <input type="checkbox" id="include-lowercase" checked class="mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500"> <span class="text-sm text-gray-700 dark:text-gray-300">Lowercase letters (a-z)</span> </label> <label class="flex items-center"> <input type="checkbox" id="include-numbers" checked class="mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500"> <span class="text-sm text-gray-700 dark:text-gray-300">Numbers (0-9)</span> </label> <label class="flex items-center"> <input type="checkbox" id="include-symbols" checked class="mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500"> <span class="text-sm text-gray-700 dark:text-gray-300">Symbols (!@#$%^&*)</span> </label> </div> </div> <!-- Additional Options --> <div class="space-y-2"> <label class="flex items-center"> <input type="checkbox" id="exclude-similar" class="mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500"> <span class="text-sm text-gray-700 dark:text-gray-300">Exclude similar characters (0, O, l, 1, I)</span> </label> <label class="flex items-center"> <input type="checkbox" id="exclude-ambiguous" class="mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500"> <span class="text-sm text-gray-700 dark:text-gray-300">Exclude ambiguous characters (&#123; &#125; &#91; &#93; &#40; &#41; &#92; &#47; &#126; &#44; &#59; &#58; &#46; &#60; &#62;)</span> </label> </div> </div> <!-- Action Buttons --> <div class="flex gap-3"> <button id="generate-password" class="px-6 py-2 bg-black dark:bg-white text-white dark:text-black rounded-md font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200">
+Generate Password
+</button> <button id="generate-multiple" class="px-6 py-2 bg-gray-600 dark:bg-gray-400 text-white dark:text-black rounded-md font-medium hover:bg-gray-700 dark:hover:bg-gray-300 transition-colors duration-200">
+Generate 5 Passwords
+</button> </div> <!-- Multiple Passwords --> <div id="multiple-passwords" class="hidden"> <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Multiple Passwords</h3> <div id="password-list" class="space-y-2"> <!-- Multiple passwords will be inserted here --> </div> </div> <!-- Password Strength --> <div id="password-strength" class="hidden"> <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password Strength</h3> <div class="space-y-2"> <div class="flex items-center gap-2"> <div class="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2"> <div id="strength-bar" class="h-2 rounded-full transition-all duration-300"></div> </div> <span id="strength-text" class="text-sm font-medium">Weak</span> </div> <div id="strength-feedback" class="text-xs text-gray-600 dark:text-gray-400"> <!-- Strength feedback will be inserted here --> </div> </div> </div> </div> </div> </section> <!-- Info Section --> <section> <div class="border border-black/10 dark:border-white/10 rounded-lg p-6"> <h2 class="text-lg font-medium text-black dark:text-white mb-3">
+Password Security Tips
+</h2> <div class="text-sm text-gray-600 dark:text-gray-300 space-y-2"> <p><strong>Length:</strong> Use at least 12-16 characters for better security</p> <p><strong>Complexity:</strong> Include uppercase, lowercase, numbers, and symbols</p> <p><strong>Uniqueness:</strong> Use different passwords for each account</p> <p><strong>Storage:</strong> Consider using a password manager for secure storage</p> <p><strong>Regular Updates:</strong> Change passwords periodically, especially for sensitive accounts</p> </div> </div> </section> </div>  </div>   </main> <footer class="mt-16 border-t border-black/10 dark:border-white/10"> <div class="mx-auto max-w-5xl px-5">  <div class="py-10"> <div class="grid grid-cols-1 gap-10 md:grid-cols-[1.4fr_1fr_1fr]"> <!-- Brand --> <div class="space-y-4"> <div class="flex items-center gap-2"> <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-black text-sm font-bold text-white dark:bg-white dark:text-black">
+S
+</span> <span class="font-semibold text-black dark:text-white">Sattiyan Selvarajah</span> </div> <p class="max-w-xs text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+Technology Lead at G6 Labs Asia and founder of Dotkod Solutions —
+            building scalable SaaS platforms, GenAI automation, and digital products.
+</p> <a href="mailto:hey@sattiyans.com" class="inline-flex items-center gap-2 text-sm font-medium text-black hover:underline dark:text-white"> <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path> </svg> hey@sattiyans.com </a> </div> <!-- Explore --> <div class="space-y-3"> <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-500">
+Explore
+</h4> <div class="flex flex-col gap-2"> <a href="/work" target="_self" class="ease-in-out no-underline text-sm text-gray-600 transition-colors duration-200 hover:text-black dark:text-gray-400 dark:hover:text-white"> Work </a><a href="/projects" target="_self" class="ease-in-out no-underline text-sm text-gray-600 transition-colors duration-200 hover:text-black dark:text-gray-400 dark:hover:text-white"> Projects </a><a href="/hire" target="_self" class="ease-in-out no-underline text-sm text-gray-600 transition-colors duration-200 hover:text-black dark:text-gray-400 dark:hover:text-white"> Hire </a><a href="/cv" target="_self" class="ease-in-out no-underline text-sm text-gray-600 transition-colors duration-200 hover:text-black dark:text-gray-400 dark:hover:text-white"> CV / Resume </a> </div> </div> <!-- More --> <div class="space-y-3"> <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-500">
+More
+</h4> <div class="flex flex-col gap-2"> <a href="/watched" target="_self" class="ease-in-out no-underline text-sm text-gray-600 transition-colors duration-200 hover:text-black dark:text-gray-400 dark:hover:text-white"> Watched </a><a href="/tools" target="_self" class="ease-in-out no-underline text-sm text-gray-600 transition-colors duration-200 hover:text-black dark:text-gray-400 dark:hover:text-white"> Tools </a><a href="/uses" target="_self" class="ease-in-out no-underline text-sm text-gray-600 transition-colors duration-200 hover:text-black dark:text-gray-400 dark:hover:text-white"> Uses </a><a href="/ask" target="_self" class="ease-in-out no-underline text-sm text-gray-600 transition-colors duration-200 hover:text-black dark:text-gray-400 dark:hover:text-white"> Ask AI </a> </div> </div> </div> <!-- Bottom bar --> <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-black/5 pt-6 dark:border-white/5 sm:flex-row"> <p class="text-sm text-gray-500 dark:text-gray-500">
+&copy; 2026 Sattiyan Selvarajah. All rights reserved.
+</p> <div class="flex items-center gap-1.5"> <a href="https://github.com/sattiyans" target="_blank" class="ease-in-out no-underline flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-black/5 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" aria-label="Sattiyan Selvarajah on GitHub">  <svg class="h-[18px] w-[18px]" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path> </svg>  </a><a href="https://www.linkedin.com/in/sattiyans" target="_blank" class="ease-in-out no-underline flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-black/5 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" aria-label="Sattiyan Selvarajah on LinkedIn">  <svg class="h-[18px] w-[18px]" fill="currentColor" viewBox="0 0 24 24"> <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path> </svg>  </a><a href="https://x.com/sattiyans" target="_blank" class="ease-in-out no-underline flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-black/5 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" aria-label="Sattiyan Selvarajah on X">  <svg class="h-[18px] w-[18px]" fill="currentColor" viewBox="0 0 24 24"> <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path> </svg>  </a><a href="https://instagram.com/sattiyanss" target="_blank" class="ease-in-out no-underline flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-black/5 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" aria-label="Sattiyan Selvarajah on Instagram">  <svg class="h-[18px] w-[18px]" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path> </svg>  </a> <a href="mailto:hey@sattiyans.com" target="_self" class="ease-in-out no-underline flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-black/5 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" aria-label="Email Sattiyan Selvarajah">  <svg class="h-[18px] w-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path> </svg>  </a> </div> </div> </div>  </div> </footer> <button id="back-to-top" class="fixed bottom-6 right-6 z-50 p-3 bg-black dark:bg-white text-white dark:text-black rounded-full shadow-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-300 ease-in-out transform hover:scale-110 hidden sm:block" aria-label="Back to top" title="Back to top"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path> </svg> </button> <!-- Enhanced floating input bar --><div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 chatbot-wrapper w-full px-4 pointer-events-none" data-astro-cid-w7mjd2qz> <!-- Mobile collapsed state --> <div class="chatbot-mobile-collapsed sm:hidden bg-gray-100 dark:bg-black rounded-full shadow-2xl border border-black/15 dark:border-white/20 w-12 h-12 mx-auto backdrop-blur-sm hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-300 flex items-center justify-center cursor-pointer pointer-events-auto" data-astro-cid-w7mjd2qz> <svg class="w-6 h-6 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-w7mjd2qz> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" data-astro-cid-w7mjd2qz></path> </svg> </div> <!-- Desktop/expanded state --> <div class="chatbot-container hidden sm:block max-w-lg w-full mx-auto pointer-events-auto" data-astro-cid-w7mjd2qz> <!-- Response Display Area --> <div id="chatbot-response" class="chatbot-response mb-3 bg-gray-100 dark:bg-black rounded-2xl shadow-xl border border-black/15 dark:border-white/20 p-4 backdrop-blur-sm overflow-y-auto transition-all duration-300 opacity-0 transform translate-y-4 pointer-events-none" style="max-height: calc(100vh - 200px);" data-astro-cid-w7mjd2qz> <div class="flex flex-col h-full" data-astro-cid-w7mjd2qz> <div class="flex items-start gap-3 flex-1 relative" data-astro-cid-w7mjd2qz> <div class="flex-shrink-0 mt-0.5" data-astro-cid-w7mjd2qz> <svg class="w-4 h-4 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-w7mjd2qz> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" data-astro-cid-w7mjd2qz></path> </svg> </div> <div class="flex-1 text-sm text-gray-900 dark:text-white chatbot-response-text" data-astro-cid-w7mjd2qz></div> <button id="chatbot-close-btn" class="chatbot-close-btn flex-shrink-0 ml-2 mt-0.5 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors opacity-0 pointer-events-none" aria-label="Close response" data-astro-cid-w7mjd2qz> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-w7mjd2qz> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" data-astro-cid-w7mjd2qz></path> </svg> </button> </div> <div class="mt-3 pt-3 border-t border-gray-300 dark:border-gray-700" data-astro-cid-w7mjd2qz> <p class="text-xs text-gray-500 dark:text-gray-400 text-center" data-astro-cid-w7mjd2qz>
+AI-powered by <a href="https://dotkod.com/text" target="_blank" rel="noopener noreferrer" class="text-blue-500 dark:text-blue-400 hover:underline font-medium" data-astro-cid-w7mjd2qz>Dotkod Solutions</a> </p> </div> </div> </div> <!-- Input Container --> <div id="chatbot-input-container" class="bg-gray-100 dark:bg-black rounded-full shadow-2xl border border-black/15 dark:border-white/20 backdrop-blur-sm hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-300" data-astro-cid-w7mjd2qz> <div class="px-6 py-4 relative" data-astro-cid-w7mjd2qz> <div class="flex items-center gap-3" data-astro-cid-w7mjd2qz> <!-- AI Icon --> <div class="ai-icon flex-shrink-0 chatbot-element" data-astro-cid-w7mjd2qz> <svg class="w-5 h-5 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-w7mjd2qz> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" data-astro-cid-w7mjd2qz></path> </svg> </div> <!-- Input Field --> <div class="relative w-full" data-astro-cid-w7mjd2qz> <input type="text" id="chatbot-input" placeholder="Hi, I'm Luna. Ask me anything about Sattiyan." class="chatbot-input chatbot-element w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-700 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-none text-sm transition-all duration-300 focus:scale-105" style="font-size: 16px; border: none; outline: none;" data-astro-cid-w7mjd2qz> <div id="chatbot-suggestions" class="chatbot-suggestions hidden absolute bottom-full left-0 right-0 mb-2 bg-black dark:bg-black border border-white/20 dark:border-white/20 rounded-lg shadow-lg max-h-48 overflow-y-auto z-50" data-astro-cid-w7mjd2qz></div> </div> <!-- Send Icon --> <div class="send-icon flex-shrink-0 opacity-0 transition-all duration-300 chatbot-element hover:text-blue-500 dark:hover:text-blue-400" data-astro-cid-w7mjd2qz> <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-w7mjd2qz> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" data-astro-cid-w7mjd2qz></path> </svg> </div> </div> <!-- Animated Border --> <div class="animated-border" data-astro-cid-w7mjd2qz></div> </div> </div> </div> <!-- Mobile expanded state (hidden by default) --> <div class="chatbot-mobile-expanded hidden sm:hidden max-w-xs w-full mx-auto pointer-events-auto" data-astro-cid-w7mjd2qz> <!-- Response Display Area (Mobile) --> <div id="chatbot-response-mobile" class="chatbot-response mb-2 bg-gray-100 dark:bg-black rounded-2xl shadow-xl border border-black/15 dark:border-white/20 p-3 backdrop-blur-sm overflow-y-auto transition-all duration-300 opacity-0 transform translate-y-4 pointer-events-none" style="max-height: calc(100vh - 180px);" data-astro-cid-w7mjd2qz> <div class="flex flex-col h-full" data-astro-cid-w7mjd2qz> <div class="flex items-start gap-2 flex-1 relative" data-astro-cid-w7mjd2qz> <div class="flex-shrink-0 mt-0.5" data-astro-cid-w7mjd2qz> <svg class="w-3 h-3 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-w7mjd2qz> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" data-astro-cid-w7mjd2qz></path> </svg> </div> <div class="flex-1 text-xs text-gray-900 dark:text-white chatbot-response-text-mobile" data-astro-cid-w7mjd2qz></div> <button id="chatbot-close-btn-mobile" class="chatbot-close-btn flex-shrink-0 ml-1 mt-0.5 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors opacity-0 pointer-events-none" aria-label="Close response" data-astro-cid-w7mjd2qz> <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-w7mjd2qz> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" data-astro-cid-w7mjd2qz></path> </svg> </button> </div> <div class="mt-2 pt-2 border-t border-gray-300 dark:border-gray-700" data-astro-cid-w7mjd2qz> <p class="text-xs text-gray-500 dark:text-gray-400 text-center" data-astro-cid-w7mjd2qz>
+AI-powered by <a href="https://dotkod.com/text" target="_blank" rel="noopener noreferrer" class="text-blue-500 dark:text-blue-400 hover:underline font-medium" data-astro-cid-w7mjd2qz>Dotkod Solutions</a> </p> </div> </div> </div> <!-- Input Container (Mobile) --> <div id="chatbot-mobile-input-container" class="bg-gray-100 dark:bg-black rounded-full shadow-2xl border border-black/15 dark:border-white/20 backdrop-blur-sm hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-500" data-astro-cid-w7mjd2qz> <div class="px-4 py-3 relative" data-astro-cid-w7mjd2qz> <div class="flex items-center gap-2" data-astro-cid-w7mjd2qz> <!-- AI Icon --> <div class="ai-icon flex-shrink-0" data-astro-cid-w7mjd2qz> <svg class="w-4 h-4 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-w7mjd2qz> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" data-astro-cid-w7mjd2qz></path> </svg> </div> <!-- Input Field --> <div class="relative w-full" data-astro-cid-w7mjd2qz> <input type="text" id="chatbot-mobile-input" placeholder="Hi, I'm Luna. Ask me anything about Sattiyan." class="chatbot-mobile-input w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-700 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-none text-sm transition-all duration-300" style="font-size: 16px; border: none; outline: none;" data-astro-cid-w7mjd2qz> <div id="chatbot-suggestions-mobile" class="chatbot-suggestions hidden absolute bottom-full left-0 right-0 mb-2 bg-black dark:bg-black border border-white/20 dark:border-white/20 rounded-lg shadow-lg max-h-48 overflow-y-auto z-50" data-astro-cid-w7mjd2qz></div> </div> <!-- Send Icon --> <div class="send-icon-mobile flex-shrink-0 opacity-0 transition-all duration-300 hover:text-blue-500 dark:hover:text-blue-400" data-astro-cid-w7mjd2qz> <svg class="w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-w7mjd2qz> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" data-astro-cid-w7mjd2qz></path> </svg> </div> </div> <!-- Animated Border --> <div class="animated-border-mobile" data-astro-cid-w7mjd2qz></div> </div> </div> </div> </div>   <vercel-analytics data-props="{}" data-params="{}" data-pathname="/tools/password-generator/"></vercel-analytics>  </body></html>

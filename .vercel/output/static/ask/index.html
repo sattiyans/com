@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-tie5jllb> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="generator" content="Astro v4.6.3"><!-- Favicon --><link rel="icon" type="image/svg+xml" href="/favicon-light.svg" media="(prefers-color-scheme: light)"><link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/site.webmanifest"><!-- Font preloads --><link rel="preload" href="/_astro/inter-latin-400-normal.BT1H-PT_.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/inter-latin-600-normal.B2Ssfs8e.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/lora-latin-400-normal.CvHVDnm4.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/lora-latin-600-normal.DUWh3m6k.woff2" as="font" type="font/woff2" crossorigin><!-- Canonical URL --><link rel="canonical" href="https://sattiyans.com/ask/"><!-- Primary Meta Tags --><title>Ask about Sattiyan | Sattiyan Selvarajah</title><meta name="title" content="Ask about Sattiyan | Sattiyan Selvarajah"><meta name="description" content="Chat with AI about Sattiyan's projects, work experience, skills, and portfolio."><meta name="keywords" content="ask sattiyan, ai portfolio assistant, software developer portfolio, projects and skills"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://sattiyans.com/ask/"><meta property="og:title" content="Ask about Sattiyan | Sattiyan Selvarajah"><meta property="og:description" content="Chat with AI about Sattiyan's projects, work experience, skills, and portfolio."><meta property="og:image" content="https://sattiyans.com/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:site_name" content="Sattiyan Selvarajah"><meta property="og:locale" content="en_US"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://sattiyans.com/ask/"><meta property="twitter:title" content="Ask about Sattiyan | Sattiyan Selvarajah"><meta property="twitter:description" content="Chat with AI about Sattiyan's projects, work experience, skills, and portfolio."><meta property="twitter:image" content="https://sattiyans.com/og-image.png"><meta property="twitter:creator" content="@sattiyans"><meta property="twitter:site" content="@sattiyans"><!-- Additional Meta Tags --><meta name="robots" content="index, follow"><meta name="author" content="Sattiyan Selvarajah"><meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)"><!-- JSON-LD Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://sattiyans.com/#person","name":"Sattiyan Selvarajah","jobTitle":"Technology Lead & Founder","description":"Technology Lead at G6 Labs Asia and founder of Dotkod Solutions, specializing in system architecture, product engineering, and GenAI automation.","url":"https://sattiyans.com","image":"https://sattiyans.com/og-image.png","sameAs":["https://github.com/sattiyans","https://www.linkedin.com/in/sattiyans","https://x.com/sattiyans","https://letterboxd.com/sattiyans","https://serializd.com/user/sattiyans","https://instagram.com/sattiyanss","https://www.facebook.com/people/Sattiyan-Selvarajah/100090108949254/","https://threads.com/sattiyanss"],"worksFor":{"@id":"https://sattiyans.com/#organization"},"knowsAbout":["PHP","Laravel","SaaS Development","E-commerce","AI Integration","Web Development"]},{"@type":"Organization","@id":"https://sattiyans.com/#organization","name":"Dotkod Solutions","url":"https://dotkod.com","founder":{"@id":"https://sattiyans.com/#person"}},{"@type":"WebSite","@id":"https://sattiyans.com/#website","url":"https://sattiyans.com","name":"Sattiyan Selvarajah Portfolio","description":"Chat with AI about Sattiyan's projects, work experience, skills, and portfolio."}]}</script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script>
+  function init() {
+    preloadTheme();
+    onScroll();
+    animate();
+
+    const backToTop = document.getElementById("back-to-top");
+    backToTop?.addEventListener("click", (event) => scrollToTop(event));
+
+    const backToPrev = document.getElementById("back-to-prev");
+    backToPrev?.addEventListener("click", () => window.history.back());
+
+    const lightThemeButton = document.getElementById("light-theme-button");
+    lightThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "light");
+      toggleTheme(false);
+    });
+
+    const darkThemeButton = document.getElementById("dark-theme-button");
+    darkThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "dark");
+      toggleTheme(true);
+    });
+
+    const systemThemeButton = document.getElementById("system-theme-button");
+    systemThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "system");
+      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    });
+
+    window.matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", event => {
+        if (localStorage.theme === "system") {
+          toggleTheme(event.matches);
+        }
+      }
+    );
+
+    document.addEventListener("scroll", onScroll);
+  }
+
+  function animate() {
+    const animateElements = document.querySelectorAll(".animate");
+
+    animateElements.forEach((element, index) => {
+      setTimeout(() => {
+        element.classList.add("show");
+      }, index * 150);
+    });
+  }
+
+  function onScroll() {
+    if (window.scrollY > 0) {
+      document.documentElement.classList.add("scrolled");
+    } else {
+      document.documentElement.classList.remove("scrolled");
+    }
+  }
+
+  function scrollToTop(event) {
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+function toggleTheme(dark) {
+    const css = document.createElement("style");
+
+    css.appendChild(
+      document.createTextNode(
+        `* {
+             -webkit-transition: none !important;
+             -moz-transition: none !important;
+             -o-transition: none !important;
+             -ms-transition: none !important;
+             transition: none !important;
+          }
+        `,
+      )
+    );
+
+    document.head.appendChild(css);
+
+    if (dark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+  window.getComputedStyle(css).opacity;
+    document.head.removeChild(css);
+  }
+
+  function preloadTheme() {
+    const userTheme = localStorage.theme;
+
+    if (userTheme === "light" || userTheme === "dark") {
+      toggleTheme(userTheme === "dark");
+    } else {
+      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => init());
+  document.addEventListener("astro:after-swap", () => init());
+  preloadTheme();
+</script><link rel="stylesheet" href="/_astro/ask.DGA3AxnA.css">
+<link rel="stylesheet" href="/_astro/bio.Di_g72Me.css">
+<link rel="stylesheet" href="/_astro/ask.CYmNNexB.css"><script type="module" src="/_astro/hoisted.1JB1ba0P.js"></script></head> <body data-astro-cid-tie5jllb> <div class="chat-page-container" data-astro-cid-tie5jllb> <div class="chat-header" data-astro-cid-tie5jllb> <div data-astro-cid-tie5jllb> <div style="display: flex; align-items: center; gap: 0.75rem;" data-astro-cid-tie5jllb> <div class="ai-avatar" data-astro-cid-tie5jllb> <svg style="width: 1.5rem; height: 1.5rem; color: #3b82f6;" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-tie5jllb> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" data-astro-cid-tie5jllb></path> </svg> </div> <div data-astro-cid-tie5jllb> <h1 style="font-size: 1.125rem; font-weight: 600; color: #ffffff; margin: 0;" data-astro-cid-tie5jllb>Luna</h1> <p style="font-size: 0.75rem; color: #666666; margin: 0;" data-astro-cid-tie5jllb>Ask me about Sattiyan's work</p> </div> </div> </div> </div> <div id="chat-messages" class="chat-messages" data-astro-cid-tie5jllb> <div class="welcome-message" data-astro-cid-tie5jllb> <div class="message-bubble bot-message" data-astro-cid-tie5jllb> <div class="message-content" data-astro-cid-tie5jllb> <p data-astro-cid-tie5jllb>Hi! I'm Luna, an AI assistant. Ask me anything about Sattiyan's projects, work experience, skills, or blog posts!</p> </div> <div class="message-time" data-astro-cid-tie5jllb></div> </div> </div> <div id="suggestions-container" class="suggestions-container" data-astro-cid-tie5jllb> <div class="suggestions-label" data-astro-cid-tie5jllb>Try asking:</div> <div class="suggestions-chips" data-astro-cid-tie5jllb> <button class="suggestion-chip" data-suggestion="What projects has Sattiyan worked on?" data-astro-cid-tie5jllb>What projects has Sattiyan worked on?</button> <button class="suggestion-chip" data-suggestion="Tell me about Sattiyan's skills" data-astro-cid-tie5jllb>Tell me about Sattiyan's skills</button> <button class="suggestion-chip" data-suggestion="What tools has Sattiyan developed?" data-astro-cid-tie5jllb>What tools has Sattiyan developed?</button> <button class="suggestion-chip" data-suggestion="I want to get in touch" data-astro-cid-tie5jllb>I want to get in touch</button> <button class="suggestion-chip" data-suggestion="I'm interested in hiring Sattiyan" data-astro-cid-tie5jllb>I'm interested in hiring Sattiyan</button> </div> </div> </div> <div class="chat-input-container" data-astro-cid-tie5jllb> <form id="chat-form" onsubmit="event.preventDefault(); return false;" data-astro-cid-tie5jllb> <div class="chat-input-wrapper" data-astro-cid-tie5jllb> <input type="text" id="chat-input" placeholder="Type your message..." class="chat-input" autocomplete="off" data-astro-cid-tie5jllb> <button type="button" id="chat-send-btn" class="chat-send-btn" aria-label="Send message" data-astro-cid-tie5jllb> <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-tie5jllb> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" data-astro-cid-tie5jllb></path> </svg> </button> </div> </form> <div class="chat-footer" style="text-align: center; margin-top: 1rem; padding: 0 1rem;" data-astro-cid-tie5jllb> <p style="font-size: 0.625rem; color: #666; margin: 0;" data-astro-cid-tie5jllb>
+AI-powered by <a href="https://dotkod.com/text" target="_blank" rel="noopener noreferrer" class="text-blue-500 dark:text-blue-400 hover:underline font-medium" data-astro-cid-tie5jllb>Dotkod Solutions</a> </p> </div> </div> </div>  </body></html>

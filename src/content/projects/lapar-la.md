@@ -1,7 +1,7 @@
 ---
 title: "lapar.la - Viral Recipe Platform for Malaysia"
 description: "A bilingual, mobile-first recipe platform that ingests creator content from Instagram, converts it into structured recipes, and serves it through a fast PWA experience."
-date: "2026-03-04"
+date: "2026-01-01"
 draft: false
 role: "Full-Stack Developer"
 projectURL: "https://lapar.la"

@@ -11,9 +11,9 @@ featuredImage: "tnb-smd.png"
 problem: "The existing enterprise dashboard had grown dense and difficult to navigate, making governance, ESG, financial, and risk workflows slower for daily users. Teams needed a clearer interface and better information hierarchy without disrupting underlying data models and operational logic."
 solution: "I executed a full Blade-based UI refresh from Figma and updated controller/data flows to match the redesigned layout and interaction model. The result emphasized readability, structured data-entry journeys, and visual clarity while preserving existing business rules and integrations."
 results:
-  - "Improved usability and readability across key enterprise modules."
-  - "Streamlined data-entry operations with clearer structure and interactions."
-  - "Maintained existing business logic while modernizing the visual experience."
+  - "Lifted usability and readability across core enterprise modules."
+  - "Streamlined data entry with clearer structure and interactions."
+  - "Modernized the UI while preserving existing business logic."
 ---
 
 ## Overview

@@ -10,9 +10,9 @@ techStack: ["Laravel", "PHP 8.0+", "MySQL", "Redis", "WebSockets", "JWT Authenti
 problem: "After initial launch, the platform needed to scale beyond football while maintaining real-time reliability for odds, transactions, and analytics across heavier operational load. Payment diversity, sync performance, and admin decision visibility were key gaps that limited growth and day-to-day stability."
 solution: "I extended the backend architecture to support basketball and tennis, integrated multi-currency payment gateways, and reworked queue/sync pipelines for more predictable processing. The improvements focused on production reliability, cleaner operational monitoring, and faster admin-side analysis."
 results:
-  - "Expanded product coverage with new sport modules and data flows."
-  - "Improved processing reliability through queue and sync optimization."
-  - "Enabled stronger admin decisions with centralized analytics and risk views."
+  - "Broadened product coverage with new sport modules and data flows."
+  - "Hardened processing reliability through queue and sync optimization."
+  - "Sharpened admin decisions with centralized analytics and risk views."
 ---
 
 ## Overview

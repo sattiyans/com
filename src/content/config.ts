@@ -40,6 +40,7 @@ const projects = defineCollection({
     problem: z.string().optional(), // Optional case-study problem summary
     solution: z.string().optional(), // Optional case-study solution summary
     results: z.union([z.string(), z.array(z.string())]).optional(), // Optional case-study outcomes
+    metrics: z.array(z.string()).optional(), // Short headline stats for cards (e.g. "+145% views", "99.9% uptime")
     screenshots: z.array(z.string()).optional(), // Array of screenshot image paths/URLs
     thumbnail: z.string().optional(), // Thumbnail image for project listing (path or URL) - legacy, use featuredImage instead
     featuredImage: z.string().optional(), // Featured image for project listing page (path or URL)

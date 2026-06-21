@@ -5,12 +5,12 @@ export const SITE: Site = {
   EMAIL: "hey@sattiyans.com",
   NUM_POSTS_ON_HOMEPAGE: 3,
   NUM_WORKS_ON_HOMEPAGE: 3,
-  NUM_PROJECTS_ON_HOMEPAGE: 3,
+  NUM_PROJECTS_ON_HOMEPAGE: 2,
 };
 
 export const HOME: Metadata = {
-  TITLE: "Sattiyan Selvarajah - Technology Lead & Software Engineer",
-  DESCRIPTION: "Sattiyan Selvarajah is Technology Lead at G6 Labs Asia and founder of Dotkod Solutions, specializing in system architecture, product engineering, and GenAI automation.",
+  TITLE: "Sattiyan Selvarajah - Technology Lead & Founder",
+  DESCRIPTION: "Sattiyan Selvarajah is Technology Lead at G6 Labs Asia and founder of Dotkod Solutions, specializing in system architecture, product engineering, and GenAI automation with Laravel, Node.js, and Python.",
 };
 
 export const BLOG: Metadata = {
