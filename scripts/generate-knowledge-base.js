@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, writeFileSync, statSync } from 'fs';
+import { readdirSync, readFileSync, writeFileSync, statSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -88,8 +88,9 @@ function stripMarkdown(markdown) {
 
 // Recursively get all markdown files
 function getAllMarkdownFiles(dir, fileList = []) {
+  if (!existsSync(dir)) return fileList;
   const files = readdirSync(dir);
-  
+
   files.forEach(file => {
     const filePath = join(dir, file);
     const stat = statSync(filePath);
