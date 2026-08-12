@@ -1,6 +1,6 @@
 ---
-title: "GSendr - Enterprise Email Infrastructure. Built for Control & Deliverability."
-description: "The email campaign platform for organizations and teams requiring reliable delivery, integrated validation, and structured communication at scale."
+title: "GSendr - WhatsApp & Email Campaigns. One Reply Desk."
+description: "Multi-channel campaign platform for organizations — Official WhatsApp Cloud API campaigns, personalised bulk email with per-recipient PDFs, and a shared reply desk that keeps every conversation tied to the campaign that started it."
 date: "2026-02-25"
 draft: false
 role: "Full-Stack Developer"
@@ -16,38 +16,42 @@ techStack:
     "ShadCN UI",
     "Express.js",
     "PostgreSQL",
+    "WhatsApp Cloud API",
     "Resend",
     "Chart.js",
     "Zod",
   ]
 featuredImage: "gsendr.png"
 screenshots: ["gsendr1.png", "gsendr2.png", "gsendr3.png", "gsendr4.png"]
-problem: "Organizations running campaigns across teams needed stronger control over sending domains, message quality, recipient handling, and deliverability feedback, but existing tools did not fit multi-tenant governance needs. This created risk around sender trust, inconsistent campaign operations, and limited visibility into what was actually performing."
-solution: "I built a full-stack multi-tenant platform that combines domain verification, campaign orchestration, recipient pipelines, and engagement tracking in one operational system. The architecture emphasizes controlled sending workflows and analytics visibility so teams can execute at scale without losing governance and reliability — engineered to push 10K+ recipients per campaign with no daily send cap, backed by a 99.9% uptime target."
-metrics: ["10K+ recipients/campaign", "99.9% uptime", "No daily send cap"]
+problem: "Organizations needed to run email and WhatsApp campaigns across teams with stronger control over domains, templates, recipient handling, deliverability, and reply handling — but most tools treated channels as bolt-ons and left WhatsApp replies disconnected from the campaign that started them."
+solution: "I built a full-stack multi-tenant platform that unifies Official WhatsApp Cloud API campaigns, personalised bulk email (including per-recipient PDF attachments), recipient pipelines, and a shared WhatsApp reply desk in one operational system. Teams can send on email, WhatsApp, or both from the same audience, prove delivery, and answer replies with campaign context attached — engineered for high-volume multi-org sending with verified-domain governance and engagement analytics."
+metrics: ["50K+ WhatsApp messages", "10K+ recipients/campaign", "Official Cloud API"]
 results:
-  - "Engineered to push 10K+ recipients per campaign with no daily send cap."
-  - "Held a 99.9% uptime target with verified-domain and per-sender deliverability governance."
-  - "Unified campaigns, recipients, and templates per organization with open/click engagement analytics."
+  - "Launched Official WhatsApp Cloud API campaigns across multiple organizations — 50K+ outbound WhatsApp messages sent."
+  - "Unified WhatsApp + email on one audience with Meta-approved templates, shared reply desk, and campaign-linked conversations."
+  - "Engineered personalised bulk email with per-recipient HTML-to-PDF attachments, verified-domain sending, and open/click analytics."
+  - "Scaled multi-tenant campaign operations with recipient validation, delivery reporting, and no daily send-cap bottlenecks."
 ---
 
 ## Overview
 
-GSendr is a multi-tenant campaign platform for controlled email operations. It combines domain setup, template management, recipient workflows, and campaign analytics in one operational dashboard.
+GSendr is a multi-tenant campaign platform for WhatsApp and email. Organizations upload an audience once, send on the channel that fits (or both), prove delivery, and catch WhatsApp replies in a shared inbox with the originating campaign already attached.
 
 ## Features
 
+- **Official WhatsApp Cloud API** — Meta-approved templates, bulk WhatsApp campaigns, delivery/read tracking, and multi-org sending.
+- **Shared WhatsApp reply desk** — campaign-linked conversations with free-form replies inside Meta's 24-hour customer service window.
+- **Personalised bulk email** — HTML-to-PDF per recipient (invoices, statements, policies) matched to spreadsheet rows in one campaign.
 - Multi-tenant organization model with scoped resources and teams.
 - Campaign lifecycle from draft to schedule/send with status controls.
-- Domain verification and sender identity management.
-- Recipient import and template workflows with variable support.
-- Open/click tracking and analytics surfaces for campaign decisions.
+- Domain verification, sender identity, and deliverability governance (SPF/DKIM/DMARC-aware workflows).
+- Recipient import, validation, and engagement analytics (delivered, opened, clicked, bounced, WhatsApp read/failed).
 
 ## Roadmap
 
-Evolving GSendr from email-only into multi-channel campaign infrastructure:
+Evolving GSendr into fuller multi-channel campaign infrastructure:
 
-- **Live** — Email campaigns with verified-domain sending, recipient pipelines, and engagement analytics.
-- **In staging** — WhatsApp delivery module for cross-channel messaging.
-- **Planned** — SMS and voice channels, deeper audience segmentation and lifecycle automation, expanded deliverability diagnostics and inbox placement insights, and stronger org-level policy and compliance controls.
-
+- **Live** — Email campaigns with verified-domain sending, personalised attachments, and engagement analytics.
+- **Live** — Official WhatsApp Cloud API campaigns, templates, and shared reply desk (50K+ messages sent across organizations).
+- **In development** — AI Reply that drafts on-brand WhatsApp responses from campaign + conversation context.
+- **Planned** — Voice Blast, SMS, deeper audience segmentation and lifecycle automation, expanded deliverability diagnostics, and stronger org-level policy/compliance controls.

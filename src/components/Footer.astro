@@ -36,10 +36,15 @@ const socialIcon: Record<string, string> = {
       <div class="grid grid-cols-1 gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <!-- Brand -->
         <div class="space-y-4">
-          <div class="flex items-center gap-2">
-            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-black text-sm font-bold text-white dark:bg-white dark:text-black">
-              S
-            </span>
+          <div class="flex items-center gap-2.5">
+            <img
+              src="/photo.jpg"
+              alt=""
+              width="32"
+              height="32"
+              loading="lazy"
+              class="h-8 w-8 rounded-full object-cover border border-black/10 dark:border-white/15"
+            />
             <span class="font-semibold text-black dark:text-white">{SITE.NAME}</span>
           </div>
           <p class="max-w-xs text-sm leading-relaxed text-gray-600 dark:text-gray-400">

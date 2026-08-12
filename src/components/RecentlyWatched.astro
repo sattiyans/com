@@ -16,6 +16,11 @@ import Link from "@components/Link.astro";
       </svg>
     </Link>
   </div>
+  <p class="text-sm text-gray-500 dark:text-gray-400 m-0">
+    When I'm not shipping software, I'm usually watching films and TV — rom-coms and horror are my go-to.
+    Track me on <Link href="https://letterboxd.com/sattiyans" aria-label="Letterboxd" external>Letterboxd</Link>
+    and <Link href="https://serializd.com/user/sattiyans" aria-label="Serializd" external>Serializd</Link>.
+  </p>
 
   <div class="rw-reel">
     <div class="rw-strip">
@@ -23,11 +28,20 @@ import Link from "@components/Link.astro";
       <div class="rw-shine" aria-hidden="true"></div>
 
       <div class="rw-frames" data-recently-watched>
-        {[0, 1, 2].map(() => (
+        {[0, 1, 2, 3, 4].map(() => (
           <div class="rw-frame rw-skeleton">
             <div class="rw-skeleton-fill"></div>
           </div>
         ))}
+        <div class="rw-endcard" aria-hidden="true">
+          <div class="rw-endcard-inner">
+            <svg class="rw-endcard-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 3.2a2.4 2.4 0 1 1-2.4 2.4A2.4 2.4 0 0 1 12 5.2Zm0 13.6a7.2 7.2 0 0 1-5.8-3 1.2 1.2 0 0 1 1-1.9 4.8 4.8 0 0 0 9.6 0 1.2 1.2 0 0 1 1 1.9 7.2 7.2 0 0 1-5.8 3Z" />
+            </svg>
+            <span class="rw-endcard-label">Letterboxd</span>
+            <span class="rw-endcard-sub">More films →</span>
+          </div>
+        </div>
       </div>
 
       <div class="rw-perfs rw-perfs-bottom" aria-hidden="true"></div>
@@ -49,7 +63,6 @@ import Link from "@components/Link.astro";
     box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
   }
 
-  /* Scrolling sprocket holes */
   .rw-perfs {
     position: absolute;
     left: 0;
@@ -73,7 +86,6 @@ import Link from "@components/Link.astro";
     to { background-position: 22px center; }
   }
 
-  /* Periodic light sweep */
   .rw-shine {
     position: absolute;
     inset: 0;
@@ -98,15 +110,25 @@ import Link from "@components/Link.astro";
     position: relative;
     z-index: 2;
     display: flex;
-    gap: 3px;
-    padding: 0 4px;
+    align-items: stretch;
+    gap: 6px;
+    padding: 0 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
+  .rw-frames::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Portrait poster ratio 2:3 — height drives width */
   .rw-frame {
     position: relative;
-    flex: 1 1 0;
-    min-width: 0;
-    height: 150px;
+    flex: 0 0 auto;
+    height: 148px;
+    aspect-ratio: 2 / 3;
+    width: auto;
     overflow: hidden;
     border-radius: 4px;
     background: #18181b;
@@ -114,7 +136,13 @@ import Link from "@components/Link.astro";
 
   @media (min-width: 640px) {
     .rw-frame {
-      height: 180px;
+      height: 176px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .rw-frame {
+      height: 196px;
     }
   }
 
@@ -122,11 +150,12 @@ import Link from "@components/Link.astro";
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
     transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
   }
 
   a.rw-frame:hover img {
-    transform: scale(1.06);
+    transform: scale(1.05);
     filter: brightness(1.05);
   }
 
@@ -147,7 +176,7 @@ import Link from "@components/Link.astro";
   .rw-scrim {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgb(0 0 0 / 0.82) 0%, rgb(0 0 0 / 0.2) 38%, transparent 62%);
+    background: linear-gradient(to top, rgb(0 0 0 / 0.88) 0%, rgb(0 0 0 / 0.25) 42%, transparent 65%);
     z-index: 1;
   }
 
@@ -157,12 +186,12 @@ import Link from "@components/Link.astro";
     right: 0;
     bottom: 0;
     z-index: 2;
-    padding: 0.5rem 0.6rem;
+    padding: 0.45rem 0.5rem;
   }
 
   .rw-title {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     font-weight: 600;
     line-height: 1.2;
     color: #fff;
@@ -175,9 +204,9 @@ import Link from "@components/Link.astro";
   .rw-meta {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.3rem;
     margin-top: 0.1rem;
-    font-size: 0.65rem;
+    font-size: 0.625rem;
     color: rgb(255 255 255 / 0.75);
   }
 
@@ -188,6 +217,84 @@ import Link from "@components/Link.astro";
 
   .rw-dot {
     opacity: 0.5;
+  }
+
+  /* Filler end card — eats leftover row space */
+  .rw-endcard {
+    position: relative;
+    flex: 1 1 72px;
+    min-width: 72px;
+    min-height: 148px;
+    border-radius: 4px;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 100% at 20% 0%, #2a2a2e 0%, transparent 55%),
+      linear-gradient(160deg, #1a1a1d 0%, #0f0f11 100%);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+  }
+
+  @media (min-width: 640px) {
+    .rw-endcard {
+      min-height: 176px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .rw-endcard {
+      min-height: 196px;
+    }
+  }
+
+  .rw-endcard-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.75rem;
+    text-align: center;
+    color: rgb(255 255 255 / 0.7);
+  }
+
+  .rw-endcard-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    opacity: 0.55;
+    animation: rw-bob 3s ease-in-out infinite;
+  }
+
+  @keyframes rw-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+
+  .rw-endcard-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.55);
+  }
+
+  .rw-endcard-sub {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  a.rw-endcard {
+    text-decoration: none;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  a.rw-endcard:hover {
+    transform: translateY(-1px);
+  }
+
+  a.rw-endcard:hover .rw-endcard-sub {
+    color: #fff;
   }
 
   /* Skeleton */
@@ -216,7 +323,8 @@ import Link from "@components/Link.astro";
     .rw-perfs,
     .rw-shine,
     .rw-frame-enter,
-    .rw-skeleton-fill {
+    .rw-skeleton-fill,
+    .rw-endcard-icon {
       animation: none !important;
     }
     .rw-shine { display: none; }
@@ -252,9 +360,9 @@ import Link from "@components/Link.astro";
       const top = items
         .map((item) => ({ ...item, watchedDate: new Date(item.watchedDate) }))
         .sort((a, b) => b.watchedDate.getTime() - a.watchedDate.getTime())
-        .slice(0, 3);
+        .slice(0, 5);
 
-      container.innerHTML = top
+      const posters = top
         .map((item, i) => {
           const poster = item.posterUrl
             ? `<img src="${escapeHtml(item.posterUrl)}" alt="Poster for ${escapeHtml(item.title)}" loading="lazy" />`
@@ -264,7 +372,7 @@ import Link from "@components/Link.astro";
             : "";
           const href = item.url || "https://letterboxd.com/sattiyans";
           return `
-            <a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" class="rw-frame rw-frame-enter" style="animation-delay:${i * 0.1}s">
+            <a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" class="rw-frame rw-frame-enter" style="animation-delay:${i * 0.08}s">
               ${poster}
               <div class="rw-scrim"></div>
               <div class="rw-overlay">
@@ -277,6 +385,19 @@ import Link from "@components/Link.astro";
             </a>`;
         })
         .join("");
+
+      const endcard = `
+        <a href="https://letterboxd.com/sattiyans" target="_blank" rel="noopener noreferrer" class="rw-endcard rw-frame-enter" style="animation-delay:0.4s">
+          <div class="rw-endcard-inner">
+            <svg class="rw-endcard-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.285 0H5.714C2.56 0 0 2.56 0 5.714v12.571C0 21.44 2.56 24 5.714 24h12.571C21.44 24 24 21.44 24 18.285V5.714C24 2.56 21.44 0 18.285 0Zm1.143 18.285c0 .629-.514 1.143-1.143 1.143H5.714c-.629 0-1.143-.514-1.143-1.143V5.714c0-.629.514-1.143 1.143-1.143h12.571c.629 0 1.143.514 1.143 1.143v12.571ZM7.2 7.2h2.057v9.6H7.2V7.2Zm3.771 0h2.058v9.6h-2.058V7.2Zm3.772 0H16.8v9.6h-2.057V7.2Z"/>
+            </svg>
+            <span class="rw-endcard-label">Letterboxd</span>
+            <span class="rw-endcard-sub">See all →</span>
+          </div>
+        </a>`;
+
+      container.innerHTML = posters + endcard;
     } catch (error) {
       console.warn("Recently watched unavailable:", error);
       const section = container.closest("section");

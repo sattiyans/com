@@ -1,0 +1,421 @@
+---
+import { SITE, SOCIALS } from "@consts";
+
+const linkedinUrl =
+  SOCIALS.find((s) => s.NAME === "LinkedIn")?.HREF ??
+  "https://www.linkedin.com/in/sattiyans";
+
+const whatsappUrl =
+  "https://wa.me/60143072966?text=" +
+  encodeURIComponent("Hi Sattiyan — interested in a freelance project.");
+
+const slides = [
+  "Need an AI chatbot or automation for your business?",
+  "Want WhatsApp / email campaigns that actually run at scale?",
+  "Have a SaaS or web app idea — need it built end to end?",
+  "Half-finished product? I take messy scopes to production.",
+  "Prefer one engineer who owns architecture through launch?",
+];
+---
+
+<dialog
+  id="freelance-lead-modal"
+  class="flm"
+  aria-labelledby="flm-title"
+  aria-describedby="flm-desc"
+>
+  <div class="flm-panel">
+    <button
+      type="button"
+      class="absolute top-3 right-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/10 dark:border-white/12 bg-white/70 dark:bg-white/5 text-gray-500 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors backdrop-blur-sm"
+      aria-label="Close"
+      data-flm-close
+    >
+      <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="relative z-[1] px-6 pt-8 pb-6 text-center sm:px-8">
+      <img
+        src="/photo.jpg"
+        alt=""
+        width="64"
+        height="64"
+        class="flm-item mx-auto h-16 w-16 rounded-full object-cover border-2 border-black/10 dark:border-white/15"
+      />
+
+      <span class="flm-item mt-4 inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/15 bg-white dark:bg-white/5 px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-400">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500/60"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+        </span>
+        Available for freelance
+      </span>
+
+      <h2 id="flm-title" class="flm-item mt-4 text-xl sm:text-2xl font-semibold tracking-tight text-black dark:text-white">
+        Open for freelance work
+      </h2>
+
+      <div class="flm-item flm-slider mt-3" aria-live="polite" aria-atomic="true">
+        {slides.map((text, i) => (
+          <p
+            id={i === 0 ? "flm-desc" : undefined}
+            class:list={["flm-slide text-sm leading-relaxed text-gray-600 dark:text-gray-400", i === 0 && "is-active"]}
+            data-flm-slide
+            aria-hidden={i === 0 ? "false" : "true"}
+          >
+            {text}
+          </p>
+        ))}
+      </div>
+
+      <div class="flm-item flm-dots mt-3 flex justify-center gap-1.5" data-flm-dots></div>
+
+      <div class="flm-item mt-6 grid grid-cols-2 gap-2.5">
+        <a
+          href="/hire"
+          class="inline-flex items-center justify-center gap-1.5 rounded-full bg-zinc-900 dark:bg-zinc-100 px-4 py-2.5 text-sm font-semibold text-white dark:text-zinc-900 transition-transform duration-200 hover:-translate-y-0.5"
+          data-flm-cta
+        >
+          Hire me
+          <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5"
+          data-flm-cta
+        >
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          WhatsApp
+        </a>
+      </div>
+
+      <div class="flm-item mt-4 flex items-center justify-center gap-3 text-sm">
+        <a
+          href={`mailto:${SITE.EMAIL}`}
+          class="font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+          data-flm-cta
+        >
+          Email
+        </a>
+        <span class="text-gray-300 dark:text-gray-600" aria-hidden="true">·</span>
+        <a
+          href={linkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+          data-flm-cta
+        >
+          LinkedIn
+        </a>
+      </div>
+
+      <button
+        type="button"
+        class="flm-item mt-4 text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+        data-flm-close
+      >
+        Not now
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<style is:global>
+  #freelance-lead-modal.flm {
+    padding: 1rem;
+    margin: 0;
+    border: none;
+    background: transparent;
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
+
+  #freelance-lead-modal.flm::backdrop {
+    background: rgb(0 0 0 / 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  #freelance-lead-modal .flm-panel {
+    position: relative;
+    width: min(100%, 22.5rem);
+    border-radius: 1.25rem;
+    border: 1px solid rgb(0 0 0 / 0.1);
+    background:
+      linear-gradient(165deg, #ffffff 0%, #f4f4f5 100%);
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.65) inset,
+      0 1px 0 rgb(255 255 255 / 0.8) inset,
+      0 24px 48px rgb(0 0 0 / 0.16);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .dark #freelance-lead-modal .flm-panel {
+    border-color: rgb(255 255 255 / 0.12);
+    background:
+      linear-gradient(165deg, #1c1c1f 0%, #111113 55%, #0c0c0e 100%);
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.06) inset,
+      0 1px 0 rgb(255 255 255 / 0.08) inset,
+      0 24px 56px rgb(0 0 0 / 0.5);
+  }
+
+  /* soft top wash — subtle, not loud */
+  #freelance-lead-modal .flm-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 42%;
+    background: linear-gradient(
+      180deg,
+      rgb(34 197 94 / 0.07),
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
+  .dark #freelance-lead-modal .flm-panel::before {
+    background: linear-gradient(
+      180deg,
+      rgb(34 197 94 / 0.1),
+      transparent 100%
+    );
+  }
+
+  #freelance-lead-modal[open] .flm-panel.is-shown {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  #freelance-lead-modal .flm-slider {
+    position: relative;
+    min-height: 2.75rem;
+  }
+
+  #freelance-lead-modal .flm-slide {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  #freelance-lead-modal .flm-slide.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  #freelance-lead-modal .flm-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    border: none;
+    padding: 0;
+    background: rgb(0 0 0 / 0.15);
+    cursor: pointer;
+    transition: width 0.2s, background 0.2s;
+  }
+
+  .dark #freelance-lead-modal .flm-dot {
+    background: rgb(255 255 255 / 0.2);
+  }
+
+  #freelance-lead-modal .flm-dot.is-active {
+    width: 14px;
+    background: rgb(0 0 0 / 0.55);
+  }
+
+  .dark #freelance-lead-modal .flm-dot.is-active {
+    background: rgb(255 255 255 / 0.7);
+  }
+
+  #freelance-lead-modal .flm-item {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  #freelance-lead-modal[open] .flm-panel.is-shown .flm-item {
+    animation: flm-rise 0.4s ease forwards;
+  }
+
+  #freelance-lead-modal[open] .flm-panel.is-shown .flm-item:nth-child(1) { animation-delay: 0.04s; }
+  #freelance-lead-modal[open] .flm-panel.is-shown .flm-item:nth-child(2) { animation-delay: 0.08s; }
+  #freelance-lead-modal[open] .flm-panel.is-shown .flm-item:nth-child(3) { animation-delay: 0.12s; }
+  #freelance-lead-modal[open] .flm-panel.is-shown .flm-item:nth-child(4) { animation-delay: 0.16s; }
+  #freelance-lead-modal[open] .flm-panel.is-shown .flm-item:nth-child(5) { animation-delay: 0.2s; }
+  #freelance-lead-modal[open] .flm-panel.is-shown .flm-item:nth-child(6) { animation-delay: 0.24s; }
+  #freelance-lead-modal[open] .flm-panel.is-shown .flm-item:nth-child(7) { animation-delay: 0.28s; }
+  #freelance-lead-modal[open] .flm-panel.is-shown .flm-item:nth-child(8) { animation-delay: 0.32s; }
+
+  @keyframes flm-rise {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #freelance-lead-modal .flm-panel,
+    #freelance-lead-modal .flm-slide,
+    #freelance-lead-modal .flm-item {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = "flm-dismissed-at";
+  const COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000;
+  const DELAY_MS = 1500;
+  const SLIDE_MS = 3200;
+
+  function shouldShow() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return true;
+      const dismissedAt = Number(raw);
+      if (Number.isNaN(dismissedAt)) return true;
+      return Date.now() - dismissedAt >= COOLDOWN_MS;
+    } catch {
+      return true;
+    }
+  }
+
+  function markDismissed() {
+    try {
+      localStorage.setItem(STORAGE_KEY, String(Date.now()));
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function initSlider(dialog) {
+    const noop = { start() {}, stop() {} };
+    const slides = Array.from(dialog.querySelectorAll("[data-flm-slide]"));
+    const dotsWrap = dialog.querySelector("[data-flm-dots]");
+    if (slides.length < 2) return noop;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let index = 0;
+    let timer;
+
+    if (dotsWrap) {
+      dotsWrap.innerHTML = "";
+      slides.forEach((_, i) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "flm-dot" + (i === 0 ? " is-active" : "");
+        btn.setAttribute("aria-label", `Message ${i + 1}`);
+        btn.addEventListener("click", () => go(i, true));
+        dotsWrap.appendChild(btn);
+      });
+    }
+
+    const dots = () => Array.from(dialog.querySelectorAll(".flm-dot"));
+
+    function go(next, manual = false) {
+      const currentDots = dots();
+      slides[index]?.classList.remove("is-active");
+      slides[index]?.setAttribute("aria-hidden", "true");
+      currentDots[index]?.classList.remove("is-active");
+
+      index = (next + slides.length) % slides.length;
+
+      slides[index]?.classList.add("is-active");
+      slides[index]?.setAttribute("aria-hidden", "false");
+      currentDots[index]?.classList.add("is-active");
+
+      if (manual) restart();
+    }
+
+    function restart() {
+      if (reduceMotion) return;
+      stop();
+      timer = window.setInterval(() => go(index + 1), SLIDE_MS);
+    }
+
+    function stop() {
+      if (timer !== undefined) {
+        window.clearInterval(timer);
+        timer = undefined;
+      }
+    }
+
+    return { start: restart, stop };
+  }
+
+  function init() {
+    const dialog = document.getElementById("freelance-lead-modal");
+    if (!dialog || !shouldShow()) return;
+
+    const panel = dialog.querySelector(".flm-panel");
+    const slider = initSlider(dialog);
+
+    const close = () => {
+      if (!dialog.open) return;
+      markDismissed();
+      slider.stop();
+      panel?.classList.remove("is-shown");
+      dialog.close();
+    };
+
+    dialog.querySelectorAll("[data-flm-close]").forEach((el) => {
+      el.addEventListener("click", close);
+    });
+
+    dialog.querySelectorAll("[data-flm-cta]").forEach((el) => {
+      el.addEventListener("click", () => markDismissed());
+    });
+
+    dialog.addEventListener("cancel", (e) => {
+      e.preventDefault();
+      close();
+    });
+
+    dialog.addEventListener("click", (e) => {
+      if (panel && !panel.contains(e.target)) close();
+    });
+
+    window.setTimeout(() => {
+      if (!shouldShow() || dialog.open) return;
+      try {
+        dialog.showModal();
+        requestAnimationFrame(() => {
+          panel?.classList.add("is-shown");
+          slider.start();
+        });
+      } catch {
+        /* ignore */
+      }
+    }, DELAY_MS);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>

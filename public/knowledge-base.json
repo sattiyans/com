@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-21T00:53:31.275Z",
+  "generatedAt": "2026-08-12T13:56:15.400Z",
   "about": {
     "name": "Sattiyan Selvarajah",
     "role": "Technology Lead at G6 Labs Asia & Founder of Dotkod Solutions",
@@ -73,8 +73,8 @@
     },
     {
       "title": "GBoost.ai - AI Google Ads Autopilot for Local Business",
-      "description": "GBoost.ai is an AI marketing autopilot for local businesses — now launching and automating Google Ads in three clicks on top of its existing Google Business Profile posts, AI review responses, on-brand visuals, scheduling, and local SEO, all from one dashboard.",
-      "content": "Overview\n\nGBoost is an AI marketing autopilot for local business owners. It turns Google Ads, posts, visuals, and Google Business Profile management into a three-click workflow — replacing fragmented tools and expensive agency retainers with one automated funnel.\n\nFeatures\nAI Google Ads — AI-written headlines and descriptions, smart keyword and bid suggestions, live preview, and auto-pausing of low performers.\nAI Posts — month-long content generated from a single prompt, tone-matched to the business, with one-click approve, edit, or regenerate.\nAI Review Responses — on-brand replies to customer reviews, with a queue, history, and response tracking.\nAI Visuals — on-brand images generated in ~10 seconds across photo, illustration, and graphic styles, sized for Google posts.\nScheduling & calendar — automated publishing across posts and campaigns.\nLocal SEO & Google Business Profile — keyword and service optimization with a continuously maintained profile.\nInsights & offers — campaign performance tracking and promotional offer management.\n\nFuture Improvements\nDeeper anomaly alerts for ranking and ad-performance drops.\nExpanded template and workflow customization by business type.\nImproved integration observability for API failure diagnostics.",
+      "description": "GBoost.ai launches Google Ads in three clicks and runs Google Business Profile on autopilot — AI ads, posts, review replies, and local SEO from one dashboard, built for Malaysian SMEs.",
+      "content": "Overview\n\nGBoost is a live AI marketing autopilot for local business owners — especially Malaysian SMEs. It turns Google Ads and Google Business Profile management into a three-click workflow: write the ad, approve, go live. AI handles copy, keywords, bids, posts, review replies, and visuals so owners get agency-grade output without the retainer.\n\nFeatures\nAI Google Ads (3-click launch) — AI-written headlines and descriptions, smart keyword and bid suggestions, live preview, and auto-pausing of low performers.\nGoogle Business Profile autopilot — keyword and service optimization with a continuously maintained profile.\nAI Posts — month-long content generated from a single prompt, tone-matched to the business, with one-click approve, edit, or regenerate.\nAI Review Responses — on-brand replies to customer reviews, with a queue, history, and response tracking.\nAI Visuals — on-brand images generated in ~10 seconds across photo, illustration, and graphic styles, sized for Google posts.\nScheduling & calendar — automated publishing across posts and campaigns.\nInsights & offers — campaign performance tracking and promotional offer management.\n\nFuture Improvements\nDeeper anomaly alerts for ranking and ad-performance drops.\nExpanded template and workflow customization by business type.\nImproved integration observability for API failure diagnostics.",
       "role": "Full-Stack Developer & Platform Architect",
       "client": "Gboost.ai",
       "projectOwner": "G6 Labs Asia",
@@ -105,9 +105,9 @@
       "url": "/projects/gboost"
     },
     {
-      "title": "GSendr - Enterprise Email Infrastructure. Built for Control & Deliverability.",
-      "description": "The email campaign platform for organizations and teams requiring reliable delivery, integrated validation, and structured communication at scale.",
-      "content": "Overview\n\nGSendr is a multi-tenant campaign platform for controlled email operations. It combines domain setup, template management, recipient workflows, and campaign analytics in one operational dashboard.\n\nFeatures\nMulti-tenant organization model with scoped resources and teams.\nCampaign lifecycle from draft to schedule/send with status controls.\nDomain verification and sender identity management.\nRecipient import and template workflows with variable support.\nOpen/click tracking and analytics surfaces for campaign decisions.\n\nRoadmap\n\nEvolving GSendr from email-only into multi-channel campaign infrastructure:\nLive — Email campaigns with verified-domain sending, recipient pipelines, and engagement analytics.\nIn staging — WhatsApp delivery module for cross-channel messaging.\nPlanned — SMS and voice channels, deeper audience segmentation and lifecycle automation, expanded deliverability diagnostics and inbox placement insights, and stronger org-level policy and compliance controls.",
+      "title": "GSendr - WhatsApp & Email Campaigns. One Reply Desk.",
+      "description": "Multi-channel campaign platform for organizations — Official WhatsApp Cloud API campaigns, personalised bulk email with per-recipient PDFs, and a shared reply desk that keeps every conversation tied to the campaign that started it.",
+      "content": "Overview\n\nGSendr is a multi-tenant campaign platform for WhatsApp and email. Organizations upload an audience once, send on the channel that fits (or both), prove delivery, and catch WhatsApp replies in a shared inbox with the originating campaign already attached.\n\nFeatures\nOfficial WhatsApp Cloud API — Meta-approved templates, bulk WhatsApp campaigns, delivery/read tracking, and multi-org sending.\nShared WhatsApp reply desk — campaign-linked conversations with free-form replies inside Meta's 24-hour customer service window.\nPersonalised bulk email — HTML-to-PDF per recipient (invoices, statements, policies) matched to spreadsheet rows in one campaign.\nMulti-tenant organization model with scoped resources and teams.\nCampaign lifecycle from draft to schedule/send with status controls.\nDomain verification, sender identity, and deliverability governance (SPF/DKIM/DMARC-aware workflows).\nRecipient import, validation, and engagement analytics (delivered, opened, clicked, bounced, WhatsApp read/failed).\n\nRoadmap\n\nEvolving GSendr into fuller multi-channel campaign infrastructure:\nLive — Email campaigns with verified-domain sending, personalised attachments, and engagement analytics.\nLive — Official WhatsApp Cloud API campaigns, templates, and shared reply desk (50K+ messages sent across organizations).\nIn development — AI Reply that drafts on-brand WhatsApp responses from campaign + conversation context.\nPlanned — Voice Blast, SMS, deeper audience segmentation and lifecycle automation, expanded deliverability diagnostics, and stronger org-level policy/compliance controls.",
       "role": "Full-Stack Developer",
       "client": "GSendr",
       "projectOwner": "G6 Labs Asia",
@@ -291,8 +291,8 @@
       "role": "Technology Lead, Software Development",
       "dateStart": "05/01/2026",
       "dateEnd": "Current",
-      "summary": "Leading architecture and engineering for proprietary SaaS platforms including GBoost.ai and GSendr.",
-      "content": "Lead technical direction, system frameworks, and engineering standards for core software applications and proprietary SaaS platforms.\nBuilt and scaled proprietary SaaS products including GBoost.ai and GSendr.\nArchitect and scale the foundations of primary SaaS engines with isolated, containerized runtimes and event-driven workflows for fault-tolerant, zero-downtime automated processing.\nCollaborate on the product lifecycle, translating business logic into technical roadmaps and optimizing generative AI pipelines for automated capabilities.\nDrive engineering standards across the development lifecycle, owning code review and optimizing deployment workflows for seamless product delivery.",
+      "summary": "Leading architecture and engineering for proprietary SaaS platforms including GBoost.ai and GSendr (WhatsApp + email).",
+      "content": "Lead technical direction, system frameworks, and engineering standards for core software applications and proprietary SaaS platforms.\nBuilt and scaled proprietary SaaS products including GBoost.ai and GSendr — GSendr now ships Official WhatsApp Cloud API campaigns and personalised email at multi-org scale (50K+ WhatsApp messages sent).\nArchitect and scale the foundations of primary SaaS engines with isolated, containerized runtimes and event-driven workflows for fault-tolerant, zero-downtime automated processing.\nCollaborate on the product lifecycle, translating business logic into technical roadmaps and optimizing generative AI pipelines for automated capabilities.\nDrive engineering standards across the development lifecycle, owning code review and optimizing deployment workflows for seamless product delivery.",
       "slug": "g6labs",
       "url": "/work/g6labs"
     },
@@ -338,74 +338,74 @@
     "description": "A collection of films Sattiyan has recently watched, tracked via Letterboxd. The page displays recently watched movies with ratings, posters, and watch dates. Sattiyan's Letterboxd profile: https://letterboxd.com/sattiyans. The page shows the most recent films he has watched, including movie titles, years, ratings (if given), and when they were watched.",
     "recentFilms": [
       {
-        "title": "Fast X",
-        "year": 2023,
-        "watchedDate": "2026-06-19T08:02:08.000Z",
-        "rating": 3,
-        "url": "https://letterboxd.com/sattiyans/film/fast-x/2/"
-      },
-      {
-        "title": "Scream VI, 2023 - ★★★★ (contains spoilers)",
-        "year": 2023,
-        "watchedDate": "2026-06-17T11:43:36.000Z",
-        "rating": null,
-        "url": "https://letterboxd.com/sattiyans/film/scream-vi/"
-      },
-      {
-        "title": "Scream",
-        "year": 2022,
-        "watchedDate": "2026-06-14T10:33:33.000Z",
+        "title": "Crazy Rich Asians",
+        "year": 2018,
+        "watchedDate": "2026-08-10T13:44:49.000Z",
         "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/scream-2022/"
+        "url": "https://letterboxd.com/sattiyans/film/crazy-rich-asians/"
       },
       {
-        "title": "Scream 4",
-        "year": 2011,
-        "watchedDate": "2026-06-13T12:51:32.000Z",
-        "rating": 3,
-        "url": "https://letterboxd.com/sattiyans/film/scream-4/"
-      },
-      {
-        "title": "Karuppu",
+        "title": "Gayong 2",
         "year": 2026,
-        "watchedDate": "2026-06-12T08:44:10.000Z",
-        "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/karuppu/1/"
+        "watchedDate": "2026-08-09T09:04:02.000Z",
+        "rating": 2.5,
+        "url": "https://letterboxd.com/sattiyans/film/gayong-2/"
       },
       {
-        "title": "The Maze Runner",
-        "year": 2014,
-        "watchedDate": "2026-06-08T01:36:55.000Z",
-        "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/the-maze-runner/"
+        "title": "The Last House",
+        "year": 2026,
+        "watchedDate": "2026-08-09T06:55:21.000Z",
+        "rating": 1.5,
+        "url": "https://letterboxd.com/sattiyans/film/the-last-house-2026/"
       },
       {
-        "title": "The Italian Job",
-        "year": 2003,
-        "watchedDate": "2026-06-06T14:11:18.000Z",
+        "title": "Gatta Kusthi 2",
+        "year": 2026,
+        "watchedDate": "2026-08-02T07:14:39.000Z",
         "rating": 3,
-        "url": "https://letterboxd.com/sattiyans/film/the-italian-job-2003/"
+        "url": "https://letterboxd.com/sattiyans/film/gatta-kusthi-2/"
       },
       {
-        "title": "Jinn-The Pet",
-        "year": 2025,
-        "watchedDate": "2026-06-02T10:42:09.000Z",
-        "rating": 0.5,
-        "url": "https://letterboxd.com/sattiyans/film/jinn-the-pet/"
+        "title": "Spider-Man: Brand New Day",
+        "year": 2026,
+        "watchedDate": "2026-08-01T10:34:11.000Z",
+        "rating": 4.5,
+        "url": "https://letterboxd.com/sattiyans/film/spider-man-brand-new-day/1/"
       },
       {
-        "title": "I Saw the Devil",
-        "year": 2010,
-        "watchedDate": "2026-06-02T02:48:41.000Z",
-        "rating": 5,
-        "url": "https://letterboxd.com/sattiyans/film/i-saw-the-devil/"
+        "title": "Spider-Man: Brand New Day, 2026 - ★★★★ (contains spoilers)",
+        "year": 2026,
+        "watchedDate": "2026-07-30T17:10:35.000Z",
+        "rating": null,
+        "url": "https://letterboxd.com/sattiyans/film/spider-man-brand-new-day/"
       },
       {
-        "title": "We&#039;re the Millers",
-        "year": 2013,
-        "watchedDate": "2026-06-01T08:34:29.000Z",
+        "title": "Disclosure Day",
+        "year": 2026,
+        "watchedDate": "2026-07-28T12:32:05.000Z",
+        "rating": 2.5,
+        "url": "https://letterboxd.com/sattiyans/film/disclosure-day/"
+      },
+      {
+        "title": "Spider-Man: No Way Home",
+        "year": 2021,
+        "watchedDate": "2026-07-28T01:32:03.000Z",
         "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/were-the-millers/"
+        "url": "https://letterboxd.com/sattiyans/film/spider-man-no-way-home/"
+      },
+      {
+        "title": "The Evil Dead",
+        "year": 1981,
+        "watchedDate": "2026-07-27T07:24:15.000Z",
+        "rating": 3.5,
+        "url": "https://letterboxd.com/sattiyans/film/the-evil-dead/"
+      },
+      {
+        "title": "Spider-Man: Far From Home",
+        "year": 2019,
+        "watchedDate": "2026-07-26T14:24:40.000Z",
+        "rating": 2.5,
+        "url": "https://letterboxd.com/sattiyans/film/spider-man-far-from-home/1/"
       }
     ]
   },

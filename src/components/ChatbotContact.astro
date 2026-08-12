@@ -2,143 +2,202 @@
 // Simple Floating AI Chatbot Input
 ---
 
-<!-- Enhanced floating input bar -->
-<div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 chatbot-wrapper w-full px-4 pointer-events-none">
-  <!-- Mobile collapsed state -->
-  <div class="chatbot-mobile-collapsed sm:hidden bg-gray-100 dark:bg-black rounded-full shadow-2xl border border-black/15 dark:border-white/20 w-12 h-12 mx-auto backdrop-blur-sm hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-300 flex items-center justify-center cursor-pointer pointer-events-auto">
-    <svg class="w-6 h-6 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<!-- Floating Luna input -->
+<div class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 chatbot-wrapper w-full max-w-md px-4 pointer-events-none">
+  <!-- Mobile FAB only -->
+  <button
+    type="button"
+    class="chatbot-mobile-collapsed sm:!hidden mx-auto pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-zinc-900/95 text-emerald-400 shadow-lg shadow-black/40 backdrop-blur-md cursor-pointer"
+    aria-label="Open Luna"
+  >
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
     </svg>
-  </div>
-  
-  <!-- Desktop/expanded state -->
-  <div class="chatbot-container hidden sm:block max-w-lg w-full mx-auto pointer-events-auto">
-    <!-- Response Display Area -->
-    <div id="chatbot-response" class="chatbot-response mb-3 bg-gray-100 dark:bg-black rounded-2xl shadow-xl border border-black/15 dark:border-white/20 p-4 backdrop-blur-sm overflow-y-auto transition-all duration-300 opacity-0 transform translate-y-4 pointer-events-none" style="max-height: calc(100vh - 200px);">
+  </button>
+
+  <!-- Desktop bar -->
+  <div class="chatbot-container hidden sm:block w-full mx-auto pointer-events-auto">
+    <div
+      id="chatbot-response"
+      class="chatbot-response mb-2 rounded-2xl border border-black/10 dark:border-white/12 bg-white/95 dark:bg-zinc-900/95 p-3.5 shadow-xl shadow-black/10 dark:shadow-black/40 backdrop-blur-md overflow-y-auto transition-all duration-300 opacity-0 translate-y-3 pointer-events-none"
+      style="max-height: calc(100vh - 200px);"
+    >
       <div class="flex flex-col h-full">
-        <div class="flex items-start gap-3 flex-1 relative">
-          <div class="flex-shrink-0 mt-0.5">
-            <svg class="w-4 h-4 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="flex items-start gap-2.5 flex-1 relative">
+          <div class="flex-shrink-0 mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/15 border border-emerald-500/25">
+            <svg class="w-3 h-3 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
             </svg>
           </div>
-          <div class="flex-1 text-sm text-gray-900 dark:text-white chatbot-response-text"></div>
-          <button id="chatbot-close-btn" class="chatbot-close-btn flex-shrink-0 ml-2 mt-0.5 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors opacity-0 pointer-events-none" aria-label="Close response">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="flex-1 text-sm text-zinc-800 dark:text-zinc-100 chatbot-response-text leading-relaxed"></div>
+          <button id="chatbot-close-btn" class="chatbot-close-btn flex-shrink-0 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors opacity-0 pointer-events-none" aria-label="Close response">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
-        <div class="mt-3 pt-3 border-t border-gray-300 dark:border-gray-700">
-          <p class="text-xs text-gray-500 dark:text-gray-400 text-center">
-            AI-powered by <a href="https://dotkod.com/text" target="_blank" rel="noopener noreferrer" class="text-blue-500 dark:text-blue-400 hover:underline font-medium">Dotkod Solutions</a>
+        <div class="mt-2.5 pt-2.5 border-t border-black/10 dark:border-white/10">
+          <p class="text-[11px] text-zinc-500 dark:text-zinc-400 text-center">
+            Luna · <a href="https://dotkod.com/text" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 hover:underline font-medium">Dotkod</a>
           </p>
         </div>
       </div>
     </div>
-    
-    <!-- Input Container -->
-    <div id="chatbot-input-container" class="bg-gray-100 dark:bg-black rounded-full shadow-2xl border border-black/15 dark:border-white/20 backdrop-blur-sm hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-300">
-      <div class="px-6 py-4 relative">
-        <div class="flex items-center gap-3">
-          <!-- AI Icon -->
-          <div class="ai-icon flex-shrink-0 chatbot-element">
-            <svg class="w-5 h-5 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-            </svg>
-          </div>
-          
-          <!-- Input Field -->
-          <div class="relative w-full">
-            <input 
-              type="text" 
-              id="chatbot-input" 
-              placeholder="Hi, I'm Luna. Ask me anything about Sattiyan." 
-              class="chatbot-input chatbot-element w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-700 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-none text-sm transition-all duration-300 focus:scale-105"
-              style="font-size: 16px; border: none; outline: none;"
-            />
-            <div id="chatbot-suggestions" class="chatbot-suggestions hidden absolute bottom-full left-0 right-0 mb-2 bg-black dark:bg-black border border-white/20 dark:border-white/20 rounded-lg shadow-lg max-h-48 overflow-y-auto z-50"></div>
-          </div>
-          
-          <!-- Send Icon -->
-          <div class="send-icon flex-shrink-0 opacity-0 transition-all duration-300 chatbot-element hover:text-blue-500 dark:hover:text-blue-400">
-            <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-            </svg>
-          </div>
+
+    <div
+      id="chatbot-input-container"
+      class="relative rounded-full border border-black/10 dark:border-white/12 bg-white/95 dark:bg-zinc-900/95 shadow-lg shadow-black/10 dark:shadow-black/50 backdrop-blur-md transition-[box-shadow,border-color] duration-200"
+    >
+          <div id="chatbot-suggestions" class="chatbot-suggestions luna-suggestions hidden absolute bottom-full left-0 right-0 mb-2.5 z-50"></div>
+      <div class="flex items-center gap-2 px-3 py-2">
+        <div class="ai-icon flex-shrink-0 chatbot-element flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/15 border border-emerald-500/25">
+          <svg class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+          </svg>
         </div>
-        
-        <!-- Animated Border -->
-        <div class="animated-border"></div>
+        <div class="relative w-full min-w-0">
+          <input
+            type="text"
+            id="chatbot-input"
+            placeholder="Ask Luna…"
+            class="chatbot-input chatbot-element w-full bg-transparent text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none text-sm"
+            style="font-size: 16px; border: none; outline: none;"
+          />
+        </div>
+        <button
+          type="button"
+          class="send-icon flex-shrink-0 opacity-0 transition-all duration-300 chatbot-element inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-600 text-white hover:bg-emerald-500"
+          aria-label="Send"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
-  
-  <!-- Mobile expanded state (hidden by default) -->
-  <div class="chatbot-mobile-expanded hidden sm:hidden max-w-xs w-full mx-auto pointer-events-auto">
-    <!-- Response Display Area (Mobile) -->
-    <div id="chatbot-response-mobile" class="chatbot-response mb-2 bg-gray-100 dark:bg-black rounded-2xl shadow-xl border border-black/15 dark:border-white/20 p-3 backdrop-blur-sm overflow-y-auto transition-all duration-300 opacity-0 transform translate-y-4 pointer-events-none" style="max-height: calc(100vh - 180px);">
+
+  <!-- Mobile expanded -->
+  <div class="chatbot-mobile-expanded hidden max-w-sm w-full mx-auto pointer-events-auto sm:hidden">
+    <div
+      id="chatbot-response-mobile"
+      class="chatbot-response mb-2 rounded-2xl border border-black/10 dark:border-white/12 bg-white/95 dark:bg-zinc-900/95 p-3 shadow-xl backdrop-blur-md overflow-y-auto transition-all duration-300 opacity-0 translate-y-3 pointer-events-none"
+      style="max-height: calc(100vh - 180px);"
+    >
       <div class="flex flex-col h-full">
         <div class="flex items-start gap-2 flex-1 relative">
-          <div class="flex-shrink-0 mt-0.5">
-            <svg class="w-3 h-3 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="flex-shrink-0 mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 border border-emerald-500/25">
+            <svg class="w-2.5 h-2.5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
             </svg>
           </div>
-          <div class="flex-1 text-xs text-gray-900 dark:text-white chatbot-response-text-mobile"></div>
-          <button id="chatbot-close-btn-mobile" class="chatbot-close-btn flex-shrink-0 ml-1 mt-0.5 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors opacity-0 pointer-events-none" aria-label="Close response">
+          <div class="flex-1 text-xs text-zinc-800 dark:text-zinc-100 chatbot-response-text-mobile leading-relaxed"></div>
+          <button id="chatbot-close-btn-mobile" class="chatbot-close-btn flex-shrink-0 text-zinc-400 hover:text-zinc-200 transition-colors opacity-0 pointer-events-none" aria-label="Close response">
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
-        <div class="mt-2 pt-2 border-t border-gray-300 dark:border-gray-700">
-          <p class="text-xs text-gray-500 dark:text-gray-400 text-center">
-            AI-powered by <a href="https://dotkod.com/text" target="_blank" rel="noopener noreferrer" class="text-blue-500 dark:text-blue-400 hover:underline font-medium">Dotkod Solutions</a>
-          </p>
-        </div>
       </div>
     </div>
-    
-    <!-- Input Container (Mobile) -->
-    <div id="chatbot-mobile-input-container" class="bg-gray-100 dark:bg-black rounded-full shadow-2xl border border-black/15 dark:border-white/20 backdrop-blur-sm hover:bg-gray-200 dark:hover:bg-black/80 transition-all duration-500">
-      <div class="px-4 py-3 relative">
-        <div class="flex items-center gap-2">
-          <!-- AI Icon -->
-          <div class="ai-icon flex-shrink-0">
-            <svg class="w-4 h-4 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-            </svg>
-          </div>
-          
-          <!-- Input Field -->
-          <div class="relative w-full">
-            <input 
-              type="text" 
-              id="chatbot-mobile-input" 
-              placeholder="Hi, I'm Luna. Ask me anything about Sattiyan." 
-              class="chatbot-mobile-input w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-700 dark:placeholder-gray-300 focus:outline-none focus:ring-0 focus:border-none text-sm transition-all duration-300"
-              style="font-size: 16px; border: none; outline: none;"
-            />
-            <div id="chatbot-suggestions-mobile" class="chatbot-suggestions hidden absolute bottom-full left-0 right-0 mb-2 bg-black dark:bg-black border border-white/20 dark:border-white/20 rounded-lg shadow-lg max-h-48 overflow-y-auto z-50"></div>
-          </div>
-          
-          <!-- Send Icon -->
-          <div class="send-icon-mobile flex-shrink-0 opacity-0 transition-all duration-300 hover:text-blue-500 dark:hover:text-blue-400">
-            <svg class="w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-            </svg>
-          </div>
+
+    <div
+      id="chatbot-mobile-input-container"
+      class="relative rounded-full border border-black/10 dark:border-white/12 bg-white/95 dark:bg-zinc-900/95 shadow-lg backdrop-blur-md"
+    >
+          <div id="chatbot-suggestions-mobile" class="chatbot-suggestions luna-suggestions hidden absolute bottom-full left-0 right-0 mb-2.5 z-50"></div>
+      <div class="flex items-center gap-2 px-3 py-2">
+        <div class="ai-icon flex-shrink-0 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/15 border border-emerald-500/25">
+          <svg class="w-3 h-3 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+          </svg>
         </div>
-        
-        <!-- Animated Border -->
-        <div class="animated-border-mobile"></div>
+        <div class="relative w-full min-w-0">
+          <input
+            type="text"
+            id="chatbot-mobile-input"
+            placeholder="Ask Luna…"
+            class="chatbot-mobile-input w-full bg-transparent text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none text-sm"
+            style="font-size: 16px; border: none; outline: none;"
+          />
+        </div>
+        <button
+          type="button"
+          class="send-icon-mobile flex-shrink-0 opacity-0 transition-all duration-300 inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-white"
+          aria-label="Send"
+        >
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
 </div>
 
+<style is:global>
+  /* Luna suggestions — must be global: items are created in JS */
+  .luna-suggestions {
+    max-height: 16rem;
+    overflow-y: auto;
+    border-radius: 1.15rem;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    background: rgb(24 24 27 / 0.98);
+    box-shadow: 0 16px 40px rgb(0 0 0 / 0.45);
+    padding: 0.5rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  :root:not(.dark) .luna-suggestions {
+    border-color: rgb(0 0 0 / 0.1);
+    background: rgb(255 255 255 / 0.98);
+    box-shadow: 0 16px 40px rgb(0 0 0 / 0.12);
+  }
+
+  .luna-suggestion-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.7rem 0.85rem;
+    margin: 0;
+    border: none;
+    border-radius: 0.75rem;
+    background: transparent;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: rgb(212 212 216);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  :root:not(.dark) .luna-suggestion-item {
+    color: rgb(63 63 70);
+  }
+
+  .luna-suggestion-item + .luna-suggestion-item {
+    margin-top: 0.15rem;
+  }
+
+  .luna-suggestion-item:hover {
+    background: rgb(255 255 255 / 0.08);
+    color: #fff;
+  }
+
+  :root:not(.dark) .luna-suggestion-item:hover {
+    background: rgb(0 0 0 / 0.05);
+    color: rgb(24 24 27);
+  }
+</style>
+
 <style>
+  /* Force hide mobile FAB on desktop (beats any display:flex leftovers) */
+  @media (min-width: 640px) {
+    .chatbot-mobile-collapsed {
+      display: none !important;
+    }
+  }
+
   /* Chatbot Wrapper - Entrance Animation */
   .chatbot-wrapper {
     opacity: 0;
@@ -169,22 +228,20 @@
   
   .chatbot-container:hover {
     transform: translateY(-2px);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.1);
   }
   
   .dark .chatbot-container:hover {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.2);
-  }
-  
-  .chatbot-container.focused {
     transform: translateY(-2px);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.3);
-    border-color: rgba(59, 130, 246, 0.3);
   }
   
-  .dark .chatbot-container.focused {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.4);
-    border-color: rgba(59, 130, 246, 0.4);
+  .chatbot-container.focused #chatbot-input-container {
+    border-color: rgb(34 197 94 / 0.35);
+    box-shadow: 0 0 0 3px rgb(34 197 94 / 0.12);
+  }
+  
+  :global(.dark) .chatbot-container.focused #chatbot-input-container {
+    border-color: rgb(74 222 128 / 0.35);
+    box-shadow: 0 0 0 3px rgb(34 197 94 / 0.15);
   }
   
   /* AI Icon Animation */
@@ -212,13 +269,18 @@
     outline: none !important;
     box-shadow: none !important;
     line-height: 1.5 !important;
-    min-height: 2.5rem !important;
+    min-height: 1.75rem !important;
+    padding-top: 0.15rem !important;
+    padding-bottom: 0.15rem !important;
   }
   
-  .chatbot-input::placeholder {
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+  .chatbot-input::placeholder,
+  .chatbot-mobile-input::placeholder {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    word-wrap: normal !important;
+    overflow-wrap: normal !important;
   }
   
   .chatbot-input:focus,
@@ -248,21 +310,12 @@
   
   /* Prevent parent container from showing blue border on focus */
   #chatbot-input-container:focus-within,
-  #chatbot-input-container:has(.chatbot-input:focus) {
-    border-color: rgba(0, 0, 0, 0.15) !important;
+  #chatbot-input-container:has(.chatbot-input:focus),
+  #chatbot-mobile-input-container:focus-within,
+  #chatbot-mobile-input-container:has(.chatbot-mobile-input:focus) {
+    border-color: rgb(34 197 94 / 0.4) !important;
     outline: none !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-    --tw-ring-width: 0 !important;
-    --tw-ring-color: transparent !important;
-  }
-  
-  .dark #chatbot-input-container:focus-within,
-  .dark #chatbot-input-container:has(.chatbot-input:focus) {
-    border-color: rgba(255, 255, 255, 0.2) !important;
-    outline: none !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-    --tw-ring-width: 0 !important;
-    --tw-ring-color: transparent !important;
+    box-shadow: 0 0 0 3px rgb(34 197 94 / 0.12) !important;
   }
   
   /* Mobile collapsed circle animation */
@@ -271,7 +324,7 @@
   }
   
   .chatbot-mobile-collapsed:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
   
   /* Mobile expanded state animations */
@@ -286,17 +339,11 @@
   }
   
   .chatbot-mobile-expanded .chatbot-mobile-input {
-    min-height: 2.5rem;
+    min-height: 1.75rem;
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
-    line-height: 1.5 !important;
-  }
-  
-  .chatbot-mobile-input::placeholder {
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    line-height: 1.4 !important;
   }
   
   .chatbot-mobile-input:focus,
@@ -325,38 +372,12 @@
   }
   
   /* Prevent parent container from showing blue border on focus */
-  #chatbot-mobile-input-container:focus-within,
-  #chatbot-mobile-input-container:has(.chatbot-mobile-input:focus) {
-    border-color: rgba(0, 0, 0, 0.15) !important;
-    outline: none !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-    --tw-ring-width: 0 !important;
-    --tw-ring-color: transparent !important;
-  }
-  
-  .dark #chatbot-mobile-input-container:focus-within,
-  .dark #chatbot-mobile-input-container:has(.chatbot-mobile-input:focus) {
-    border-color: rgba(255, 255, 255, 0.2) !important;
-    outline: none !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-    --tw-ring-width: 0 !important;
-    --tw-ring-color: transparent !important;
-  }
-  
   /* Animated Border Mobile - Hidden */
   .chatbot-mobile-expanded .animated-border-mobile {
     display: none;
   }
   
-  .dark .chatbot-mobile-expanded .animated-border-mobile {
-    display: none;
-  }
-  
   .chatbot-mobile-input:focus ~ .animated-border-mobile {
-    display: none;
-  }
-  
-  .dark .chatbot-mobile-input:focus ~ .animated-border-mobile {
     display: none;
   }
   
@@ -369,24 +390,22 @@
     }
   }
   
-  .chatbot-input:focus + .send-icon {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  
-  .chatbot-input:not(:placeholder-shown) + .send-icon {
+  .chatbot-input:focus ~ .send-icon,
+  .chatbot-input:not(:placeholder-shown) ~ .send-icon {
     opacity: 1;
     transform: translateX(0);
   }
   
   /* Send Icon Animation */
-  .send-icon {
-    transform: translateX(10px);
+  .send-icon,
+  .send-icon-mobile {
+    transform: translateX(6px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  .send-icon:hover {
-    transform: translateX(0) scale(1.1);
+  .send-icon:hover,
+  .send-icon-mobile:hover {
+    transform: translateX(0) scale(1.05);
   }
   
   /* Animated Border - Hidden */
@@ -675,15 +694,15 @@
       
       // Dynamic placeholders based on context
       this.contextPlaceholders = {
-        default: "Hi, I'm Luna. Ask me anything about Sattiyan.",
-        films: "Ask me about other films Sattiyan watched, or his movie preferences...",
-        projects: "Ask about other projects, or Sattiyan's work experience...",
-        tools: "Ask about other tools Sattiyan developed, or his skills...",
-        work: "Ask about Sattiyan's other work experience, or his projects...",
-        skills: "Ask about Sattiyan's projects using these skills, or his work...",
-        blog: "Ask about other blog posts, or Sattiyan's thoughts...",
-        contact: "Hi, I'm Luna. Ask me anything about Sattiyan.",
-        service: "Hi, I'm Luna. Ask me anything about Sattiyan."
+        default: "Ask Luna…",
+        films: "Ask about films…",
+        projects: "Ask about projects…",
+        tools: "Ask about tools…",
+        work: "Ask about work…",
+        skills: "Ask about skills…",
+        blog: "Ask about writing…",
+        contact: "Ask Luna…",
+        service: "Ask Luna…"
       };
       
       // Placeholders for contact/service flow steps
@@ -696,11 +715,11 @@
       
       // Common suggestions
       this.suggestions = [
-        "What projects has Sattiyan worked on?",
-        "Tell me about Sattiyan's skills",
-        "What tools has Sattiyan developed?",
+        "What projects has he worked on?",
+        "Tell me about his skills",
+        "What tools has he built?",
         "I want to get in touch",
-        "I'm interested in hiring Sattiyan",
+        "I'm interested in hiring him",
       ];
       
       this.ensureRuntimeScrollbarStyles();
@@ -869,7 +888,7 @@
         });
       }
       
-      this.updatePlaceholder("Hi, I'm Luna. Ask me anything about Sattiyan.");
+      this.updatePlaceholder("Ask Luna…");
     }
 
     ensureRuntimeScrollbarStyles() {
@@ -953,7 +972,7 @@
         this.mobileExpanded.classList.remove('expanded');
         setTimeout(() => {
           this.mobileExpanded.classList.add('hidden');
-          this.mobileCollapsed.style.display = 'flex';
+          this.mobileCollapsed.style.removeProperty('display');
           this.isMobileExpanded = false;
         }, 300);
       }
@@ -1339,8 +1358,9 @@
       container.innerHTML = '';
       
       suggestions.slice(0, 5).forEach(suggestion => {
-        const item = document.createElement('div');
-        item.className = 'px-4 py-2 hover:bg-white/10 dark:hover:bg-white/10 cursor-pointer text-sm text-white dark:text-white border-b border-white/10 dark:border-white/10 last:border-b-0';
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'luna-suggestion-item';
         item.textContent = suggestion;
         item.addEventListener('click', () => {
           const input = container.id === 'chatbot-suggestions' ? this.input : this.mobileInput;

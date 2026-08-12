@@ -25,7 +25,8 @@ const slideData = projects.map((project) => {
 
   const results = project.data.results;
   const outcome = Array.isArray(results) ? results[0] : results;
-  const detail = stack.length > 0 ? stack.join(" · ") : outcome ?? "";
+  // Prefer outcomes over stack chips when metrics aren't set
+  const detail = outcome ?? (stack.length > 0 ? stack.join(" · ") : "");
   const metrics = (project.data.metrics ?? []).slice(0, 3);
 
   return {
