@@ -139,17 +139,27 @@ const structuredData = {
           margin: 0.5rem auto;
         }
       }
+      @page {
+        margin: 12mm;
+        background: #fff;
+      }
       @media print {
-        body { background: #fff; }
+        html, body {
+          background: #fff !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
         main {
           width: 100%;
-          min-height: auto;
+          min-height: 0;
+          height: auto;
           margin: 0;
+          background: #fff !important;
           box-shadow: none;
           padding: 0;
         }
         .cv-download-btn { display: none !important; }
-        section, .entry {
+        .entry {
           break-inside: avoid-page;
           page-break-inside: avoid;
         }
