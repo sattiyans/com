@@ -3,6 +3,7 @@ company: "G6 Labs Asia Sdn. Bhd."
 role: "Technology Lead, Software Development"
 dateStart: "05/01/2026"
 dateEnd: "Current"
+location: "Subang Jaya, Malaysia"
 summary: "Leading architecture and engineering for proprietary SaaS platforms including GBoost.ai and GSendr (WhatsApp + email)."
 logo: "g6labs.png"
 ---

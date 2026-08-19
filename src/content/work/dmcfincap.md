@@ -3,6 +3,7 @@ company: "DMC FinCap"
 role: "Software Developer"
 dateStart: "08/01/2023"
 dateEnd: "03/01/2024"
+location: "Petaling Jaya, Malaysia"
 logo: "dmcfincap.png"
 ---
 

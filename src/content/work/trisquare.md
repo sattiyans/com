@@ -3,6 +3,7 @@ company: "TriSquare Technology (M) Sdn Bhd"
 role: "Senior Software Developer"
 dateStart: "04/01/2024"
 dateEnd: "04/30/2026"
+location: "Petaling Jaya, Malaysia"
 summary: "Built and scaled FEMO, Invested, and integration-heavy Laravel/React platforms with payment gateways and GenAI workflows."
 logo: "trisquare.png"
 ---

@@ -3,6 +3,7 @@ company: "Crave Asia"
 role: "Web Developer"
 dateStart: "09/01/2021"
 dateEnd: "08/01/2023"
+location: "Kuala Lumpur, Malaysia"
 summary: "Built web apps and e-commerce for PETRONAS, Jo Malone, Estée Lauder, DIOR, Clinique, and MAC."
 logo: "craveasia.png"
 ---

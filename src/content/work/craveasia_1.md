@@ -3,6 +3,7 @@ company: "Crave Asia"
 role: "Unity Web Developer"
 dateStart: "03/01/2020"
 dateEnd: "09/01/2021"
+location: "Petaling Jaya, Malaysia"
 logo: "craveasia.png"
 ---
 
