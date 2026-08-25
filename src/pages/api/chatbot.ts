@@ -519,7 +519,7 @@ function buildContext(kb: any): string {
         context += `\n`;
       });
     }
-    context += `Page URL: /watched\n\n`;
+    context += `Films are shown on the homepage and Letterboxd (https://letterboxd.com/sattiyans).\n\n`;
   }
 
   return context;

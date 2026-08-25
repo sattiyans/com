@@ -1,4 +1,31 @@
 {
+  "redirects": [
+    {
+      "source": "/watched",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/base64",
+      "destination": "/tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/color-converter",
+      "destination": "/tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/password-generator",
+      "destination": "/tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/letterboxd-analytics",
+      "destination": "/tools",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/api/letterboxd",

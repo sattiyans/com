@@ -208,6 +208,8 @@ async function generateKnowledgeBase() {
         content: plainText,
         date: frontmatter.date || new Date().toISOString(),
         slug: slug,
+        project: frontmatter.project || null,
+        tool: frontmatter.tool || null,
         url: `/blog/${slug}`
       });
     }
@@ -243,30 +245,86 @@ async function generateKnowledgeBase() {
     if (knowledgeBase.tools.length === 0) {
       knowledgeBase.tools = [
         {
-          name: "Letterboxd Analytics",
-          description: "Analyze your Letterboxd activity with detailed statistics, ratings breakdown, and viewing patterns.",
-          href: "/tools/letterboxd-analytics",
-          category: "Analytics"
+          name: "LHDN Tax Relief Optimizer",
+          description: "Toggle claimable reliefs and see estimated tax saved under Malaysia’s progressive brackets — fully offline.",
+          href: "/tools/lhdn-tax-relief",
+          category: "Finance"
         },
         {
-          name: "Base64 Encoder/Decoder",
-          description: "Convert text to Base64 encoding or decode Base64 back to text. Simple and fast text conversion.",
-          href: "/tools/base64",
-          category: "Text Tools"
+          name: "EXIF / Metadata Stripper",
+          description: "Inspect GPS and camera metadata, then download a clean image with EXIF stripped in the browser.",
+          href: "/tools/exif-stripper",
+          category: "Privacy"
         },
         {
-          name: "Color Converter",
-          description: "Convert colors between HEX, RGB, HSL, and HSV formats. Pick colors visually and get all format codes.",
-          href: "/tools/color-converter",
-          category: "Design Tools"
+          name: "Cron Parser & Visualizer",
+          description: "Paste a cron expression for a human-readable schedule and the next 10 run times.",
+          href: "/tools/cron-parser",
+          category: "DevOps"
         },
         {
-          name: "Password Generator",
-          description: "Generate secure, random passwords with customizable length and character sets. Create strong passwords.",
-          href: "/tools/password-generator",
-          category: "Security Tools"
+          name: "SVG Sanitizer & Minifier",
+          description: "Clean Figma/Illustrator SVG junk, preview inline, and copy a leaner asset.",
+          href: "/tools/svg-sanitizer",
+          category: "Frontend"
+        },
+        {
+          name: "Storage & Cookie Inspector",
+          description: "Paste localStorage JSON or Cookie headers into searchable key–value trees.",
+          href: "/tools/storage-inspector",
+          category: "Debug"
+        },
+        {
+          name: "Car Loan Rule of 78",
+          description: "Flat rate vs EIR and early settlement estimates for Malaysian hire-purchase car loans.",
+          href: "/tools/car-loan-rule-of-78",
+          category: "Finance"
+        },
+        {
+          name: "TNB Bill Calculator",
+          description: "Estimate Peninsular domestic electricity bills under the July 2025 tariff + EEI.",
+          href: "/tools/tnb-bill-calculator",
+          category: "Lifestyle"
+        },
+        {
+          name: "Housing DSR Checker",
+          description: "Debt service ratio vs illustrative bank ceilings for Malaysia home loans.",
+          href: "/tools/dsr-housing-eligibility",
+          category: "Finance"
+        },
+        {
+          name: "PTPTN Repayment Calculator",
+          description: "Estimate PTPTN instalments, ujrah, and settlement/direct-debit discounts.",
+          href: "/tools/ptptn-repayment",
+          category: "Finance"
+        },
+        {
+          name: "Long Weekend Planner",
+          description: "2026 Malaysia federal holidays with annual-leave bridge suggestions.",
+          href: "/tools/long-weekend-planner",
+          category: "Lifestyle"
         }
       ];
+    }
+
+    // Prefer live registry from tools.ts when available
+    try {
+      const toolsTs = readFileSync(join(rootDir, 'src', 'data', 'tools.ts'), 'utf-8');
+      const fromTs = [];
+      const re = /slug:\s*"([^"]+)"[\s\S]*?href:\s*"([^"]+)"[\s\S]*?shortName:\s*"([^"]+)"[\s\S]*?category:\s*"([^"]+)"[\s\S]*?description:\s*"([^"]+)"/g;
+      let m;
+      while ((m = re.exec(toolsTs)) !== null) {
+        fromTs.push({
+          name: m[3],
+          description: m[5],
+          href: m[2],
+          category: m[4],
+          slug: m[1],
+        });
+      }
+      if (fromTs.length > 0) knowledgeBase.tools = fromTs;
+    } catch (e) {
+      // keep fallback
     }
     console.log(`   ✓ Found ${knowledgeBase.tools.length} tools\n`);
 

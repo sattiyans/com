@@ -1,0 +1,192 @@
+---
+import ToolShell from "@components/ToolShell.astro";
+import { getTool } from "@data/tools";
+
+const tool = getTool("tnb-bill-calculator")!;
+const field =
+  "w-full px-0 py-2.5 bg-transparent border-0 border-b border-black/20 dark:border-white/25 text-black dark:text-white focus:outline-none focus:border-black dark:focus:border-white";
+
+const appliances = [
+  { id: "ac", label: "1.5HP aircon", kw: 1.2, hours: 8 },
+  { id: "heater", label: "Water heater", kw: 3.0, hours: 0.5 },
+  { id: "fridge", label: "Fridge", kw: 0.15, hours: 24 },
+  { id: "washer", label: "Washing machine", kw: 0.5, hours: 1 },
+  { id: "tv", label: "TV / entertainment", kw: 0.12, hours: 5 },
+];
+---
+
+<ToolShell tool={tool}>
+  <div class="space-y-8">
+    <div class="grid sm:grid-cols-2 gap-6">
+      <div class="space-y-2">
+        <label for="kwh" class="block text-sm font-medium text-black dark:text-white">Monthly usage (kWh)</label>
+        <input id="kwh" type="number" min="0" step="10" value="450" class={field} />
+      </div>
+      <div class="space-y-2">
+        <label for="afa" class="block text-sm font-medium text-black dark:text-white">
+          AFA (sen/kWh, monthly)
+        </label>
+        <input id="afa" type="number" step="0.01" value="0" class={field} />
+        <p class="text-xs text-black/40 dark:text-white/40">Waived when usage ≤ 600 kWh. Enter TNB’s latest declared rate.</p>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <h3 class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+        Quick appliance estimate (optional)
+      </h3>
+      <ul class="divide-y divide-black/10 dark:divide-white/10 border-t border-b border-black/10 dark:border-white/10">
+        {
+          appliances.map((a) => (
+            <li class="py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+              <label class="flex items-center gap-3 flex-1 cursor-pointer">
+                <input type="checkbox" class="app-toggle" data-kw={a.kw} data-hours={a.hours} />
+                <span class="text-sm text-black dark:text-white">{a.label}</span>
+              </label>
+              <span class="text-xs text-black/45 dark:text-white/45 sm:w-40">
+                {a.kw} kW × {a.hours}h/day
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <button
+        id="apply-apps"
+        type="button"
+        class="text-sm font-medium text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white"
+      >
+        Apply appliance estimate → kWh
+      </button>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Estimated bill</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-total">—</p>
+      </div>
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Effective sen/kWh</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-eff">—</p>
+      </div>
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">EEI discount</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-eei">—</p>
+      </div>
+    </div>
+
+    <ul
+      id="out-breakdown"
+      class="divide-y divide-black/10 dark:divide-white/10 border-t border-b border-black/10 dark:border-white/10 text-sm"
+    ></ul>
+    <p class="text-xs text-black/40 dark:text-white/40">
+      Peninsular domestic general rates (from July 2025). Educational estimate — verify with myTNB.
+    </p>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const EEI = [
+        [200, 25],
+        [250, 24.5],
+        [300, 22.5],
+        [350, 21],
+        [400, 17],
+        [450, 14.5],
+        [500, 12],
+        [550, 10.5],
+        [600, 9],
+        [650, 7.5],
+        [700, 5.5],
+        [750, 4.5],
+        [800, 4],
+        [850, 2.5],
+        [900, 1],
+        [1000, 0.5],
+      ];
+
+      function eeiSen(kwh) {
+        if (kwh <= 0) return 0;
+        if (kwh > 1000) return 0;
+        for (const [max, sen] of EEI) {
+          if (kwh <= max) return sen;
+        }
+        return 0;
+      }
+
+      const rm = (n) => "RM " + n.toFixed(2);
+      const gen = 0.2703;
+      const genHi = 0.3703;
+      const cap = 0.0455;
+      const net = 0.1285;
+
+      function recalc() {
+        const kwh = Math.max(0, Number(document.getElementById("kwh").value) || 0);
+        let afaSen = Number(document.getElementById("afa").value) || 0;
+        const genRate = kwh > 1500 ? genHi : gen;
+        const generation = kwh * genRate;
+        const capacity = kwh * cap;
+        const network = kwh * net;
+        const retail = kwh <= 600 ? 0 : 10;
+        const eei = (kwh * eeiSen(kwh)) / 100;
+        const afa = kwh <= 600 ? 0 : (kwh * afaSen) / 100;
+        let sub = generation + capacity + network + retail + afa - eei;
+        if (sub < 0) sub = 0;
+
+        // KWTBB 1.6% on energy components after EEI; exempt ≤300 kWh
+        let kwtbbBase = generation + capacity + network + afa - eei;
+        if (kwtbbBase < 0) kwtbbBase = 0;
+        const kwtbb = kwh <= 300 ? 0 : kwtbbBase * 0.016;
+
+        // SST 8% on portion above 600 kWh energy charges (simplified on excess energy)
+        let sst = 0;
+        if (kwh > 600) {
+          const excess = kwh - 600;
+          const excessEnergy = excess * (genRate + cap + net) + (excess * (kwh <= 600 ? 0 : afaSen)) / 100;
+          sst = Math.max(0, excessEnergy) * 0.08;
+        }
+
+        const total = sub + kwtbb + sst;
+        const eff = kwh > 0 ? (total / kwh) * 100 : 0;
+
+        document.getElementById("out-total").textContent = rm(total);
+        document.getElementById("out-eff").textContent = eff.toFixed(2) + " sen";
+        document.getElementById("out-eei").textContent = "−" + rm(eei);
+
+        const rows = [
+          ["Generation (caj tenaga)", rm(generation)],
+          ["Capacity", rm(capacity)],
+          ["Network", rm(network)],
+          ["Retail", retail ? rm(retail) : "Waived (≤600 kWh)"],
+          ["EEI discount", "−" + rm(eei)],
+          ["AFA", kwh <= 600 ? "Waived (≤600 kWh)" : rm(afa)],
+          ["KWTBB 1.6%", kwh <= 300 ? "Exempt (≤300 kWh)" : rm(kwtbb)],
+          ["Service tax (est.)", kwh <= 600 ? "Exempt (≤600 kWh)" : rm(sst)],
+        ];
+        document.getElementById("out-breakdown").innerHTML = rows
+          .map(
+            ([k, v]) =>
+              '<li class="flex justify-between gap-4 py-2.5"><span class="text-black/50 dark:text-white/50">' +
+              k +
+              '</span><span class="text-black dark:text-white">' +
+              v +
+              "</span></li>"
+          )
+          .join("");
+      }
+
+      document.getElementById("apply-apps").addEventListener("click", () => {
+        let kwh = 0;
+        document.querySelectorAll(".app-toggle:checked").forEach((el) => {
+          const kw = Number(el.dataset.kw);
+          const hours = Number(el.dataset.hours);
+          kwh += kw * hours * 30;
+        });
+        document.getElementById("kwh").value = Math.round(kwh);
+        recalc();
+      });
+
+      ["kwh", "afa"].forEach((id) => document.getElementById(id).addEventListener("input", recalc));
+      recalc();
+    })();
+  </script>
+</ToolShell>

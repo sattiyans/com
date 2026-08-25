@@ -129,7 +129,13 @@ const slides = [
 </dialog>
 
 <style is:global>
-  #freelance-lead-modal.flm {
+  /* Closed dialog must stay display:none — author display:grid overrides UA and
+     leaves a full-viewport invisible layer that blocks footer clicks. */
+  #freelance-lead-modal.flm:not([open]) {
+    display: none;
+  }
+
+  #freelance-lead-modal.flm[open] {
     padding: 1rem;
     margin: 0;
     border: none;

@@ -1,0 +1,100 @@
+---
+import ToolShell from "@components/ToolShell.astro";
+import { getTool } from "@data/tools";
+
+const tool = getTool("car-loan-rule-of-78")!;
+const field =
+  "w-full px-0 py-2.5 bg-transparent border-0 border-b border-black/20 dark:border-white/25 text-black dark:text-white focus:outline-none focus:border-black dark:focus:border-white";
+---
+
+<ToolShell tool={tool}>
+  <div class="space-y-8">
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="space-y-2">
+        <label for="loan" class="block text-sm font-medium text-black dark:text-white">Loan amount (RM)</label>
+        <input id="loan" type="number" min="0" step="1000" value="80000" class={field} />
+      </div>
+      <div class="space-y-2">
+        <label for="rate" class="block text-sm font-medium text-black dark:text-white">Flat rate (% / year)</label>
+        <input id="rate" type="number" min="0" step="0.1" value="2.8" class={field} />
+      </div>
+      <div class="space-y-2">
+        <label for="years" class="block text-sm font-medium text-black dark:text-white">Tenure (years)</label>
+        <input id="years" type="number" min="1" max="9" step="1" value="7" class={field} />
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <label for="paid" class="block text-sm font-medium text-black dark:text-white">
+        Months already paid (for early settlement)
+      </label>
+      <input id="paid" type="number" min="0" step="1" value="24" class={field} />
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Monthly instalment</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-instalment">—</p>
+      </div>
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Total flat interest</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-interest">—</p>
+      </div>
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Approx. EIR / year</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-eir">—</p>
+      </div>
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Early settlement owing</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-settle">—</p>
+      </div>
+    </div>
+
+    <p class="text-xs text-black/40 dark:text-white/40" id="out-note"></p>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const rm = (n) => "RM " + Math.round(n).toLocaleString("en-MY");
+
+      function recalc() {
+        const P = Math.max(0, Number(document.getElementById("loan").value) || 0);
+        const r = Math.max(0, Number(document.getElementById("rate").value) || 0) / 100;
+        const years = Math.max(1, Number(document.getElementById("years").value) || 1);
+        const N = years * 12;
+        let paid = Math.max(0, Number(document.getElementById("paid").value) || 0);
+        if (paid > N) {
+          paid = N;
+          document.getElementById("paid").value = N;
+        }
+
+        const I = P * r * years;
+        const M = N > 0 ? (P + I) / N : 0;
+        // Common flat→EIR approximation for hire purchase
+        const eir = N > 0 && P > 0 ? ((2 * N * I) / (P * (N + 1))) * 100 : 0;
+
+        const m = N - paid;
+        const rebate = N > 0 ? (I * m * (m + 1)) / (N * (N + 1)) : 0;
+        const settle = Math.max(0, m * M - rebate);
+
+        document.getElementById("out-instalment").textContent = rm(M);
+        document.getElementById("out-interest").textContent = rm(I);
+        document.getElementById("out-eir").textContent = eir.toFixed(2) + "%";
+        document.getElementById("out-settle").textContent = rm(settle);
+        document.getElementById("out-note").textContent =
+          paid >= N
+            ? "Loan fully paid under this schedule."
+            : "Remaining months: " +
+              m +
+              " · Rule of 78 interest rebate ≈ " +
+              rm(rebate) +
+              " · Educational estimate — confirm with your finance company.";
+      }
+
+      ["loan", "rate", "years", "paid"].forEach((id) => {
+        document.getElementById(id).addEventListener("input", recalc);
+      });
+      recalc();
+    })();
+  </script>
+</ToolShell>

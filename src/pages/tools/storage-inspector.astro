@@ -1,0 +1,218 @@
+---
+import ToolShell from "@components/ToolShell.astro";
+import { getTool } from "@data/tools";
+
+const tool = getTool("storage-inspector")!;
+---
+
+<ToolShell tool={tool}>
+  <div class="space-y-8">
+    <div class="flex flex-wrap gap-4" role="tablist">
+      <button
+        type="button"
+        data-mode="json"
+        class="mode-btn text-sm font-medium text-black dark:text-white border-b-2 border-black dark:border-white pb-1"
+      >
+        localStorage JSON
+      </button>
+      <button
+        type="button"
+        data-mode="cookie"
+        class="mode-btn text-sm font-medium text-black/45 dark:text-white/45 border-b-2 border-transparent pb-1"
+      >
+        Cookie header
+      </button>
+    </div>
+
+    <div class="space-y-2">
+      <label for="inspect-in" class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">Input</label>
+      <textarea
+        id="inspect-in"
+        rows="8"
+        spellcheck="false"
+        class="w-full px-0 py-3 bg-transparent border-0 border-b border-black/20 dark:border-white/25 font-mono text-xs text-black dark:text-white focus:outline-none focus:border-black dark:focus:border-white resize-y"
+        placeholder='{"token":"...","user":{"id":1}}'
+      ></textarea>
+    </div>
+
+    <div class="flex flex-wrap gap-4 items-end">
+      <input
+        id="inspect-search"
+        type="search"
+        placeholder="Filter keys…"
+        class="flex-1 min-w-[160px] px-0 py-2 bg-transparent border-0 border-b border-black/20 dark:border-white/25 text-sm text-black dark:text-white focus:outline-none focus:border-black dark:focus:border-white"
+      />
+      <button
+        id="inspect-sample"
+        type="button"
+        class="text-sm font-medium text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white pb-2"
+      >
+        Load sample
+      </button>
+    </div>
+
+    <div>
+      <h2 class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45 mb-2">Tree</h2>
+      <div
+        id="inspect-tree"
+        class="divide-y divide-black/10 dark:divide-white/10 border-t border-b border-black/10 dark:border-white/10 text-sm"
+      ></div>
+      <p id="inspect-error" class="hidden mt-2 text-sm text-red-600 dark:text-red-400"></p>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const input = document.getElementById("inspect-in");
+      const search = document.getElementById("inspect-search");
+      const tree = document.getElementById("inspect-tree");
+      const error = document.getElementById("inspect-error");
+      const sampleBtn = document.getElementById("inspect-sample");
+      let mode = "json";
+      let entries = [];
+
+      function parseCookie(header) {
+        const map = {};
+        header.split(";").forEach((part) => {
+          const trimmed = part.trim();
+          if (!trimmed) return;
+          const eq = trimmed.indexOf("=");
+          if (eq === -1) {
+            map[trimmed] = "";
+            return;
+          }
+          const key = decodeURIComponent(trimmed.slice(0, eq).trim());
+          let val = trimmed.slice(eq + 1).trim();
+          try {
+            val = decodeURIComponent(val);
+          } catch (_) {}
+          map[key] = val;
+        });
+        return map;
+      }
+
+      function flatten(obj, prefix, out) {
+        if (obj === null || obj === undefined) {
+          out.push({ key: prefix || "(root)", value: String(obj) });
+          return;
+        }
+        if (typeof obj !== "object") {
+          out.push({ key: prefix || "(value)", value: String(obj) });
+          return;
+        }
+        const keys = Object.keys(obj);
+        if (!keys.length) {
+          out.push({ key: prefix || "(empty)", value: Array.isArray(obj) ? "[]" : "{}" });
+          return;
+        }
+        keys.forEach((k) => {
+          const path = prefix ? prefix + "." + k : k;
+          const v = obj[k];
+          if (v !== null && typeof v === "object") flatten(v, path, out);
+          else out.push({ key: path, value: String(v) });
+        });
+      }
+
+      function parse() {
+        error.classList.add("hidden");
+        const raw = input.value.trim();
+        entries = [];
+        if (!raw) {
+          render();
+          return;
+        }
+        try {
+          if (mode === "cookie") {
+            flatten(parseCookie(raw), "", entries);
+          } else {
+            let data = JSON.parse(raw);
+            // localStorage dumps sometimes wrap values as strings
+            if (data && typeof data === "object" && !Array.isArray(data)) {
+              const normalized = {};
+              Object.keys(data).forEach((k) => {
+                let v = data[k];
+                if (typeof v === "string") {
+                  try {
+                    v = JSON.parse(v);
+                  } catch (_) {}
+                }
+                normalized[k] = v;
+              });
+              data = normalized;
+            }
+            flatten(data, "", entries);
+          }
+        } catch (e) {
+          error.textContent = e.message || "Parse failed";
+          error.classList.remove("hidden");
+        }
+        render();
+      }
+
+      function render() {
+        const q = search.value.trim().toLowerCase();
+        tree.innerHTML = "";
+        const filtered = q
+          ? entries.filter((e) => e.key.toLowerCase().includes(q) || e.value.toLowerCase().includes(q))
+          : entries;
+        if (!filtered.length) {
+          const empty = document.createElement("div");
+          empty.className = "px-4 py-6 text-black/40 dark:text-white/40";
+          empty.textContent = entries.length ? "No matches." : "Paste data to inspect.";
+          tree.appendChild(empty);
+          return;
+        }
+        filtered.forEach((e) => {
+          const row = document.createElement("div");
+          row.className = "flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4 py-2.5";
+          row.innerHTML =
+            '<code class="text-xs text-black/50 dark:text-white/50 sm:w-1/3 break-all">' +
+            e.key +
+            '</code><code class="text-xs text-black dark:text-white flex-1 break-all">' +
+            e.value +
+            "</code>";
+          tree.appendChild(row);
+        });
+      }
+
+      function setMode(next) {
+        mode = next;
+        document.querySelectorAll(".mode-btn").forEach((btn) => {
+          const active = btn.dataset.mode === mode;
+          btn.className = active
+            ? "mode-btn text-sm font-medium text-black dark:text-white border-b-2 border-black dark:border-white pb-1"
+            : "mode-btn text-sm font-medium text-black/45 dark:text-white/45 border-b-2 border-transparent pb-1";
+        });
+        input.placeholder =
+          mode === "cookie"
+            ? "session=abc; theme=dark; token=eyJ..."
+            : '{"token":"...","user":{"id":1}}';
+        parse();
+      }
+
+      document.querySelectorAll(".mode-btn").forEach((btn) => {
+        btn.addEventListener("click", () => setMode(btn.dataset.mode));
+      });
+      input.addEventListener("input", parse);
+      search.addEventListener("input", render);
+      sampleBtn.addEventListener("click", () => {
+        if (mode === "cookie") {
+          input.value =
+            "session_id=s%3A92f1; theme=dark; lr=en-MY; tracking_id=abc123; path=/; HttpOnly";
+        } else {
+          input.value = JSON.stringify(
+            {
+              auth_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+              user: JSON.stringify({ id: 42, name: "Alex", roles: ["admin", "editor"] }),
+              preferences: { density: "compact", locale: "en-MY" },
+            },
+            null,
+            2
+          );
+        }
+        parse();
+      });
+      parse();
+    })();
+  </script>
+</ToolShell>

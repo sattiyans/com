@@ -1,0 +1,256 @@
+---
+import ToolShell from "@components/ToolShell.astro";
+import { getTool } from "@data/tools";
+
+const tool = getTool("exif-stripper")!;
+---
+
+<ToolShell tool={tool}>
+  <div class="space-y-8">
+    <label
+      for="exif-file"
+      id="exif-drop"
+      class="flex flex-col items-start gap-1 py-8 border-b border-dashed border-black/25 dark:border-white/25 cursor-pointer hover:opacity-80 transition-opacity"
+    >
+      <span class="text-sm font-medium text-black dark:text-white">Drop image or click to choose</span>
+      <span class="text-xs text-black/45 dark:text-white/45">JPEG · WebP · PNG (re-encode strips metadata)</span>
+      <input id="exif-file" type="file" accept="image/jpeg,image/jpg,image/webp,image/png" class="hidden" />
+    </label>
+
+    <div id="exif-preview-wrap" class="hidden space-y-5">
+      <img id="exif-preview" alt="Preview" class="max-h-64 w-full object-contain" />
+      <div class="flex flex-wrap gap-3">
+        <button
+          id="exif-strip-btn"
+          type="button"
+          class="inline-flex items-center rounded-full bg-black dark:bg-white px-5 py-2.5 text-sm font-semibold text-white dark:text-black hover:opacity-90"
+        >
+          Download stripped image
+        </button>
+        <button
+          id="exif-clear"
+          type="button"
+          class="inline-flex items-center text-sm font-medium text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white"
+        >
+          Clear
+        </button>
+      </div>
+      <div>
+        <h2 class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45 mb-2">Metadata</h2>
+        <ul
+          id="exif-meta"
+          class="divide-y divide-black/10 dark:divide-white/10 border-t border-b border-black/10 dark:border-white/10 text-sm"
+        ></ul>
+        <p id="exif-empty" class="hidden text-sm text-black/45 dark:text-white/45">No EXIF APP1 segment found (already clean or unsupported).</p>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const fileInput = document.getElementById("exif-file");
+      const drop = document.getElementById("exif-drop");
+      const wrap = document.getElementById("exif-preview-wrap");
+      const preview = document.getElementById("exif-preview");
+      const metaList = document.getElementById("exif-meta");
+      const empty = document.getElementById("exif-empty");
+      const stripBtn = document.getElementById("exif-strip-btn");
+      const clearBtn = document.getElementById("exif-clear");
+      let objectUrl = null;
+      let currentFile = null;
+
+      function readU16(view, offset, le) {
+        return le ? view.getUint16(offset, true) : view.getUint16(offset, false);
+      }
+      function readU32(view, offset, le) {
+        return le ? view.getUint32(offset, true) : view.getUint32(offset, false);
+      }
+
+      function parseExif(buffer) {
+        const view = new DataView(buffer);
+        const out = [];
+        if (view.byteLength < 4 || view.getUint16(0) !== 0xffd8) {
+          return out;
+        }
+        let offset = 2;
+        while (offset + 4 < view.byteLength) {
+          if (view.getUint8(offset) !== 0xff) break;
+          const marker = view.getUint8(offset + 1);
+          const size = view.getUint16(offset + 2);
+          if (marker === 0xe1) {
+            const start = offset + 4;
+            const header = String.fromCharCode(
+              view.getUint8(start),
+              view.getUint8(start + 1),
+              view.getUint8(start + 2),
+              view.getUint8(start + 3),
+              view.getUint8(start + 4)
+            );
+            if (header === "Exif\0") {
+              const tiff = start + 6;
+              const le = view.getUint16(tiff) === 0x4949;
+              const ifd0 = tiff + readU32(view, tiff + 4, le);
+              parseIFD(view, tiff, ifd0, le, out, "IFD0");
+              // GPS IFD pointer tag 0x8825
+              const gpsPtr = findTag(view, tiff, ifd0, le, 0x8825);
+              if (gpsPtr) parseIFD(view, tiff, tiff + gpsPtr, le, out, "GPS");
+              const exifPtr = findTag(view, tiff, ifd0, le, 0x8769);
+              if (exifPtr) parseIFD(view, tiff, tiff + exifPtr, le, out, "Exif");
+            }
+            break;
+          }
+          if (marker === 0xda) break;
+          offset += 2 + size;
+        }
+        return out;
+      }
+
+      function findTag(view, tiff, ifd, le, tagId) {
+        if (ifd + 2 > view.byteLength) return null;
+        const count = readU16(view, ifd, le);
+        for (let i = 0; i < count; i++) {
+          const entry = ifd + 2 + i * 12;
+          if (entry + 12 > view.byteLength) break;
+          if (readU16(view, entry, le) === tagId) {
+            return readU32(view, entry + 8, le);
+          }
+        }
+        return null;
+      }
+
+      const TAGS = {
+        0x010f: "Make",
+        0x0110: "Model",
+        0x0112: "Orientation",
+        0x0131: "Software",
+        0x0132: "DateTime",
+        0x829a: "ExposureTime",
+        0x829d: "FNumber",
+        0x8827: "ISO",
+        0x9003: "DateTimeOriginal",
+        0x920a: "FocalLength",
+        0x0001: "GPSLatitudeRef",
+        0x0002: "GPSLatitude",
+        0x0003: "GPSLongitudeRef",
+        0x0004: "GPSLongitude",
+      };
+
+      function parseIFD(view, tiff, ifd, le, out, scope) {
+        if (ifd + 2 > view.byteLength) return;
+        const count = readU16(view, ifd, le);
+        for (let i = 0; i < count; i++) {
+          const entry = ifd + 2 + i * 12;
+          if (entry + 12 > view.byteLength) break;
+          const tag = readU16(view, entry, le);
+          const type = readU16(view, entry + 2, le);
+          const num = readU32(view, entry + 4, le);
+          const name = TAGS[tag];
+          if (!name) continue;
+          let value = "";
+          const typeSize = { 1: 1, 2: 1, 3: 2, 4: 4, 5: 8 }[type] || 1;
+          const byteLen = typeSize * num;
+          let dataOffset = entry + 8;
+          if (byteLen > 4) dataOffset = tiff + readU32(view, entry + 8, le);
+          if (type === 2) {
+            let s = "";
+            for (let j = 0; j < num && dataOffset + j < view.byteLength; j++) {
+              const c = view.getUint8(dataOffset + j);
+              if (c === 0) break;
+              s += String.fromCharCode(c);
+            }
+            value = s;
+          } else if (type === 3 && num === 1) {
+            value = String(readU16(view, dataOffset, le));
+          } else if (type === 4 && num === 1) {
+            value = String(readU32(view, dataOffset, le));
+          } else if (type === 5 && num >= 1) {
+            const nums = [];
+            for (let j = 0; j < Math.min(num, 3); j++) {
+              const n = readU32(view, dataOffset + j * 8, le);
+              const d = readU32(view, dataOffset + j * 8 + 4, le) || 1;
+              nums.push((n / d).toFixed(4).replace(/\.?0+$/, ""));
+            }
+            value = nums.join(", ");
+          } else {
+            value = "—";
+          }
+          out.push({ key: scope + " · " + name, value });
+        }
+      }
+
+      function renderMeta(items) {
+        metaList.innerHTML = "";
+        if (!items.length) {
+          empty.classList.remove("hidden");
+          return;
+        }
+        empty.classList.add("hidden");
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.className = "flex justify-between gap-4 py-2.5";
+          li.innerHTML =
+            '<span class="text-black/50 dark:text-white/50 shrink-0">' +
+            item.key +
+            '</span><span class="text-black dark:text-white text-right break-all">' +
+            item.value +
+            "</span>";
+          metaList.appendChild(li);
+        });
+      }
+
+      function loadFile(file) {
+        if (!file || !file.type.startsWith("image/")) return;
+        currentFile = file;
+        if (objectUrl) URL.revokeObjectURL(objectUrl);
+        objectUrl = URL.createObjectURL(file);
+        preview.src = objectUrl;
+        wrap.classList.remove("hidden");
+        file.arrayBuffer().then((buf) => renderMeta(parseExif(buf)));
+      }
+
+      fileInput.addEventListener("change", () => loadFile(fileInput.files[0]));
+      ["dragenter", "dragover"].forEach((ev) => {
+        drop.addEventListener(ev, (e) => {
+          e.preventDefault();
+          drop.classList.add("bg-black/[0.04]");
+        });
+      });
+      drop.addEventListener("dragleave", () => drop.classList.remove("bg-black/[0.04]"));
+      drop.addEventListener("drop", (e) => {
+        e.preventDefault();
+        drop.classList.remove("bg-black/[0.04]");
+        loadFile(e.dataTransfer.files[0]);
+      });
+
+      stripBtn.addEventListener("click", () => {
+        if (!preview.src) return;
+        const canvas = document.createElement("canvas");
+        const img = preview;
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        canvas.getContext("2d").drawImage(img, 0, 0);
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) return;
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            const base = (currentFile?.name || "image").replace(/\.[^.]+$/, "");
+            a.download = base + "-stripped.jpg";
+            a.click();
+          },
+          "image/jpeg",
+          0.92
+        );
+      });
+
+      clearBtn.addEventListener("click", () => {
+        wrap.classList.add("hidden");
+        fileInput.value = "";
+        currentFile = null;
+        if (objectUrl) URL.revokeObjectURL(objectUrl);
+        objectUrl = null;
+        metaList.innerHTML = "";
+      });
+    })();
+  </script>
+</ToolShell>

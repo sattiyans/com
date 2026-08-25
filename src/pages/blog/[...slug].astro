@@ -3,12 +3,13 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
+import Link from "@components/Link.astro";
 import { readingTime } from "@lib/utils";
-import BackToPrev from "@components/BackToPrev.astro";
+import { getTool } from "@data/tools";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog"))
-    .filter(post => !post.data.draft)
+    .filter((post) => !post.data.draft)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   return posts.map((post) => ({
     params: { slug: post.slug },
@@ -19,31 +20,180 @@ type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content } = await post.render();
+
+const relatedProject = post.data.project
+  ? (await getCollection("projects")).find((p) => !p.data.draft && p.slug === post.data.project)
+  : undefined;
+
+const relatedTool = post.data.tool ? getTool(post.data.tool) : undefined;
+
+const postKeywords = [
+  post.data.title,
+  "sattiyan selvarajah",
+  "saas engineering",
+  post.data.project,
+  post.data.tool,
+  relatedProject?.data.title,
+  relatedTool?.shortName,
+  relatedTool?.primaryKeyword,
+]
+  .filter(Boolean)
+  .join(", ");
+
+const aboutEntities = [
+  ...(relatedProject
+    ? [{ "@type": "SoftwareApplication", name: relatedProject.data.title }]
+    : []),
+  ...(relatedTool
+    ? [
+        {
+          "@type": "SoftwareApplication",
+          name: relatedTool.name,
+          url: `https://sattiyans.com${relatedTool.href}`,
+        },
+      ]
+    : []),
+];
+
+const articleLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  author: {
+    "@type": "Person",
+    name: "Sattiyan Selvarajah",
+    url: "https://sattiyans.com",
+  },
+  mainEntityOfPage: `https://sattiyans.com/blog/${post.slug}`,
+  ...(aboutEntities.length > 0 ? { about: aboutEntities } : {}),
+};
 ---
 
-<PageLayout title={post.data.title} description={post.data.description}>
+<PageLayout title={post.data.title} description={post.data.description} keywords={postKeywords}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+  <meta slot="head" property="og:type" content="article" />
   <Container>
-    <div class="animate">
-      <BackToPrev href="/blog">
-        Back to blog
-      </BackToPrev>
-    </div>
-    <div class="space-y-1 my-10">
-      <div class="animate flex items-center gap-1.5">
-        <div class="font-base text-sm">
-          <FormattedDate date={post.data.date} />
+    <div class="space-y-10">
+      <nav class="flex items-center space-x-2 text-sm text-black/50 dark:text-white/50">
+        <a href="/" class="hover:text-black dark:hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <a href="/blog" class="hover:text-black dark:hover:text-white transition-colors">Blog</a>
+        <span>/</span>
+        <span class="text-black dark:text-white font-medium truncate">{post.data.title}</span>
+      </nav>
+
+      <div class="grid gap-10 lg:grid-cols-[1fr_minmax(240px,300px)] lg:gap-14 items-start">
+        <div class="min-w-0 space-y-8">
+          <header class="space-y-4">
+            <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-black/55 dark:text-white/55">
+              <FormattedDate date={post.data.date} />
+              <span>&bull;</span>
+              <span>{readingTime(post.body)}</span>
+              {
+                (relatedProject || relatedTool) && (
+                  <>
+                    <span>&bull;</span>
+                    <span class="flex flex-wrap gap-x-2 gap-y-1">
+                      {relatedProject && (
+                        <Link
+                          href={`/projects/${relatedProject.slug}`}
+                          underline={false}
+                          class="hover:text-black dark:hover:text-white transition-colors"
+                        >
+                          {relatedProject.data.title}
+                        </Link>
+                      )}
+                      {relatedTool && (
+                        <Link
+                          href={relatedTool.href}
+                          underline={false}
+                          class="hover:text-black dark:hover:text-white transition-colors"
+                        >
+                          {relatedTool.shortName}
+                        </Link>
+                      )}
+                    </span>
+                  </>
+                )
+              }
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-semibold text-black dark:text-white leading-tight">
+              {post.data.title}
+            </h1>
+            <p class="text-sm text-black/60 dark:text-white/60 leading-relaxed">
+              {post.data.description}
+            </p>
+          </header>
+
+          <article class="prose prose-sm dark:prose-invert max-w-none prose-headings:mt-10 prose-headings:mb-4 prose-p:my-4">
+            <Content />
+          </article>
         </div>
-        &bull;
-        <div class="font-base text-sm">
-          {readingTime(post.body)}
-        </div>
-      </div>
-      <div class="animate text-2xl font-semibold text-black dark:text-white">
-        {post.data.title}
+
+        <aside class="lg:sticky lg:top-28 space-y-8">
+          {
+            relatedProject && (
+              <div class="space-y-3">
+                <p class="text-[11px] font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+                  Related case study
+                </p>
+                <Link
+                  href={`/projects/${relatedProject.slug}`}
+                  underline={false}
+                  class="block space-y-2 no-underline group"
+                >
+                  <span class="block text-sm font-semibold text-black dark:text-white group-hover:opacity-80 transition-opacity">
+                    {relatedProject.data.title}
+                  </span>
+                  <span class="block text-xs text-black/55 dark:text-white/55 leading-relaxed line-clamp-3">
+                    {relatedProject.data.description}
+                  </span>
+                  <span class="block text-xs text-black/45 dark:text-white/45">View case study →</span>
+                </Link>
+              </div>
+            )
+          }
+
+          {
+            relatedTool && (
+              <div class="space-y-3">
+                <p class="text-[11px] font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+                  Related tool
+                </p>
+                <Link href={relatedTool.href} underline={false} class="block space-y-2 no-underline group">
+                  <span class="block text-sm font-semibold text-black dark:text-white group-hover:opacity-80 transition-opacity">
+                    {relatedTool.shortName}
+                  </span>
+                  <span class="block text-xs text-black/55 dark:text-white/55 leading-relaxed line-clamp-3">
+                    {relatedTool.description}
+                  </span>
+                  <span class="block text-xs text-black/45 dark:text-white/45">Open tool →</span>
+                </Link>
+              </div>
+            )
+          }
+
+          <div class="space-y-3">
+            <p class="text-[11px] font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+              Continue
+            </p>
+            <ul class="space-y-2">
+              <li>
+                <Link href="/blog" underline={false} class="text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors">
+                  All posts →
+                </Link>
+              </li>
+              <li>
+                <Link href="/hire" underline={false} class="text-sm text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors">
+                  Hire me →
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </aside>
       </div>
     </div>
-    <article class="animate">
-      <Content />
-    </article>
   </Container>
 </PageLayout>

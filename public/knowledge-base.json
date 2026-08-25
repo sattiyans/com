@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T13:56:15.400Z",
+  "generatedAt": "2026-08-25T05:53:01.774Z",
   "about": {
     "name": "Sattiyan Selvarajah",
     "role": "Technology Lead at G6 Labs Asia & Founder of Dotkod Solutions",
@@ -106,8 +106,8 @@
     },
     {
       "title": "GSendr - WhatsApp & Email Campaigns. One Reply Desk.",
-      "description": "Multi-channel campaign platform for organizations — Official WhatsApp Cloud API campaigns, personalised bulk email with per-recipient PDFs, and a shared reply desk that keeps every conversation tied to the campaign that started it.",
-      "content": "Overview\n\nGSendr is a multi-tenant campaign platform for WhatsApp and email. Organizations upload an audience once, send on the channel that fits (or both), prove delivery, and catch WhatsApp replies in a shared inbox with the originating campaign already attached.\n\nFeatures\nOfficial WhatsApp Cloud API — Meta-approved templates, bulk WhatsApp campaigns, delivery/read tracking, and multi-org sending.\nShared WhatsApp reply desk — campaign-linked conversations with free-form replies inside Meta's 24-hour customer service window.\nPersonalised bulk email — HTML-to-PDF per recipient (invoices, statements, policies) matched to spreadsheet rows in one campaign.\nMulti-tenant organization model with scoped resources and teams.\nCampaign lifecycle from draft to schedule/send with status controls.\nDomain verification, sender identity, and deliverability governance (SPF/DKIM/DMARC-aware workflows).\nRecipient import, validation, and engagement analytics (delivered, opened, clicked, bounced, WhatsApp read/failed).\n\nRoadmap\n\nEvolving GSendr into fuller multi-channel campaign infrastructure:\nLive — Email campaigns with verified-domain sending, personalised attachments, and engagement analytics.\nLive — Official WhatsApp Cloud API campaigns, templates, and shared reply desk (50K+ messages sent across organizations).\nIn development — AI Reply that drafts on-brand WhatsApp responses from campaign + conversation context.\nPlanned — Voice Blast, SMS, deeper audience segmentation and lifecycle automation, expanded deliverability diagnostics, and stronger org-level policy/compliance controls.",
+      "description": "Multi-tenant campaign platform — Official WhatsApp Cloud API, personalised bulk email with per-recipient PDFs, and a shared reply desk. ~10 orgs live; ~10K+ WhatsApp and 10K+ emails daily.",
+      "content": "Overview\n\nGSendr is a multi-tenant campaign platform built at G6 Labs Asia for organizations that need Official WhatsApp Cloud API and personalised bulk email in one place — not as bolt-ons.\n\nAn org uploads an audience once, sends on WhatsApp, email, or both, proves delivery, and catches WhatsApp replies in a shared reply desk with the originating campaign already attached. Today roughly 10 organizations run on the platform, collectively sending on the order of 10K+ WhatsApp messages and 10K+ emails on a busy day.\n\nI owned the full stack: Next.js (App Router) + TypeScript on the front, Express.js + PostgreSQL on the API, Meta’s WhatsApp Cloud API for template campaigns, Resend for verified-domain email, Chart.js for engagement views, and Zod across validation boundaries.\n\nThe problem\n\nMost “omnichannel” tools treat WhatsApp as an afterthought:\nEmail and WhatsApp audiences diverge — ops ends up maintaining two lists.\nReplies land in a generic inbox with no link back to the campaign that started the thread.\nBulk email personalisation stops at merge tags; finance and ops still need per-recipient PDFs (statements, invoices, policies).\nMulti-org SaaS needs hard tenancy: templates, domains, numbers, and analytics scoped per organization.\n\nGSendr treats both channels as first-class, and treats conversation as part of the campaign lifecycle.\n\nWhat I built\n\nOfficial WhatsApp Cloud API\n\nWe didn’t start here. Early GSendr sent via Evolution API (unofficial). Even with working-hour windows, daily caps, and send delays, numbers were getting banned fast — a non-starter for multi-org customers. We migrated to Meta’s Official Cloud API with approved templates: template governance per org, bulk pipelines with retries and failure states, and delivery / read / failed signals in campaign reporting. Reliable, attributable outbound — not a grey-route blast.\n\nOne audience, two channels\n\nThe same recipient pipeline feeds WhatsApp and email. Import, validation, and targeting sit in one place; channel choice is a send decision, not a data-model fork. Teams don’t maintain parallel lists just because the channel changed.\n\nPersonalised bulk email + PDFs\n\nFor campaigns that need attachments, GSendr generates HTML → PDF per recipient matched to spreadsheet rows, then sends via verified-domain flows (SPF/DKIM/DMARC-aware). Opens, clicks, and bounces land back on the campaign so ops can see what actually happened.\n\nShared reply desk\n\nWhatsApp replies open Meta’s 24-hour customer-service window. The desk keeps conversations tied to the campaign that started them, so agents aren’t guessing which blast a customer is responding to. Free-form replies stay inside that window; campaign context stays intact.\n\nMulti-tenant by default\n\nOrganizations, teams, domains, templates, and analytics are scoped. That matters once you’re not one company with one number — you’re a platform running concurrent campaigns for different orgs without leaking audiences or credentials.\n\nFeatures\nOfficial WhatsApp Cloud API — Meta-approved templates, bulk WhatsApp campaigns, delivery/read tracking, multi-org sending\nShared WhatsApp reply desk — campaign-linked conversations with free-form replies inside the 24-hour window\nPersonalised bulk email — HTML-to-PDF per recipient matched to spreadsheet rows in one campaign\nMulti-tenant organization model with scoped resources and teams\nCampaign lifecycle from draft to schedule/send with status controls\nDomain verification, sender identity, and deliverability governance\nRecipient import, validation, and engagement analytics (delivered, opened, clicked, bounced, WhatsApp read/failed)\n\nResults\n\nIn production across ~10 organizations:\nSustained daily volume on the order of 10K+ WhatsApp and 10K+ emails\nUnified WhatsApp + email on one audience with campaign-linked reply handling\nPersonalised attachments and verified-domain sending with engagement analytics\nMulti-tenant ops without artificial daily send-cap bottlenecks\n\nRoadmap\nLive — Email campaigns with verified-domain sending, personalised attachments, and engagement analytics\nLive — Official WhatsApp Cloud API campaigns, templates, and shared reply desk at current multi-org volume\nIn development — AI Reply that drafts on-brand WhatsApp responses from campaign + conversation context\nPlanned — Voice Blast, SMS, deeper audience segmentation and lifecycle automation, expanded deliverability diagnostics, stronger org-level policy/compliance controls\n\nRelated\nHow we built GSendr — architecture, audiences, PDFs, reply desk, tenancy  \nWhy we left Evolution API — unofficial WhatsApp, bans, and the move to Official Cloud API",
       "role": "Full-Stack Developer",
       "client": "GSendr",
       "projectOwner": "G6 Labs Asia",
@@ -121,7 +121,7 @@
         "gsendr3.png",
         "gsendr4.png"
       ],
-      "date": "2026-02-25T00:00:00.000Z",
+      "date": "2026-08-25T00:00:00.000Z",
       "slug": "gsendr",
       "url": "/projects/gsendr"
     },
@@ -292,7 +292,7 @@
       "dateStart": "05/01/2026",
       "dateEnd": "Current",
       "summary": "Leading architecture and engineering for proprietary SaaS platforms including GBoost.ai and GSendr (WhatsApp + email).",
-      "content": "Lead technical direction, system frameworks, and engineering standards for core software applications and proprietary SaaS platforms.\nBuilt and scaled proprietary SaaS products including GBoost.ai and GSendr — GSendr now ships Official WhatsApp Cloud API campaigns and personalised email at multi-org scale (50K+ WhatsApp messages sent).\nArchitect and scale the foundations of primary SaaS engines with isolated, containerized runtimes and event-driven workflows for fault-tolerant, zero-downtime automated processing.\nCollaborate on the product lifecycle, translating business logic into technical roadmaps and optimizing generative AI pipelines for automated capabilities.\nDrive engineering standards across the development lifecycle, owning code review and optimizing deployment workflows for seamless product delivery.",
+      "content": "Lead technical direction, system frameworks, and engineering standards for core software applications and proprietary SaaS platforms.\nBuilt and scaled proprietary SaaS products including GBoost.ai and GSendr — GSendr now runs Official WhatsApp Cloud API + email campaigns across ~10 orgs (~10K+ WhatsApp and 10K+ emails daily).\nArchitect and scale the foundations of primary SaaS engines with isolated, containerized runtimes and event-driven workflows for fault-tolerant, zero-downtime automated processing.\nCollaborate on the product lifecycle, translating business logic into technical roadmaps and optimizing generative AI pipelines for automated capabilities.\nDrive engineering standards across the development lifecycle, owning code review and optimizing deployment workflows for seamless product delivery.",
       "slug": "g6labs",
       "url": "/work/g6labs"
     },
@@ -307,105 +307,182 @@
       "url": "/work/trisquare"
     }
   ],
-  "blog": [],
+  "blog": [
+    {
+      "title": "Automating SME ops with n8n and GenAI — without boiling the ocean",
+      "description": "What I automate for startups and SMEs via Dotkod — n8n workflows, GenAI where it earns its keep, and the boring glue that actually saves hours.",
+      "content": "Most SME “AI projects” fail the same way: a chatbot demo, no owner for the workflow, and a spreadsheet that still runs the business.\n\nAt Dotkod Solutions I take the opposite bet. Start from a painful, repeating ops job. Automate the glue. Add GenAI only where draft-quality text or classification beats a human on speed — then hand the result back into a system someone already trusts.\n\nThe pattern that works\nName the job — “chase unpaid invoices,” “triage inbound leads,” “summarise support threads into a CRM note.”\nMap the triggers — email, webhook, form, schedule, spreadsheet row.\nAutomate the path in n8n (or similar) — fetch → transform → decide → write back.\nDrop GenAI on one step — draft reply, extract fields, classify intent — with a human or rule gate when money or reputation is on the line.\nLog failures — retries, dead letters, a Slack/email ping. Silent automation is worse than no automation.\n\nYou’re not building a platform. You’re removing hours from a week.\n\nWhere GenAI earns its seat\n\nGenAI is useful when the input is messy language and the output is a draft or structured guess:\nLead emails → CRM fields + suggested next action  \nSupport threads → short internal summary  \nProduct blurbs / FAQ drafts from a brief  \nReview or feedback clustering for a weekly digest  \n\nIt’s a liability when you need deterministic money movement, exact tax figures, or “always send this template or don’t send at all.” For those, use rules, APIs, and official channels — same lesson we learned the hard way on WhatsApp elsewhere.\n\nWhere n8n (and friends) earn their seat\n\nThe value is usually the plumbing:\nWebhooks from payment gateways or forms  \nNightly syncs between tools that refuse to talk  \nApprovals: draft → human click → send  \nRetries when a third-party API flakes at 2am  \n\nSMEs don’t need another dashboard. They need the existing ones to stay in sync without copy-paste.\n\nWhat I refuse to automate first\nAnything without a clear owner when it breaks  \nAnything where a wrong send costs more than a wrong skip  \n“AI for everything” roadmaps before one workflow is live for 30 days  \n\nShip one boring win. Measure hours saved. Then expand.\n\nTakeaway\n\nGenAI without workflow design is theatre. Workflow design without failure handling is a future outage. For startups and SMEs, the win is narrow: n8n (or equivalent) for glue, GenAI for drafts and extraction, humans for judgment.\n\nIf you’re scoping an automation or custom web build, hire me or email hey@sattiyans.com.",
+      "date": "2026-08-01T00:00:00.000Z",
+      "slug": "blog",
+      "project": null,
+      "tool": null,
+      "url": "/blog/blog"
+    },
+    {
+      "title": "How we built GSendr to run WhatsApp + email campaigns across orgs",
+      "description": "Inside GSendr’s multi-tenant campaign engine — Official WhatsApp Cloud API, personalised bulk email, and a shared reply desk. ~10 orgs; ~10K+ WhatsApp and 10K+ emails daily.",
+      "content": "When we started GSendr at G6 Labs Asia, the brief wasn’t “add WhatsApp to an email tool.” It was: give organizations one place to run Official WhatsApp Cloud API campaigns and personalised bulk email, prove delivery, and answer replies with the campaign still attached.\n\nThat sounds tidy on a slide. In production it means Meta templates, 24-hour customer-service windows, verified sending domains, spreadsheet → per-recipient PDFs, multi-tenant isolation, and a reply desk that doesn’t lose context when five teams are sending at once.\n\nThe problem we actually had\n\nMost “omnichannel” tools treat WhatsApp as a bolt-on:\nEmail and WhatsApp audiences drift apart — ops ends up maintaining two lists.\nReplies land in a generic inbox with no link back to the campaign that started the thread.\nBulk email personalisation stops at merge tags; finance/ops still need per-recipient PDFs (statements, invoices, policies).\nMulti-org SaaS needs hard tenancy: templates, domains, numbers, and analytics scoped per organization — not a shared free-for-all.\n\nWe needed a system that treated both channels as first-class, and treated conversation as part of the campaign lifecycle — not an afterthought.\n\nWhat GSendr is\n\nGSendr is a multi-tenant campaign platform. An org uploads an audience once, sends on WhatsApp, email, or both, tracks delivery/engagement, and handles WhatsApp replies in a shared reply desk with the originating campaign already attached.\n\nI built it full-stack: Next.js (App Router) + TypeScript on the front, Express.js + PostgreSQL on the API, WhatsApp Cloud API for Meta-approved template sends, Resend for verified-domain email, plus Chart.js for engagement views and Zod across validation boundaries.\n\nHow we approached the hard parts\n\nOfficial WhatsApp Cloud API\n\nCampaign sending goes through Meta’s Official Cloud API with approved templates:\nTemplate governance per org (what’s approved, what’s sendable)\nBulk send pipelines that respect API realities (throughput, retries, failure states)\nDelivery / read / failed signals fed back into campaign reporting\nA real 24-hour customer-service window for free-form replies after the user responds\n\nThe product promise is boring on purpose: reliable, attributable outbound — not “blast and pray.”\n\nOne audience, two channels\n\nThe same recipient pipeline feeds WhatsApp and email. Import, validation, and campaign targeting sit in one place; channel choice is a send decision, not a data-model fork.\n\nPersonalised bulk email with per-recipient PDFs\n\nFor campaigns that need attachments (statements, invoices, policies), we generate HTML → PDF per recipient matched to spreadsheet rows, then send via verified-domain flows (SPF/DKIM/DMARC-aware). Opens, clicks, and bounces land back on the campaign.\n\nShared reply desk with campaign context\n\nWhatsApp replies open Meta’s 24-hour window. The desk keeps conversations tied to the campaign that started them, so agents aren’t guessing which blast a customer is responding to.\n\nMulti-tenant by default\n\nOrganizations, teams, domains, templates, and analytics are scoped. Concurrent campaigns across orgs without leaking audiences or credentials.\n\nWhere it is now\n\nGSendr is live with roughly 10 organizations. On a busy day they collectively send on the order of 10K+ WhatsApp messages and 10K+ emails — sustained daily volume, not a launch spike.\n\nThat scale only works if the boring infrastructure holds: recipient validation, delivery reporting, template/domain governance, and a reply desk that still makes sense when multiple campaigns are in flight.\n\nWhat’s next\nIn development — AI Reply that drafts on-brand WhatsApp responses from campaign + conversation context  \nPlanned — Voice Blast, SMS, deeper segmentation / lifecycle automation, stronger deliverability diagnostics\n\nTakeaway\n\nShipping Official WhatsApp Cloud API at multi-org scale isn’t a single integration call. It’s product + architecture: tenancy, templates, audiences, attachments, delivery proof, and replies as one operational loop.\n\nFull case study: GSendr.  \nHow we got to Official Cloud API (and what unofficial cost us): Why we left Evolution API.",
+      "date": "2026-05-18T00:00:00.000Z",
+      "slug": "blog",
+      "project": "gsendr",
+      "tool": null,
+      "url": "/blog/blog"
+    },
+    {
+      "title": "Why we left Evolution API for Official WhatsApp Cloud API",
+      "description": "GSendr started on Evolution API. Working hours, daily caps, and delays still weren’t enough — numbers got banned fast. Here’s why we moved to Meta’s Official Cloud API.",
+      "content": "GSendr didn’t start on Official WhatsApp Cloud API.\n\nTo ship WhatsApp campaigns quickly, we wired Evolution API — an unofficial stack. Connect a number, send, iterate. On a demo it looks fine. In production with real orgs, it didn’t hold.\n\nWhat broke\n\nNumbers got banned fast.\n\nWe weren’t blasting blindly. We put the usual safeguards in place:\nWorking-hour send windows\nDaily send caps\nPer-message delays / jitter\nThrottling and careful pacing\n\nIt slowed the bleeding. It didn’t stop it.\n\nUnofficial routes sit outside Meta’s business rules. You’re always one spam or quality signal away from a dead number. For a multi-tenant product, that isn’t a “ops will rotate SIMs” problem — it’s a customer-trust failure. An org that wakes up to a banned sender loses campaigns, reply context, and confidence in the platform.\n\nThe real cost\n\nEvery ban burned:\nTime reconnecting / replacing numbers\nCampaign history and operational continuity\nTrust with orgs that expected WhatsApp to just work\n\nLimits and delays are table stakes. They don’t make an unofficial channel durable.\n\nSpeed of integration isn’t worth fragile deliverability.\n\nWhat we moved to\n\nWe migrated GSendr to Meta’s Official WhatsApp Cloud API:\nMeta-approved templates and per-org template governance\nBulk pipelines with retries, failure states, and delivery / read / failed reporting\nA real 24-hour customer-service window for free-form replies after the user responds\n\nBoring on purpose: attributable outbound you can run across organizations without playing ban roulette.\n\nWhere that left us\n\nToday GSendr runs Official Cloud API + email for roughly 10 organizations, with daily volume on the order of 10K+ WhatsApp and 10K+ emails. That volume only makes sense on a path Meta won’t randomly kill under you.\n\nTakeaway\n\nIf you’re building WhatsApp into a product — especially multi-org SaaS — treat unofficial APIs as a prototype, not a foundation. We learned that the expensive way on Evolution API.\n\nHow the full platform is shaped (audiences, PDFs, reply desk, tenancy): How we built GSendr · Case study.",
+      "date": "2026-08-25T00:00:00.000Z",
+      "slug": "blog",
+      "project": "gsendr",
+      "tool": null,
+      "url": "/blog/blog"
+    }
+  ],
   "tools": [
     {
-      "name": "Letterboxd Analytics",
-      "description": "Analyze your Letterboxd activity with detailed statistics, ratings breakdown, and viewing patterns.",
-      "href": "/tools/letterboxd-analytics",
-      "category": "Analytics"
+      "name": "LHDN Tax Relief Optimizer",
+      "description": "Free LHDN tax relief calculator for Malaysia. Estimate personal income tax savings from EPF, lifestyle, medical, sports, SSPN & PRS reliefs. 100% offline — no signup.",
+      "href": "/tools/lhdn-tax-relief",
+      "category": "Finance",
+      "slug": "lhdn-tax-relief"
     },
     {
-      "name": "Base64 Encoder/Decoder",
-      "description": "Convert text to Base64 encoding or decode Base64 back to text. Simple and fast text conversion.",
-      "href": "/tools/base64",
-      "category": "Text Tools"
+      "name": "EXIF / Metadata Stripper",
+      "description": "Free EXIF stripper online. View GPS, camera model & exposure metadata, then download a clean JPEG with EXIF removed. Runs in your browser — photos never uploaded.",
+      "href": "/tools/exif-stripper",
+      "category": "Privacy",
+      "slug": "exif-stripper"
     },
     {
-      "name": "Color Converter",
-      "description": "Convert colors between HEX, RGB, HSL, and HSV formats. Pick colors visually and get all format codes.",
-      "href": "/tools/color-converter",
-      "category": "Design Tools"
+      "name": "Cron Parser & Visualizer",
+      "description": "Free cron expression parser online. Translate crontab strings into plain English and see the next 10 run times in your timezone. No API — pure JavaScript.",
+      "href": "/tools/cron-parser",
+      "category": "DevOps",
+      "slug": "cron-parser"
     },
     {
-      "name": "Password Generator",
-      "description": "Generate secure, random passwords with customizable length and character sets. Create strong passwords.",
-      "href": "/tools/password-generator",
-      "category": "Security Tools"
+      "name": "SVG Sanitizer & Minifier",
+      "description": "Free SVG sanitizer and minifier online. Clean Figma/Illustrator junk, strip metadata & comments, preview inline, and copy optimized SVG. Client-side only.",
+      "href": "/tools/svg-sanitizer",
+      "category": "Frontend",
+      "slug": "svg-sanitizer"
+    },
+    {
+      "name": "Storage & Cookie Inspector",
+      "description": "Free cookie header parser and localStorage inspector. Paste Cookie strings or JSON dumps into a searchable key–value tree. Debug frontend state in-browser.",
+      "href": "/tools/storage-inspector",
+      "category": "Debug",
+      "slug": "storage-inspector"
+    },
+    {
+      "name": "Car Loan Rule of 78",
+      "description": "Free Malaysia car loan calculator. Convert flat interest to effective rate (EIR) and estimate Rule of 78 early settlement balances — 100% offline in your browser.",
+      "href": "/tools/car-loan-rule-of-78",
+      "category": "Finance",
+      "slug": "car-loan-rule-of-78"
+    },
+    {
+      "name": "TNB Bill Calculator",
+      "description": "Free TNB electricity bill calculator for Peninsular Malaysia. Estimate domestic bills under the July 2025 tariff (generation, capacity, network, retail, EEI, AFA). Client-side only.",
+      "href": "/tools/tnb-bill-calculator",
+      "category": "Lifestyle",
+      "slug": "tnb-bill-calculator"
+    },
+    {
+      "name": "Housing DSR Checker",
+      "description": "Free Malaysia housing loan DSR calculator. Check debt service ratio vs common bank ceilings (≈60–70%) using net salary, commitments, and estimated home loan instalment. Offline.",
+      "href": "/tools/dsr-housing-eligibility",
+      "category": "Finance",
+      "slug": "dsr-housing-eligibility"
+    },
+    {
+      "name": "PTPTN Repayment Calculator",
+      "description": "Free PTPTN repayment calculator. Estimate monthly instalments with 1% ujrah, and see savings from full-settlement or direct-debit style discounts. 100% client-side.",
+      "href": "/tools/ptptn-repayment",
+      "category": "Finance",
+      "slug": "ptptn-repayment"
+    },
+    {
+      "name": "Long Weekend Planner",
+      "description": "Free Malaysia long weekend planner for 2026. See federal public holidays, spot bridge days, and find which 1–2 annual leave days unlock 4–5 day breaks. Offline.",
+      "href": "/tools/long-weekend-planner",
+      "category": "Lifestyle",
+      "slug": "long-weekend-planner"
     }
   ],
   "watched": {
     "description": "A collection of films Sattiyan has recently watched, tracked via Letterboxd. The page displays recently watched movies with ratings, posters, and watch dates. Sattiyan's Letterboxd profile: https://letterboxd.com/sattiyans. The page shows the most recent films he has watched, including movie titles, years, ratings (if given), and when they were watched.",
     "recentFilms": [
       {
-        "title": "Crazy Rich Asians",
-        "year": 2018,
-        "watchedDate": "2026-08-10T13:44:49.000Z",
-        "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/crazy-rich-asians/"
-      },
-      {
-        "title": "Gayong 2",
+        "title": "Pyaar Prema Kalyanam",
         "year": 2026,
-        "watchedDate": "2026-08-09T09:04:02.000Z",
+        "watchedDate": "2026-08-24T01:20:31.000Z",
         "rating": 2.5,
-        "url": "https://letterboxd.com/sattiyans/film/gayong-2/"
+        "url": "https://letterboxd.com/sattiyans/film/pyaar-prema-kalyanam/"
       },
       {
-        "title": "The Last House",
-        "year": 2026,
-        "watchedDate": "2026-08-09T06:55:21.000Z",
-        "rating": 1.5,
-        "url": "https://letterboxd.com/sattiyans/film/the-last-house-2026/"
+        "title": "Memories of Murder",
+        "year": 2003,
+        "watchedDate": "2026-08-23T11:18:03.000Z",
+        "rating": 5,
+        "url": "https://letterboxd.com/sattiyans/film/memories-of-murder/"
       },
       {
-        "title": "Gatta Kusthi 2",
+        "title": "Jana Nayagan, 2026",
         "year": 2026,
-        "watchedDate": "2026-08-02T07:14:39.000Z",
-        "rating": 3,
-        "url": "https://letterboxd.com/sattiyans/film/gatta-kusthi-2/"
-      },
-      {
-        "title": "Spider-Man: Brand New Day",
-        "year": 2026,
-        "watchedDate": "2026-08-01T10:34:11.000Z",
-        "rating": 4.5,
-        "url": "https://letterboxd.com/sattiyans/film/spider-man-brand-new-day/1/"
-      },
-      {
-        "title": "Spider-Man: Brand New Day, 2026 - ★★★★ (contains spoilers)",
-        "year": 2026,
-        "watchedDate": "2026-07-30T17:10:35.000Z",
+        "watchedDate": "2026-08-22T06:42:57.000Z",
         "rating": null,
-        "url": "https://letterboxd.com/sattiyans/film/spider-man-brand-new-day/"
+        "url": "https://letterboxd.com/sattiyans/film/jana-nayagan/1/"
       },
       {
-        "title": "Disclosure Day",
-        "year": 2026,
-        "watchedDate": "2026-07-28T12:32:05.000Z",
-        "rating": 2.5,
-        "url": "https://letterboxd.com/sattiyans/film/disclosure-day/"
-      },
-      {
-        "title": "Spider-Man: No Way Home",
-        "year": 2021,
-        "watchedDate": "2026-07-28T01:32:03.000Z",
+        "title": "Perfect Days",
+        "year": 2023,
+        "watchedDate": "2026-08-21T13:39:20.000Z",
         "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/spider-man-no-way-home/"
+        "url": "https://letterboxd.com/sattiyans/film/perfect-days-2023/"
       },
       {
-        "title": "The Evil Dead",
-        "year": 1981,
-        "watchedDate": "2026-07-27T07:24:15.000Z",
-        "rating": 3.5,
-        "url": "https://letterboxd.com/sattiyans/film/the-evil-dead/"
+        "title": "Fight Back to School",
+        "year": 1991,
+        "watchedDate": "2026-08-20T13:29:46.000Z",
+        "rating": 4,
+        "url": "https://letterboxd.com/sattiyans/film/fight-back-to-school/"
       },
       {
-        "title": "Spider-Man: Far From Home",
-        "year": 2019,
-        "watchedDate": "2026-07-26T14:24:40.000Z",
+        "title": "Evil Dead II",
+        "year": 1987,
+        "watchedDate": "2026-08-19T06:31:52.000Z",
+        "rating": 4,
+        "url": "https://letterboxd.com/sattiyans/film/evil-dead-ii/"
+      },
+      {
+        "title": "Con City",
+        "year": 2026,
+        "watchedDate": "2026-08-18T12:13:34.000Z",
         "rating": 2.5,
-        "url": "https://letterboxd.com/sattiyans/film/spider-man-far-from-home/1/"
+        "url": "https://letterboxd.com/sattiyans/film/con-city/"
+      },
+      {
+        "title": "The 40 Year Old Virgin",
+        "year": 2005,
+        "watchedDate": "2026-08-18T09:15:21.000Z",
+        "rating": 3,
+        "url": "https://letterboxd.com/sattiyans/film/the-40-year-old-virgin/"
+      },
+      {
+        "title": "Police Story",
+        "year": 1985,
+        "watchedDate": "2026-08-18T03:21:10.000Z",
+        "rating": 4,
+        "url": "https://letterboxd.com/sattiyans/film/police-story/"
+      },
+      {
+        "title": "The Ron Clark Story",
+        "year": 2006,
+        "watchedDate": "2026-08-16T12:37:49.000Z",
+        "rating": 3,
+        "url": "https://letterboxd.com/sattiyans/film/the-ron-clark-story/"
       }
     ]
   },

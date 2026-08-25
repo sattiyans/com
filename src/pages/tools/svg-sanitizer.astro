@@ -1,0 +1,163 @@
+---
+import ToolShell from "@components/ToolShell.astro";
+import { getTool } from "@data/tools";
+
+const tool = getTool("svg-sanitizer")!;
+---
+
+<ToolShell tool={tool}>
+  <div class="space-y-8">
+    <div class="grid gap-8 lg:grid-cols-2">
+      <div class="space-y-2">
+        <label for="svg-in" class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">Input</label>
+        <textarea
+          id="svg-in"
+          rows="12"
+          spellcheck="false"
+          class="w-full px-0 py-3 bg-transparent border-0 border-b border-black/20 dark:border-white/25 font-mono text-xs text-black dark:text-white focus:outline-none focus:border-black dark:focus:border-white resize-y"
+          placeholder='<svg xmlns="http://www.w3.org/2000/svg">…</svg>'
+        ></textarea>
+      </div>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between gap-2">
+          <label for="svg-out" class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">Optimized</label>
+          <button
+            id="svg-copy"
+            type="button"
+            class="text-xs font-medium text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white"
+          >
+            Copy
+          </button>
+        </div>
+        <textarea
+          id="svg-out"
+          rows="12"
+          readonly
+          spellcheck="false"
+          class="w-full px-0 py-3 bg-transparent border-0 border-b border-black/20 dark:border-white/25 font-mono text-xs text-black dark:text-white resize-y"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3 text-xs text-black/45 dark:text-white/45">
+      <span id="svg-stats">—</span>
+      <label class="inline-flex items-center gap-2 cursor-pointer text-black/60 dark:text-white/60">
+        <input id="svg-minify" type="checkbox" checked class="rounded border-black/20" />
+        Minify whitespace
+      </label>
+    </div>
+
+    <div class="space-y-2">
+      <h2 class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">Preview</h2>
+      <div
+        id="svg-preview"
+        class="min-h-[140px] flex items-center justify-center py-6 overflow-auto border-b border-black/10 dark:border-white/10"
+      ></div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const input = document.getElementById("svg-in");
+      const output = document.getElementById("svg-out");
+      const preview = document.getElementById("svg-preview");
+      const stats = document.getElementById("svg-stats");
+      const minify = document.getElementById("svg-minify");
+      const copyBtn = document.getElementById("svg-copy");
+
+      const DROP_TAGS = new Set([
+        "metadata",
+        "title",
+        "desc",
+        "sodipodi:namedview",
+        "foreignobject",
+      ]);
+      const DROP_ATTR_PREFIXES = ["inkscape:", "sodipodi:", "xmlns:inkscape", "xmlns:sodipodi", "xmlns:sketch"];
+      const DROP_ATTRS = new Set([
+        "id",
+        "data-name",
+        "enable-background",
+        "xml:space",
+        "version",
+        "style",
+      ]);
+
+      function shouldDropAttr(name) {
+        if (DROP_ATTRS.has(name)) return true;
+        return DROP_ATTR_PREFIXES.some((p) => name === p || name.startsWith(p.replace(/:$/, "") + ":") || name.startsWith(p));
+      }
+
+      function cleanNode(node) {
+        if (node.nodeType === Node.COMMENT_NODE) {
+          node.parentNode?.removeChild(node);
+          return;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        const tag = node.tagName.toLowerCase();
+        if (DROP_TAGS.has(tag) || tag.includes("sodipodi") || tag.includes("inkscape")) {
+          node.parentNode?.removeChild(node);
+          return;
+        }
+        [...node.attributes].forEach((attr) => {
+          if (shouldDropAttr(attr.name)) node.removeAttribute(attr.name);
+        });
+        [...node.childNodes].forEach(cleanNode);
+      }
+
+      function run() {
+        const raw = input.value.trim();
+        if (!raw) {
+          output.value = "";
+          preview.innerHTML = "";
+          stats.textContent = "—";
+          return;
+        }
+        try {
+          const doc = new DOMParser().parseFromString(raw, "image/svg+xml");
+          if (doc.querySelector("parsererror")) throw new Error("Invalid SVG");
+          const svg = doc.documentElement;
+          [...svg.childNodes].forEach(cleanNode);
+          cleanNode(svg);
+          let out = new XMLSerializer().serializeToString(svg);
+          if (minify.checked) {
+            out = out
+              .replace(/<!--[\s\S]*?-->/g, "")
+              .replace(/>\s+</g, "><")
+              .replace(/\s{2,}/g, " ")
+              .trim();
+          }
+          output.value = out;
+          preview.innerHTML = out;
+          const before = raw.length;
+          const after = out.length;
+          const pct = before ? Math.round((1 - after / before) * 100) : 0;
+          stats.textContent = before + " → " + after + " chars (" + (pct > 0 ? "−" + pct + "%" : "no shrink") + ")";
+        } catch (e) {
+          output.value = "";
+          preview.innerHTML = "";
+          stats.textContent = e.message || "Parse error";
+        }
+      }
+
+      input.addEventListener("input", run);
+      minify.addEventListener("change", run);
+      copyBtn.addEventListener("click", async () => {
+        if (!output.value) return;
+        await navigator.clipboard.writeText(output.value);
+        copyBtn.textContent = "Copied";
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1200);
+      });
+
+      input.value = `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" version="1.1">
+  <!-- generator junk -->
+  <title>Icon</title>
+  <desc>Exported from design tool</desc>
+  <metadata>remove me</metadata>
+  <g id="Layer_1" data-name="Layer 1" style="display:inline">
+    <circle cx="60" cy="60" r="40" fill="#111111"/>
+  </g>
+</svg>`;
+      run();
+    })();
+  </script>
+</ToolShell>

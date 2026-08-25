@@ -36,51 +36,75 @@ const structuredData = {
       "@type": "Person",
       "@id": "https://sattiyans.com/#person",
       name: SITE.NAME,
+      alternateName: ["Sattiyan", "Sattiyans"],
       jobTitle: "Technology Lead & Founder",
-      description: "Technology Lead at G6 Labs Asia and founder of Dotkod Solutions, specializing in system architecture, product engineering, and GenAI automation.",
+      description:
+        "Technology Lead at G6 Labs Asia and founder of Dotkod Solutions, specializing in system architecture, product engineering, SaaS platforms, and GenAI automation.",
       url: "https://sattiyans.com",
-      image: "https://sattiyans.com/og-image.png",
+      image: "https://sattiyans.com/photo.jpg",
+      email: SITE.EMAIL,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Kuala Lumpur",
+        addressCountry: "MY",
+      },
       sameAs: socialLinks,
-      worksFor: { "@id": "https://sattiyans.com/#organization" },
+      worksFor: [
+        { "@id": "https://sattiyans.com/#g6labs" },
+        { "@id": "https://sattiyans.com/#organization" },
+      ],
       knowsAbout: [
-        "PHP",
         "Laravel",
+        "PHP",
+        "Node.js",
+        "Python",
         "SaaS Development",
-        "E-commerce",
-        "AI Integration",
-        "Web Development"
-      ]
+        "System Architecture",
+        "WhatsApp Cloud API",
+        "GenAI Automation",
+        "API Integrations",
+        "Next.js",
+        "React",
+      ],
     },
     {
       "@type": "Organization",
       "@id": "https://sattiyans.com/#organization",
       name: "Dotkod Solutions",
       url: "https://dotkod.com",
-      founder: { "@id": "https://sattiyans.com/#person" }
+      founder: { "@id": "https://sattiyans.com/#person" },
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://sattiyans.com/#g6labs",
+      name: "G6 Labs Asia",
+      employee: { "@id": "https://sattiyans.com/#person" },
     },
     {
       "@type": "WebSite",
       "@id": "https://sattiyans.com/#website",
       url: "https://sattiyans.com",
-      name: `${SITE.NAME} Portfolio`,
-      description
-    }
-  ]
+      name: SITE.NAME,
+      description:
+        "Portfolio and free tools by Sattiyan Selvarajah — Technology Lead, SaaS engineer, and founder based in Malaysia.",
+      publisher: { "@id": "https://sattiyans.com/#person" },
+      inLanguage: "en",
+    },
+  ],
 };
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="/favicon-light.svg" media="(prefers-color-scheme: light)">
-<link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<!-- Favicon — avatar from /photo.jpg -->
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 
 <!-- Font preloads -->
@@ -119,10 +143,12 @@ const structuredData = {
 <meta property="twitter:site" content="@sattiyans" />
 
 <!-- Additional Meta Tags -->
-<meta name="robots" content="index, follow" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="author" content="Sattiyan Selvarajah" />
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)" />
+<link rel="alternate" type="application/rss+xml" title={`${SITE.NAME} RSS`} href="/rss.xml" />
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />

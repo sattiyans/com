@@ -29,54 +29,74 @@ const dateLabel = isCurrent
   : dateRange(entry.data.dateStart, entry.data.dateEnd);
 ---
 
-<!-- not-prose: avoids global article { prose } styles that break layout -->
-<div class="not-prose relative flex gap-4 items-stretch">
-  <!-- Timeline: circle + connector line -->
+<div class="not-prose relative flex gap-4 sm:gap-5 items-stretch">
   <div class="relative shrink-0 w-10 self-stretch">
     <div
-      class="relative z-10 w-10 h-10 rounded-full bg-white dark:bg-gray-950 ring-1 ring-black/10 dark:ring-white/15 flex items-center justify-center overflow-hidden"
+      class="relative z-10 w-10 h-10 rounded-full bg-white dark:bg-black ring-1 ring-black/10 dark:ring-white/15 flex items-center justify-center overflow-hidden"
     >
-      {logoSrc ? (
-        <img
-          src={logoSrc}
-          alt=""
-          class="w-6 h-6 object-contain"
-          loading="lazy"
-        />
-      ) : (
-        <span class="text-xs font-semibold text-gray-400">
-          {entry.data.company.charAt(0)}
-        </span>
-      )}
+      {
+        logoSrc ? (
+          <img src={logoSrc} alt="" class="w-6 h-6 object-contain" loading="lazy" />
+        ) : (
+          <span class="text-xs font-semibold text-black/40 dark:text-white/40">
+            {entry.data.company.charAt(0)}
+          </span>
+        )
+      }
     </div>
-    {!isLast && (
-      <div
-        class="absolute left-1/2 top-10 -translate-x-1/2 w-px bottom-0 bg-black/10 dark:bg-white/15"
-        aria-hidden="true"
-      />
-    )}
+    {
+      !isLast && (
+        <div
+          class="absolute left-1/2 top-10 -translate-x-1/2 w-px bottom-0 bg-black/10 dark:bg-white/15"
+          aria-hidden="true"
+        />
+      )
+    }
   </div>
 
-  <!-- Content: single left-aligned column -->
-  <div class:list={["flex-1 min-w-0 text-left", !isLast && "pb-8"]}>
-    <p class="font-medium text-black dark:text-white leading-snug m-0">
-      {entry.data.role}
-    </p>
-    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 m-0">
-      {entry.data.company}
-      <span class="text-gray-400 dark:text-gray-500"> · {dateLabel}</span>
-    </p>
-
-    {compact && entry.data.summary && (
-      <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 leading-relaxed m-0">
-        {entry.data.summary}
+  <div class:list={["flex-1 min-w-0 text-left", !isLast && "pb-10"]}>
+    <div class="flex flex-wrap items-center gap-2">
+      <p class="font-semibold text-black dark:text-white leading-snug m-0">
+        {entry.data.role}
       </p>
-    )}
+      {
+        isCurrent && (
+          <span class="inline-flex items-center rounded-full border border-black/12 dark:border-white/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-black/55 dark:text-white/55">
+            Current
+          </span>
+        )
+      }
+    </div>
+    <p class="text-sm text-black/55 dark:text-white/55 mt-1 m-0">
+      {entry.data.company}
+      <span class="text-black/35 dark:text-white/35"> · {dateLabel}</span>
+      {
+        entry.data.location && (
+          <>
+            <span class="text-black/35 dark:text-white/35"> · </span>
+            <span>{entry.data.location}</span>
+          </>
+        )
+      }
+    </p>
 
-    {!compact && (
-      <div class="prose prose-sm dark:prose-invert max-w-none mt-3 text-gray-600 dark:text-gray-400">
-        <slot />
-      </div>
-    )}
+    {
+      compact && entry.data.summary && (
+        <p class="text-sm text-black/60 dark:text-white/60 mt-2 leading-relaxed m-0">{entry.data.summary}</p>
+      )
+    }
+
+    {
+      !compact && (
+        <div class="mt-4 rounded-2xl border border-black/10 dark:border-white/10 bg-black/[0.015] dark:bg-white/[0.02] px-4 py-3.5">
+          {entry.data.summary && (
+            <p class="text-sm text-black/70 dark:text-white/70 leading-relaxed m-0 mb-3">{entry.data.summary}</p>
+          )}
+          <div class="prose prose-sm dark:prose-invert max-w-none text-black/60 dark:text-white/60 prose-li:my-1">
+            <slot />
+          </div>
+        </div>
+      )
+    }
   </div>
 </div>

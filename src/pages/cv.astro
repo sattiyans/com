@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { SITE, SOCIALS } from "@consts";
+import { CV, SITE, SOCIALS } from "@consts";
 
 const workCollection = (await getCollection("work"))
   .filter((entry) => entry.data.company !== "Dotkod Solutions")
@@ -13,8 +13,9 @@ const work = await Promise.all(
   })
 );
 
-const pageTitle = `CV | ${SITE.NAME}`;
-const pageDescription = "ATS-friendly CV and resume for Sattiyan Selvarajah.";
+const pageTitle = CV.TITLE!;
+const pageDescription = CV.DESCRIPTION;
+const pageKeywords = CV.KEYWORDS;
 const canonicalURL = "https://sattiyans.com/cv";
 const pageImage = "https://sattiyans.com/og-image.png";
 const structuredData = {
@@ -41,6 +42,7 @@ const structuredData = {
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+    <meta name="keywords" content={pageKeywords} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="robots" content="index, follow" />
     <meta property="og:type" content="profile" />

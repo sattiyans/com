@@ -1,14 +1,16 @@
 ---
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
+import Link from "@components/Link.astro";
+import { USES } from "@consts";
 
 const uses = {
   hardware: [
     { name: "MacBook Air M2", description: "512GB SSD, 16GB RAM" },
-    { name: "Acer PM161Q", description: "15.6\" Portable Monitor" },
+    { name: "Acer PM161Q", description: '15.6" Portable Monitor' },
     { name: "Logitech MX Keys for Mac", description: "Wireless keyboard" },
     { name: "Logitech MX Master 3S for Mac", description: "Wireless mouse" },
-    { name: "UGREEN HiTune H6 Pro", description: "Wireless earbuds" }
+    { name: "UGREEN HiTune H6 Pro", description: "Wireless earbuds" },
   ],
   software: [
     { name: "Cursor", description: "AI-powered code editor" },
@@ -17,7 +19,7 @@ const uses = {
     { name: "Google Chrome", description: "Web browser" },
     { name: "Figma", description: "Design and prototyping" },
     { name: "Notion", description: "Note-taking and docs" },
-    { name: "Spotify", description: "Music streaming" }
+    { name: "Spotify", description: "Music streaming" },
   ],
   development: [
     { name: "Laravel", description: "PHP framework" },
@@ -38,7 +40,7 @@ const uses = {
     { name: "PostgreSQL", description: "Database" },
     { name: "Git", description: "Version control" },
     { name: "Nginx", description: "Web server" },
-    { name: "n8n", description: "Workflow automation" }
+    { name: "n8n", description: "Workflow automation" },
   ],
   services: [
     { name: "GitHub", description: "Code hosting" },
@@ -51,81 +53,106 @@ const uses = {
     { name: "n8n", description: "Workflow automation" },
     { name: "Figma", description: "Design collaboration" },
     { name: "Redis", description: "Caching" },
-    { name: "Sentry", description: "Error tracking" }
-  ]
+    { name: "Sentry", description: "Error tracking" },
+  ],
 };
+
+const sections = [
+  { key: "hardware", title: "Hardware", items: uses.hardware },
+  { key: "software", title: "Software", items: uses.software },
+  { key: "development", title: "Development", items: uses.development },
+  { key: "services", title: "Services", items: uses.services },
+] as const;
+
+const totalItems = sections.reduce((n, s) => n + s.items.length, 0);
 ---
 
-<PageLayout title="Uses" description="Tools, technologies, and services I use for development and productivity.">
+<PageLayout title={USES.TITLE} description={USES.DESCRIPTION} keywords={USES.KEYWORDS}>
   <Container>
-    <div class="space-y-8">
-      <!-- Breadcrumb -->
-      <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-        <a 
-          href="/"
-          class="hover:text-black dark:hover:text-white transition-colors duration-200"
-        >
+    <div class="space-y-10">
+      <nav class="flex items-center space-x-2 text-sm text-black/50 dark:text-white/50">
+        <Link href="/" underline={false} class="hover:text-black dark:hover:text-white transition-colors">
           Home
-        </a>
+        </Link>
         <span>/</span>
         <span class="text-black dark:text-white font-medium">Uses</span>
       </nav>
 
-      <!-- Header -->
-      <div class="space-y-4">
-        <h1 class="animate text-2xl font-semibold text-black dark:text-white">
-          What I Use
-        </h1>
+      <div class="grid gap-10 lg:grid-cols-[1fr_minmax(240px,300px)] lg:gap-14 items-start">
+        <div class="min-w-0 space-y-10">
+          <header class="space-y-3">
+            <h1 class="animate text-2xl sm:text-3xl font-semibold text-black dark:text-white tracking-tight">
+              What I use
+            </h1>
+            <p class="text-sm text-black/65 dark:text-white/65 leading-relaxed max-w-xl">
+              Hardware, software, and stack I reach for day to day.
+            </p>
+          </header>
+
+          <div class="space-y-10">
+            {
+              sections.map((section) => (
+                <section class="animate space-y-4">
+                  <h2 class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+                    {section.title}
+                  </h2>
+                  <ul class="divide-y divide-black/10 dark:divide-white/10 border-t border-b border-black/10 dark:border-white/10">
+                    {section.items.map((item) => (
+                      <li class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 py-3.5">
+                        <span class="sm:w-48 shrink-0 text-sm font-medium text-black dark:text-white">
+                          {item.name}
+                        </span>
+                        <span class="text-sm text-black/55 dark:text-white/55">{item.description}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))
+            }
+          </div>
+        </div>
+
+        <aside class="lg:sticky lg:top-28 space-y-8">
+          <div class="space-y-3">
+            <p class="text-[11px] font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+              At a glance
+            </p>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <p class="text-lg font-semibold text-black dark:text-white">{totalItems}</p>
+                <p class="text-[11px] text-black/45 dark:text-white/45">items</p>
+              </div>
+              <div>
+                <p class="text-lg font-semibold text-black dark:text-white">{sections.length}</p>
+                <p class="text-[11px] text-black/45 dark:text-white/45">groups</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <p class="text-[11px] font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+              Jump to
+            </p>
+            <ul class="space-y-2">
+              {
+                sections.map((section) => (
+                  <li class="text-sm text-black/70 dark:text-white/70 border-b border-black/8 dark:border-white/8 pb-2 last:border-0 last:pb-0">
+                    {section.title}
+                    <span class="text-black/40 dark:text-white/40"> · {section.items.length}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <p class="text-xs text-black/40 dark:text-white/40 leading-relaxed">
+            Building something similar?{" "}
+            <Link href="/hire" underline={false} class="underline underline-offset-2 hover:text-black dark:hover:text-white">
+              Hire me
+            </Link>
+          </p>
+        </aside>
       </div>
-
-    <div class="space-y-6">
-      <section class="animate">
-        <h2 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wide">Hardware</h2>
-        <div class="flex flex-wrap gap-2">
-          {uses.hardware.map((item) => (
-            <div class="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs">
-              <span class="font-medium text-black dark:text-white">{item.name}</span>
-              <span class="text-gray-500 dark:text-gray-400 ml-1">• {item.description}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section class="animate">
-        <h2 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wide">Software</h2>
-        <div class="flex flex-wrap gap-2">
-          {uses.software.map((item) => (
-            <div class="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs">
-              <span class="font-medium text-black dark:text-white">{item.name}</span>
-              <span class="text-gray-500 dark:text-gray-400 ml-1">• {item.description}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section class="animate">
-        <h2 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wide">Development</h2>
-        <div class="flex flex-wrap gap-2">
-          {uses.development.map((item) => (
-            <div class="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs">
-              <span class="font-medium text-black dark:text-white">{item.name}</span>
-              <span class="text-gray-500 dark:text-gray-400 ml-1">• {item.description}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section class="animate">
-        <h2 class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wide">Services</h2>
-        <div class="flex flex-wrap gap-2">
-          {uses.services.map((item) => (
-            <div class="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs">
-              <span class="font-medium text-black dark:text-white">{item.name}</span>
-              <span class="text-gray-500 dark:text-gray-400 ml-1">• {item.description}</span>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   </Container>
 </PageLayout>

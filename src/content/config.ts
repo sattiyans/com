@@ -6,7 +6,11 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
-    draft: z.boolean().optional()
+    draft: z.boolean().optional(),
+    /** Optional project slug (e.g. "gsendr") to link this post to a case study */
+    project: z.string().optional(),
+    /** Optional tool slug (e.g. "lhdn-tax-relief") to link this post to a free tool */
+    tool: z.string().optional(),
   }),
 });
 

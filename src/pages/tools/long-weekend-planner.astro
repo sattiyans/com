@@ -1,0 +1,250 @@
+---
+import ToolShell from "@components/ToolShell.astro";
+import { getTool } from "@data/tools";
+
+const tool = getTool("long-weekend-planner")!;
+---
+
+<ToolShell tool={tool}>
+  <div class="space-y-8">
+    <div class="space-y-3">
+      <p class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">Weekend style</p>
+      <div class="flex flex-wrap gap-4">
+        <label class="inline-flex items-center gap-2 text-sm text-black dark:text-white cursor-pointer">
+          <input type="radio" name="weekend" value="sat-sun" checked />
+          Sat–Sun (most states)
+        </label>
+        <label class="inline-flex items-center gap-2 text-sm text-black dark:text-white cursor-pointer">
+          <input type="radio" name="weekend" value="fri-sat" />
+          Fri–Sat (e.g. Johor / Kedah / Kelantan / Terengganu style)
+        </label>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Federal holidays 2026</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-count">—</p>
+      </div>
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Long-weekend opportunities</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-long">—</p>
+      </div>
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Best AL ROI found</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-best">—</p>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <h3 class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+        Suggested leave bridges
+      </h3>
+      <ul
+        id="out-suggestions"
+        class="divide-y divide-black/10 dark:divide-white/10 border-t border-b border-black/10 dark:border-white/10 text-sm"
+      ></ul>
+    </div>
+
+    <div class="space-y-2">
+      <h3 class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+        2026 federal public holidays
+      </h3>
+      <ul
+        id="out-holidays"
+        class="divide-y divide-black/10 dark:divide-white/10 border-t border-b border-black/10 dark:border-white/10 text-sm"
+      ></ul>
+    </div>
+
+    <p class="text-xs text-black/40 dark:text-white/40">
+      Federal baseline for 2026. Religious dates and replacements can change — confirm with JPM / state gazette. State-only
+      holidays (Thaipusam, Sultan’s birthday, etc.) are not fully listed here.
+    </p>
+  </div>
+
+  <script is:inline>
+    (function () {
+      // Federal / national planning set for 2026 (subject to official confirmation)
+      const HOLIDAYS = [
+        { date: "2026-01-01", name: "New Year's Day" },
+        { date: "2026-02-17", name: "Chinese New Year" },
+        { date: "2026-02-18", name: "Chinese New Year (Day 2)" },
+        { date: "2026-03-21", name: "Hari Raya Aidilfitri" },
+        { date: "2026-03-22", name: "Hari Raya Aidilfitri (Day 2)" },
+        { date: "2026-05-01", name: "Labour Day" },
+        { date: "2026-05-27", name: "Hari Raya Haji" },
+        { date: "2026-05-31", name: "Wesak Day" },
+        { date: "2026-06-01", name: "Yang di-Pertuan Agong's Birthday" },
+        { date: "2026-06-17", name: "Awal Muharram" },
+        { date: "2026-08-25", name: "Prophet Muhammad's Birthday" },
+        { date: "2026-08-31", name: "National Day" },
+        { date: "2026-09-16", name: "Malaysia Day" },
+        { date: "2026-11-08", name: "Deepavali" },
+        { date: "2026-12-25", name: "Christmas Day" },
+      ];
+
+      function parse(d) {
+        const [y, m, day] = d.split("-").map(Number);
+        return new Date(y, m - 1, day);
+      }
+
+      function fmt(d) {
+        return d.toLocaleDateString("en-MY", {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        });
+      }
+
+      function key(d) {
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        return y + "-" + m + "-" + day;
+      }
+
+      function addDays(d, n) {
+        const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        x.setDate(x.getDate() + n);
+        return x;
+      }
+
+      function weekendMode() {
+        const el = document.querySelector('input[name="weekend"]:checked');
+        return el ? el.value : "sat-sun";
+      }
+
+      function isWeekend(d) {
+        const day = d.getDay(); // 0 Sun … 6 Sat
+        if (weekendMode() === "fri-sat") return day === 5 || day === 6;
+        return day === 0 || day === 6;
+      }
+
+      function isHoliday(d, set) {
+        return set.has(key(d));
+      }
+
+      function isOff(d, set) {
+        return isWeekend(d) || isHoliday(d, set);
+      }
+
+      function stretchLength(start, set) {
+        // Expand contiguous off days around start
+        let s = new Date(start);
+        while (isOff(addDays(s, -1), set)) s = addDays(s, -1);
+        let e = new Date(start);
+        while (isOff(addDays(e, 1), set)) e = addDays(e, 1);
+        const days = Math.round((e - s) / 86400000) + 1;
+        return { start: s, end: e, days };
+      }
+
+      function findBridges(set) {
+        const suggestions = [];
+        // Scan all working days in 2026; if taking AL creates a long stretch, keep it
+        let d = new Date(2026, 0, 1);
+        const end = new Date(2026, 11, 31);
+        while (d <= end) {
+          if (!isOff(d, set)) {
+            // Try 1-day AL
+            for (const take of [1, 2]) {
+              const leaveDates = [];
+              let ok = true;
+              for (let i = 0; i < take; i++) {
+                const cand = addDays(d, i);
+                if (cand.getFullYear() !== 2026 || isOff(cand, set)) {
+                  ok = false;
+                  break;
+                }
+                leaveDates.push(cand);
+              }
+              if (!ok) continue;
+
+              const trial = new Set(set);
+              leaveDates.forEach((ld) => trial.add(key(ld)));
+              const stretch = stretchLength(d, trial);
+              if (stretch.days >= 3 + take) {
+                suggestions.push({
+                  leave: leaveDates.map(key),
+                  leaveLabel: leaveDates.map(fmt).join(" + "),
+                  days: stretch.days,
+                  al: take,
+                  range: fmt(stretch.start) + " → " + fmt(stretch.end),
+                  roi: stretch.days / take,
+                });
+              }
+            }
+          }
+          d = addDays(d, 1);
+        }
+
+        // Deduplicate by leave set
+        const seen = new Set();
+        const unique = [];
+        suggestions
+          .sort((a, b) => b.roi - a.roi || b.days - a.days)
+          .forEach((s) => {
+            const id = s.leave.join("|");
+            if (seen.has(id)) return;
+            seen.add(id);
+            unique.push(s);
+          });
+        return unique.slice(0, 12);
+      }
+
+      function recalc() {
+        const set = new Set(HOLIDAYS.map((h) => h.date));
+        // Count natural long weekends (holiday stretch ≥ 3 including weekends)
+        let natural = 0;
+        const seenStretch = new Set();
+        HOLIDAYS.forEach((h) => {
+          const stretch = stretchLength(parse(h.date), set);
+          const id = key(stretch.start) + "|" + key(stretch.end);
+          if (seenStretch.has(id)) return;
+          seenStretch.add(id);
+          if (stretch.days >= 3) natural++;
+        });
+
+        const tips = findBridges(set);
+        document.getElementById("out-count").textContent = String(HOLIDAYS.length);
+        document.getElementById("out-long").textContent = String(natural);
+        document.getElementById("out-best").textContent = tips[0]
+          ? tips[0].al + " AL → " + tips[0].days + " days"
+          : "—";
+
+        document.getElementById("out-suggestions").innerHTML = tips.length
+          ? tips
+              .map(
+                (t) =>
+                  '<li class="py-3 space-y-1"><span class="block font-medium text-black dark:text-white">Take ' +
+                  t.leaveLabel +
+                  '</span><span class="block text-xs text-black/50 dark:text-white/50">' +
+                  t.al +
+                  " AL → " +
+                  t.days +
+                  "-day break · " +
+                  t.range +
+                  "</span></li>"
+              )
+              .join("")
+          : '<li class="py-3 text-black/50 dark:text-white/50">No strong bridges found for this weekend style.</li>';
+
+        document.getElementById("out-holidays").innerHTML = HOLIDAYS.map((h) => {
+          const d = parse(h.date);
+          const stretch = stretchLength(d, set);
+          return (
+            '<li class="flex flex-col sm:flex-row sm:justify-between gap-1 py-2.5"><span class="text-black dark:text-white">' +
+            h.name +
+            '</span><span class="text-black/50 dark:text-white/50 text-xs sm:text-sm">' +
+            fmt(d) +
+            (stretch.days >= 3 ? " · " + stretch.days + "-day stretch" : "") +
+            "</span></li>"
+          );
+        }).join("");
+      }
+
+      document.querySelectorAll('input[name="weekend"]').forEach((el) => el.addEventListener("change", recalc));
+      recalc();
+    })();
+  </script>
+</ToolShell>

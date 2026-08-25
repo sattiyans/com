@@ -6,40 +6,65 @@ import ProjectCard from "@components/ProjectCard.astro";
 import { PROJECTS } from "@consts";
 
 const projects = (await getCollection("projects"))
-  .filter(project => !project.data.draft)
+  .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const featuredSlugs = ["gboost", "gsendr"];
+const featured = featuredSlugs
+  .map((slug) => projects.find((p) => p.slug === slug))
+  .filter(Boolean) as typeof projects;
+const rest = projects.filter((p) => !featuredSlugs.includes(p.slug));
 ---
 
-<PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
+<PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION} keywords={PROJECTS.KEYWORDS}>
   <Container>
-    <div class="space-y-8">
-      <!-- Breadcrumb -->
-      <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-        <a 
-          href="/"
-          class="hover:text-black dark:hover:text-white transition-colors duration-200"
-        >
-          Home
-        </a>
+    <div class="space-y-10">
+      <nav class="flex items-center space-x-2 text-sm text-black/50 dark:text-white/50">
+        <a href="/" class="hover:text-black dark:hover:text-white transition-colors">Home</a>
         <span>/</span>
         <span class="text-black dark:text-white font-medium">Projects</span>
       </nav>
 
-      <!-- Header -->
-      <div class="space-y-4">
-        <h1 class="animate text-2xl font-semibold text-black dark:text-white">
-          Projects
+      <header class="space-y-3">
+        <h1 class="animate text-2xl sm:text-3xl font-semibold text-black dark:text-white tracking-tight">
+          Projects &amp; case studies
         </h1>
-      </div>
-      <ul class="animate flex flex-col gap-6">
-        {
-          projects.map((project) => (
-            <li>
-              <ProjectCard project={project} />
-            </li>
-          ))
-        }
-      </ul>
+        <p class="animate text-sm text-black/70 dark:text-white/70 max-w-xl leading-relaxed">
+          Selected work as case studies: the constraint, what shipped, and the outcome.
+        </p>
+      </header>
+
+      {
+        featured.length > 0 && (
+          <section class="animate space-y-4">
+            <h2 class="text-sm font-semibold tracking-wide uppercase text-black/50 dark:text-white/50">
+              Featured
+            </h2>
+            <div class="grid gap-8 sm:grid-cols-2">
+              {featured.map((project) => (
+                <ProjectCard entry={project} featured />
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        rest.length > 0 && (
+          <section class="animate space-y-4">
+            <h2 class="text-sm font-semibold tracking-wide uppercase text-black/50 dark:text-white/50">
+              More projects
+            </h2>
+            <ul class="flex flex-col divide-y divide-black/10 dark:divide-white/10 border-t border-b border-black/10 dark:border-white/10">
+              {rest.map((project) => (
+                <li class="py-5">
+                  <ProjectCard entry={project} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
     </div>
   </Container>
 </PageLayout>

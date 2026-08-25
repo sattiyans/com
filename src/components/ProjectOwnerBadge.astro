@@ -1,0 +1,53 @@
+---
+import { getProjectOwnerLogo } from "@lib/project-owner";
+
+type Props = {
+  owner: string;
+  /** featured = larger mark on project detail; default = compact for cards */
+  size?: "sm" | "md";
+  class?: string;
+};
+
+const { owner, size = "sm", class: className = "" } = Astro.props;
+const logoSrc = getProjectOwnerLogo(owner);
+const mark =
+  size === "md"
+    ? "h-9 w-9"
+    : "h-6 w-6";
+const img =
+  size === "md"
+    ? "h-5 w-5"
+    : "h-3.5 w-3.5";
+const label =
+  size === "md"
+    ? "text-sm"
+    : "text-xs";
+---
+
+<div
+  class:list={[
+    "inline-flex items-center gap-2 min-w-0",
+    className,
+  ]}
+>
+  <span
+    class:list={[
+      "shrink-0 rounded-full bg-white dark:bg-black ring-1 ring-black/10 dark:ring-white/15 flex items-center justify-center overflow-hidden",
+      mark,
+    ]}
+    aria-hidden="true"
+  >
+    {
+      logoSrc ? (
+        <img src={logoSrc} alt="" class:list={[img, "object-contain"]} loading="lazy" width={size === "md" ? 20 : 14} height={size === "md" ? 20 : 14} />
+      ) : (
+        <span class="text-[10px] font-semibold text-black/45 dark:text-white/45">
+          {owner.charAt(0)}
+        </span>
+      )
+    }
+  </span>
+  <span class:list={["min-w-0 truncate font-medium text-black/70 dark:text-white/70", label]}>
+    {owner}
+  </span>
+</div>

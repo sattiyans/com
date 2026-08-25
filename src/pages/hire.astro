@@ -3,75 +3,150 @@ import Container from "@components/Container.astro";
 import ContactForm from "@components/ContactForm.astro";
 import Link from "@components/Link.astro";
 import PageLayout from "@layouts/PageLayout.astro";
-import { SOCIALS } from "@consts";
+import { HIRE, SITE, SOCIALS } from "@consts";
 
-const title = "Hire Sattiyan Selvarajah - Technology Lead · Freelance SaaS & AI";
-const description =
-  "Hire Sattiyan Selvarajah, Technology Lead at G6 Labs Asia, for freelance SaaS development, system architecture, API integrations, GenAI automation, and production-ready web platforms.";
-const keywords =
-  "hire laravel developer malaysia, hire php developer malaysia, saas developer malaysia, technology lead freelance, api integration developer, genai automation";
 const linkedinUrl =
   SOCIALS.find((social) => social.NAME === "LinkedIn")?.HREF ??
   "https://www.linkedin.com/in/sattiyans";
+const whatsappUrl =
+  "https://wa.me/60143072966?text=" +
+  encodeURIComponent("Hi Sattiyan — I'd like to discuss a role / project.");
+
+const proof = [
+  { label: "Experience", value: "7+ years" },
+  { label: "Focus", value: "SaaS & platforms" },
+  { label: "Stack", value: "Laravel · Node · Python" },
+  { label: "Based", value: "KL · Remote" },
+];
+
+const skills = [
+  "System architecture",
+  "SaaS / multi-tenant",
+  "API & payments",
+  "GenAI automation",
+  "Laravel / PHP",
+  "React / Next.js",
+];
 ---
 
-<PageLayout title={title} description={description} keywords={keywords}>
+<PageLayout title={HIRE.TITLE} description={HIRE.DESCRIPTION} keywords={HIRE.KEYWORDS}>
   <Container>
-    <div class="space-y-8">
-      <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-        <Link href="/" underline={false} class="hover:text-black dark:hover:text-white transition-colors duration-200">Home</Link>
+    <div class="space-y-10">
+      <nav class="flex items-center space-x-2 text-sm text-black/50 dark:text-white/50">
+        <Link href="/" underline={false} class="hover:text-black dark:hover:text-white transition-colors">
+          Home
+        </Link>
         <span>/</span>
         <span class="text-black dark:text-white font-medium">Hire</span>
       </nav>
 
-      <header class="space-y-4">
-        <h1 class="text-2xl font-semibold text-black dark:text-white">Hire Sattiyan Selvarajah</h1>
-        <p class="text-gray-700 dark:text-gray-300">
-          Technology Lead specializing in system architecture, Laravel/PHP, SaaS platform engineering, GenAI automation, API integrations, and production workflows for startups and SMEs.
-        </p>
-      </header>
+      <div class="grid gap-10 lg:grid-cols-[1fr_minmax(260px,320px)] lg:gap-14 items-start">
+        <div class="min-w-0 space-y-10">
+          <header class="space-y-5">
+            <span
+              class="inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/15 px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-400"
+            >
+              <span class="relative flex h-2 w-2">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500/60"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+              </span>
+              Open to freelance &amp; contract
+            </span>
 
-      <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-black dark:text-white">What I Can Help You Build</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
-          <li>Custom SaaS products with scalable backend architecture</li>
-          <li>Laravel and React-based admin portals and CMS solutions</li>
-          <li>Integration-heavy workflows with payment gateways, AI APIs, and webhooks</li>
-          <li>Automation pipelines using schedulers, cron, and n8n</li>
-          <li>Production deployment and performance-focused delivery</li>
-        </ul>
-      </section>
+            <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-black dark:text-white leading-tight">
+              Hire Sattiyan
+            </h1>
 
-      <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-black dark:text-white">Engagement Types</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
-          <li>Contract and freelance product development</li>
-          <li>Fixed-scope MVP and feature delivery</li>
-          <li>Ongoing technical support and optimization</li>
-        </ul>
-      </section>
+            <p class="text-base text-black/70 dark:text-white/70 leading-relaxed max-w-xl">
+              Technology Lead @ G6 Labs Asia. I ship SaaS, integrations, and GenAI systems end-to-end —
+              from architecture through production.
+            </p>
 
-      <section class="rounded-lg border border-black/15 dark:border-white/20 p-5 space-y-3">
-        <h2 class="text-lg font-semibold text-black dark:text-white">Quick links</h2>
-        <div class="flex flex-wrap gap-3">
-          <Link href="/cv" class="inline-flex items-center px-4 py-2 rounded-lg bg-black dark:bg-white text-white dark:text-black text-sm font-medium no-underline hover:bg-black/85 dark:hover:bg-white/85 transition-colors duration-200">
-            Download CV
-          </Link>
-          <Link href={linkedinUrl} external class="inline-flex items-center px-4 py-2 rounded-lg border border-black/15 dark:border-white/20 text-sm font-medium no-underline hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200">
-            LinkedIn
-          </Link>
-          <Link href="/projects" class="inline-flex items-center px-4 py-2 rounded-lg border border-black/15 dark:border-white/20 text-sm font-medium no-underline hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200">
-            View projects
-          </Link>
-          <Link href="/ask?message=I%20want%20to%20get%20in%20touch" class="inline-flex items-center px-4 py-2 rounded-lg border border-black/15 dark:border-white/20 text-sm font-medium no-underline hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-200">
-            Chat with Luna
-          </Link>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {
+                proof.map((item) => (
+                  <div class="space-y-0.5">
+                    <p class="text-[11px] uppercase tracking-wide text-black/40 dark:text-white/40">{item.label}</p>
+                    <p class="text-sm font-medium text-black dark:text-white">{item.value}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </header>
+
+          <section class="space-y-4" aria-labelledby="contact-heading">
+            <h2 id="contact-heading" class="text-lg font-semibold text-black dark:text-white">
+              Tell me about the role
+            </h2>
+            <ContactForm compact />
+          </section>
         </div>
-      </section>
 
-      <section class="rounded-lg border border-black/15 dark:border-white/20 p-5">
-        <ContactForm />
-      </section>
+        <aside class="lg:sticky lg:top-28 space-y-8">
+          <div class="space-y-4">
+            <p class="text-[11px] font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+              Reach out
+            </p>
+            <div class="flex flex-col gap-2">
+              <a
+                href={`mailto:${SITE.EMAIL}`}
+                class="inline-flex items-center justify-center rounded-full bg-black dark:bg-white px-4 py-2.5 text-sm font-semibold text-white dark:text-black hover:opacity-90 transition-opacity"
+              >
+                Email
+              </a>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90 transition-opacity"
+              >
+                WhatsApp
+              </a>
+              <a
+                href={linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center rounded-full border border-black/15 dark:border-white/20 px-4 py-2.5 text-sm font-semibold text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+              >
+                LinkedIn
+              </a>
+              <Link
+                href="/cv"
+                underline={false}
+                class="inline-flex items-center justify-center rounded-full border border-black/15 dark:border-white/20 px-4 py-2.5 text-sm font-semibold text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+              >
+                View CV
+              </Link>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <p class="text-[11px] font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+              Focus
+            </p>
+            <ul class="space-y-2">
+              {
+                skills.map((skill) => (
+                  <li class="text-sm text-black/70 dark:text-white/70 border-b border-black/8 dark:border-white/8 pb-2 last:border-0 last:pb-0">
+                    {skill}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <p class="text-xs text-black/40 dark:text-white/40 leading-relaxed">
+            Prefer browsing first?{" "}
+            <Link href="/projects" underline={false} class="underline underline-offset-2 hover:text-black dark:hover:text-white">
+              Case studies
+            </Link>
+            {" · "}
+            <Link href="/work" underline={false} class="underline underline-offset-2 hover:text-black dark:hover:text-white">
+              Work history
+            </Link>
+          </p>
+        </aside>
+      </div>
     </div>
   </Container>
 </PageLayout>

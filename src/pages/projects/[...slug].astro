@@ -2,12 +2,13 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
-import { readingTime } from "@lib/utils";
 import Link from "@components/Link.astro";
+import ProjectOwnerBadge from "@components/ProjectOwnerBadge.astro";
+import { readingTime } from "@lib/utils";
 
 export async function getStaticPaths() {
   const projects = (await getCollection("projects"))
-    .filter(post => !post.data.draft)
+    .filter((post) => !post.data.draft)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   return projects.map((project) => ({
     params: { slug: project.slug },
@@ -17,22 +18,14 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"projects">;
 
 const project = Astro.props;
+const { Content } = await project.render();
 
-// Support both old demoURL and new projectURL for backward compatibility
 const projectURL = project.data.projectURL || project.data.demoURL;
 
-// Helper function to normalize image paths for projects folder
-// If it's a full URL, use it as-is
-// If it starts with '/', use it as-is (absolute path)
-// Otherwise, assume it's in public/projects/ folder
 function normalizeProjectImagePath(path: string): string {
-  if (path.startsWith('http://') || path.startsWith('https://')) {
-    return path; // Full URL
+  if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("/")) {
+    return path;
   }
-  if (path.startsWith('/')) {
-    return path; // Already absolute path
-  }
-  // Assume it's in public/projects/ folder
   return `/projects/${path}`;
 }
 
@@ -96,23 +89,27 @@ function getBulletsFromBlock(block: string | null, max = 5): string[] {
   return bullets.slice(0, max);
 }
 
-// Check if project is password protected
 const isProtected = !!project.data.password;
 const projectSlug = project.slug;
-const correctPassword = project.data.password || '';
+const correctPassword = project.data.password || "";
 const projectImage = project.data.featuredImage
   ? normalizeProjectImagePath(project.data.featuredImage)
   : "/og-image.png";
 const projectKeywords = [
   project.data.title,
-  "project",
+  "case study",
+  "saas case study",
+  project.data.role,
+  project.data.client,
   ...(project.data.techStack || []),
+  "sattiyan selvarajah",
 ]
   .filter(Boolean)
   .join(", ");
 
 const caseStudyProblem = project.data.problem || project.data.description;
-const caseStudySolution = project.data.solution || getOverviewSummary(project.body) || project.data.description;
+const caseStudySolution =
+  project.data.solution || getOverviewSummary(project.body) || project.data.description;
 const caseStudyResults = Array.isArray(project.data.results)
   ? project.data.results
   : project.data.results
@@ -125,7 +122,7 @@ const keyFeatures = (() => {
     "Key Features",
     "Core Features",
     "What I Built",
-    "Implementation"
+    "Implementation",
   ]);
   const featureBullets = getBulletsFromBlock(featureBlock, 5);
   if (featureBullets.length > 0) return featureBullets;
@@ -136,248 +133,344 @@ const keyFeatures = (() => {
   return ["Delivered a production-ready implementation with core user flows in place."];
 })();
 
-const nextSteps = (() => {
-  const nextBlock = getSectionBlock(project.body, [
-    "Future Improvements",
-    "Next Steps",
-    "What Can Be Improved",
-    "Roadmap"
-  ]);
-  const nextBullets = getBulletsFromBlock(nextBlock, 4);
-  if (nextBullets.length > 0) return nextBullets;
-  return [
-    "Expand analytics and reporting for stronger business visibility.",
-    "Improve performance and UX based on usage patterns.",
-    "Add more automation to reduce manual operations."
-  ];
-})();
+const relatedPosts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft && post.data.project === project.slug)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <PageLayout
-  title={project.data.title}
+  title={`${project.data.title} — Case Study`}
   description={project.data.description}
   keywords={projectKeywords}
   image={projectImage}
 >
   <Container>
-    <div class="space-y-8">
-      <!-- Breadcrumb -->
-      <nav class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-        <a 
-          href="/"
-          class="hover:text-black dark:hover:text-white transition-colors duration-200"
-        >
-          Home
-        </a>
+    <div class="space-y-8 sm:space-y-10">
+      <nav class="flex items-center space-x-2 text-sm text-black/50 dark:text-white/50">
+        <a href="/" class="hover:text-black dark:hover:text-white transition-colors">Home</a>
         <span>/</span>
-        <a 
-          href="/projects"
-          class="hover:text-black dark:hover:text-white transition-colors duration-200"
-        >
-          Projects
-        </a>
+        <a href="/projects" class="hover:text-black dark:hover:text-white transition-colors">Projects</a>
         <span>/</span>
-        <span class="text-black dark:text-white font-medium">{project.data.title}</span>
+        <span class="text-black dark:text-white font-medium truncate">{project.data.title}</span>
       </nav>
 
-      {isProtected && (
-        <div id="password-protection" class="hidden">
-          <div class="max-w-md mx-auto mt-8 p-6 rounded-lg border border-black/15 dark:border-white/20">
-            <div class="text-center mb-6">
-              <svg class="w-12 h-12 mx-auto mb-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-              <h2 class="text-xl font-semibold text-black dark:text-white mb-2">Protected Project</h2>
-              <p class="text-sm text-gray-600 dark:text-gray-400">This project is password protected. Please enter the password to view the content.</p>
-            </div>
-            <form id="password-form" class="space-y-4">
-              <div>
-                <label for="project-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="project-password"
-                  name="password"
-                  required
-                  class="w-full px-4 py-2 rounded-lg border border-black/15 dark:border-white/20 bg-white dark:bg-gray-800 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black/20 dark:focus:ring-white/20"
-                  placeholder="Enter password"
-                  autocomplete="off"
-                />
+      {
+        isProtected && (
+          <div id="password-protection" class="hidden">
+            <div class="max-w-md mx-auto mt-8 p-6 border border-black/15 dark:border-white/20">
+              <div class="text-center mb-6">
+                <h2 class="text-xl font-semibold text-black dark:text-white mb-2">Protected Project</h2>
+                <p class="text-sm text-black/60 dark:text-white/60">
+                  Enter the password to view this case study.
+                </p>
               </div>
-              <div id="password-error" class="hidden text-sm text-red-600 dark:text-red-400"></div>
-              <button
-                type="submit"
-                class="w-full px-4 py-2 rounded-lg bg-black dark:bg-white text-white dark:text-black font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200"
-              >
-                Unlock Project
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      <div id="project-content" class={isProtected ? 'hidden' : ''}>
-
-      <!-- Project Header -->
-      <div class="space-y-4">
-        <h1 class="text-2xl font-semibold text-black dark:text-white">
-          {project.data.title}
-        </h1>
-        <p class="text-gray-600 dark:text-gray-400">
-          {project.data.description}
-        </p>
-        
-        <!-- Meta Information -->
-        <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-          <span>{project.data.date.getFullYear()}</span>
-          <span>&bull;</span>
-          <span>{readingTime(project.body)}</span>
-          {project.data.role && (
-            <>
-              <span>&bull;</span>
-              <span>{project.data.role}</span>
-            </>
-          )}
-          {projectURL && (
-            <>
-              <span>&bull;</span>
-              <Link href={projectURL} external class="hover:text-black dark:hover:text-white transition-colors no-underline">
-                View Project
-              </Link>
-            </>
-          )}
-          {project.data.repoURL && (
-            <>
-              <span>&bull;</span>
-              <Link href={project.data.repoURL} external class="hover:text-black dark:hover:text-white transition-colors no-underline">
-                View Code
-              </Link>
-            </>
-          )}
-        </div>
-
-        <!-- Client and Project Owner -->
-        {(project.data.client || project.data.projectOwner) && (
-          <div class="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
-            {project.data.client && <span><span class="font-medium">Client:</span> {project.data.client}</span>}
-            {project.data.projectOwner && <span><span class="font-medium">Owner:</span> {project.data.projectOwner}</span>}
-          </div>
-        )}
-
-        <!-- Tech Stack -->
-        {project.data.techStack && project.data.techStack.length > 0 && (
-          <div class="flex flex-wrap gap-2 mb-8">
-            {project.data.techStack.map((tech) => (
-              <span class="px-2 py-1 rounded text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700/50">
-                {tech}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <!-- Screenshots Slider -->
-      {project.data.screenshots && project.data.screenshots.length > 0 && (
-        <div class="mt-8 mb-8">
-          <div class="screenshot-slider flex flex-col md:flex-row gap-4" data-slider-id={`slider-${project.slug}`}>
-            <!-- Thumbnail Navigation (Left Side) -->
-            {project.data.screenshots.length > 1 && (
-              <div class="flex md:flex-col gap-2 overflow-x-auto md:overflow-x-visible md:overflow-y-auto pb-2 md:pb-0 order-2 md:order-1">
-                {project.data.screenshots.map((screenshot, index) => (
-                  <button
-                    class={`screenshot-thumb flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black/20 dark:focus:ring-white/20 hover:border-black/30 dark:hover:border-white/30 ${index === 0 ? 'border-black/50 dark:border-white/50' : 'border-transparent'}`}
-                    data-index={index}
-                    aria-label={`View screenshot ${index + 1}`}
+              <form id="password-form" class="space-y-4">
+                <div>
+                  <label
+                    for="project-password"
+                    class="block text-sm font-medium text-black/70 dark:text-white/70 mb-2"
                   >
-                    <img
-                      src={normalizeProjectImagePath(screenshot)}
-                      alt={`Thumbnail ${index + 1}`}
-                      class="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </button>
-                ))}
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    id="project-password"
+                    name="password"
+                    required
+                    class="w-full px-4 py-2 border border-black/15 dark:border-white/20 bg-white dark:bg-black text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black/20 dark:focus:ring-white/20"
+                    placeholder="Enter password"
+                    autocomplete="off"
+                  />
+                </div>
+                <div id="password-error" class="hidden text-sm text-red-600 dark:text-red-400"></div>
+                <button
+                  type="submit"
+                  class="w-full px-4 py-2.5 rounded-full bg-black dark:bg-white text-white dark:text-black font-medium hover:opacity-90 transition-opacity"
+                >
+                  Unlock Project
+                </button>
+              </form>
+            </div>
+          </div>
+        )
+      }
+
+      <div id="project-content" class:list={["space-y-10 sm:space-y-12", isProtected && "hidden"]}>
+        <!-- Hero -->
+        <header class="space-y-4">
+          <p class="text-xs font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+            Case study
+          </p>
+          <h1 class="text-2xl sm:text-3xl font-semibold text-black dark:text-white leading-tight">
+            {project.data.title}
+          </h1>
+          <p class="text-base text-black/70 dark:text-white/70 leading-relaxed max-w-3xl">
+            {project.data.description}
+          </p>
+
+          <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-black/50 dark:text-white/50">
+            <span>{project.data.date.getFullYear()}</span>
+            <span>&bull;</span>
+            <span>{readingTime(project.body)}</span>
+            {
+              project.data.role && (
+                <>
+                  <span>&bull;</span>
+                  <span>{project.data.role}</span>
+                </>
+              )
+            }
+            {
+              projectURL && (
+                <>
+                  <span>&bull;</span>
+                  <Link
+                    href={projectURL}
+                    external
+                    class="hover:text-black dark:hover:text-white transition-colors no-underline"
+                  >
+                    Live site
+                  </Link>
+                </>
+              )
+            }
+            {
+              project.data.repoURL && (
+                <>
+                  <span>&bull;</span>
+                  <Link
+                    href={project.data.repoURL}
+                    external
+                    class="hover:text-black dark:hover:text-white transition-colors no-underline"
+                  >
+                    Code
+                  </Link>
+                </>
+              )
+            }
+          </div>
+
+          {
+            (project.data.client || project.data.projectOwner) && (
+              <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+                {project.data.projectOwner && (
+                  <div class="space-y-1">
+                    <p class="text-[11px] font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+                      Project owner
+                    </p>
+                    <ProjectOwnerBadge owner={project.data.projectOwner} size="md" />
+                  </div>
+                )}
+                {project.data.client && (
+                  <div class="space-y-1">
+                    <p class="text-[11px] font-semibold tracking-wide uppercase text-black/45 dark:text-white/45">
+                      Client
+                    </p>
+                    <p class="text-sm font-medium text-black/70 dark:text-white/70">
+                      {project.data.client}
+                    </p>
+                  </div>
+                )}
               </div>
-            )}
-            
-            <!-- Main Image Display -->
-            <div class="relative overflow-hidden rounded-lg border border-black/15 dark:border-white/20 bg-gray-100 dark:bg-gray-900 flex-1 order-1 md:order-2">
-              <div class="screenshot-main-container relative aspect-video">
+            )
+          }
+
+          {
+            project.data.techStack && project.data.techStack.length > 0 && (
+              <p class="text-sm text-black/55 dark:text-white/55 leading-relaxed max-w-3xl">
+                <span class="text-black/40 dark:text-white/40">Stack · </span>
+                {project.data.techStack.join(" · ")}
+              </p>
+            )
+          }
+        </header>
+
+        <!-- Metrics -->
+        {
+          project.data.metrics && project.data.metrics.length > 0 && (
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {project.data.metrics.map((metric) => (
+                <div class="rounded-2xl border border-black/15 dark:border-white/15 px-4 py-3">
+                  <p class="text-sm font-semibold text-black dark:text-white">{metric}</p>
+                </div>
+              ))}
+            </div>
+          )
+        }
+
+        <!-- Screenshots -->
+        {
+          project.data.screenshots && project.data.screenshots.length > 0 && (
+            <div class="screenshot-slider flex flex-col md:flex-row gap-4" data-slider-id={`slider-${project.slug}`}>
+              {project.data.screenshots.length > 1 && (
+                <div class="flex md:flex-col gap-2 overflow-x-auto md:overflow-x-visible md:overflow-y-auto pb-2 md:pb-0 order-2 md:order-1">
+                  {project.data.screenshots.map((screenshot, index) => (
+                    <button
+                      class={`screenshot-thumb flex-shrink-0 w-16 h-16 md:w-20 md:h-20 overflow-hidden border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black/20 dark:focus:ring-white/20 hover:border-black/30 dark:hover:border-white/30 ${index === 0 ? "border-black/50 dark:border-white/50" : "border-transparent"}`}
+                      data-index={index}
+                      aria-label={`View screenshot ${index + 1}`}
+                    >
+                      <img
+                        src={normalizeProjectImagePath(screenshot)}
+                        alt={`Thumbnail ${index + 1}`}
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              <div class="relative overflow-hidden border border-black/15 dark:border-white/20 bg-black/[0.03] dark:bg-white/[0.03] flex-1 order-1 md:order-2">
+                <div class="screenshot-main-container relative aspect-video">
                   {project.data.screenshots.map((screenshot, index) => (
                     <img
                       src={normalizeProjectImagePath(screenshot)}
                       alt={`${project.data.title} screenshot ${index + 1}`}
-                      class={`screenshot-main w-full h-full object-contain transition-opacity duration-300 ${index === 0 ? 'opacity-100' : 'opacity-0 absolute inset-0'}`}
+                      class={`screenshot-main w-full h-full object-contain transition-opacity duration-300 ${index === 0 ? "opacity-100" : "opacity-0 absolute inset-0"}`}
                       data-index={index}
-                      loading={index === 0 ? 'eager' : 'lazy'}
+                      loading={index === 0 ? "eager" : "lazy"}
                     />
                   ))}
+                </div>
+
+                {project.data.screenshots.length > 1 && (
+                  <>
+                    <button
+                      class="screenshot-prev absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 dark:bg-white/50 text-white dark:text-black hover:bg-black/70 dark:hover:bg-white/70 transition-colors"
+                      aria-label="Previous screenshot"
+                    >
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                    <button
+                      class="screenshot-next absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 dark:bg-white/50 text-white dark:text-black hover:bg-black/70 dark:hover:bg-white/70 transition-colors"
+                      aria-label="Next screenshot"
+                    >
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </>
+                )}
               </div>
-              
-              <!-- Navigation Arrows -->
-              {project.data.screenshots.length > 1 && (
-                <>
-                  <button 
-                    class="screenshot-prev absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 dark:bg-white/50 text-white dark:text-black hover:bg-black/70 dark:hover:bg-white/70 transition-colors duration-200"
-                    aria-label="Previous screenshot"
-                  >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                  <button 
-                    class="screenshot-next absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 dark:bg-white/50 text-white dark:text-black hover:bg-black/70 dark:hover:bg-white/70 transition-colors duration-200"
-                    aria-label="Next screenshot"
-                  >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </>
-              )}
             </div>
-          </div>
-        </div>
-      )}
+          )
+        }
 
-      <!-- Concise Project Snapshot -->
-      <section class="mt-8 space-y-4">
-        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
-          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Problem Solved</h2>
-          <p class="text-sm text-gray-700 dark:text-gray-300">{caseStudyProblem}</p>
-        </div>
-        <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
-          <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">How I Solved It</h2>
-          <p class="text-sm text-gray-700 dark:text-gray-300">{caseStudySolution}</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
-            <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Key Features Delivered</h2>
-            <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
-              {keyFeatures.map((feature) => (
-                <li>{feature}</li>
-              ))}
-            </ul>
+        <!-- Problem / Solution / Results -->
+        <section class="space-y-5">
+          <div class="border border-black/15 dark:border-white/15 rounded-2xl p-5 sm:p-6 space-y-3">
+            <h2 class="text-xs font-semibold uppercase tracking-wide text-black/45 dark:text-white/45">
+              Problem
+            </h2>
+            <p class="text-sm text-black/80 dark:text-white/80 leading-relaxed">{caseStudyProblem}</p>
           </div>
-          <div class="rounded-lg border border-black/15 dark:border-white/20 p-4">
-            <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">What Can Be Done Next</h2>
-            <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
-              {nextSteps.map((step) => (
-                <li>{step}</li>
-              ))}
-            </ul>
+          <div class="border border-black/15 dark:border-white/15 rounded-2xl p-5 sm:p-6 space-y-3">
+            <h2 class="text-xs font-semibold uppercase tracking-wide text-black/45 dark:text-white/45">
+              Solution
+            </h2>
+            <p class="text-sm text-black/80 dark:text-white/80 leading-relaxed">{caseStudySolution}</p>
           </div>
-        </div>
-      </section>
+          {
+            caseStudyResults.length > 0 && (
+              <div class="border border-black/15 dark:border-white/15 rounded-2xl p-5 sm:p-6 space-y-4">
+                <h2 class="text-xs font-semibold uppercase tracking-wide text-black/45 dark:text-white/45">
+                  Results
+                </h2>
+                <ul class="space-y-3">
+                  {caseStudyResults.map((result) => (
+                    <li class="text-sm text-black/80 dark:text-white/80 leading-relaxed flex gap-2">
+                      <span class="text-black/30 dark:text-white/30 shrink-0">—</span>
+                      <span>{result}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+        </section>
 
+        <!-- Key features from body (when present) -->
+        {
+          keyFeatures.length > 0 && (
+            <section class="space-y-4">
+              <h2 class="text-xs font-semibold uppercase tracking-wide text-black/45 dark:text-white/45">
+                What shipped
+              </h2>
+              <ul class="space-y-3">
+                {keyFeatures.map((feature) => (
+                  <li class="text-sm text-black/75 dark:text-white/75 leading-relaxed flex gap-2">
+                    <span class="text-black/30 dark:text-white/30 shrink-0">—</span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        <!-- Full markdown body -->
+        <article class="prose prose-sm dark:prose-invert max-w-none border-t border-black/10 dark:border-white/10 pt-10 prose-headings:mt-10 prose-headings:mb-4 prose-h2:mt-12 first:prose-headings:mt-0 prose-p:my-4 prose-li:my-1.5 prose-ul:my-4 prose-ol:my-4">
+          <Content />
+        </article>
+
+        {
+          relatedPosts.length > 0 && (
+            <section class="space-y-4 border-t border-black/10 dark:border-white/10 pt-10">
+              <h2 class="text-xs font-semibold uppercase tracking-wide text-black/45 dark:text-white/45">
+                Related notes
+              </h2>
+              <ul class="divide-y divide-black/10 dark:divide-white/10 border-t border-b border-black/10 dark:border-white/10">
+                {relatedPosts.map((post) => (
+                  <li>
+                    <a
+                      href={`/blog/${post.slug}`}
+                      class="group flex flex-col gap-1.5 py-5 no-underline hover:opacity-80 transition-opacity"
+                    >
+                      <span class="text-sm font-semibold text-black dark:text-white">{post.data.title}</span>
+                      <span class="text-sm text-black/60 dark:text-white/60 line-clamp-2">{post.data.description}</span>
+                      <span class="text-xs text-black/40 dark:text-white/40">Read →</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        <!-- CTA -->
+        <section class="space-y-4 border-t border-black/10 dark:border-white/10 pt-10 mt-2">
+          <h2 class="text-lg font-semibold text-black dark:text-white">Need something similar?</h2>
+          <p class="text-sm text-black/65 dark:text-white/65 leading-relaxed max-w-xl">
+            I build production web systems end-to-end — product, architecture, and shipping.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-1">
+            <a
+              href="/hire"
+              class="inline-flex items-center gap-1.5 rounded-full bg-black dark:bg-white px-5 py-2.5 text-sm font-semibold text-white dark:text-black hover:opacity-90 transition-opacity"
+            >
+              Hire me
+            </a>
+            <a
+              href="/projects"
+              class="inline-flex items-center rounded-full border border-black/15 dark:border-white/20 px-5 py-2.5 text-sm font-semibold text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+            >
+              More case studies
+            </a>
+          </div>
+        </section>
       </div>
     </div>
   </Container>
 </PageLayout>
 
-{isProtected && (
-  <script is:inline set:html={`
+{
+  isProtected && (
+    <script
+      is:inline
+      set:html={`
     (function() {
       const storageKey = 'project_unlocked_${projectSlug}';
       const correctPassword = '${correctPassword}';
@@ -387,34 +480,28 @@ const nextSteps = (() => {
       const passwordProtection = document.getElementById('password-protection');
       const projectContent = document.getElementById('project-content');
 
-      // Check if already unlocked
       const isUnlocked = localStorage.getItem(storageKey) === 'true';
       
       if (isUnlocked) {
-        // Show content, hide password form
         if (passwordProtection) passwordProtection.classList.add('hidden');
         if (projectContent) projectContent.classList.remove('hidden');
       } else {
-        // Show password form, hide content
         if (passwordProtection) passwordProtection.classList.remove('hidden');
         if (projectContent) projectContent.classList.add('hidden');
       }
 
-      // Handle password form submission
       if (passwordForm) {
         passwordForm.addEventListener('submit', (e) => {
           e.preventDefault();
           const enteredPassword = passwordInput.value.trim();
 
           if (enteredPassword === correctPassword) {
-            // Correct password - unlock project
             localStorage.setItem(storageKey, 'true');
             if (passwordProtection) passwordProtection.classList.add('hidden');
             if (projectContent) projectContent.classList.remove('hidden');
             if (passwordError) passwordError.classList.add('hidden');
             passwordInput.value = '';
           } else {
-            // Wrong password - show error
             if (passwordError) {
               passwordError.textContent = 'Incorrect password. Please try again.';
               passwordError.classList.remove('hidden');
@@ -425,11 +512,16 @@ const nextSteps = (() => {
         });
       }
     })();
-  `}></script>
-)}
+  `}
+    />
+  )
+}
 
-{project.data.screenshots && project.data.screenshots.length > 1 && (
-  <script is:inline set:html={`
+{
+  project.data.screenshots && project.data.screenshots.length > 1 && (
+    <script
+      is:inline
+      set:html={`
     (function() {
       const sliderId = 'slider-${project.slug}';
       const totalImages = ${project.data.screenshots.length};
@@ -493,5 +585,7 @@ const nextSteps = (() => {
       
       updateSlider(0);
     })();
-  `}></script>
-)}
+  `}
+    />
+  )
+}
