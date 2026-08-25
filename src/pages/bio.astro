@@ -1,326 +1,282 @@
 ---
 import BioLayout from "@layouts/BioLayout.astro";
-import Container from "@components/Container.astro";
-import Link from "@components/Link.astro";
 import { SITE, SOCIALS } from "@consts";
 
 export const prerender = false;
 
-// Get social links from consts
-const github = SOCIALS.find(s => s.NAME === 'GitHub')?.HREF || 'https://github.com/sattiyans';
-const linkedin = SOCIALS.find(s => s.NAME === 'LinkedIn')?.HREF || 'https://www.linkedin.com/in/sattiyans';
-const facebook = SOCIALS.find(s => s.NAME === 'Facebook')?.HREF || 'https://www.facebook.com/people/Sattiyan-Selvarajah/100090108949254/';
-const instagram = SOCIALS.find(s => s.NAME === 'Instagram')?.HREF || 'https://instagram.com/sattiyanss';
-const threads = SOCIALS.find(s => s.NAME === 'Threads')?.HREF || 'https://www.threads.net/@sattiyanss';
-const letterboxd = SOCIALS.find(s => s.NAME === 'Letterboxd')?.HREF || 'https://letterboxd.com/sattiyans';
-const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://serializd.com/user/sattiyans';
+const github = SOCIALS.find((s) => s.NAME === "GitHub")?.HREF || "https://github.com/sattiyans";
+const linkedin = SOCIALS.find((s) => s.NAME === "LinkedIn")?.HREF || "https://www.linkedin.com/in/sattiyans";
+const facebook = SOCIALS.find((s) => s.NAME === "Facebook")?.HREF || "https://www.facebook.com/people/Sattiyan-Selvarajah/100090108949254/";
+const instagram = SOCIALS.find((s) => s.NAME === "Instagram")?.HREF || "https://instagram.com/sattiyanss";
+const threads = SOCIALS.find((s) => s.NAME === "Threads")?.HREF || "https://www.threads.net/@sattiyanss";
+const letterboxd = SOCIALS.find((s) => s.NAME === "Letterboxd")?.HREF || "https://letterboxd.com/sattiyans";
+const serializd = SOCIALS.find((s) => s.NAME === "Serializd")?.HREF || "https://serializd.com/user/sattiyans";
+
+const socials = [
+  {
+    name: "GitHub",
+    href: github,
+    viewBox: "0 0 24 24",
+    path: "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z",
+  },
+  {
+    name: "LinkedIn",
+    href: linkedin,
+    viewBox: "0 0 24 24",
+    path: "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
+  },
+  {
+    name: "Threads",
+    href: threads,
+    viewBox: "0 0 192 192",
+    path: "M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622 169.331 37.0357 161.965 27.974C147.036 9.60668 125.202 0.195148 97.0695 0H96.9569C68.8816 0.19447 47.2921 9.6418 32.7883 28.0793C19.8819 44.4864 13.2244 67.3157 13.0007 95.9325L13 96L13.0007 96.0675C13.2244 124.684 19.8819 147.514 32.7883 163.921C47.2921 182.358 68.8816 191.806 96.9569 192H97.0695C122.03 191.827 139.624 185.292 154.118 170.811C173.081 151.866 172.51 128.119 166.26 113.541C161.776 103.087 153.227 94.5962 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.5234 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z",
+  },
+  {
+    name: "Instagram",
+    href: instagram,
+    viewBox: "0 0 24 24",
+    path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z",
+  },
+  {
+    name: "Facebook",
+    href: facebook,
+    viewBox: "0 0 24 24",
+    path: "M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z",
+  },
+];
 ---
 
-<BioLayout title="Bio" description="Connect with Sattiyan Selvarajah across social platforms and discover his work.">
-  <div class="bio-wrapper">
-    <div class="bio-container min-h-screen flex flex-col items-center justify-center px-4 max-w-4xl mx-auto" style="padding-top: 2rem; padding-bottom: 2rem;">
-      <!-- Profile Section -->
-      <div class="w-full text-center mb-6 animate">
-        <div class="w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden border-2 border-black/15 dark:border-white/20">
-          <img 
-            src="/photo.jpg" 
-            alt="Sattiyan Selvarajah" 
-            class="w-full h-full object-cover"
-          />
+<BioLayout title="Bio" description="Connect with Sattiyan Selvarajah — Technology Lead, founder of Dotkod Solutions, and links across work and life.">
+  <div class="bio-page">
+    <div class="bio-ambient" aria-hidden="true">
+      <span class="bio-aurora bio-aurora-a"></span>
+      <span class="bio-aurora bio-aurora-b"></span>
+      <span class="bio-orb bio-orb-a"></span>
+      <span class="bio-orb bio-orb-b"></span>
+      <span class="bio-orb bio-orb-c"></span>
+      <span class="bio-grid"></span>
+      <span class="bio-noise"></span>
+      <span class="bio-beams">
+        <i></i><i></i><i></i>
+      </span>
+      <span class="bio-dust">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </span>
+    </div>
+
+    <div class="bio-shell">
+      <!-- Profile -->
+      <header class="bio-profile animate" style="--i: 0">
+        <div class="bio-avatar">
+          <span class="bio-avatar-glow" aria-hidden="true"></span>
+          <span class="bio-avatar-ring" aria-hidden="true"></span>
+          <span class="bio-avatar-ring bio-avatar-ring-outer" aria-hidden="true"></span>
+          <img src="/photo.jpg" alt="Sattiyan Selvarajah" width="96" height="96" />
         </div>
-        <h1 class="text-xl font-semibold text-black dark:text-white mb-1">
-          Sattiyan Selvarajah
-        </h1>
-        <p class="text-xs text-gray-600 dark:text-gray-400">
-          Technology Lead @ G6 Labs Asia & Founder of Dotkod Solutions
+        <h1 class="bio-name"><span class="bio-name-shimmer">{SITE.NAME}</span></h1>
+        <p class="bio-role">Technology Lead @ G6 Labs Asia · Founder, Dotkod Solutions</p>
+        <div class="bio-meta">
+          <span class="bio-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            Kuala Lumpur · Remote
+          </span>
+          <span class="bio-chip bio-chip-live">
+            <span class="bio-live"><span></span></span>
+            Open to work
+          </span>
+        </div>
+        <p class="bio-tagline">
+          System architecture, SaaS platforms &amp; GenAI automation.
         </p>
+      </header>
+
+      <!-- Primary work CTAs -->
+      <nav class="bio-ctas animate" style="--i: 1" aria-label="Primary links">
+        <a href="/hire" class="bio-cta bio-cta-hire">
+          <span class="bio-cta-sheen" aria-hidden="true"></span>
+          <span class="bio-cta-body">
+            <span class="bio-cta-kicker">
+              <span class="bio-live"><span></span></span>
+              Available now
+            </span>
+            <span class="bio-cta-main">
+              <span class="bio-cta-title">Hire me</span>
+              <span class="bio-cta-go" aria-hidden="true">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </span>
+            </span>
+            <span class="bio-cta-sub">Freelance · architecture → production</span>
+          </span>
+        </a>
+
+        <a href="/cv" class="bio-cta bio-cta-card bio-cta-cv">
+          <span class="bio-cta-art" aria-hidden="true">
+            <span class="bio-art-doc">
+              <i></i><i></i><i></i><i></i>
+            </span>
+          </span>
+          <span class="bio-cta-body">
+            <span class="bio-cta-index">01</span>
+            <span class="bio-cta-main">
+              <span class="bio-cta-title">CV</span>
+            </span>
+            <span class="bio-cta-sub">Experience, skills &amp; roles</span>
+          </span>
+        </a>
+
+        <a href="https://dotkod.com/promo" target="_blank" rel="noopener noreferrer" class="bio-cta bio-cta-card bio-cta-dotkod">
+          <span class="bio-cta-art" aria-hidden="true">
+            <svg class="bio-art-flow" viewBox="0 0 120 64" fill="none">
+              <path class="bio-art-path" d="M8 48 C28 48, 28 16, 48 16 S68 48, 88 48 S108 16, 112 16" />
+              <circle class="bio-art-dot bio-art-dot-a" cx="8" cy="48" r="3" />
+              <circle class="bio-art-dot bio-art-dot-b" cx="48" cy="16" r="3" />
+              <circle class="bio-art-dot bio-art-dot-c" cx="88" cy="48" r="3" />
+              <circle class="bio-art-dot bio-art-dot-d" cx="112" cy="16" r="3" />
+            </svg>
+          </span>
+          <span class="bio-cta-body">
+            <span class="bio-cta-index">02</span>
+            <span class="bio-cta-main">
+              <span class="bio-cta-title">Dotkod Solutions</span>
+            </span>
+            <span class="bio-cta-sub">Studio for web, SaaS &amp; GenAI</span>
+          </span>
+        </a>
+
+        <a href="/" class="bio-cta bio-cta-card bio-cta-portfolio">
+          <span class="bio-cta-art" aria-hidden="true">
+            <span class="bio-art-tiles">
+              <i></i><i></i><i></i><i></i><i></i><i></i>
+            </span>
+          </span>
+          <span class="bio-cta-body">
+            <span class="bio-cta-index">03</span>
+            <span class="bio-cta-main">
+              <span class="bio-cta-title">Portfolio</span>
+            </span>
+            <span class="bio-cta-sub">Case studies · sattiyans.com</span>
+          </span>
+        </a>
+      </nav>
+
+      <!-- Socials -->
+      <div class="bio-socials animate" style="--i: 2" aria-label="Social profiles">
+        {socials.map((s, idx) => (
+          <a
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bio-social"
+            style={`--s: ${idx}`}
+            aria-label={`${SITE.NAME} on ${s.name}`}
+          >
+            <svg fill="currentColor" viewBox={s.viewBox} aria-hidden="true">
+              <path d={s.path} />
+            </svg>
+          </a>
+        ))}
       </div>
 
-      <!-- Bento Grid Links Section -->
-      <div class="w-full mb-8">
-        <!-- Row 1: 6 social cards (Desktop: 6 columns, Mobile: full width) -->
-        <div class="grid grid-cols-1 md:grid-cols-6 gap-3 mb-3">
-            <!-- GitHub - Small Square Card -->
-            <a 
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group bento-card flex flex-row items-center justify-start gap-3 p-3 md:p-4 md:flex-col md:items-center md:justify-center border border-black/15 dark:border-white/20 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 animate md:aspect-square"
-            >
-              <svg class="w-6 h-6 md:w-8 md:h-8 flex-shrink-0 md:mb-2 text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-              <div class="flex-1 md:flex-none md:text-center">
-                <div class="text-sm font-medium text-black dark:text-white">GitHub</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 md:mt-1">Code</div>
-              </div>
-            </a>
-
-            <!-- LinkedIn - Small Square Card -->
-            <a 
-              href={linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group bento-card flex flex-row items-center justify-start gap-3 p-3 md:p-4 md:flex-col md:items-center md:justify-center border border-black/15 dark:border-white/20 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 animate md:aspect-square"
-            >
-              <svg class="w-6 h-6 md:w-8 md:h-8 flex-shrink-0 md:mb-2 text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-              <div class="flex-1 md:flex-none md:text-center">
-                <div class="text-sm font-medium text-black dark:text-white">LinkedIn</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 md:mt-1">Network</div>
-              </div>
-            </a>
-
-            <!-- Threads - Small Square Card -->
-            <a 
-              href={threads}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group bento-card flex flex-row items-center justify-start gap-3 p-3 md:p-4 md:flex-col md:items-center md:justify-center border border-black/15 dark:border-white/20 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 animate md:aspect-square"
-            >
-              <svg class="w-6 h-6 md:w-8 md:h-8 flex-shrink-0 md:mb-2 text-gray-700 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 192 192" aria-hidden="true">
-                <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622 169.331 37.0357 161.965 27.974C147.036 9.60668 125.202 0.195148 97.0695 0H96.9569C68.8816 0.19447 47.2921 9.6418 32.7883 28.0793C19.8819 44.4864 13.2244 67.3157 13.0007 95.9325L13 96L13.0007 96.0675C13.2244 124.684 19.8819 147.514 32.7883 163.921C47.2921 182.358 68.8816 191.806 96.9569 192H97.0695C122.03 191.827 139.624 185.292 154.118 170.811C173.081 151.866 172.51 128.119 166.26 113.541C161.776 103.087 153.227 94.5962 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.5234 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z"/>
-              </svg>
-              <div class="flex-1 md:flex-none md:text-center">
-                <div class="text-sm font-medium text-black dark:text-white">Threads</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 md:mt-1">Follow</div>
-              </div>
-            </a>
-            <!-- Facebook - Small Square Card -->
-            <a 
-              href={facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group bento-card flex flex-row items-center justify-start gap-3 p-3 md:p-4 md:flex-col md:items-center md:justify-center border border-black/15 dark:border-white/20 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 animate md:aspect-square"
-            >
-              <svg class="w-6 h-6 md:w-8 md:h-8 flex-shrink-0 md:mb-2 text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-              <div class="flex-1 md:flex-none md:text-center">
-                <div class="text-sm font-medium text-black dark:text-white">Facebook</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 md:mt-1">Follow</div>
-              </div>
-            </a>
-
-            <!-- Instagram - Small Square Card -->
-            <a 
-              href={instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group bento-card flex flex-row items-center justify-start gap-3 p-3 md:p-4 md:flex-col md:items-center md:justify-center border border-black/15 dark:border-white/20 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 animate md:aspect-square"
-            >
-              <svg class="w-6 h-6 md:w-8 md:h-8 flex-shrink-0 md:mb-2 text-gray-700 dark:text-gray-300 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-              <div class="flex-1 md:flex-none md:text-center">
-                <div class="text-sm font-medium text-black dark:text-white">Instagram</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 md:mt-1">Follow</div>
-              </div>
-            </a>
+      <!-- Recently watched -->
+      <section class="bio-film animate" style="--i: 3" aria-label="Recently watched">
+        <div class="bio-section-label">
+          <span>Recently watched</span>
+          <span class="bio-film-reel" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </div>
+        <div id="latest-film-loading" class="latest-film-loading">
+          <svg class="w-4 h-4 animate-spin text-gray-500 dark:text-gray-400" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+          </svg>
+          <span class="text-xs text-gray-500 dark:text-gray-400">Loading latest film...</span>
         </div>
 
-        <!-- Row 2: Dotkod Solutions Full Width -->
-        <div class="mb-3">
-            <a 
-              href="https://dotkod.com/promo"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group bento-card bento-large flex flex-row items-center gap-3 md:gap-4 p-4 md:p-6 border border-black/15 dark:border-white/20 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 animate bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20"
-            >
-              <svg class="w-8 h-8 md:w-12 md:h-12 flex-shrink-0 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              <div class="flex-1 min-w-0">
-                <div class="font-semibold text-base md:text-lg text-black dark:text-white mb-0.5 md:mb-1">Dotkod Solutions</div>
-                <div class="text-xs md:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Elevate your digital presence with custom web, e-commerce & SaaS solutions</div>
-              </div>
-              <div class="flex items-center gap-2 text-xs md:text-sm text-gray-500 dark:text-gray-400 flex-shrink-0">
-                <span class="hidden md:inline">Learn more</span>
-                <span class="md:hidden">More</span>
-                <svg class="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-            </a>
-        </div>
-
-        <!-- Row 3: Latest watched film (full width) -->
-        <div class="mb-3">
-          <div class="bento-card latest-film-card border border-black/15 dark:border-white/20 rounded-xl p-3 md:p-4 animate bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20">
-            <div class="flex items-center justify-between gap-3 mb-2">
-              <div class="text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300">Recently watched</div>
-            </div>
-
-            <div id="latest-film-loading" class="latest-film-loading">
-              <svg class="w-4 h-4 animate-spin text-gray-500 dark:text-gray-400" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-              </svg>
-              <span class="text-xs text-gray-500 dark:text-gray-400">Loading latest film...</span>
-            </div>
-
-            <div id="latest-film-content" class="latest-film-content hidden min-w-0">
-              <div class="latest-film-top min-w-0">
-                <a
-                  id="latest-film-poster-link"
-                  href={letterboxd}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="w-14 h-20 md:w-16 md:h-24 rounded-md overflow-hidden border border-black/10 dark:border-white/20 flex-shrink-0 bg-black/5 dark:bg-white/5"
-                >
-                  <img
-                    id="latest-film-poster"
-                    src=""
-                    alt="Latest watched film poster"
-                    class="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </a>
-                <div class="min-w-0 flex-1 w-full">
-                  <div class="flex items-baseline gap-2 min-w-0">
-                    <div id="latest-film-title" class="text-sm md:text-base font-semibold text-black dark:text-white truncate">
-                      -
-                    </div>
-                    <div id="latest-film-meta" class="text-[11px] md:text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">
-                      -
-                    </div>
-                  </div>
-                  <div id="latest-film-rating" class="text-[11px] md:text-xs text-amber-500 mt-1 tracking-[0.02em]">
-                    -
-                  </div>
-                </div>
-              </div>
-              <div id="latest-film-review-text" class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2 whitespace-pre-line">
-                -
-              </div>
-              <button
-                id="latest-film-expand-btn"
-                type="button"
-                class="latest-film-expand-btn hidden mt-1 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
-                aria-label="Expand review"
-              >
-                <svg
-                  class="latest-film-expand-icon w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Row 4: 3 cards (Desktop: 6 columns with 2-span each, Mobile: full width) -->
-        <div class="grid grid-cols-1 md:grid-cols-6 gap-3">
-            <!-- Letterboxd - Medium Card -->
-            <a 
+        <div id="latest-film-content" class="latest-film-content hidden">
+          <div class="latest-film-top">
+            <a
+              id="latest-film-poster-link"
               href={letterboxd}
               target="_blank"
               rel="noopener noreferrer"
-              class="group bento-card flex flex-row items-center justify-between gap-4 p-4 md:p-4 md:flex-col md:items-center md:justify-center border border-black/15 dark:border-white/20 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 animate md:col-span-2"
+              class="latest-film-poster"
             >
-              <div class="flex items-center gap-4 flex-1 md:flex-none md:flex-col">
-                <svg class="w-8 h-8 md:w-8 md:h-8 flex-shrink-0 transition-colors" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" version="1.1">
-                  <title>letterboxd-decal-dots-neg-rgb</title>
-                  <desc>Created with Sketch.</desc>
-                  <defs>
-                    <rect id="path-1" x="0" y="0" width="129.847328" height="141.389313"/>
-                    <rect id="path-3" x="0" y="0" width="129.847328" height="141.389313"/>
-                  </defs>
-                  <g id="letterboxd-decal-dots-neg-rgb" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="dots-pos" transform="translate(61.000000, 180.000000)">
-                      <g id="Dots">
-                        <ellipse id="Green" fill="#00E054" cx="189" cy="69.9732824" rx="70.0786517" ry="69.9732824"/>
-                        <g id="Blue" transform="translate(248.152672, 0.000000)">
-                          <mask id="mask-2" fill="white">
-                            <use xlink:href="#path-1"/>
-                          </mask>
-                          <g id="Mask"/>
-                          <ellipse fill="#40BCF4" mask="url(#mask-2)" cx="59.7686766" cy="69.9732824" rx="70.0786517" ry="69.9732824"/>
-                        </g>
-                        <g id="Orange">
-                          <mask id="mask-4" fill="white">
-                            <use xlink:href="#path-3"/>
-                          </mask>
-                          <g id="Mask"/>
-                          <ellipse fill="#FF8000" mask="url(#mask-4)" cx="70.0786517" cy="69.9732824" rx="70.0786517" ry="69.9732824"/>
-                        </g>
-                        <path d="M129.539326,107.022244 C122.810493,96.2781677 118.921348,83.5792213 118.921348,69.9732824 C118.921348,56.3673435 122.810493,43.6683972 129.539326,32.9243209 C136.268159,43.6683972 140.157303,56.3673435 140.157303,69.9732824 C140.157303,83.5792213 136.268159,96.2781677 129.539326,107.022244 Z" id="Overlap" fill="#556677"/>
-                        <path d="M248.460674,32.9243209 C255.189507,43.6683972 259.078652,56.3673435 259.078652,69.9732824 C259.078652,83.5792213 255.189507,96.2781677 248.460674,107.022244 C241.731841,96.2781677 237.842697,83.5792213 237.842697,69.9732824 C237.842697,56.3673435 241.731841,43.6683972 248.460674,32.9243209 Z" id="Overlap" fill="#556677"/>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-                <div class="flex-1 md:flex-none md:text-center">
-                  <div class="text-base md:text-sm font-medium text-black dark:text-white md:mb-1">Letterboxd</div>
-                  <div class="text-sm md:text-xs text-gray-500 dark:text-gray-400" id="letterboxd-stats">Loading stats...</div>
-                </div>
-              </div>
-              <div class="film-animation flex-shrink-0 relative w-12 h-12 md:w-16 md:h-16">
-                <div class="film-strip absolute inset-0">
-                  <div class="film-frame"></div>
-                  <div class="film-frame"></div>
-                  <div class="film-frame"></div>
-                </div>
-              </div>
+              <img id="latest-film-poster" src="" alt="Latest watched film poster" loading="lazy" />
             </a>
-
-            <!-- Serializd - Small Card -->
-            <a 
-              href={serializd}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group bento-card flex flex-row items-center justify-between gap-4 p-4 md:p-4 md:flex-col md:items-center md:justify-center border border-black/15 dark:border-white/20 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 animate md:col-span-2"
-            >
-              <div class="flex items-center gap-4 flex-1 md:flex-none md:flex-col">
-                <svg class="w-8 h-8 md:w-8 md:h-8 flex-shrink-0 text-gray-700 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zm-5-6l-7.5 5v-10l7.5 5z"/>
-                </svg>
-                <div class="flex-1 md:flex-none md:text-center">
-                  <div class="text-base md:text-sm font-medium text-black dark:text-white">Serializd</div>
-                  <div class="text-sm md:text-xs text-gray-500 dark:text-gray-400 md:mt-1" id="serializd-stats">7,744+ episodes watched</div>
-                </div>
+            <div class="latest-film-meta-wrap">
+              <div class="latest-film-title-row">
+                <div id="latest-film-title" class="latest-film-title">-</div>
+                <div id="latest-film-meta" class="latest-film-year">-</div>
               </div>
-              <div class="tv-animation flex-shrink-0 relative w-12 h-12 md:w-16 md:h-16">
-                <div class="tv-waves absolute inset-0">
-                  <div class="wave wave-1"></div>
-                  <div class="wave wave-2"></div>
-                  <div class="wave wave-3"></div>
-                </div>
-              </div>
-            </a>
-
-            <!-- Stats.fm - Small Card -->
-            <a 
-              href="https://stats.fm/sattiyans"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group bento-card flex flex-row items-center justify-between gap-4 p-4 md:p-4 md:flex-col md:items-center md:justify-center border border-black/15 dark:border-white/20 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 animate md:col-span-2"
-            >
-              <div class="flex items-center gap-4 flex-1 md:flex-none md:flex-col">
-                <svg class="w-8 h-8 md:w-8 md:h-8 flex-shrink-0 text-gray-700 dark:text-gray-300 group-hover:text-green-500 dark:group-hover:text-green-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
-                </svg>
-                <div class="flex-1 md:flex-none md:text-center">
-                  <div class="text-base md:text-sm font-medium text-black dark:text-white">Stats.fm</div>
-                  <div class="text-sm md:text-xs text-gray-500 dark:text-gray-400 md:mt-1" id="statsfm-stats">88,935+ minutes streamed</div>
-                </div>
-              </div>
-              <div class="music-animation flex-shrink-0 relative w-12 h-12 md:w-16 md:h-16">
-                <div class="sound-waves absolute inset-0 flex items-center justify-center gap-0.5">
-                  <div class="sound-bar bar-1"></div>
-                  <div class="sound-bar bar-2"></div>
-                  <div class="sound-bar bar-3"></div>
-                  <div class="sound-bar bar-4"></div>
-                </div>
-              </div>
-            </a>
+              <div id="latest-film-rating" class="latest-film-rating">-</div>
+            </div>
+          </div>
+          <div id="latest-film-review-text" class="latest-film-review line-clamp-2">-</div>
+          <button
+            id="latest-film-expand-btn"
+            type="button"
+            class="latest-film-expand-btn hidden"
+            aria-label="Expand review"
+          >
+            <svg class="latest-film-expand-icon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
         </div>
-      </div>
+      </section>
+
+      <!-- Lifestyle (secondary) -->
+      <section class="bio-life animate" style="--i: 4" aria-label="Elsewhere">
+        <div class="bio-section-label">Elsewhere</div>
+        <div class="bio-life-list">
+          <a href={letterboxd} target="_blank" rel="noopener noreferrer" class="bio-life-row">
+            <span class="bio-life-icon" aria-hidden="true">
+              <span class="bio-life-film"><i></i><i></i><i></i></span>
+            </span>
+            <div class="bio-life-text">
+              <div class="bio-life-name">Letterboxd</div>
+              <div class="bio-life-stat" id="letterboxd-stats">Loading stats...</div>
+            </div>
+            <svg class="bio-life-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href={serializd} target="_blank" rel="noopener noreferrer" class="bio-life-row">
+            <span class="bio-life-icon" aria-hidden="true">
+              <span class="bio-life-tv"><i></i><i></i></span>
+            </span>
+            <div class="bio-life-text">
+              <div class="bio-life-name">Serializd</div>
+              <div class="bio-life-stat" id="serializd-stats">8,082+ episodes watched</div>
+            </div>
+            <svg class="bio-life-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="https://stats.fm/sattiyans" target="_blank" rel="noopener noreferrer" class="bio-life-row">
+            <span class="bio-life-icon" aria-hidden="true">
+              <span class="bio-life-eq"><i></i><i></i><i></i><i></i></span>
+            </span>
+            <div class="bio-life-text">
+              <div class="bio-life-name">Stats.fm</div>
+              <div class="bio-life-stat" id="statsfm-stats">97,100+ minutes streamed</div>
+            </div>
+            <svg class="bio-life-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <p class="bio-foot animate" style="--i: 5">
+        <a href={`mailto:${SITE.EMAIL}`}>{SITE.EMAIL}</a>
+      </p>
     </div>
   </div>
 </BioLayout>
@@ -328,22 +284,20 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
 <script is:inline>
   let latestFilmReviewExpanded = false;
 
-  // Load dynamic stats
   async function loadStats() {
-    // Load latest Letterboxd film card + platform count
     try {
-      const letterboxdStatsEl = document.getElementById('letterboxd-stats');
-      const latestFilmTitleEl = document.getElementById('latest-film-title');
-      const latestFilmMetaEl = document.getElementById('latest-film-meta');
-      const latestFilmRatingEl = document.getElementById('latest-film-rating');
-      const latestFilmReviewTextEl = document.getElementById('latest-film-review-text');
-      const latestFilmExpandBtnEl = document.getElementById('latest-film-expand-btn');
-      const latestFilmPosterEl = document.getElementById('latest-film-poster');
-      const latestFilmPosterLinkEl = document.getElementById('latest-film-poster-link');
-      const latestFilmLoadingEl = document.getElementById('latest-film-loading');
-      const latestFilmContentEl = document.getElementById('latest-film-content');
+      const letterboxdStatsEl = document.getElementById("letterboxd-stats");
+      const latestFilmTitleEl = document.getElementById("latest-film-title");
+      const latestFilmMetaEl = document.getElementById("latest-film-meta");
+      const latestFilmRatingEl = document.getElementById("latest-film-rating");
+      const latestFilmReviewTextEl = document.getElementById("latest-film-review-text");
+      const latestFilmExpandBtnEl = document.getElementById("latest-film-expand-btn");
+      const latestFilmPosterEl = document.getElementById("latest-film-poster");
+      const latestFilmPosterLinkEl = document.getElementById("latest-film-poster-link");
+      const latestFilmLoadingEl = document.getElementById("latest-film-loading");
+      const latestFilmContentEl = document.getElementById("latest-film-content");
 
-      const letterboxdRecentResponse = await fetch('/api/letterboxd');
+      const letterboxdRecentResponse = await fetch("/api/letterboxd");
       if (letterboxdRecentResponse.ok) {
         const letterboxdRecentData = await letterboxdRecentResponse.json();
         const items = Array.isArray(letterboxdRecentData?.items)
@@ -356,28 +310,25 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
           const latestFilm = items
             .map((item) => ({
               ...item,
-              watchedDate: item?.watchedDate ? new Date(item.watchedDate) : new Date(0)
+              watchedDate: item?.watchedDate ? new Date(item.watchedDate) : new Date(0),
             }))
             .sort((a, b) => b.watchedDate.getTime() - a.watchedDate.getTime())[0];
 
           if (latestFilm?.title && latestFilmTitleEl && latestFilmMetaEl && latestFilmRatingEl) {
             latestFilmTitleEl.textContent = latestFilm.title;
             const watchedOn = formatWatchedDate(latestFilm.watchedDate);
-            const yearText = latestFilm.year ? `${latestFilm.year}` : '';
-            latestFilmMetaEl.textContent = yearText && watchedOn
-              ? `${yearText} · ${watchedOn}`
-              : watchedOn
-                ? watchedOn
-                : yearText;
+            const yearText = latestFilm.year ? `${latestFilm.year}` : "";
+            latestFilmMetaEl.textContent =
+              yearText && watchedOn ? `${yearText} · ${watchedOn}` : watchedOn ? watchedOn : yearText;
             latestFilmRatingEl.textContent = latestFilm.rating
               ? `${formatRating(latestFilm.rating)}`
-              : 'Not rated';
+              : "Not rated";
             if (latestFilmReviewTextEl) {
-              const reviewText = latestFilm.reviewText?.trim() || 'No written review text.';
+              const reviewText = latestFilm.reviewText?.trim() || "No written review text.";
               latestFilmReviewTextEl.textContent = reviewText;
               updateLatestFilmExpandState(reviewText);
             } else if (latestFilmExpandBtnEl instanceof HTMLButtonElement) {
-              latestFilmExpandBtnEl.classList.add('hidden');
+              latestFilmExpandBtnEl.classList.add("hidden");
             }
 
             if (latestFilm?.posterUrl && latestFilmPosterEl instanceof HTMLImageElement) {
@@ -385,226 +336,1168 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
               latestFilmPosterEl.alt = `Poster for ${latestFilm.title}`;
             }
 
-            if (latestFilm?.url) {
-              if (latestFilmPosterLinkEl instanceof HTMLAnchorElement) {
-                latestFilmPosterLinkEl.href = latestFilm.url;
-              }
+            if (latestFilm?.url && latestFilmPosterLinkEl instanceof HTMLAnchorElement) {
+              latestFilmPosterLinkEl.href = latestFilm.url;
             }
 
-            if (latestFilmLoadingEl) latestFilmLoadingEl.classList.add('hidden');
+            if (latestFilmLoadingEl) latestFilmLoadingEl.classList.add("hidden");
             if (latestFilmContentEl) {
-              latestFilmContentEl.classList.remove('hidden');
-              latestFilmContentEl.classList.add('flex');
+              latestFilmContentEl.classList.remove("hidden");
+              latestFilmContentEl.classList.add("flex");
             }
           }
         }
       }
 
-      const letterboxdCountResponse = await fetch('/api/letterboxd-stats');
+      const letterboxdCountResponse = await fetch("/api/letterboxd-stats");
       if (letterboxdCountResponse.ok && letterboxdStatsEl) {
         const letterboxdCountData = await letterboxdCountResponse.json();
         if (letterboxdCountData.success && letterboxdCountData.movieCount > 0) {
           letterboxdStatsEl.textContent = `${letterboxdCountData.movieCount.toLocaleString()}+ films watched`;
         } else {
-          letterboxdStatsEl.textContent = 'Film reviews & ratings';
+          letterboxdStatsEl.textContent = "Film reviews & ratings";
         }
       }
     } catch (error) {
-      console.error('Error loading Letterboxd stats:', error);
-      const letterboxdStatsEl = document.getElementById('letterboxd-stats');
-      if (letterboxdStatsEl) {
-        letterboxdStatsEl.textContent = 'Film reviews & ratings';
-      }
+      console.error("Error loading Letterboxd stats:", error);
+      const letterboxdStatsEl = document.getElementById("letterboxd-stats");
+      if (letterboxdStatsEl) letterboxdStatsEl.textContent = "Film reviews & ratings";
 
-      const latestFilmTitleEl = document.getElementById('latest-film-title');
-      const latestFilmMetaEl = document.getElementById('latest-film-meta');
-      const latestFilmRatingEl = document.getElementById('latest-film-rating');
-      const latestFilmReviewTextEl = document.getElementById('latest-film-review-text');
-      const latestFilmExpandBtnEl = document.getElementById('latest-film-expand-btn');
-      const latestFilmLoadingEl = document.getElementById('latest-film-loading');
-      const latestFilmContentEl = document.getElementById('latest-film-content');
-      if (latestFilmTitleEl) latestFilmTitleEl.textContent = 'Latest film unavailable';
-      if (latestFilmMetaEl) latestFilmMetaEl.textContent = '';
-      if (latestFilmRatingEl) latestFilmRatingEl.textContent = '-';
-      if (latestFilmReviewTextEl) latestFilmReviewTextEl.textContent = 'Could not load review text.';
-      if (latestFilmExpandBtnEl instanceof HTMLButtonElement) latestFilmExpandBtnEl.classList.add('hidden');
-      if (latestFilmLoadingEl) latestFilmLoadingEl.classList.add('hidden');
+      const latestFilmTitleEl = document.getElementById("latest-film-title");
+      const latestFilmMetaEl = document.getElementById("latest-film-meta");
+      const latestFilmRatingEl = document.getElementById("latest-film-rating");
+      const latestFilmReviewTextEl = document.getElementById("latest-film-review-text");
+      const latestFilmExpandBtnEl = document.getElementById("latest-film-expand-btn");
+      const latestFilmLoadingEl = document.getElementById("latest-film-loading");
+      const latestFilmContentEl = document.getElementById("latest-film-content");
+      if (latestFilmTitleEl) latestFilmTitleEl.textContent = "Latest film unavailable";
+      if (latestFilmMetaEl) latestFilmMetaEl.textContent = "";
+      if (latestFilmRatingEl) latestFilmRatingEl.textContent = "-";
+      if (latestFilmReviewTextEl) latestFilmReviewTextEl.textContent = "Could not load review text.";
+      if (latestFilmExpandBtnEl instanceof HTMLButtonElement) latestFilmExpandBtnEl.classList.add("hidden");
+      if (latestFilmLoadingEl) latestFilmLoadingEl.classList.add("hidden");
       if (latestFilmContentEl) {
-        latestFilmContentEl.classList.remove('hidden');
-        latestFilmContentEl.classList.add('flex');
+        latestFilmContentEl.classList.remove("hidden");
+        latestFilmContentEl.classList.add("flex");
       }
     }
 
-    // Load latest Serializd episode (best effort)
     try {
-      const serializdResponse = await fetch('/api/serializd');
+      const serializdResponse = await fetch("/api/serializd");
       if (serializdResponse.ok) {
         const serializdData = await serializdResponse.json();
-        const serializdStatsEl = document.getElementById('serializd-stats');
+        const serializdStatsEl = document.getElementById("serializd-stats");
         if (serializdStatsEl) {
           const latestEpisode = serializdData?.latestEpisode;
           if (serializdData?.success && latestEpisode?.showTitle) {
-            const seasonPart = latestEpisode.season ? `S${latestEpisode.season}` : '';
-            const episodePart = latestEpisode.episode ? `E${latestEpisode.episode}` : '';
+            const seasonPart = latestEpisode.season ? `S${latestEpisode.season}` : "";
+            const episodePart = latestEpisode.episode ? `E${latestEpisode.episode}` : "";
             const seasonEpisode = `${seasonPart}${episodePart}`.trim();
             serializdStatsEl.textContent = seasonEpisode
               ? `Latest: ${latestEpisode.showTitle} ${seasonEpisode}`
               : `Latest: ${latestEpisode.showTitle}`;
           } else {
-            serializdStatsEl.textContent = '7,744+ episodes watched';
+            serializdStatsEl.textContent = "8,082+ episodes watched";
           }
         }
       }
     } catch (error) {
-      console.error('Error loading Serializd latest episode:', error);
-      const serializdStatsEl = document.getElementById('serializd-stats');
-      if (serializdStatsEl) {
-        serializdStatsEl.textContent = '7,744+ episodes watched';
-      }
+      console.error("Error loading Serializd latest episode:", error);
+      const serializdStatsEl = document.getElementById("serializd-stats");
+      if (serializdStatsEl) serializdStatsEl.textContent = "8,082+ episodes watched";
     }
 
-    // Load Stats.fm stats
     try {
-      const statsfmResponse = await fetch('/api/statsfm');
+      const statsfmResponse = await fetch("/api/statsfm");
       if (statsfmResponse.ok) {
         const statsfmData = await statsfmResponse.json();
-        const statsfmStatsEl = document.getElementById('statsfm-stats');
+        const statsfmStatsEl = document.getElementById("statsfm-stats");
         if (statsfmStatsEl) {
           if (statsfmData.success && statsfmData.totalMinutes) {
             statsfmStatsEl.textContent = `${statsfmData.totalMinutes.toLocaleString()}+ minutes streamed`;
           } else {
-            statsfmStatsEl.textContent = '88,935+ minutes streamed';
+            statsfmStatsEl.textContent = "97,100+ minutes streamed";
           }
         }
       }
     } catch (error) {
-      console.error('Error loading Stats.fm stats:', error);
-      const statsfmStatsEl = document.getElementById('statsfm-stats');
-      if (statsfmStatsEl) {
-        statsfmStatsEl.textContent = '88,935+ minutes streamed';
-      }
+      console.error("Error loading Stats.fm stats:", error);
+      const statsfmStatsEl = document.getElementById("statsfm-stats");
+      if (statsfmStatsEl) statsfmStatsEl.textContent = "97,100+ minutes streamed";
     }
   }
 
   function formatRating(rating) {
-    if (typeof rating !== 'number') return '';
+    if (typeof rating !== "number") return "";
     const normalized = Math.max(0, Math.min(5, rating));
     const fullStars = Math.floor(normalized);
     const hasHalfStar = normalized % 1 >= 0.5;
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-    return `${'★'.repeat(fullStars)}${hasHalfStar ? '½' : ''}${'☆'.repeat(Math.max(0, emptyStars))}`;
+    return `${"★".repeat(fullStars)}${hasHalfStar ? "½" : ""}${"☆".repeat(Math.max(0, emptyStars))}`;
   }
 
   function formatWatchedDate(dateValue) {
     const date = new Date(dateValue);
-    if (Number.isNaN(date.getTime())) return '';
-    return new Intl.DateTimeFormat('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
+    if (Number.isNaN(date.getTime())) return "";
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     }).format(date);
   }
 
   function setLatestFilmExpanded(expanded) {
     latestFilmReviewExpanded = expanded;
-    const reviewTextEl = document.getElementById('latest-film-review-text');
-    const expandBtnEl = document.getElementById('latest-film-expand-btn');
+    const reviewTextEl = document.getElementById("latest-film-review-text");
+    const expandBtnEl = document.getElementById("latest-film-expand-btn");
     if (!reviewTextEl || !(expandBtnEl instanceof HTMLButtonElement)) return;
 
     if (expanded) {
-      reviewTextEl.classList.remove('line-clamp-2');
-      expandBtnEl.classList.add('is-expanded');
-      expandBtnEl.setAttribute('aria-label', 'Collapse review');
+      reviewTextEl.classList.remove("line-clamp-2");
+      expandBtnEl.classList.add("is-expanded");
+      expandBtnEl.setAttribute("aria-label", "Collapse review");
     } else {
-      reviewTextEl.classList.add('line-clamp-2');
-      expandBtnEl.classList.remove('is-expanded');
-      expandBtnEl.setAttribute('aria-label', 'Expand review');
+      reviewTextEl.classList.add("line-clamp-2");
+      expandBtnEl.classList.remove("is-expanded");
+      expandBtnEl.setAttribute("aria-label", "Expand review");
     }
   }
 
   function updateLatestFilmExpandState(reviewText) {
-    const expandBtnEl = document.getElementById('latest-film-expand-btn');
+    const expandBtnEl = document.getElementById("latest-film-expand-btn");
     if (!(expandBtnEl instanceof HTMLButtonElement)) return;
 
     if (reviewText.length > 160) {
-      expandBtnEl.classList.remove('hidden');
+      expandBtnEl.classList.remove("hidden");
       setLatestFilmExpanded(false);
     } else {
-      expandBtnEl.classList.add('hidden');
+      expandBtnEl.classList.add("hidden");
       setLatestFilmExpanded(false);
     }
   }
 
-  // Animate elements on load
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     loadStats();
 
-    const expandBtnEl = document.getElementById('latest-film-expand-btn');
+    const expandBtnEl = document.getElementById("latest-film-expand-btn");
     if (expandBtnEl instanceof HTMLButtonElement) {
-      expandBtnEl.addEventListener('click', () => {
+      expandBtnEl.addEventListener("click", () => {
         setLatestFilmExpanded(!latestFilmReviewExpanded);
       });
     }
-    
-    // Animate elements
-    const animateElements = document.querySelectorAll('.animate');
-    animateElements.forEach((el, index) => {
-      setTimeout(() => {
-        el.classList.add('show');
-      }, index * 100);
+
+    document.querySelectorAll(".animate").forEach((el) => {
+      const i = Number(el.style.getPropertyValue("--i") || 0);
+      setTimeout(() => el.classList.add("show"), 90 + i * 110);
     });
   });
 </script>
 
 <style>
-  .animate {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  .bio-page {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 1.75rem 1.25rem 3rem;
+    background:
+      radial-gradient(ellipse 90% 55% at 50% -8%, rgba(0, 0, 0, 0.05), transparent 58%),
+      radial-gradient(ellipse 60% 40% at 85% 90%, rgba(0, 0, 0, 0.03), transparent 55%),
+      #fafafa;
   }
 
-  .animate.show {
-    opacity: 1;
+  :global(.dark) .bio-page {
+    background:
+      radial-gradient(ellipse 90% 55% at 50% -8%, rgba(255, 255, 255, 0.06), transparent 58%),
+      radial-gradient(ellipse 60% 40% at 85% 90%, rgba(255, 255, 255, 0.035), transparent 55%),
+      #000;
+  }
+
+  .bio-ambient {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .bio-aurora {
+    position: absolute;
+    width: 55%;
+    height: 45%;
+    border-radius: 9999px;
+    filter: blur(70px);
+    opacity: 0.35;
+    animation: bio-aurora-drift 16s ease-in-out infinite;
+  }
+
+  .bio-aurora-a {
+    top: -12%;
+    left: -8%;
+    background: rgba(0, 0, 0, 0.09);
+  }
+
+  .bio-aurora-b {
+    right: -12%;
+    bottom: 10%;
+    width: 48%;
+    height: 40%;
+    background: rgba(0, 0, 0, 0.06);
+    animation-delay: -7s;
+    animation-duration: 20s;
+  }
+
+  :global(.dark) .bio-aurora-a {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  :global(.dark) .bio-aurora-b {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .bio-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(40px);
+    opacity: 0.5;
+    animation: bio-orb-drift 14s ease-in-out infinite;
+  }
+
+  .bio-orb-a {
+    width: 16rem;
+    height: 16rem;
+    top: -3rem;
+    left: 18%;
+    background: rgba(0, 0, 0, 0.07);
+  }
+
+  .bio-orb-b {
+    width: 12rem;
+    height: 12rem;
+    bottom: 12%;
+    right: 6%;
+    background: rgba(0, 0, 0, 0.05);
+    animation-delay: -6s;
+    animation-duration: 18s;
+  }
+
+  .bio-orb-c {
+    width: 8rem;
+    height: 8rem;
+    top: 42%;
+    left: -2rem;
+    background: rgba(0, 0, 0, 0.04);
+    animation-delay: -3s;
+    animation-duration: 12s;
+  }
+
+  :global(.dark) .bio-orb-a {
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  :global(.dark) .bio-orb-b {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  :global(.dark) .bio-orb-c {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .bio-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 75% 55% at 50% 12%, #000 15%, transparent 72%);
+    opacity: 0.65;
+    animation: bio-grid-drift 24s linear infinite;
+  }
+
+  :global(.dark) .bio-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  }
+
+  .bio-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    mix-blend-mode: multiply;
+    animation: bio-noise-shift 8s steps(2) infinite;
+  }
+
+  :global(.dark) .bio-noise {
+    opacity: 0.06;
+    mix-blend-mode: soft-light;
+  }
+
+  .bio-beams {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .bio-beams i {
+    position: absolute;
+    top: -20%;
+    width: 1px;
+    height: 140%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(0, 0, 0, 0.08),
+      transparent
+    );
+    transform: rotate(18deg);
+    animation: bio-beam-drift 9s ease-in-out infinite;
+  }
+
+  :global(.dark) .bio-beams i {
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+  }
+
+  .bio-beams i:nth-child(1) {
+    left: 22%;
+    animation-delay: 0s;
+  }
+  .bio-beams i:nth-child(2) {
+    left: 48%;
+    animation-delay: -3s;
+    animation-duration: 11s;
+  }
+  .bio-beams i:nth-child(3) {
+    left: 74%;
+    animation-delay: -6s;
+    animation-duration: 13s;
+  }
+
+  .bio-dust {
+    position: absolute;
+    inset: 0;
+  }
+
+  .bio-dust i {
+    position: absolute;
+    width: 0.2rem;
+    height: 0.2rem;
+    border-radius: 9999px;
+    background: currentColor;
+    color: #111;
+    opacity: 0.25;
+    animation: bio-dust-float 10s ease-in-out infinite;
+  }
+
+  :global(.dark) .bio-dust i {
+    color: #fff;
+    opacity: 0.35;
+  }
+
+  .bio-dust i:nth-child(1) { top: 18%; left: 12%; animation-delay: 0s; }
+  .bio-dust i:nth-child(2) { top: 28%; left: 78%; animation-delay: -1.2s; width: 0.28rem; height: 0.28rem; }
+  .bio-dust i:nth-child(3) { top: 46%; left: 22%; animation-delay: -2.4s; }
+  .bio-dust i:nth-child(4) { top: 58%; left: 86%; animation-delay: -3.1s; width: 0.15rem; height: 0.15rem; }
+  .bio-dust i:nth-child(5) { top: 72%; left: 18%; animation-delay: -4.5s; }
+  .bio-dust i:nth-child(6) { top: 14%; left: 56%; animation-delay: -5.2s; width: 0.24rem; height: 0.24rem; }
+  .bio-dust i:nth-child(7) { top: 66%; left: 48%; animation-delay: -6.4s; }
+  .bio-dust i:nth-child(8) { top: 38%; left: 64%; animation-delay: -7.8s; width: 0.18rem; height: 0.18rem; }
+
+  @keyframes bio-aurora-drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(4%, 6%, 0) scale(1.08);
+    }
+  }
+
+  @keyframes bio-orb-drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(12px, 18px, 0) scale(1.08);
+    }
+  }
+
+  @keyframes bio-grid-drift {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 40px 40px;
+    }
+  }
+
+  @keyframes bio-noise-shift {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(-1.5%, 1%);
+    }
+  }
+
+  @keyframes bio-beam-drift {
+    0%,
+    100% {
+      opacity: 0.15;
+      transform: translateX(0) rotate(18deg);
+    }
+    50% {
+      opacity: 0.45;
+      transform: translateX(18px) rotate(18deg);
+    }
+  }
+
+  @keyframes bio-dust-float {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.15;
+    }
+    50% {
+      transform: translateY(-14px);
+      opacity: 0.45;
+    }
+  }
+
+  .bio-shell {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 26rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .bio-profile {
+    text-align: center;
+  }
+
+  .bio-avatar {
+    position: relative;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin: 0 auto 0.85rem;
+    border-radius: 9999px;
+  }
+
+  .bio-avatar-glow {
+    position: absolute;
+    inset: -18px;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.1), transparent 68%);
+    animation: bio-avatar-glow 4s ease-in-out infinite;
+  }
+
+  :global(.dark) .bio-avatar-glow {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.14), transparent 68%);
+  }
+
+  .bio-avatar-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    animation: bio-ring-pulse 3.2s ease-in-out infinite;
+  }
+
+  .bio-avatar-ring-outer {
+    inset: -10px;
+    border-color: rgba(0, 0, 0, 0.07);
+    animation-delay: -1.2s;
+    animation-duration: 4.2s;
+  }
+
+  :global(.dark) .bio-avatar-ring {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  :global(.dark) .bio-avatar-ring-outer {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .bio-avatar img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+  }
+
+  :global(.dark) .bio-avatar img {
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  }
+
+  @keyframes bio-avatar-glow {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scale(0.96);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes bio-ring-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  }
+
+  .bio-name {
+    margin: 0 0 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: #000;
+  }
+
+  :global(.dark) .bio-name {
+    color: #fff;
+  }
+
+  .bio-name-shimmer {
+    background: linear-gradient(
+      110deg,
+      #111 0%,
+      #111 35%,
+      #888 50%,
+      #111 65%,
+      #111 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: bio-name-shimmer 5.5s ease-in-out infinite;
+  }
+
+  :global(.dark) .bio-name-shimmer {
+    background: linear-gradient(
+      110deg,
+      #fff 0%,
+      #fff 35%,
+      #888 50%,
+      #fff 65%,
+      #fff 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  @keyframes bio-name-shimmer {
+    0%,
+    100% {
+      background-position: 100% 0;
+    }
+    50% {
+      background-position: 0% 0;
+    }
+  }
+
+  .bio-role {
+    margin: 0 0 0.55rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #374151;
+  }
+
+  :global(.dark) .bio-role {
+    color: #d1d5db;
+  }
+
+  .bio-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .bio-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.28rem 0.6rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(8px);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: #52525b;
+  }
+
+  :global(.dark) .bio-chip {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.04);
+    color: #a1a1aa;
+  }
+
+  .bio-chip svg {
+    width: 0.75rem;
+    height: 0.75rem;
+    opacity: 0.75;
+  }
+
+  .bio-chip-live {
+    color: #166534;
+    border-color: rgba(34, 197, 94, 0.25);
+    background: rgba(34, 197, 94, 0.08);
+  }
+
+  :global(.dark) .bio-chip-live {
+    color: #86efac;
+    border-color: rgba(34, 197, 94, 0.3);
+    background: rgba(34, 197, 94, 0.1);
+  }
+
+  .bio-tagline {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: #6b7280;
+  }
+
+  :global(.dark) .bio-tagline {
+    color: #9ca3af;
+  }
+
+  .bio-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .bio-cta {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    border-radius: 0.9rem;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bio-cta:hover {
+    transform: translateY(-2px);
+  }
+
+  .bio-cta:active {
     transform: translateY(0);
   }
 
-  /* Bento card styles */
-  .bento-card {
-    cursor: pointer;
-    display: flex;
-  }
-
-  .bento-large {
-    min-height: 120px;
-  }
-
-  .bento-medium {
-    min-height: 100px;
-  }
-
-  .bento-wide {
-    min-height: 80px;
-  }
-
-  .latest-film-card {
+  .bio-cta-body {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.125rem;
-    min-height: 0;
+    gap: 0.1rem;
+    padding: 0.7rem 0.85rem;
   }
 
-  .latest-film-link {
-    padding: 0.25rem 0.5rem;
+  .bio-cta-hire .bio-cta-body {
+    padding: 0.8rem 0.9rem;
+  }
+
+  .bio-cta-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.72;
+  }
+
+  .bio-live {
+    position: relative;
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  .bio-live span,
+  .bio-live::after {
+    position: absolute;
+    inset: 0;
     border-radius: 9999px;
+    background: #22c55e;
+  }
+
+  .bio-live::after {
+    content: "";
+    animation: bio-live-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes bio-live-ping {
+    75%,
+    100% {
+      transform: scale(2.4);
+      opacity: 0;
+    }
+  }
+
+  .bio-cta-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .bio-cta-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .bio-cta-sub {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    opacity: 0.55;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .bio-cta-index {
+    display: none;
+  }
+
+  .bio-cta-go {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    color: inherit;
+    opacity: 0.45;
+    transition:
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.2s ease;
+  }
+
+  .bio-cta-go svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .bio-cta:hover .bio-cta-go {
+    transform: translateX(3px);
+    opacity: 0.9;
+  }
+
+  .bio-cta-hire {
+    color: #fff;
+    background: #0a0a0a;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+    animation: bio-hire-breathe 3.6s ease-in-out infinite;
+  }
+
+  :global(.dark) .bio-cta-hire {
+    color: #0a0a0a;
+    background: #f4f4f5;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+    animation-name: bio-hire-breathe-dark;
+  }
+
+  .bio-cta-hire .bio-cta-go {
+    width: 1.65rem;
+    height: 1.65rem;
+    border-radius: 9999px;
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  :global(.dark) .bio-cta-hire .bio-cta-go {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  .bio-cta-hire:hover .bio-cta-go {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  :global(.dark) .bio-cta-hire:hover .bio-cta-go {
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  .bio-cta-sheen {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.16) 48%,
+      transparent 62%
+    );
+    transform: translateX(-130%);
+    animation: bio-hire-sheen 4.2s ease-in-out infinite;
+  }
+
+  :global(.dark) .bio-cta-sheen {
+    background: linear-gradient(
+      105deg,
+      transparent 35%,
+      rgba(0, 0, 0, 0.1) 48%,
+      transparent 62%
+    );
+  }
+
+  @keyframes bio-hire-sheen {
+    0%,
+    55% {
+      transform: translateX(-130%);
+    }
+    85%,
+    100% {
+      transform: translateX(130%);
+    }
+  }
+
+  @keyframes bio-hire-breathe {
+    0%,
+    100% {
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    }
+    50% {
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+    }
+  }
+
+  @keyframes bio-hire-breathe-dark {
+    0%,
+    100% {
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+    50% {
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    }
+  }
+
+  .bio-cta-card {
+    color: #111;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.4)),
+      #fff;
+    backdrop-filter: blur(10px);
+  }
+
+  :global(.dark) .bio-cta-card {
+    color: #f4f4f5;
+    border-color: rgba(255, 255, 255, 0.14);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
+      #050505;
+  }
+
+  .bio-cta-card:hover {
+    border-color: rgba(0, 0, 0, 0.22);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+  }
+
+  :global(.dark) .bio-cta-card:hover {
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .bio-cta-card .bio-cta-go {
+    display: none;
+  }
+
+  :global(.dark) .bio-cta-card .bio-cta-go {
+    display: none;
+  }
+
+  .bio-cta-art {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 34%;
+    pointer-events: none;
+    opacity: 0.5;
+    mask-image: linear-gradient(90deg, transparent, #000 40%);
+  }
+
+  :global(.dark) .bio-cta-art {
+    opacity: 0.38;
+  }
+
+  .bio-cta-card:hover .bio-cta-art {
+    opacity: 0.8;
+  }
+
+  :global(.dark) .bio-cta-card:hover .bio-cta-art {
+    opacity: 0.65;
+  }
+
+  .bio-cta-card .bio-cta-body {
+    padding-right: 3.25rem;
+  }
+
+  .bio-art-flow {
+    position: absolute;
+    right: 0.15rem;
+    top: 50%;
+    width: 5.25rem;
+    height: auto;
+    transform: translateY(-50%);
+    color: currentColor;
+  }
+
+  .bio-art-path {
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 6 8;
+    opacity: 0.55;
+    animation: bio-path-dash 2.4s linear infinite;
+  }
+
+  .bio-art-dot {
+    fill: currentColor;
+    opacity: 0.7;
+  }
+
+  .bio-art-dot-a { animation: bio-dot-pulse 2s ease-in-out infinite; }
+  .bio-art-dot-b { animation: bio-dot-pulse 2s ease-in-out infinite 0.3s; }
+  .bio-art-dot-c { animation: bio-dot-pulse 2s ease-in-out infinite 0.6s; }
+  .bio-art-dot-d { animation: bio-dot-pulse 2s ease-in-out infinite 0.9s; }
+
+  @keyframes bio-path-dash {
+    to { stroke-dashoffset: -56; }
+  }
+
+  @keyframes bio-dot-pulse {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+
+  .bio-art-tiles {
+    position: absolute;
+    right: 0.7rem;
+    top: 50%;
+    display: grid;
+    grid-template-columns: repeat(3, 0.5rem);
+    gap: 0.22rem;
+    transform: translateY(-50%) rotate(-8deg);
+  }
+
+  .bio-art-tiles i {
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 0.12rem;
+    background: currentColor;
+    opacity: 0.35;
+    animation: bio-tile 2.6s ease-in-out infinite;
+  }
+
+  .bio-art-tiles i:nth-child(2) { animation-delay: 0.15s; }
+  .bio-art-tiles i:nth-child(3) { animation-delay: 0.3s; }
+  .bio-art-tiles i:nth-child(4) { animation-delay: 0.45s; }
+  .bio-art-tiles i:nth-child(5) { animation-delay: 0.6s; }
+  .bio-art-tiles i:nth-child(6) { animation-delay: 0.75s; }
+
+  @keyframes bio-tile {
+    0%, 100% { opacity: 0.22; transform: scale(0.92); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+  }
+
+  .bio-art-doc {
+    position: absolute;
+    right: 0.85rem;
+    top: 50%;
+    width: 1.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+    transform: translateY(-50%);
+  }
+
+  .bio-art-doc i {
+    display: block;
+    height: 0.14rem;
+    border-radius: 9999px;
+    background: currentColor;
+    opacity: 0.35;
+    transform-origin: left center;
+    animation: bio-doc-line 2.4s ease-in-out infinite;
+  }
+
+  .bio-art-doc i:nth-child(1) { width: 100%; }
+  .bio-art-doc i:nth-child(2) { width: 78%; animation-delay: 0.15s; }
+  .bio-art-doc i:nth-child(3) { width: 90%; animation-delay: 0.3s; }
+  .bio-art-doc i:nth-child(4) { width: 62%; animation-delay: 0.45s; }
+
+  @keyframes bio-doc-line {
+    0%, 100% { opacity: 0.25; transform: scaleX(0.92); }
+    50% { opacity: 0.7; transform: scaleX(1); }
+  }
+
+  .bio-socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+  }
+
+  .bio-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.65rem;
+    color: #6b7280;
+    transition:
+      color 0.2s ease,
+      background 0.2s ease,
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bio-socials.show .bio-social {
+    animation: bio-social-in 0.45s ease both;
+    animation-delay: calc(var(--s, 0) * 55ms + 80ms);
+  }
+
+  @keyframes bio-social-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  :global(.dark) .bio-social {
+    color: #a1a1aa;
+  }
+
+  .bio-social:hover {
+    color: #000;
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+  }
+
+  :global(.dark) .bio-social:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .bio-social svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  .bio-section-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 0.45rem;
+  }
+
+  :global(.dark) .bio-section-label {
+    color: #71717a;
+  }
+
+  .bio-film-reel {
+    display: inline-flex;
+    gap: 0.2rem;
+  }
+
+  .bio-film-reel span {
+    width: 0.28rem;
+    height: 0.7rem;
+    border-radius: 9999px;
+    background: currentColor;
+    opacity: 0.45;
+    animation: bio-reel 1.1s ease-in-out infinite;
+  }
+
+  .bio-film-reel span:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .bio-film-reel span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes bio-reel {
+    0%,
+    100% {
+      transform: scaleY(0.55);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scaleY(1);
+      opacity: 0.8;
+    }
+  }
+
+  .bio-film {
+    padding: 0.75rem 0.85rem;
+    border-radius: 0.9rem;
     border: 1px solid rgba(0, 0, 0, 0.12);
     background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(8px);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .latest-film-link {
-      border-color: rgba(255, 255, 255, 0.2);
-      background: rgba(0, 0, 0, 0.2);
-    }
+  :global(.dark) .bio-film {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .bio-film:hover {
+    border-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.05);
+  }
+
+  :global(.dark) .bio-film:hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
   }
 
   .latest-film-loading {
@@ -612,7 +1505,7 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.875rem 0;
+    padding: 0.75rem 0;
   }
 
   .latest-film-loading.hidden {
@@ -623,7 +1516,11 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 0.625rem;
+  }
+
+  .latest-film-content.hidden {
+    display: none !important;
   }
 
   .latest-film-top {
@@ -633,8 +1530,83 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
     width: 100%;
   }
 
-  .latest-film-content.hidden {
-    display: none !important;
+  .latest-film-poster {
+    width: 3.25rem;
+    height: 4.75rem;
+    flex-shrink: 0;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease;
+  }
+
+  .latest-film-poster:hover {
+    transform: scale(1.04);
+  }
+
+  :global(.dark) .latest-film-poster {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .latest-film-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .latest-film-meta-wrap {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .latest-film-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .latest-film-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  :global(.dark) .latest-film-title {
+    color: #fff;
+  }
+
+  .latest-film-year {
+    font-size: 0.6875rem;
+    color: #9ca3af;
+    white-space: nowrap;
+  }
+
+  .latest-film-rating {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: #6b7280;
+  }
+
+  :global(.dark) .latest-film-rating {
+    color: #a1a1aa;
+  }
+
+  .latest-film-review {
+    font-size: 0.75rem;
+    line-height: 1.45;
+    color: #6b7280;
+    white-space: pre-line;
+  }
+
+  :global(.dark) .latest-film-review {
+    color: #a1a1aa;
   }
 
   .latest-film-expand-btn {
@@ -642,11 +1614,29 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #9ca3af;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: color 0.2s ease;
+  }
+
+  .latest-film-expand-btn:hover {
+    color: #000;
+  }
+
+  :global(.dark) .latest-film-expand-btn:hover {
+    color: #fff;
+  }
+
+  .latest-film-expand-btn.hidden {
+    display: none !important;
   }
 
   .latest-film-expand-icon {
-    transition: transform 220ms ease, opacity 220ms ease;
-    animation: latest-film-chevron-bob 1.4s ease-in-out infinite;
+    transition: transform 220ms ease;
+    animation: bio-chevron-bob 1.4s ease-in-out infinite;
   }
 
   .latest-film-expand-btn.is-expanded .latest-film-expand-icon {
@@ -654,8 +1644,9 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
     animation: none;
   }
 
-  @keyframes latest-film-chevron-bob {
-    0%, 100% {
+  @keyframes bio-chevron-bob {
+    0%,
+    100% {
       transform: translateY(0);
       opacity: 0.85;
     }
@@ -665,324 +1656,271 @@ const serializd = SOCIALS.find(s => s.NAME === 'Serializd')?.HREF || 'https://se
     }
   }
 
-  @media (min-width: 768px) {
-    .latest-film-top {
-      gap: 1rem;
-    }
-  }
-
-  /* Ensure vertical centering for all card types */
-  .bento-card.aspect-square {
-    align-items: center;
-    justify-content: center;
-  }
-
-  .bento-card.bento-wide,
-  .bento-card.bento-medium {
-    align-items: center;
-  }
-
-  /* Mobile-first responsive adjustments */
-  @media (max-width: 640px) {
-    .bio-container {
-      padding-top: 1.5rem !important;
-      padding-bottom: 1.5rem !important;
-    }
-
-    .bento-large {
-      min-height: 100px;
-      flex-direction: column !important;
-      align-items: flex-start !important;
-    }
-
-    .bento-medium,
-    .bento-wide {
-      min-height: 80px;
-    }
-
-    .latest-film-card {
-      min-height: 0;
-    }
-
-    /* Ensure grid items stack properly on mobile */
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* Full width cards on mobile */
-    .col-span-2 {
-      grid-column: span 2;
-    }
-
-    .md\:col-span-4 {
-      grid-column: span 2;
-    }
-
-    .md\:col-span-2 {
-      grid-column: span 2;
-    }
-  }
-
-  /* Desktop optimizations */
-  @media (min-width: 768px) {
-    .bento-card.aspect-square {
-      min-height: 110px;
-    }
-
-    .bento-medium {
-      min-height: 110px;
-    }
-
-    .bento-large {
-      min-height: 130px;
-    }
-
-    /* Better spacing on desktop */
-    .grid {
-      gap: 1rem;
-    }
-  }
-
-  @media (min-width: 640px) {
-    .min-h-screen {
-      padding: 2rem 1rem;
-    }
-  }
-
-  /* Remove ALL default main padding and margins - especially pt-24 (6rem) from global.css */
-  main {
-    padding: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin: 0 !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-  }
-
-  /* More specific override for bio page main element */
-  body > main {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  /* Remove Container padding */
-  .bio-wrapper {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  /* Ensure container has equal padding top and bottom - EXACTLY THE SAME */
-  .bio-container {
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-  }
-
-  /* Film Animation for Letterboxd */
-  .film-animation {
-    position: relative;
+  .bio-life-list {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
     overflow: hidden;
-    border-radius: 0.5rem;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(8px);
   }
 
-  @media (prefers-color-scheme: dark) {
-    .film-animation {
-      background: rgba(255, 255, 255, 0.05);
-    }
+  :global(.dark) .bio-life-list {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.025);
   }
 
-  .film-strip {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-  }
-
-  .film-frame {
-    position: absolute;
-    width: 3px;
-    height: 100%;
-    background: #666;
-    opacity: 0.6;
-    animation: film-scroll 2s linear infinite;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .film-frame {
-      background: #999;
-    }
-  }
-
-  .film-frame:nth-child(1) {
-    left: 20%;
-    animation-delay: 0s;
-  }
-
-  .film-frame:nth-child(2) {
-    left: 50%;
-    animation-delay: 0.7s;
-  }
-
-  .film-frame:nth-child(3) {
-    left: 80%;
-    animation-delay: 1.4s;
-  }
-
-  @keyframes film-scroll {
-    0% {
-      transform: translateY(-100%);
-      opacity: 0;
-    }
-    50% {
-      opacity: 0.8;
-    }
-    100% {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-  }
-
-  /* TV Animation for Serializd */
-  .tv-animation {
-    position: relative;
-    border-radius: 0.5rem;
-    background: rgba(0, 0, 0, 0.05);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .tv-animation {
-      background: rgba(255, 255, 255, 0.05);
-    }
-  }
-
-  .tv-waves {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
+  .bio-life-row {
     display: flex;
     align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 0.85rem;
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    transition: background 0.2s ease, padding-left 0.25s ease;
+  }
+
+  :global(.dark) .bio-life-row {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .bio-life-row:last-child {
+    border-bottom: none;
+  }
+
+  .bio-life-row:hover {
+    background: rgba(0, 0, 0, 0.03);
+    padding-left: 1.15rem;
+  }
+
+  :global(.dark) .bio-life-row:hover {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .bio-life-icon {
+    flex-shrink: 0;
+    width: 1.65rem;
+    height: 1.65rem;
+    border-radius: 0.45rem;
+    display: grid;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.04);
+    color: #52525b;
+  }
+
+  :global(.dark) .bio-life-icon {
+    background: rgba(255, 255, 255, 0.06);
+    color: #a1a1aa;
+  }
+
+  .bio-life-film,
+  .bio-life-tv,
+  .bio-life-eq {
+    display: flex;
+    align-items: flex-end;
     justify-content: center;
+    gap: 0.15rem;
+    height: 0.85rem;
   }
 
-  .wave {
-    position: absolute;
-    width: 60%;
-    height: 60%;
-    border: 2px solid #9333ea;
-    border-radius: 50%;
-    opacity: 0.4;
-    animation: tv-pulse 2s ease-in-out infinite;
+  .bio-life-film i,
+  .bio-life-eq i {
+    display: block;
+    width: 0.18rem;
+    border-radius: 9999px;
+    background: currentColor;
+    animation: bio-eq 1.15s ease-in-out infinite;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .wave {
-      border-color: #a855f7;
-    }
+  .bio-life-film i:nth-child(1),
+  .bio-life-eq i:nth-child(1) {
+    height: 40%;
+  }
+  .bio-life-film i:nth-child(2),
+  .bio-life-eq i:nth-child(2) {
+    height: 75%;
+    animation-delay: 0.12s;
+  }
+  .bio-life-film i:nth-child(3),
+  .bio-life-eq i:nth-child(3) {
+    height: 55%;
+    animation-delay: 0.24s;
+  }
+  .bio-life-eq i:nth-child(4) {
+    height: 90%;
+    animation-delay: 0.36s;
   }
 
-  .wave-1 {
-    animation-delay: 0s;
-  }
-
-  .wave-2 {
-    animation-delay: 0.7s;
-    width: 80%;
-    height: 80%;
-  }
-
-  .wave-3 {
-    animation-delay: 1.4s;
-    width: 100%;
-    height: 100%;
-  }
-
-  @keyframes tv-pulse {
-    0%, 100% {
-      transform: scale(0.8);
-      opacity: 0.3;
-    }
-    50% {
-      transform: scale(1);
-      opacity: 0.6;
-    }
-  }
-
-  /* Music Animation for Stats.fm */
-  .music-animation {
+  .bio-life-tv {
+    align-items: center;
     position: relative;
-    border-radius: 0.5rem;
-    background: rgba(0, 0, 0, 0.05);
+    width: 0.95rem;
+    height: 0.95rem;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .music-animation {
-      background: rgba(255, 255, 255, 0.05);
-    }
-  }
-
-  .sound-waves {
+  .bio-life-tv i {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
+    inset: 0;
+    border: 1.5px solid currentColor;
+    border-radius: 9999px;
+    opacity: 0.45;
+    animation: bio-tv-ring 2s ease-out infinite;
   }
 
-  .sound-bar {
-    width: 3px;
-    background: #22c55e;
-    opacity: 0.6;
-    border-radius: 1.5px;
-    animation: sound-wave 1.2s ease-in-out infinite;
+  .bio-life-tv i:nth-child(2) {
+    animation-delay: 1s;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .sound-bar {
-      background: #4ade80;
-    }
-  }
-
-  .bar-1 {
-    height: 30%;
-    animation-delay: 0s;
-  }
-
-  .bar-2 {
-    height: 60%;
-    animation-delay: 0.2s;
-  }
-
-  .bar-3 {
-    height: 80%;
-    animation-delay: 0.4s;
-  }
-
-  .bar-4 {
-    height: 50%;
-    animation-delay: 0.6s;
-  }
-
-  @keyframes sound-wave {
-    0%, 100% {
-      transform: scaleY(0.3);
-      opacity: 0.5;
+  @keyframes bio-eq {
+    0%,
+    100% {
+      transform: scaleY(0.55);
     }
     50% {
       transform: scaleY(1);
-      opacity: 0.9;
+    }
+  }
+
+  @keyframes bio-tv-ring {
+    0% {
+      transform: scale(0.45);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1.15);
+      opacity: 0;
+    }
+  }
+
+  .bio-life-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .bio-life-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #111;
+  }
+
+  :global(.dark) .bio-life-name {
+    color: #f4f4f5;
+  }
+
+  .bio-life-stat {
+    margin-top: 0.125rem;
+    font-size: 0.75rem;
+    color: #9ca3af;
+  }
+
+  .bio-life-arrow {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
+    color: #9ca3af;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .bio-life-row:hover .bio-life-arrow {
+    transform: translateX(3px);
+    color: #111;
+  }
+
+  :global(.dark) .bio-life-row:hover .bio-life-arrow {
+    color: #fff;
+  }
+
+  .bio-foot {
+    margin: 0.25rem 0 0;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+
+  .bio-foot a {
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .bio-foot a:hover {
+    color: #111;
+  }
+
+  :global(.dark) .bio-foot a:hover {
+    color: #fff;
+  }
+
+  .animate {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.55s ease;
+  }
+
+  .animate.show {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  :global(main) {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate,
+    .bio-socials.show .bio-social {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      transition: none;
+      animation: none;
+    }
+
+    .bio-orb,
+    .bio-aurora,
+    .bio-grid,
+    .bio-noise,
+    .bio-beams i,
+    .bio-dust i,
+    .bio-avatar-ring,
+    .bio-avatar-glow,
+    .bio-name-shimmer,
+    .bio-film-reel span,
+    .bio-life-film i,
+    .bio-life-eq i,
+    .bio-life-tv i,
+    .latest-film-expand-icon {
+      animation: none !important;
+    }
+
+    .bio-cta:hover,
+    .bio-cta:hover .bio-cta-go,
+    .bio-life-row:hover,
+    .bio-life-row:hover .bio-life-arrow,
+    .bio-social:hover {
+      transform: none;
+      animation: none;
+      padding-left: 1rem;
+    }
+
+    .bio-cta-sheen,
+    .bio-live::after,
+    .bio-art-path,
+    .bio-art-dot-a,
+    .bio-art-dot-b,
+    .bio-art-dot-c,
+    .bio-art-dot-d,
+    .bio-art-tiles i,
+    .bio-art-doc i,
+    .bio-cta-hire {
+      animation: none !important;
     }
   }
 </style>
-
