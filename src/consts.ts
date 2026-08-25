@@ -9,11 +9,11 @@ export const SITE: Site = {
 };
 
 export const HOME: Metadata = {
-  TITLE: "Sattiyan Selvarajah — Technology Lead & SaaS Engineer Malaysia",
+  TITLE: "Sattiyan Selvarajah — Software Developer Malaysia",
   DESCRIPTION:
-    "Sattiyan Selvarajah is Technology Lead at G6 Labs Asia and founder of Dotkod Solutions. Hire a Malaysia-based engineer for SaaS platforms, Laravel, Node.js, GenAI automation, and production architecture.",
+    "Sattiyan Selvarajah is a software engineer at G6 Labs Asia and founder of Dotkod Solutions. Hire a Malaysia-based engineer for SaaS platforms, Laravel, Node.js, GenAI automation, and production architecture.",
   KEYWORDS:
-    "sattiyan selvarajah, technology lead malaysia, saas developer malaysia, laravel developer malaysia, hire full stack developer malaysia, genai automation, g6 labs, dotkod solutions",
+    "sattiyan selvarajah, software developer malaysia, software engineer malaysia, saas developer malaysia, laravel developer malaysia, hire full stack developer malaysia, genai automation, g6 labs, dotkod solutions",
 };
 
 export const BLOG: Metadata = {
@@ -25,11 +25,11 @@ export const BLOG: Metadata = {
 };
 
 export const WORK: Metadata = {
-  TITLE: "Work Experience — Technology Lead & Software Engineer",
+  TITLE: "Work Experience — Software Engineer",
   DESCRIPTION:
-    "Career timeline of Sattiyan Selvarajah: Technology Lead at G6 Labs Asia, founder of Dotkod Solutions, and prior roles in SaaS, fintech, and product engineering in Malaysia.",
+    "Career timeline of Sattiyan Selvarajah: software developer at G6 Labs Asia, founder of Dotkod Solutions, and prior roles in SaaS, fintech, and product engineering in Malaysia.",
   KEYWORDS:
-    "sattiyan selvarajah work experience, technology lead g6 labs, software engineer malaysia cv, saas engineer career",
+    "sattiyan selvarajah work experience, software developer g6 labs, software developer malaysia cv, saas engineer career",
 };
 
 export const PROJECTS: Metadata = {
@@ -45,7 +45,7 @@ export const HIRE: Metadata = {
   DESCRIPTION:
     "Hire Sattiyan Selvarajah for freelance or contract work: SaaS platforms, API integrations, GenAI automation, Laravel/Node/Python. KL-based, remote-friendly.",
   KEYWORDS:
-    "hire laravel developer malaysia, hire saas developer, freelance technology lead malaysia, hire genai engineer, contract software engineer kl",
+    "hire laravel developer malaysia, hire saas developer, freelance software developer malaysia, hire genai engineer, contract software engineer kl",
 };
 
 export const TOOLS_PAGE: Metadata = {
@@ -68,15 +68,15 @@ export const ASK: Metadata = {
   DESCRIPTION:
     "Ask an AI assistant about Sattiyan Selvarajah’s projects, work experience, skills, and how to hire him for SaaS and GenAI work.",
   KEYWORDS:
-    "ask sattiyan, ai portfolio assistant, sattiyan selvarajah projects, hire technology lead malaysia",
+    "ask sattiyan, ai portfolio assistant, sattiyan selvarajah projects, hire software developer malaysia",
 };
 
 export const CV: Metadata = {
   TITLE: "CV / Resume — Sattiyan Selvarajah",
   DESCRIPTION:
-    "ATS-friendly CV and resume for Sattiyan Selvarajah — Technology Lead, SaaS engineer, Laravel/Node/Python. Download or print.",
+    "ATS-friendly CV and resume for Sattiyan Selvarajah — software engineer, SaaS, Laravel/Node/Python. Download or print.",
   KEYWORDS:
-    "sattiyan selvarajah cv, sattiyan resume, technology lead resume malaysia, laravel developer cv",
+    "sattiyan selvarajah cv, sattiyan resume, software engineer resume malaysia, laravel developer cv",
 };
 
 export const WATCHED: Metadata = {
@@ -87,7 +87,7 @@ export const WATCHED: Metadata = {
 export const SOCIALS: Socials = [
   { NAME: "GitHub", HREF: "https://github.com/sattiyans" },
   { NAME: "LinkedIn", HREF: "https://www.linkedin.com/in/sattiyans" },
-  { NAME: "X", HREF: "https://x.com/sattiyans" },
+  { NAME: "Threads", HREF: "https://www.threads.net/@sattiyanss" },
   { NAME: "Letterboxd", HREF: "https://letterboxd.com/sattiyans" },
   { NAME: "Serializd", HREF: "https://serializd.com/user/sattiyans" },
   { NAME: "Instagram", HREF: "https://instagram.com/sattiyanss" },
@@ -95,5 +95,4 @@ export const SOCIALS: Socials = [
     NAME: "Facebook",
     HREF: "https://www.facebook.com/people/Sattiyan-Selvarajah/100090108949254/",
   },
-  { NAME: "Threads", HREF: "https://threads.com/sattiyanss" },
 ];

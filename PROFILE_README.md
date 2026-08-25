@@ -77,7 +77,7 @@ SaaS · AI · payment integrations     ·   Zero-downtime, event-driven architec
 [![Website](https://img.shields.io/badge/Website-sattiyans.com-111827?style=for-the-badge&logo=astro&logoColor=white)](https://sattiyans.com)
 [![Email](https://img.shields.io/badge/Email-hey@sattiyans.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:hey@sattiyans.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-/in/sattiyans-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/sattiyans)
-[![X](https://img.shields.io/badge/X-@sattiyans-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/sattiyans)
+[![Threads](https://img.shields.io/badge/Threads-@sattiyanss-000000?style=for-the-badge&logo=threads&logoColor=white)](https://www.threads.net/@sattiyanss)
 [![Dotkod](https://img.shields.io/badge/Dotkod-Studio-22C55E?style=for-the-badge&logo=rocket&logoColor=white)](https://dotkod.com)
 
 <sub>🚀 [Dotkod](https://dotkod.com) — crafting digital solutions with excellence.</sub>
