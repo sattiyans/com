@@ -4,6 +4,8 @@ import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
 import ProjectOwnerBadge from "@components/ProjectOwnerBadge.astro";
+import GSendrFlowDiagram from "@components/GSendrFlowDiagram.astro";
+import GSendrStats from "@components/GSendrStats.astro";
 import { readingTime } from "@lib/utils";
 
 export async function getStaticPaths() {
@@ -286,8 +288,9 @@ const relatedPosts = (await getCollection("blog"))
         </header>
 
         <!-- Metrics -->
+        {project.slug === "gsendr" && <GSendrStats />}
         {
-          project.data.metrics && project.data.metrics.length > 0 && (
+          project.slug !== "gsendr" && project.data.metrics && project.data.metrics.length > 0 && (
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {project.data.metrics.map((metric) => (
                 <div class="rounded-2xl border border-black/15 dark:border-white/15 px-4 py-3">
@@ -299,8 +302,9 @@ const relatedPosts = (await getCollection("blog"))
         }
 
         <!-- Screenshots -->
+        {project.slug === "gsendr" && <GSendrFlowDiagram />}
         {
-          project.data.screenshots && project.data.screenshots.length > 0 && (
+          project.slug !== "gsendr" && project.data.screenshots && project.data.screenshots.length > 0 && (
             <div class="screenshot-slider flex flex-col md:flex-row gap-4" data-slider-id={`slider-${project.slug}`}>
               {project.data.screenshots.length > 1 && (
                 <div class="flex md:flex-col gap-2 overflow-x-auto md:overflow-x-visible md:overflow-y-auto pb-2 md:pb-0 order-2 md:order-1">

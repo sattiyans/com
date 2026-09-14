@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T05:53:01.774Z",
+  "generatedAt": "2026-09-14T12:09:57.721Z",
   "about": {
     "name": "Sattiyan Selvarajah",
     "role": "Technology Lead at G6 Labs Asia & Founder of Dotkod Solutions",
@@ -415,74 +415,74 @@
     "description": "A collection of films Sattiyan has recently watched, tracked via Letterboxd. The page displays recently watched movies with ratings, posters, and watch dates. Sattiyan's Letterboxd profile: https://letterboxd.com/sattiyans. The page shows the most recent films he has watched, including movie titles, years, ratings (if given), and when they were watched.",
     "recentFilms": [
       {
-        "title": "Pyaar Prema Kalyanam",
-        "year": 2026,
-        "watchedDate": "2026-08-24T01:20:31.000Z",
-        "rating": 2.5,
-        "url": "https://letterboxd.com/sattiyans/film/pyaar-prema-kalyanam/"
+        "title": "Love Today",
+        "year": 2022,
+        "watchedDate": "2026-09-13T13:41:42.000Z",
+        "rating": 3.5,
+        "url": "https://letterboxd.com/sattiyans/film/love-today-2022/1/"
       },
       {
-        "title": "Memories of Murder",
-        "year": 2003,
-        "watchedDate": "2026-08-23T11:18:03.000Z",
+        "title": "Grave of the Fireflies",
+        "year": 1988,
+        "watchedDate": "2026-09-13T07:11:23.000Z",
         "rating": 5,
-        "url": "https://letterboxd.com/sattiyans/film/memories-of-murder/"
+        "url": "https://letterboxd.com/sattiyans/film/grave-of-the-fireflies/"
       },
       {
-        "title": "Jana Nayagan, 2026",
+        "title": "Titanic",
+        "year": 1997,
+        "watchedDate": "2026-09-12T12:10:42.000Z",
+        "rating": 5,
+        "url": "https://letterboxd.com/sattiyans/film/titanic-1997/1/"
+      },
+      {
+        "title": "Vishwanath &amp; Sons",
         "year": 2026,
-        "watchedDate": "2026-08-22T06:42:57.000Z",
-        "rating": null,
-        "url": "https://letterboxd.com/sattiyans/film/jana-nayagan/1/"
-      },
-      {
-        "title": "Perfect Days",
-        "year": 2023,
-        "watchedDate": "2026-08-21T13:39:20.000Z",
+        "watchedDate": "2026-09-11T14:27:39.000Z",
         "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/perfect-days-2023/"
+        "url": "https://letterboxd.com/sattiyans/film/vishwanath-sons/"
       },
       {
-        "title": "Fight Back to School",
-        "year": 1991,
-        "watchedDate": "2026-08-20T13:29:46.000Z",
-        "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/fight-back-to-school/"
-      },
-      {
-        "title": "Evil Dead II",
-        "year": 1987,
-        "watchedDate": "2026-08-19T06:31:52.000Z",
-        "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/evil-dead-ii/"
-      },
-      {
-        "title": "Con City",
+        "title": "Tarung: Unforgiven",
         "year": 2026,
-        "watchedDate": "2026-08-18T12:13:34.000Z",
+        "watchedDate": "2026-09-10T13:42:55.000Z",
+        "rating": 3.5,
+        "url": "https://letterboxd.com/sattiyans/film/tarung-unforgiven/"
+      },
+      {
+        "title": "Dude",
+        "year": 2025,
+        "watchedDate": "2026-09-07T01:34:57.000Z",
         "rating": 2.5,
-        "url": "https://letterboxd.com/sattiyans/film/con-city/"
+        "url": "https://letterboxd.com/sattiyans/film/dude-2025/2/"
       },
       {
-        "title": "The 40 Year Old Virgin",
-        "year": 2005,
-        "watchedDate": "2026-08-18T09:15:21.000Z",
+        "title": "Sirai",
+        "year": 2025,
+        "watchedDate": "2026-09-06T03:27:37.000Z",
+        "rating": 4.5,
+        "url": "https://letterboxd.com/sattiyans/film/sirai-2025/1/"
+      },
+      {
+        "title": "Parasakthi",
+        "year": 2026,
+        "watchedDate": "2026-09-05T07:12:13.000Z",
         "rating": 3,
-        "url": "https://letterboxd.com/sattiyans/film/the-40-year-old-virgin/"
+        "url": "https://letterboxd.com/sattiyans/film/parasakthi-2026/"
       },
       {
-        "title": "Police Story",
-        "year": 1985,
-        "watchedDate": "2026-08-18T03:21:10.000Z",
+        "title": "Grand Theft Auto VI: An Extended Look",
+        "year": 2026,
+        "watchedDate": "2026-09-04T07:56:18.000Z",
+        "rating": 5,
+        "url": "https://letterboxd.com/sattiyans/film/grand-theft-auto-vi-an-extended-look/"
+      },
+      {
+        "title": "Sapta Sagaradaache Ello - Side B",
+        "year": 2023,
+        "watchedDate": "2026-09-03T15:11:22.000Z",
         "rating": 4,
-        "url": "https://letterboxd.com/sattiyans/film/police-story/"
-      },
-      {
-        "title": "The Ron Clark Story",
-        "year": 2006,
-        "watchedDate": "2026-08-16T12:37:49.000Z",
-        "rating": 3,
-        "url": "https://letterboxd.com/sattiyans/film/the-ron-clark-story/"
+        "url": "https://letterboxd.com/sattiyans/film/sapta-sagaradaache-ello-side-b/"
       }
     ]
   },

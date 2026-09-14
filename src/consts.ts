@@ -11,9 +11,9 @@ export const SITE: Site = {
 export const HOME: Metadata = {
   TITLE: "Sattiyan Selvarajah — Software Developer Malaysia",
   DESCRIPTION:
-    "Sattiyan Selvarajah is a software engineer at G6 Labs Asia and founder of Dotkod Solutions. Hire a Malaysia-based engineer for SaaS platforms, Laravel, Node.js, GenAI automation, and production architecture.",
+    "Sattiyan Selvarajah is a software developer at G6 Labs Asia and founder of Dotkod Solutions. Hire a Malaysia-based engineer for SaaS platforms, Laravel, Node.js, GenAI automation, and production architecture.",
   KEYWORDS:
-    "sattiyan selvarajah, software developer malaysia, software engineer malaysia, saas developer malaysia, laravel developer malaysia, hire full stack developer malaysia, genai automation, g6 labs, dotkod solutions",
+    "sattiyan selvarajah, software developer malaysia, software developer malaysia, saas developer malaysia, laravel developer malaysia, hire full stack developer malaysia, genai automation, g6 labs, dotkod solutions",
 };
 
 export const BLOG: Metadata = {
@@ -25,7 +25,7 @@ export const BLOG: Metadata = {
 };
 
 export const WORK: Metadata = {
-  TITLE: "Work Experience — Software Engineer",
+  TITLE: "Work Experience — Software Developer",
   DESCRIPTION:
     "Career timeline of Sattiyan Selvarajah: software developer at G6 Labs Asia, founder of Dotkod Solutions, and prior roles in SaaS, fintech, and product engineering in Malaysia.",
   KEYWORDS:

@@ -1,0 +1,214 @@
+---
+// Animated "how it works" diagram for the GSendr case study, drawn from the
+// product's own campaign lifecycle (ts-mail-client) rather than a screenshot.
+---
+
+<div class="rounded-2xl border border-black/15 dark:border-white/15 p-5 sm:p-6 space-y-4">
+  <h2 class="text-xs font-semibold uppercase tracking-wide text-black/45 dark:text-white/45">
+    How it works
+  </h2>
+  <p class="text-sm text-black/80 dark:text-white/80 leading-relaxed max-w-2xl">
+    One audience, two channels. The campaign forks after validation — WhatsApp is the only path
+    that loops: any reply lands in the shared Inbox already tagged with the campaign it came from.
+  </p>
+
+  <!-- desktop / tablet diagram -->
+  <div class="hidden sm:block gv-diagram">
+    <svg class="gv-svg" viewBox="0 0 1120 380" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="gv-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 Z" class="gv-loop-arrow"></path>
+        </marker>
+      </defs>
+
+      <!-- motion guides (invisible) -->
+      <path id="gv-motionEmail" d="M60,140 L250,140 L430,140 L620,55 L868,55" fill="none" stroke="none"></path>
+      <path id="gv-motionWA" d="M60,140 L250,140 L430,140 L620,250 L840,250 L1040,250 C1040,330 690,346 430,288 C378,276 348,228 368,182 C380,161 398,150 418,144" fill="none" stroke="none"></path>
+
+      <!-- tracks -->
+      <path class="gv-track-trunk" d="M60,140 L250,140 L430,140"></path>
+      <path class="gv-track-mail" d="M430,140 L620,55 L868,55"></path>
+      <path class="gv-track-wa" d="M430,140 L620,250 L840,250 L1040,250"></path>
+      <path class="gv-track-loop" marker-end="url(#gv-arrow)" d="M1040,250 C1040,330 690,346 430,288 C378,276 348,228 368,182 C380,161 398,150 418,144"></path>
+
+      <!-- moving dots: email -->
+      <circle r="4" class="gv-dot-mail" opacity="0">
+        <animateMotion dur="6.5s" begin="0s" repeatCount="indefinite"><mpath href="#gv-motionEmail"></mpath></animateMotion>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.05;0.92;1" dur="6.5s" begin="0s" repeatCount="indefinite"></animate>
+      </circle>
+      <circle r="4" class="gv-dot-mail" opacity="0">
+        <animateMotion dur="6.5s" begin="2.2s" repeatCount="indefinite"><mpath href="#gv-motionEmail"></mpath></animateMotion>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.05;0.92;1" dur="6.5s" begin="2.2s" repeatCount="indefinite"></animate>
+      </circle>
+      <circle r="4" class="gv-dot-mail" opacity="0">
+        <animateMotion dur="6.5s" begin="4.4s" repeatCount="indefinite"><mpath href="#gv-motionEmail"></mpath></animateMotion>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.05;0.92;1" dur="6.5s" begin="4.4s" repeatCount="indefinite"></animate>
+      </circle>
+
+      <!-- moving dots: whatsapp (loops) -->
+      <circle r="4" class="gv-dot-wa" opacity="0">
+        <animateMotion dur="10.5s" begin="0s" repeatCount="indefinite"><mpath href="#gv-motionWA"></mpath></animateMotion>
+        <animate attributeName="opacity" values="0;1;1;.85;0" keyTimes="0;0.04;0.7;0.94;1" dur="10.5s" begin="0s" repeatCount="indefinite"></animate>
+      </circle>
+      <circle r="4" class="gv-dot-wa" opacity="0">
+        <animateMotion dur="10.5s" begin="3.5s" repeatCount="indefinite"><mpath href="#gv-motionWA"></mpath></animateMotion>
+        <animate attributeName="opacity" values="0;1;1;.85;0" keyTimes="0;0.04;0.7;0.94;1" dur="10.5s" begin="3.5s" repeatCount="indefinite"></animate>
+      </circle>
+      <circle r="4" class="gv-dot-wa" opacity="0">
+        <animateMotion dur="10.5s" begin="7s" repeatCount="indefinite"><mpath href="#gv-motionWA"></mpath></animateMotion>
+        <animate attributeName="opacity" values="0;1;1;.85;0" keyTimes="0;0.04;0.7;0.94;1" dur="10.5s" begin="7s" repeatCount="indefinite"></animate>
+      </circle>
+
+      <!-- N1 Import -->
+      <g>
+        <circle class="gv-node" cx="60" cy="140" r="20"></circle>
+        <g class="gv-icon" transform="translate(49,129)"><rect x="0" y="2" width="22" height="16" rx="2"></rect><path d="M1 5l10 7 10-7"></path></g>
+        <text class="gv-tag" x="60" y="98" text-anchor="middle">01</text>
+        <text class="gv-label" x="60" y="178" text-anchor="middle">Import</text>
+        <text class="gv-sublabel" x="60" y="192" text-anchor="middle">Excel · CSV · validate</text>
+      </g>
+
+      <!-- N2 Personalize -->
+      <g>
+        <circle class="gv-node" cx="250" cy="140" r="20"></circle>
+        <g class="gv-icon" transform="translate(239,129)"><path d="M4 1h10l5 5v14a1 1 0 01-1 1H4a1 1 0 01-1-1V2a1 1 0 011-1z"></path><path d="M7 10h7M7 14h7"></path></g>
+        <text class="gv-tag" x="250" y="98" text-anchor="middle">02</text>
+        <text class="gv-label" x="250" y="178" text-anchor="middle">Personalize</text>
+        <text class="gv-sublabel" x="250" y="192" text-anchor="middle">merge fields · per-row PDF</text>
+      </g>
+
+      <!-- N3 Fork -->
+      <g>
+        <circle class="gv-node gv-node-fork" cx="430" cy="140" r="20"></circle>
+        <g class="gv-icon gv-icon-fork" transform="translate(419,129)"><circle cx="5" cy="11" r="3"></circle><path d="M8 11h4M12 11l6-6M12 11l6 6"></path></g>
+        <text class="gv-tag" x="430" y="98" text-anchor="middle">03</text>
+        <text class="gv-label" x="430" y="178" text-anchor="middle">Choose channel</text>
+        <text class="gv-sublabel" x="430" y="192" text-anchor="middle">same audience, one send</text>
+      </g>
+
+      <!-- N4e Send (email) -->
+      <g>
+        <circle class="gv-node gv-node-mail" cx="620" cy="55" r="18"></circle>
+        <g class="gv-icon gv-icon-mail" transform="translate(610,45)"><rect x="0" y="1.5" width="20" height="14" rx="2"></rect><path d="M1 4l9 6 9-6"></path></g>
+        <text class="gv-label" x="620" y="14" text-anchor="middle">Send</text>
+        <text class="gv-sublabel" x="620" y="27" text-anchor="middle">verified domain</text>
+      </g>
+      <!-- N5e Track (email) -->
+      <g>
+        <circle class="gv-node gv-node-mail" cx="868" cy="55" r="18"></circle>
+        <g class="gv-icon gv-icon-mail" transform="translate(858,45)"><path d="M1 14h4l3-10 4.5 13 3-10h4.5"></path></g>
+        <text class="gv-label" x="868" y="14" text-anchor="middle">Track</text>
+        <text class="gv-sublabel" x="868" y="27" text-anchor="middle">opened · clicked · bounced</text>
+      </g>
+
+      <!-- N4w Send (whatsapp) -->
+      <g>
+        <circle class="gv-node gv-node-wa" cx="620" cy="250" r="18"></circle>
+        <g class="gv-icon gv-icon-wa" transform="translate(610,240)"><path d="M18 9.4a8 8 0 01-11.7 7.1L2 18l1.5-4.2a8 8 0 1114.5-4.4z"></path></g>
+        <text class="gv-label" x="620" y="293" text-anchor="middle">Send</text>
+        <text class="gv-sublabel" x="620" y="306" text-anchor="middle">Cloud API · approved template</text>
+      </g>
+      <!-- N5w Track (whatsapp) -->
+      <g>
+        <circle class="gv-node gv-node-wa" cx="840" cy="250" r="18"></circle>
+        <g class="gv-icon gv-icon-wa" transform="translate(830,240)"><path d="M1 14h4l3-10 4.5 13 3-10h4.5"></path></g>
+        <text class="gv-label" x="840" y="293" text-anchor="middle">Track</text>
+        <text class="gv-sublabel" x="840" y="306" text-anchor="middle">delivered · read</text>
+      </g>
+      <!-- N6w Inbox -->
+      <g>
+        <circle class="gv-node gv-node-wa" cx="1040" cy="250" r="18"></circle>
+        <g class="gv-icon gv-icon-wa" transform="translate(1030,240)"><path d="M3 3h12a2 2 0 012 2v8a2 2 0 01-2 2H8l-5 4V5a2 2 0 012-2z"></path></g>
+        <text class="gv-label" x="1040" y="293" text-anchor="middle">Inbox</text>
+        <text class="gv-sublabel" x="1040" y="306" text-anchor="middle">carries campaign context</text>
+      </g>
+
+      <text class="gv-loop-note" x="700" y="340" text-anchor="middle">↖ Inbox tags the reply with the campaign that prompted it</text>
+    </svg>
+
+    <div class="gv-caption">
+      <p><span class="gv-caption-tag gv-caption-mail">Email</span>Verified-domain send. Opens, clicks and bounces write back onto the campaign.</p>
+      <p><span class="gv-caption-tag gv-caption-wa">WhatsApp</span>Official Cloud API on Meta-approved templates. Every reply lands in the shared Inbox — a customer-service view of all conversations — and if a contact was part of a recent campaign, that context is attached automatically.</p>
+    </div>
+  </div>
+
+  <!-- mobile fallback -->
+  <div class="sm:hidden relative pl-6">
+    <div class="absolute left-[9px] top-1.5 bottom-1.5 w-px bg-black/10 dark:bg-white/15"></div>
+    <div class="absolute left-[6px] top-0 w-[7px] h-[7px] rounded-full bg-black dark:bg-white gv-rail-dot"></div>
+    <ol class="space-y-4">
+      <li><p class="text-[11px] font-mono text-black/40 dark:text-white/40">01</p><p class="text-sm font-medium text-black dark:text-white">Import &amp; validate</p><p class="text-xs text-black/55 dark:text-white/55">Excel/CSV upload, MX + syntax + hygiene checks.</p></li>
+      <li><p class="text-[11px] font-mono text-black/40 dark:text-white/40">02</p><p class="text-sm font-medium text-black dark:text-white">Personalize</p><p class="text-xs text-black/55 dark:text-white/55">Merge-field templates, per-recipient HTML → PDF.</p></li>
+      <li><p class="text-[11px] font-mono text-black/40 dark:text-white/40">03</p><p class="text-sm font-medium text-black dark:text-white">Choose channel</p><p class="text-xs text-black/55 dark:text-white/55">Email, WhatsApp, or both — same audience.</p></li>
+      <li><p class="text-[11px] font-mono text-black/40 dark:text-white/40">04</p><p class="text-sm font-medium text-black dark:text-white">Send</p><p class="text-xs text-black/55 dark:text-white/55">Verified-domain email · WhatsApp Cloud API for approved templates.</p></li>
+      <li><p class="text-[11px] font-mono text-black/40 dark:text-white/40">05</p><p class="text-sm font-medium text-black dark:text-white">Track</p><p class="text-xs text-black/55 dark:text-white/55">Opened / clicked / bounced on email · delivered / read on WhatsApp.</p></li>
+      <li><p class="text-[11px] font-mono text-black/40 dark:text-white/40">06</p><p class="text-sm font-medium text-black dark:text-white">Inbox</p><p class="text-xs text-black/55 dark:text-white/55">Inbound WhatsApp lands in the shared Inbox, tagged with the campaign that prompted it.</p></li>
+    </ol>
+  </div>
+</div>
+
+<script>
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.gv-svg').forEach(function (svg) {
+      if ((svg as any).pauseAnimations) (svg as any).pauseAnimations();
+    });
+  }
+</script>
+
+<style>
+  .gv-svg{display:block; width:100%; height:auto;}
+  .gv-svg text{font-family:inherit;}
+
+  .gv-tag{fill:currentColor; opacity:.35; font-size:10.5px; letter-spacing:.04em;}
+  .gv-label{fill:currentColor; opacity:.9; font-size:13px; font-weight:600;}
+  .gv-sublabel{fill:currentColor; opacity:.45; font-size:10px;}
+  .gv-loop-note{fill:currentColor; opacity:.4; font-size:10.5px;}
+  .gv-diagram, .gv-svg text, .gv-loop-arrow{color:#000;}
+  :global(html.dark) .gv-diagram, :global(html.dark) .gv-svg text, :global(html.dark) .gv-loop-arrow{color:#fff;}
+
+  .gv-track-trunk{fill:none; stroke:currentColor; stroke-width:1.5; opacity:.15; color:#000;}
+  :global(html.dark) .gv-track-trunk{color:#fff;}
+  .gv-track-loop{fill:none; stroke:currentColor; stroke-width:1.3; stroke-dasharray:2 4; opacity:.3; color:#000;}
+  :global(html.dark) .gv-track-loop{color:#fff;}
+  .gv-loop-arrow{fill:currentColor; opacity:.5;}
+
+  .gv-track-mail{fill:none; stroke:#3b82f6; stroke-width:1.5; opacity:.45;}
+  .gv-track-wa{fill:none; stroke:#10b981; stroke-width:1.5; opacity:.45;}
+  .gv-dot-mail{fill:#3b82f6; filter:drop-shadow(0 0 3px #3b82f6);}
+  .gv-dot-wa{fill:#10b981; filter:drop-shadow(0 0 3px #10b981);}
+
+  .gv-node{fill:none; stroke:currentColor; stroke-width:1.3; opacity:.7; color:#000;}
+  :global(html.dark) .gv-node{color:#fff;}
+  .gv-node-fork{stroke:currentColor; opacity:.9;}
+  .gv-node-mail{stroke:#3b82f6; opacity:.55;}
+  .gv-node-wa{stroke:#10b981; opacity:.55;}
+  .gv-icon{stroke:currentColor; fill:none; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; opacity:.75; color:#000;}
+  :global(html.dark) .gv-icon{color:#fff;}
+  .gv-icon-fork{color:#000;}
+  :global(html.dark) .gv-icon-fork{color:#fff;}
+  .gv-icon-mail{stroke:#3b82f6;}
+  .gv-icon-wa{stroke:#10b981;}
+
+  .gv-caption{
+    display:flex; flex-wrap:wrap; gap:20px 32px; margin-top:14px; padding-top:14px;
+    border-top:1px solid rgba(0,0,0,.08);
+  }
+  :global(html.dark) .gv-caption{border-top-color:rgba(255,255,255,.12);}
+  .gv-caption p{max-width:420px; font-size:12.5px; line-height:1.55; color:rgba(0,0,0,.6);}
+  :global(html.dark) .gv-caption p{color:rgba(255,255,255,.6);}
+  .gv-caption-tag{display:block; font-size:11px; font-weight:600; letter-spacing:.02em; margin-bottom:3px;}
+  .gv-caption-mail{color:#3b82f6;}
+  .gv-caption-wa{color:#10b981;}
+
+  @keyframes gv-travel{
+    0%{top:0%; opacity:0;}
+    6%{opacity:1;}
+    94%{opacity:1;}
+    100%{top:100%; opacity:0;}
+  }
+  .gv-rail-dot{animation:gv-travel 7s linear infinite;}
+
+  @media (prefers-reduced-motion:reduce){
+    .gv-rail-dot{animation:none; opacity:.6;}
+  }
+</style>
