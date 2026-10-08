@@ -22,6 +22,68 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
 <PageLayout title="Check in — Places" description="Check in to a place." hideChatbot>
   <meta slot="head" name="robots" content="noindex, nofollow" />
   <Container>
+    {
+      !owner && (
+        <div class="animate mx-auto max-w-sm py-8 sm:py-14">
+          <div class:list={[card, "space-y-6"]}>
+            <div class="space-y-4 text-center">
+              <span class="mx-auto flex size-12 items-center justify-center rounded-full border border-black/15 dark:border-white/20 text-black dark:text-white">
+                <svg viewBox="0 0 24 24" class="size-5 fill-none stroke-current stroke-2" aria-hidden="true">
+                  <rect x="4" y="11" width="16" height="10" rx="2" />
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke-linecap="round" />
+                </svg>
+              </span>
+              <div class="space-y-1.5">
+                <h1 class="text-xl font-semibold text-black dark:text-white tracking-tight">Owner sign-in</h1>
+                <p class="text-sm text-black/55 dark:text-white/55">Check-ins are private. Sign in to add one.</p>
+              </div>
+            </div>
+
+            {
+              !configured ? (
+                <p class={alertError}>
+                  Set <code>PLACES_ADMIN_PASSWORD</code> in the environment to enable check-ins.
+                </p>
+              ) : (
+                <form method="post" action="/api/places/login" class="space-y-4" id="login-form">
+                  <input type="text" name="username" value="owner" autocomplete="username" class="hidden" aria-hidden="true" tabindex="-1" />
+                  <div>
+                    <label for="password" class={label}>Password</label>
+                    <div class="relative">
+                      <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        required
+                        autofocus
+                        autocomplete="current-password"
+                        class:list={[field, "pr-16"]}
+                      />
+                      <button
+                        type="button"
+                        id="toggle-password"
+                        class="absolute inset-y-0 right-2 my-auto h-7 rounded-full px-2.5 text-xs font-semibold text-black/55 hover:text-black dark:text-white/55 dark:hover:text-white"
+                        aria-label="Show password"
+                      >
+                        Show
+                      </button>
+                    </div>
+                  </div>
+                  {loginError && <p class={alertError}>Wrong password. Try again.</p>}
+                  <button type="submit" class:list={[btnPrimary, "w-full"]}>Sign in</button>
+                </form>
+              )
+            }
+          </div>
+          <p class="mt-6 text-center text-sm">
+            <Link href="/places" underline={false} class="hover:text-black dark:hover:text-white">← Back to Places</Link>
+          </p>
+        </div>
+      )
+    }
+
+    {
+      owner && (
     <div class="space-y-10">
       <nav class="flex items-center space-x-2 text-sm text-black/50 dark:text-white/50">
         <Link href="/" underline={false} class="hover:text-black dark:hover:text-white transition-colors">Home</Link>
@@ -38,36 +100,11 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
             Paste a Google Maps link, rate it, write a few lines.
           </p>
         </div>
-        {
-          owner && (
-            <form method="post" action="/api/places/login">
-              <input type="hidden" name="action" value="logout" />
-              <button class:list={[btnSecondary, "whitespace-nowrap"]}>Log out</button>
-            </form>
-          )
-        }
+        <form method="post" action="/api/places/login">
+          <input type="hidden" name="action" value="logout" />
+          <button class:list={[btnSecondary, "whitespace-nowrap"]}>Log out</button>
+        </form>
       </header>
-
-      {
-        !owner && !configured && (
-          <p class={alertError}>
-            Set <code>PLACES_ADMIN_PASSWORD</code> in the environment to enable check-ins.
-          </p>
-        )
-      }
-
-      {
-        !owner && configured && (
-          <form method="post" action="/api/places/login" class:list={[card, "animate space-y-4 max-w-md"]}>
-            <div>
-              <label for="password" class={label}>Password</label>
-              <input id="password" type="password" name="password" required autocomplete="current-password" class={field} />
-            </div>
-            {loginError && <p class={alertError}>Wrong password.</p>}
-            <button class={btnPrimary}>Log in</button>
-          </form>
-        )
-      }
 
       {
         owner && (
@@ -146,7 +183,7 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
                   <button
                     type="button"
                     data-delete-checkin={c.id}
-                    class="inline-flex shrink-0 items-center rounded-full border border-red-300 dark:border-red-700 px-3 py-1 text-xs font-semibold text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors duration-300"
+                    class="inline-flex shrink-0 items-center rounded-full border border-red-300 dark:border-red-700 px-3 py-1 text-xs font-semibold text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-950/40 disabled:opacity-50 data-[armed=true]:bg-red-600 data-[armed=true]:border-red-600 data-[armed=true]:text-white transition-colors duration-300"
                   >
                     Delete
                   </button>
@@ -159,16 +196,52 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
         )
       }
     </div>
+      )
+    }
   </Container>
 </PageLayout>
 
 <script>
+  const passwordInput = document.querySelector<HTMLInputElement>("#password");
+  document.querySelector<HTMLButtonElement>("#toggle-password")?.addEventListener("click", (event) => {
+    if (!passwordInput) return;
+    const button = event.currentTarget as HTMLButtonElement;
+    const show = passwordInput.type === "password";
+    passwordInput.type = show ? "text" : "password";
+    button.textContent = show ? "Hide" : "Show";
+    button.setAttribute("aria-label", show ? "Hide password" : "Show password");
+    passwordInput.focus();
+  });
+
+  // Two-tap delete instead of confirm(): in-app browsers often block native dialogs silently.
   document.querySelectorAll<HTMLButtonElement>("[data-delete-checkin]").forEach((button) => {
+    let disarm: ReturnType<typeof setTimeout> | undefined;
     button.addEventListener("click", async () => {
-      if (!confirm("Delete this check-in?")) return;
-      const res = await fetch(`/api/places/checkin?id=${button.dataset.deleteCheckin}`, { method: "DELETE" });
-      if (res.ok) location.reload();
-      else alert("Delete failed");
+      if (button.dataset.armed !== "true") {
+        button.dataset.armed = "true";
+        button.textContent = "Sure?";
+        disarm = setTimeout(() => {
+          button.dataset.armed = "false";
+          button.textContent = "Delete";
+        }, 3000);
+        return;
+      }
+
+      clearTimeout(disarm);
+      button.disabled = true;
+      button.textContent = "Deleting…";
+      try {
+        const res = await fetch(`/api/places/checkin?id=${button.dataset.deleteCheckin}`, {
+          method: "DELETE",
+          credentials: "same-origin",
+        });
+        if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || `HTTP ${res.status}`);
+        button.closest("li")?.remove();
+      } catch (error) {
+        button.disabled = false;
+        button.dataset.armed = "false";
+        button.textContent = error instanceof Error && error.message === "Unauthorized" ? "Signed out" : "Failed — retry";
+      }
     });
   });
 

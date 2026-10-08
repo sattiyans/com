@@ -1896,7 +1896,9 @@
   }
   
   // Initialize when DOM is loaded
+  // Production bundles this script into every page using PageLayout, even with hideChatbot.
   document.addEventListener('DOMContentLoaded', () => {
+    if (!document.getElementById('chatbot-input')) return;
     new SimpleChatbot();
   });
 </script>
