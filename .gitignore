@@ -24,3 +24,4 @@ pnpm-debug.log*
 # Vercel build output (never commit prebuilt artifacts)
 .vercel
 .tmp
+.env*

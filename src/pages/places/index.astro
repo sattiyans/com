@@ -1,0 +1,209 @@
+---
+import Container from "@components/Container.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import Link from "@components/Link.astro";
+import PlaceRating from "@components/PlaceRating.astro";
+import PlaceThumb from "@components/PlaceThumb.astro";
+import PlacesMap from "@components/PlacesMap.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import { PLACES } from "@consts";
+import { listPlaces } from "@lib/places/db";
+import { card, sectionLabel } from "@lib/places/ui";
+
+export const prerender = false;
+
+const places = (await listPlaces()).filter((p) => p.visit_count > 0);
+
+const totalCheckins = places.reduce((n, p) => n + p.visit_count, 0);
+const revisited = places.filter((p) => p.visit_count > 1).length;
+const rated = places.filter((p) => p.avg_rating !== null);
+const overallAvg = rated.length ? rated.reduce((n, p) => n + (p.avg_rating ?? 0), 0) / rated.length : null;
+
+const pins = places
+  .filter((p) => p.lat !== null && p.lng !== null)
+  .map((p) => ({
+    name: p.name,
+    slug: p.slug,
+    lat: p.lat as number,
+    lng: p.lng as number,
+    rating: p.avg_rating,
+    visits: p.visit_count,
+  }));
+
+const stats = [
+  { value: places.length, label: places.length === 1 ? "place" : "places" },
+  { value: totalCheckins, label: totalCheckins === 1 ? "check-in" : "check-ins" },
+  { value: overallAvg !== null ? overallAvg.toFixed(1) : "–", label: "avg rating" },
+  { value: revisited, label: "revisited" },
+];
+
+const sorts = [
+  { key: "recent", label: "Recent" },
+  { key: "rating", label: "Top rated" },
+  { key: "visits", label: "Most visited" },
+] as const;
+---
+
+<PageLayout title={PLACES.TITLE} description={PLACES.DESCRIPTION} keywords={PLACES.KEYWORDS}>
+  <Container>
+    <div class="space-y-10">
+      <nav class="flex items-center space-x-2 text-sm text-black/50 dark:text-white/50">
+        <Link href="/" underline={false} class="hover:text-black dark:hover:text-white transition-colors">
+          Home
+        </Link>
+        <span>/</span>
+        <span class="text-black dark:text-white font-medium">Places</span>
+      </nav>
+
+      <header>
+        <div class="space-y-3">
+          <h1 class="animate text-2xl sm:text-3xl font-semibold text-black dark:text-white tracking-tight">
+            Places
+          </h1>
+          <p class="animate text-sm text-black/65 dark:text-white/65 leading-relaxed">
+            Where I've eaten, worked from, and wandered into. Every visit gets its own rating, so you can see when a
+            place got better, or didn't.
+          </p>
+        </div>
+      </header>
+
+      {
+        places.length === 0 ? (
+          <div class:list={[card, "animate text-center space-y-2"]}>
+            <p class="font-semibold text-black dark:text-white">No check-ins yet</p>
+            <p class="text-sm">The first one is coming soon.</p>
+          </div>
+        ) : (
+          <>
+            <section class="animate space-y-4">
+              {pins.length > 0 && <PlacesMap pins={pins} class="h-72 sm:h-96" />}
+              <dl class="grid grid-cols-2 sm:grid-cols-4 rounded-2xl border border-black/15 dark:border-white/15">
+                {stats.map((stat, i) => (
+                  <div
+                    class:list={[
+                      "px-5 py-4 border-black/10 dark:border-white/10",
+                      i < 2 && "border-b sm:border-b-0",
+                      i % 2 === 0 && "border-r",
+                      i === 1 && "sm:border-r",
+                    ]}
+                  >
+                    <dt class="text-[11px] text-black/45 dark:text-white/45">{stat.label}</dt>
+                    <dd class="text-xl font-semibold text-black dark:text-white tabular-nums">{stat.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+
+            <section class="animate space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <h2 class={sectionLabel}>All places</h2>
+                <div
+                  class="inline-flex rounded-full border border-black/15 dark:border-white/20 p-1"
+                  role="tablist"
+                  aria-label="Sort places"
+                >
+                  {sorts.map((sort, i) => (
+                    <button
+                      type="button"
+                      role="tab"
+                      data-sort={sort.key}
+                      aria-selected={i === 0 ? "true" : "false"}
+                      class="rounded-full px-3 py-1.5 text-xs font-semibold text-black/55 dark:text-white/55 transition-colors duration-300 hover:text-black dark:hover:text-white aria-selected:bg-black aria-selected:text-white dark:aria-selected:bg-white dark:aria-selected:text-black"
+                    >
+                      {sort.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <ul id="places-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {places.map((place) => (
+                  <li
+                    data-recent={place.last_visit ? new Date(place.last_visit).getTime() : 0}
+                    data-rating={place.avg_rating ?? 0}
+                    data-visits={place.visit_count}
+                  >
+                    <a
+                      href={`/places/${place.slug}`}
+                      class="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/15 dark:border-white/15 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+                    >
+                      <div class="relative">
+                        {place.lat !== null && place.lng !== null ? (
+                          <PlaceThumb lat={place.lat} lng={place.lng} class="h-32" />
+                        ) : (
+                          <div class="h-32 bg-black/5 dark:bg-white/5" />
+                        )}
+                        {place.visit_count > 1 && (
+                          <span class="absolute right-3 top-3 rounded-full bg-black/80 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur dark:bg-white/90 dark:text-black">
+                            {place.visit_count}× visited
+                          </span>
+                        )}
+                      </div>
+                      <div class="flex flex-1 flex-col gap-2 p-4">
+                        <div class="flex items-start justify-between gap-3">
+                          <p class="font-semibold text-black dark:text-white leading-snug">{place.name}</p>
+                          {place.avg_rating !== null && (
+                            <span class="inline-flex shrink-0 items-center gap-1 text-xs text-black/55 dark:text-white/55">
+                              <PlaceRating rating={place.avg_rating} />
+                              <span class="tabular-nums">{place.avg_rating.toFixed(1)}</span>
+                            </span>
+                          )}
+                        </div>
+                        {place.last_review && <p class="text-sm line-clamp-2">{place.last_review}</p>}
+                        <div class="mt-auto flex items-center justify-between pt-1 text-xs text-black/45 dark:text-white/45">
+                          <span>
+                            {place.last_visit && (
+                              <>
+                                Last visit <FormattedDate date={new Date(place.last_visit)} />
+                              </>
+                            )}
+                          </span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            class="size-4 stroke-2 fill-none stroke-current"
+                            aria-hidden="true"
+                          >
+                            <line
+                              x1="5"
+                              y1="12"
+                              x2="19"
+                              y2="12"
+                              class="translate-x-3 group-hover:translate-x-0 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"
+                            />
+                            <polyline
+                              points="12 5 19 12 12 19"
+                              class="-translate-x-1 group-hover:translate-x-0 transition-transform duration-300 ease-in-out"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </>
+        )
+      }
+    </div>
+  </Container>
+</PageLayout>
+
+<script>
+  const grid = document.querySelector<HTMLUListElement>("#places-grid");
+  const tabs = document.querySelectorAll<HTMLButtonElement>("[data-sort]");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      if (!grid) return;
+      const key = tab.dataset.sort as "recent" | "rating" | "visits";
+      tabs.forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
+
+      const num = (el: HTMLElement, k: string) => Number(el.dataset[k] || 0);
+      ([...grid.children] as HTMLLIElement[])
+        .sort((a, b) => num(b, key) - num(a, key) || num(b, "recent") - num(a, "recent"))
+        .forEach((item) => grid.appendChild(item));
+    });
+  });
+</script>

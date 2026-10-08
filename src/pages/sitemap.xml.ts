@@ -14,6 +14,7 @@ export const GET: APIRoute = async () => {
     { loc: "https://sattiyans.com/tools", changefreq: "weekly", priority: "0.95" },
     { loc: "https://sattiyans.com/cv", changefreq: "monthly", priority: "0.7" },
     { loc: "https://sattiyans.com/uses", changefreq: "monthly", priority: "0.4" },
+    { loc: "https://sattiyans.com/places", changefreq: "weekly", priority: "0.5" },
     { loc: "https://sattiyans.com/ask", changefreq: "monthly", priority: "0.5" },
   ];
 

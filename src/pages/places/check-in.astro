@@ -1,0 +1,288 @@
+---
+import Container from "@components/Container.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import Link from "@components/Link.astro";
+import { isAuthConfigured, isOwner } from "@lib/places/auth";
+import PlaceRating from "@components/PlaceRating.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import { listRecentCheckins } from "@lib/places/db";
+import { alertError, btnPrimary, btnSecondary, card, field, label, sectionLabel } from "@lib/places/ui";
+
+export const prerender = false;
+
+const owner = isOwner(Astro.cookies);
+const configured = isAuthConfigured();
+const loginError = Astro.url.searchParams.get("error") === "1";
+const prefill = Astro.url.searchParams.get("link") ?? "";
+const recent = owner ? await listRecentCheckins() : [];
+
+Astro.response.headers.set("Cache-Control", "private, no-store");
+---
+
+<PageLayout title="Check in — Places" description="Check in to a place." hideChatbot>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+  <Container>
+    <div class="space-y-10">
+      <nav class="flex items-center space-x-2 text-sm text-black/50 dark:text-white/50">
+        <Link href="/" underline={false} class="hover:text-black dark:hover:text-white transition-colors">Home</Link>
+        <span>/</span>
+        <Link href="/places" underline={false} class="hover:text-black dark:hover:text-white transition-colors">Places</Link>
+        <span>/</span>
+        <span class="text-black dark:text-white font-medium">Check in</span>
+      </nav>
+
+      <header class="flex items-start justify-between gap-4">
+        <div class="space-y-3">
+          <h1 class="animate text-2xl sm:text-3xl font-semibold text-black dark:text-white tracking-tight">Check in</h1>
+          <p class="text-sm text-black/65 dark:text-white/65 leading-relaxed">
+            Paste a Google Maps link, rate it, write a few lines.
+          </p>
+        </div>
+        {
+          owner && (
+            <form method="post" action="/api/places/login">
+              <input type="hidden" name="action" value="logout" />
+              <button class:list={[btnSecondary, "whitespace-nowrap"]}>Log out</button>
+            </form>
+          )
+        }
+      </header>
+
+      {
+        !owner && !configured && (
+          <p class={alertError}>
+            Set <code>PLACES_ADMIN_PASSWORD</code> in the environment to enable check-ins.
+          </p>
+        )
+      }
+
+      {
+        !owner && configured && (
+          <form method="post" action="/api/places/login" class:list={[card, "animate space-y-4 max-w-md"]}>
+            <div>
+              <label for="password" class={label}>Password</label>
+              <input id="password" type="password" name="password" required autocomplete="current-password" class={field} />
+            </div>
+            {loginError && <p class={alertError}>Wrong password.</p>}
+            <button class={btnPrimary}>Log in</button>
+          </form>
+        )
+      }
+
+      {
+        owner && (
+        <div class="grid gap-10 lg:grid-cols-[1fr_minmax(280px,340px)] lg:gap-14 items-start">
+          <form id="checkin-form" class:list={[card, "animate space-y-5"]} novalidate>
+            <div>
+              <label for="link" class={label}>Google Maps link</label>
+              <textarea id="link" name="link" rows="2" required placeholder="https://maps.app.goo.gl/…" class:list={[field, "resize-none"]}>{prefill}</textarea>
+            </div>
+
+            <div id="preview" class="hidden space-y-3 rounded-lg border border-black/15 dark:border-white/20 p-4">
+              <p id="preview-status" class={sectionLabel} />
+              <div id="preview-map-wrap" class="hidden h-40 overflow-hidden rounded-lg border border-black/15 dark:border-white/20">
+                <iframe id="preview-map-frame" title="Map preview" class="block h-full w-full [filter:grayscale(0.5)_contrast(0.95)] dark:[filter:invert(92%)_hue-rotate(180deg)_grayscale(0.6)_brightness(0.85)_contrast(0.9)]" />
+              </div>
+              <div>
+                <label for="name" class={label}>Name</label>
+                <input id="name" name="name" maxlength="120" class={field} />
+              </div>
+              <a id="preview-map" target="_blank" rel="noopener" class="inline-block text-sm underline underline-offset-2 decoration-black/15 dark:decoration-white/30 hover:text-black dark:hover:text-white">
+                Open in Google Maps ↗
+              </a>
+            </div>
+            <p id="resolve-error" class:list={[alertError, "hidden"]} />
+
+            <fieldset>
+              <legend class={label}>Rating</legend>
+              <div class="flex gap-2">
+                {
+                  [1, 2, 3, 4, 5].map((n) => (
+                    <label class="cursor-pointer">
+                      <input type="radio" name="rating" value={n} class="peer sr-only" required aria-label={`${n} star${n > 1 ? "s" : ""}`} />
+                      <span
+                        data-star={n}
+                        class="flex size-11 items-center justify-center rounded-full border border-black/15 dark:border-white/20 text-xl text-black/20 dark:text-white/20 hover:bg-black/5 dark:hover:bg-white/5 data-[on=true]:border-amber-400 data-[on=true]:text-amber-400 dark:data-[on=true]:border-amber-400 dark:data-[on=true]:text-amber-400 peer-focus-visible:ring-2 peer-focus-visible:ring-black dark:peer-focus-visible:ring-white transition-colors duration-300"
+                      >
+                        ★
+                      </span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+
+            <div>
+              <label for="review" class={label}>Review</label>
+              <textarea id="review" name="review" rows="5" maxlength="5000" placeholder="How was it this time?" class:list={[field, "resize-vertical"]} />
+            </div>
+
+            <div>
+              <label for="visitedAt" class={label}>Visited</label>
+              <input id="visitedAt" type="datetime-local" name="visitedAt" class={field} />
+            </div>
+
+            <p id="submit-error" class:list={[alertError, "hidden"]} />
+            <div class="flex items-center justify-end gap-3 pt-1">
+              <a href="/places" class={btnSecondary}>Cancel</a>
+              <button type="submit" class={btnPrimary}>Check in</button>
+            </div>
+          </form>
+
+          <aside class="animate lg:sticky lg:top-28 space-y-3">
+            <h2 class={sectionLabel}>Recent check-ins</h2>
+            <ul class="space-y-2">
+              {recent.map((c) => (
+                <li class="flex items-center gap-3 rounded-lg border border-black/15 dark:border-white/20 px-4 py-3">
+                  <div class="min-w-0 flex-1">
+                    <a href={`/places/${c.place_slug}`} class="block truncate text-sm font-semibold text-black dark:text-white hover:underline underline-offset-2">
+                      {c.place_name}
+                    </a>
+                    <div class="flex items-center gap-2 text-xs text-black/45 dark:text-white/45">
+                      <FormattedDate date={new Date(c.visited_at)} />
+                      <PlaceRating rating={c.rating} />
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    data-delete-checkin={c.id}
+                    class="inline-flex shrink-0 items-center rounded-full border border-red-300 dark:border-red-700 px-3 py-1 text-xs font-semibold text-red-700 dark:text-red-300 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors duration-300"
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+            {recent.length === 0 && <p class="text-sm">Nothing yet. Your first check-in will show up here.</p>}
+          </aside>
+        </div>
+        )
+      }
+    </div>
+  </Container>
+</PageLayout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-delete-checkin]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      if (!confirm("Delete this check-in?")) return;
+      const res = await fetch(`/api/places/checkin?id=${button.dataset.deleteCheckin}`, { method: "DELETE" });
+      if (res.ok) location.reload();
+      else alert("Delete failed");
+    });
+  });
+
+  const form = document.querySelector<HTMLFormElement>("#checkin-form");
+
+  if (form) {
+    const linkInput = form.elements.namedItem("link") as HTMLTextAreaElement;
+    const nameInput = form.elements.namedItem("name") as HTMLInputElement;
+    const visitedInput = form.elements.namedItem("visitedAt") as HTMLInputElement;
+    const preview = document.querySelector<HTMLDivElement>("#preview")!;
+    const previewStatus = document.querySelector<HTMLParagraphElement>("#preview-status")!;
+    const previewMap = document.querySelector<HTMLAnchorElement>("#preview-map")!;
+    const previewMapWrap = document.querySelector<HTMLDivElement>("#preview-map-wrap")!;
+    const previewMapFrame = document.querySelector<HTMLIFrameElement>("#preview-map-frame")!;
+    const resolveError = document.querySelector<HTMLParagraphElement>("#resolve-error")!;
+    const submitError = document.querySelector<HTMLParagraphElement>("#submit-error")!;
+    const submitButton = form.querySelector<HTMLButtonElement>("button[type=submit]")!;
+    const stars = document.querySelectorAll<HTMLSpanElement>("[data-star]");
+
+    // datetime-local wants local wall-clock time without a zone.
+    const now = new Date();
+    visitedInput.value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+
+    const show = (el: HTMLElement, text?: string) => {
+      if (text !== undefined) el.textContent = text;
+      el.classList.remove("hidden");
+    };
+    const hide = (el: HTMLElement) => el.classList.add("hidden");
+
+    form.querySelectorAll<HTMLInputElement>("input[name=rating]").forEach((radio) => {
+      radio.addEventListener("change", () => {
+        const value = Number(radio.value);
+        stars.forEach((star) => {
+          star.dataset.on = String(Number(star.dataset.star) <= value);
+        });
+      });
+    });
+
+    let lastResolved = "";
+    async function resolve() {
+      const link = linkInput.value.trim();
+      if (!link || link === lastResolved) return;
+      lastResolved = link;
+      hide(resolveError);
+      show(preview);
+      previewStatus.textContent = "Reading link…";
+
+      try {
+        const res = await fetch("/api/places/resolve", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ link }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Could not read that link");
+
+        previewMap.href = data.resolved.resolvedUrl;
+        const { lat, lng } = data.existing ?? data.resolved;
+        if (lat !== null && lng !== null) {
+          previewMapFrame.src = `https://maps.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
+          show(previewMapWrap);
+        } else {
+          hide(previewMapWrap);
+        }
+        if (data.existing) {
+          previewStatus.textContent = "Been here before — adding another visit";
+          nameInput.value = data.existing.name;
+          nameInput.readOnly = true;
+        } else {
+          previewStatus.textContent = data.resolved.name ? "New place" : "New place — name not found, type one";
+          nameInput.value = data.resolved.name ?? "";
+          nameInput.readOnly = false;
+        }
+      } catch (error) {
+        hide(preview);
+        lastResolved = "";
+        show(resolveError, error instanceof Error ? error.message : "Could not read that link");
+      }
+    }
+
+    linkInput.addEventListener("paste", () => setTimeout(resolve, 0));
+    linkInput.addEventListener("blur", resolve);
+    if (linkInput.value.trim()) resolve();
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      hide(submitError);
+
+      const data = new FormData(form);
+      if (!data.get("rating")) return show(submitError, "Pick a rating");
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Saving…";
+      try {
+        const visited = `${data.get("visitedAt") || ""}`;
+        const res = await fetch("/api/places/checkin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            link: data.get("link"),
+            name: data.get("name"),
+            rating: Number(data.get("rating")),
+            review: data.get("review"),
+            visitedAt: visited ? new Date(visited).toISOString() : undefined,
+          }),
+        });
+        const body = await res.json();
+        if (!res.ok) throw new Error(body.error || "Check-in failed");
+        location.href = `/places/${body.place.slug}`;
+      } catch (error) {
+        show(submitError, error instanceof Error ? error.message : "Check-in failed");
+        submitButton.disabled = false;
+        submitButton.textContent = "Check in";
+      }
+    });
+  }
+</script>

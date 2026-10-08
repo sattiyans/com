@@ -1,0 +1,96 @@
+---
+// Overview map of every place. Leaflet + OpenStreetMap tiles, no API key.
+// Dark mode inverts the tile layer with CSS (same trick as the Google embed).
+type Pin = { name: string; slug: string; lat: number; lng: number; rating: number | null; visits: number };
+
+type Props = {
+  pins: Pin[];
+  class?: string;
+};
+
+const { pins, class: className } = Astro.props;
+---
+
+<div
+  class:list={[
+    "places-map relative z-0 overflow-hidden rounded-2xl border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5",
+    className,
+  ]}
+  data-pins={JSON.stringify(pins)}
+>
+</div>
+
+<script>
+  import L from "leaflet";
+  import "leaflet/dist/leaflet.css";
+
+  type Pin = { name: string; slug: string; lat: number; lng: number; rating: number | null; visits: number };
+
+  const TILES = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+  const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+
+  const escape = (s: string) =>
+    s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+
+  document.querySelectorAll<HTMLDivElement>(".places-map").forEach((el) => {
+    const pins: Pin[] = JSON.parse(el.dataset.pins || "[]");
+    if (!pins.length) return;
+
+    const map = L.map(el, { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
+    L.tileLayer(TILES, { attribution: ATTRIBUTION, maxZoom: 19 }).addTo(map);
+
+    const icon = L.divIcon({
+      className: "",
+      html: '<span class="block size-3.5 rounded-full bg-amber-400 ring-2 ring-white dark:ring-black shadow"></span>',
+      iconSize: [14, 14],
+      iconAnchor: [7, 7],
+      popupAnchor: [0, -8],
+    });
+
+    const markers = pins.map((pin) => {
+      const meta = [pin.rating !== null ? `★ ${pin.rating.toFixed(1)}` : null, `${pin.visits} ${pin.visits === 1 ? "visit" : "visits"}`]
+        .filter(Boolean)
+        .join(" · ");
+      return L.marker([pin.lat, pin.lng], { icon, title: pin.name })
+        .bindPopup(`<a href="/places/${encodeURIComponent(pin.slug)}" class="font-semibold">${escape(pin.name)}</a><br><span>${meta}</span>`)
+        .addTo(map);
+    });
+
+    if (markers.length === 1) {
+      map.setView(markers[0].getLatLng(), 16);
+    } else {
+      map.fitBounds(L.latLngBounds(markers.map((m) => m.getLatLng())), { padding: [40, 40], maxZoom: 15 });
+    }
+
+    // Enable wheel zoom only after the map is clicked, so the page still scrolls.
+    map.once("click", () => map.scrollWheelZoom.enable());
+  });
+</script>
+
+<style is:global>
+  .places-map .leaflet-tile-pane {
+    filter: grayscale(0.5) contrast(0.95);
+  }
+  .dark .places-map .leaflet-tile-pane {
+    filter: invert(92%) hue-rotate(180deg) grayscale(0.6) brightness(0.85) contrast(0.9);
+  }
+  .places-map .leaflet-popup-content-wrapper,
+  .places-map .leaflet-popup-tip {
+    @apply bg-white text-black shadow-lg dark:bg-stone-900 dark:text-white;
+  }
+  .places-map .leaflet-popup-content {
+    @apply my-2.5 mx-3 text-sm leading-snug;
+  }
+  .places-map .leaflet-popup-content a {
+    @apply text-black dark:text-white underline underline-offset-2;
+  }
+  .places-map .leaflet-control-attribution {
+    @apply bg-white/70 text-[10px] dark:bg-black/60 dark:text-white/60;
+  }
+  .places-map .leaflet-control-attribution a {
+    @apply dark:text-white/80;
+  }
+  .places-map .leaflet-bar a {
+    @apply border-black/10 bg-white text-black dark:border-white/10 dark:bg-stone-900 dark:text-white;
+  }
+</style>

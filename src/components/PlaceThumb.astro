@@ -1,0 +1,50 @@
+---
+// Static map thumbnail: a 2x2 block of OpenStreetMap tiles positioned so the pin sits dead centre.
+// No API key, no JS. Dark mode inverts the tiles with CSS.
+type Props = {
+  lat: number;
+  lng: number;
+  zoom?: number;
+  class?: string;
+};
+
+const { lat, lng, zoom = 15, class: className } = Astro.props;
+const TILE = 256;
+
+const n = 2 ** zoom;
+const latRad = (lat * Math.PI) / 180;
+const xf = ((lng + 180) / 360) * n;
+const yf = ((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2) * n;
+
+// Start the 2x2 block half a tile before the pin so it always lands in the inner area.
+const x0 = Math.floor(xf - 0.5);
+const y0 = Math.floor(yf - 0.5);
+const pinX = (xf - x0) * TILE;
+const pinY = (yf - y0) * TILE;
+
+const tiles = [0, 1].flatMap((dy) => [0, 1].map((dx) => ({ dx, dy, x: x0 + dx, y: y0 + dy })));
+const url = (x: number, y: number) => `https://tile.openstreetmap.org/${zoom}/${x}/${y}.png`;
+---
+
+<div class:list={["relative overflow-hidden bg-black/5 dark:bg-white/5", className]} aria-hidden="true">
+  <div class="absolute [filter:grayscale(0.5)_contrast(0.95)] dark:[filter:invert(92%)_hue-rotate(180deg)_grayscale(0.6)_brightness(0.85)_contrast(0.9)]" style={`left: calc(50% - ${pinX}px); top: calc(50% - ${pinY}px); width: ${TILE * 2}px; height: ${TILE * 2}px;`}>
+    {
+      tiles.map((t) => (
+          <img
+            src={url(t.x, t.y)}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            width={TILE}
+            height={TILE}
+            class="absolute max-w-none"
+            style={`left: ${t.dx * TILE}px; top: ${t.dy * TILE}px;`}
+          />
+      ))
+    }
+  </div>
+  <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+    <span class="absolute inset-0 -m-2 rounded-full bg-amber-400/30 animate-ping"></span>
+    <span class="relative block size-3 rounded-full bg-amber-400 ring-2 ring-white dark:ring-black"></span>
+  </span>
+</div>

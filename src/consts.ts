@@ -84,6 +84,13 @@ export const WATCHED: Metadata = {
   DESCRIPTION: "Recently watched films and TV series, including ratings and activity updates from Letterboxd.",
 };
 
+export const PLACES: Metadata = {
+  TITLE: "Places — Check-ins, Ratings & Reviews",
+  DESCRIPTION:
+    "Places Sattiyan has been to around Malaysia and beyond: every check-in with a rating and an honest review, tracked visit by visit.",
+  KEYWORDS: "sattiyan places, food reviews malaysia, cafe reviews kl, restaurant ratings, check-ins",
+};
+
 export const SOCIALS: Socials = [
   { NAME: "GitHub", HREF: "https://github.com/sattiyans" },
   { NAME: "LinkedIn", HREF: "https://www.linkedin.com/in/sattiyans" },
