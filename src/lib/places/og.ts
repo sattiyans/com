@@ -86,20 +86,21 @@ const MAP_H = 630;
 
 async function mapPanel(lat: number, lng: number, zoom = 16): Promise<string | null> {
   try {
-    const { default: sharp } = await import("sharp");
+    // Pure-JS PNG decode/encode: sharp's native binary isn't packaged into the Vercel function.
+    const { PNG } = await import("pngjs");
     const n = 2 ** zoom;
     const latRad = (lat * Math.PI) / 180;
     const px = ((lng + 180) / 360) * n * TILE;
     const py = ((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2) * n * TILE;
 
-    const left = px - MAP_W / 2;
-    const top = py - MAP_H / 2;
+    const left = Math.round(px - MAP_W / 2);
+    const top = Math.round(py - MAP_H / 2);
     const x0 = Math.floor(left / TILE);
     const y0 = Math.floor(top / TILE);
-    const x1 = Math.floor((left + MAP_W) / TILE);
-    const y1 = Math.floor((top + MAP_H) / TILE);
+    const x1 = Math.floor((left + MAP_W - 1) / TILE);
+    const y1 = Math.floor((top + MAP_H - 1) / TILE);
 
-    const jobs: Promise<{ input: Buffer; left: number; top: number }>[] = [];
+    const jobs: Promise<{ x: number; y: number; png: InstanceType<typeof PNG> }>[] = [];
     for (let x = x0; x <= x1; x++) {
       for (let y = y0; y <= y1; y++) {
         jobs.push(
@@ -108,34 +109,36 @@ async function mapPanel(lat: number, lng: number, zoom = 16): Promise<string | n
             signal: AbortSignal.timeout(5000),
           }).then(async (res) => {
             if (!res.ok) throw new Error(`tile ${res.status}`);
-            return { input: Buffer.from(await res.arrayBuffer()), left: (x - x0) * TILE, top: (y - y0) * TILE };
+            return { x, y, png: PNG.sync.read(Buffer.from(await res.arrayBuffer())) };
           }),
         );
       }
     }
     const tiles = await Promise.all(jobs);
 
-    const stitched = await sharp({
-      create: {
-        width: (x1 - x0 + 1) * TILE,
-        height: (y1 - y0 + 1) * TILE,
-        channels: 3,
-        background: "#000",
-      },
-    })
-      .composite(tiles)
-      .png()
-      .toBuffer();
+    // Copy each tile's overlap with the crop window, greyscale + invert + dim as we go
+    // (same look as the on-site dark map).
+    const out = new PNG({ width: MAP_W, height: MAP_H });
+    for (const { x, y, png } of tiles) {
+      const tileLeft = x * TILE - left;
+      const tileTop = y * TILE - top;
+      for (let ty = 0; ty < png.height; ty++) {
+        const oy = tileTop + ty;
+        if (oy < 0 || oy >= MAP_H) continue;
+        for (let tx = 0; tx < png.width; tx++) {
+          const ox = tileLeft + tx;
+          if (ox < 0 || ox >= MAP_W) continue;
+          const si = (ty * png.width + tx) * 4;
+          const gray = 0.299 * png.data[si] + 0.587 * png.data[si + 1] + 0.114 * png.data[si + 2];
+          const value = Math.round((255 - gray) * 0.75 + 4);
+          const oi = (oy * MAP_W + ox) * 4;
+          out.data[oi] = out.data[oi + 1] = out.data[oi + 2] = value;
+          out.data[oi + 3] = 255;
+        }
+      }
+    }
 
-    const panel = await sharp(stitched)
-      .extract({ left: Math.round(left - x0 * TILE), top: Math.round(top - y0 * TILE), width: MAP_W, height: MAP_H })
-      .grayscale()
-      .negate({ alpha: false })
-      .linear(0.75, 4) // dim + lift blacks slightly, like the on-site dark map
-      .png()
-      .toBuffer();
-
-    return `data:image/png;base64,${panel.toString("base64")}`;
+    return `data:image/png;base64,${PNG.sync.write(out).toString("base64")}`;
   } catch (error) {
     console.error("[places og] map panel skipped:", error);
     return null;

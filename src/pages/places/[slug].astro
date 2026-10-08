@@ -50,11 +50,11 @@ const trend =
 // SEO: dynamic title/description, OG image (cache-busted by visit count + last visit) and JSON-LD.
 const clip = (text: string, max: number) => (text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text);
 const visitsLabel = `${checkins.length} ${checkins.length === 1 ? "visit" : "visits"}`;
-const seoTitle = avg !== null ? `${place.name} Review — ${avg.toFixed(1)}/5 after ${visitsLabel}` : `${place.name} — Places`;
+const seoTitle = avg !== null ? `${place.name} — Rated ${avg.toFixed(1)}/5` : `${place.name} — Places`;
 const seoDescription = clip(
   [
     avg !== null
-      ? `Honest review of ${place.name}: rated ${avg.toFixed(1)}/5 across ${visitsLabel}.`
+      ? `${place.name}, rated ${avg.toFixed(1)}/5 over ${visitsLabel}.`
       : `${place.name}: check-ins and notes.`,
     latest?.review ? `Latest: “${latest.review.replace(/\s+/g, " ").trim()}”` : null,
   ]
@@ -62,7 +62,7 @@ const seoDescription = clip(
     .join(" "),
   160,
 );
-const ogVersion = `${checkins.length}-${latest ? new Date(latest.visited_at).getTime() : 0}`;
+const ogVersion = `r2-${checkins.length}-${latest ? new Date(latest.visited_at).getTime() : 0}`;
 const ogImage = `/places/${place.slug}/og.png?v=${ogVersion}`;
 const pageUrl = new URL(`/places/${place.slug}`, Astro.site ?? Astro.url).href;
 
