@@ -123,7 +123,7 @@ const sorts = [
                     data-rating={place.avg_rating ?? 0}
                     data-visits={place.visit_count}
                   >
-                    <a
+                    <a data-astro-reload
                       href={`/places/${place.slug}`}
                       class="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/15 dark:border-white/15 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
                     >
@@ -191,19 +191,32 @@ const sorts = [
 </PageLayout>
 
 <script>
-  const grid = document.querySelector<HTMLUListElement>("#places-grid");
-  const tabs = document.querySelectorAll<HTMLButtonElement>("[data-sort]");
+  // View Transitions swap pages client-side without re-running scripts.
+  function initPlacesIndex() {
+    // <body> is replaced on each navigation, so this marks "bound for this page".
+    if (document.body.dataset.placesIndex) return;
+    document.body.dataset.placesIndex = "true";
+    const grid = document.querySelector<HTMLUListElement>("#places-grid");
+    const tabs = document.querySelectorAll<HTMLButtonElement>("[data-sort]");
 
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      if (!grid) return;
-      const key = tab.dataset.sort as "recent" | "rating" | "visits";
-      tabs.forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        if (!grid) return;
+        const key = tab.dataset.sort as "recent" | "rating" | "visits";
+        tabs.forEach((t) => t.setAttribute("aria-selected", String(t === tab)));
 
-      const num = (el: HTMLElement, k: string) => Number(el.dataset[k] || 0);
-      ([...grid.children] as HTMLLIElement[])
-        .sort((a, b) => num(b, key) - num(a, key) || num(b, "recent") - num(a, "recent"))
-        .forEach((item) => grid.appendChild(item));
+        const num = (el: HTMLElement, k: string) => Number(el.dataset[k] || 0);
+        ([...grid.children] as HTMLLIElement[])
+          .sort((a, b) => num(b, key) - num(a, key) || num(b, "recent") - num(a, "recent"))
+          .forEach((item) => grid.appendChild(item));
+      });
     });
-  });
+  }
+
+  // Runs on full loads and soft navigations; also run now in case this script
+  // loaded after astro:page-load already fired (first visit via a soft navigation).
+  document.addEventListener("astro:page-load", initPlacesIndex);
+  // page-load can stall on this site; after-swap always fires (same as Header/Head).
+  document.addEventListener("astro:after-swap", initPlacesIndex);
+  initPlacesIndex();
 </script>

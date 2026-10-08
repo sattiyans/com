@@ -23,48 +23,58 @@ const { pins, class: className } = Astro.props;
 <script>
   import L from "leaflet";
   import "leaflet/dist/leaflet.css";
+  // View Transitions swap pages client-side without re-running scripts.
+  function initPlacesMaps() {
+    type Pin = { name: string; slug: string; lat: number; lng: number; rating: number | null; visits: number };
 
-  type Pin = { name: string; slug: string; lat: number; lng: number; rating: number | null; visits: number };
+    const TILES = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+    const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 
-  const TILES = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
-  const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+    const escape = (s: string) =>
+      s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
-  const escape = (s: string) =>
-    s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+    document.querySelectorAll<HTMLDivElement>(".places-map").forEach((el) => {
+      const pins: Pin[] = JSON.parse(el.dataset.pins || "[]");
+      if (!pins.length || el.dataset.ready) return;
+      el.dataset.ready = "true";
 
-  document.querySelectorAll<HTMLDivElement>(".places-map").forEach((el) => {
-    const pins: Pin[] = JSON.parse(el.dataset.pins || "[]");
-    if (!pins.length) return;
+      const map = L.map(el, { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
+      L.tileLayer(TILES, { attribution: ATTRIBUTION, maxZoom: 19 }).addTo(map);
 
-    const map = L.map(el, { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
-    L.tileLayer(TILES, { attribution: ATTRIBUTION, maxZoom: 19 }).addTo(map);
+      const icon = L.divIcon({
+        className: "",
+        html: '<span class="block size-3.5 rounded-full bg-amber-400 ring-2 ring-white dark:ring-black shadow"></span>',
+        iconSize: [14, 14],
+        iconAnchor: [7, 7],
+        popupAnchor: [0, -8],
+      });
 
-    const icon = L.divIcon({
-      className: "",
-      html: '<span class="block size-3.5 rounded-full bg-amber-400 ring-2 ring-white dark:ring-black shadow"></span>',
-      iconSize: [14, 14],
-      iconAnchor: [7, 7],
-      popupAnchor: [0, -8],
+      const markers = pins.map((pin) => {
+        const meta = [pin.rating !== null ? `★ ${pin.rating.toFixed(1)}` : null, `${pin.visits} ${pin.visits === 1 ? "visit" : "visits"}`]
+          .filter(Boolean)
+          .join(" · ");
+        return L.marker([pin.lat, pin.lng], { icon, title: pin.name })
+          .bindPopup(`<a href="/places/${encodeURIComponent(pin.slug)}" class="font-semibold">${escape(pin.name)}</a><br><span>${meta}</span>`)
+          .addTo(map);
+      });
+
+      if (markers.length === 1) {
+        map.setView(markers[0].getLatLng(), 16);
+      } else {
+        map.fitBounds(L.latLngBounds(markers.map((m) => m.getLatLng())), { padding: [40, 40], maxZoom: 15 });
+      }
+
+      // Enable wheel zoom only after the map is clicked, so the page still scrolls.
+      map.once("click", () => map.scrollWheelZoom.enable());
     });
+  }
 
-    const markers = pins.map((pin) => {
-      const meta = [pin.rating !== null ? `★ ${pin.rating.toFixed(1)}` : null, `${pin.visits} ${pin.visits === 1 ? "visit" : "visits"}`]
-        .filter(Boolean)
-        .join(" · ");
-      return L.marker([pin.lat, pin.lng], { icon, title: pin.name })
-        .bindPopup(`<a href="/places/${encodeURIComponent(pin.slug)}" class="font-semibold">${escape(pin.name)}</a><br><span>${meta}</span>`)
-        .addTo(map);
-    });
-
-    if (markers.length === 1) {
-      map.setView(markers[0].getLatLng(), 16);
-    } else {
-      map.fitBounds(L.latLngBounds(markers.map((m) => m.getLatLng())), { padding: [40, 40], maxZoom: 15 });
-    }
-
-    // Enable wheel zoom only after the map is clicked, so the page still scrolls.
-    map.once("click", () => map.scrollWheelZoom.enable());
-  });
+  // Runs on full loads and soft navigations; also run now in case this script
+  // loaded after astro:page-load already fired (first visit via a soft navigation).
+  document.addEventListener("astro:page-load", initPlacesMaps);
+  // page-load can stall on this site; after-swap always fires (same as Header/Head).
+  document.addEventListener("astro:after-swap", initPlacesMaps);
+  initPlacesMaps();
 </script>
 
 <style is:global>

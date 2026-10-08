@@ -45,7 +45,7 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
                   Set <code>PLACES_ADMIN_PASSWORD</code> in the environment to enable check-ins.
                 </p>
               ) : (
-                <form method="post" action="/api/places/login" class="space-y-4" id="login-form">
+                <form method="post" action="/api/places/login" data-astro-reload class="space-y-4" id="login-form">
                   <input type="text" name="username" value="owner" autocomplete="username" class="hidden" aria-hidden="true" tabindex="-1" />
                   <div>
                     <label for="password" class={label}>Password</label>
@@ -100,7 +100,7 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
             Paste a Google Maps link, rate it, write a few lines.
           </p>
         </div>
-        <form method="post" action="/api/places/login">
+        <form method="post" action="/api/places/login" data-astro-reload>
           <input type="hidden" name="intent" value="logout" />
           <button class:list={[btnSecondary, "whitespace-nowrap"]}>Log out</button>
         </form>
@@ -161,7 +161,7 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
 
             <p id="submit-error" class:list={[alertError, "hidden"]} />
             <div class="flex items-center justify-end gap-3 pt-1">
-              <a href="/places" class={btnSecondary}>Cancel</a>
+              <a data-astro-reload href="/places" class={btnSecondary}>Cancel</a>
               <button type="submit" class={btnPrimary}>Check in</button>
             </div>
           </form>
@@ -172,7 +172,7 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
               {recent.map((c) => (
                 <li class="flex items-center gap-3 rounded-lg border border-black/15 dark:border-white/20 px-4 py-3">
                   <div class="min-w-0 flex-1">
-                    <a href={`/places/${c.place_slug}`} class="block truncate text-sm font-semibold text-black dark:text-white hover:underline underline-offset-2">
+                    <a data-astro-reload href={`/places/${c.place_slug}`} class="block truncate text-sm font-semibold text-black dark:text-white hover:underline underline-offset-2">
                       {c.place_name}
                     </a>
                     <div class="flex items-center gap-2 text-xs text-black/45 dark:text-white/45">
@@ -202,160 +202,173 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
 </PageLayout>
 
 <script>
-  const passwordInput = document.querySelector<HTMLInputElement>("#password");
-  document.querySelector<HTMLButtonElement>("#toggle-password")?.addEventListener("click", (event) => {
-    if (!passwordInput) return;
-    const button = event.currentTarget as HTMLButtonElement;
-    const show = passwordInput.type === "password";
-    passwordInput.type = show ? "text" : "password";
-    button.textContent = show ? "Hide" : "Show";
-    button.setAttribute("aria-label", show ? "Hide password" : "Show password");
-    passwordInput.focus();
-  });
-
-  // Two-tap delete instead of confirm(): in-app browsers often block native dialogs silently.
-  document.querySelectorAll<HTMLButtonElement>("[data-delete-checkin]").forEach((button) => {
-    let disarm: ReturnType<typeof setTimeout> | undefined;
-    button.addEventListener("click", async () => {
-      if (button.dataset.armed !== "true") {
-        button.dataset.armed = "true";
-        button.textContent = "Sure?";
-        disarm = setTimeout(() => {
-          button.dataset.armed = "false";
-          button.textContent = "Delete";
-        }, 3000);
-        return;
-      }
-
-      clearTimeout(disarm);
-      button.disabled = true;
-      button.textContent = "Deleting…";
-      try {
-        const res = await fetch(`/api/places/checkin?id=${button.dataset.deleteCheckin}`, {
-          method: "DELETE",
-          credentials: "same-origin",
-        });
-        if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || `HTTP ${res.status}`);
-        button.closest("li")?.remove();
-      } catch (error) {
-        button.disabled = false;
-        button.dataset.armed = "false";
-        button.textContent = error instanceof Error && error.message === "Unauthorized" ? "Signed out" : "Failed — retry";
-      }
+  // View Transitions swap pages client-side without re-running scripts.
+  function initCheckInPage() {
+    // <body> is replaced on each navigation, so this marks "bound for this page".
+    if (document.body.dataset.placesCheckIn) return;
+    document.body.dataset.placesCheckIn = "true";
+    const passwordInput = document.querySelector<HTMLInputElement>("#password");
+    document.querySelector<HTMLButtonElement>("#toggle-password")?.addEventListener("click", (event) => {
+      if (!passwordInput) return;
+      const button = event.currentTarget as HTMLButtonElement;
+      const show = passwordInput.type === "password";
+      passwordInput.type = show ? "text" : "password";
+      button.textContent = show ? "Hide" : "Show";
+      button.setAttribute("aria-label", show ? "Hide password" : "Show password");
+      passwordInput.focus();
     });
-  });
 
-  const form = document.querySelector<HTMLFormElement>("#checkin-form");
+    // Two-tap delete instead of confirm(): in-app browsers often block native dialogs silently.
+    document.querySelectorAll<HTMLButtonElement>("[data-delete-checkin]").forEach((button) => {
+      let disarm: ReturnType<typeof setTimeout> | undefined;
+      button.addEventListener("click", async () => {
+        if (button.dataset.armed !== "true") {
+          button.dataset.armed = "true";
+          button.textContent = "Sure?";
+          disarm = setTimeout(() => {
+            button.dataset.armed = "false";
+            button.textContent = "Delete";
+          }, 3000);
+          return;
+        }
 
-  if (form) {
-    const linkInput = form.elements.namedItem("link") as HTMLTextAreaElement;
-    const nameInput = form.elements.namedItem("name") as HTMLInputElement;
-    const visitedInput = form.elements.namedItem("visitedAt") as HTMLInputElement;
-    const preview = document.querySelector<HTMLDivElement>("#preview")!;
-    const previewStatus = document.querySelector<HTMLParagraphElement>("#preview-status")!;
-    const previewMap = document.querySelector<HTMLAnchorElement>("#preview-map")!;
-    const previewMapWrap = document.querySelector<HTMLDivElement>("#preview-map-wrap")!;
-    const previewMapFrame = document.querySelector<HTMLIFrameElement>("#preview-map-frame")!;
-    const resolveError = document.querySelector<HTMLParagraphElement>("#resolve-error")!;
-    const submitError = document.querySelector<HTMLParagraphElement>("#submit-error")!;
-    const submitButton = form.querySelector<HTMLButtonElement>("button[type=submit]")!;
-    const stars = document.querySelectorAll<HTMLSpanElement>("[data-star]");
-
-    // datetime-local wants local wall-clock time without a zone.
-    const now = new Date();
-    visitedInput.value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
-
-    const show = (el: HTMLElement, text?: string) => {
-      if (text !== undefined) el.textContent = text;
-      el.classList.remove("hidden");
-    };
-    const hide = (el: HTMLElement) => el.classList.add("hidden");
-
-    form.querySelectorAll<HTMLInputElement>("input[name=rating]").forEach((radio) => {
-      radio.addEventListener("change", () => {
-        const value = Number(radio.value);
-        stars.forEach((star) => {
-          star.dataset.on = String(Number(star.dataset.star) <= value);
-        });
+        clearTimeout(disarm);
+        button.disabled = true;
+        button.textContent = "Deleting…";
+        try {
+          const res = await fetch(`/api/places/checkin?id=${button.dataset.deleteCheckin}`, {
+            method: "DELETE",
+            credentials: "same-origin",
+          });
+          if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || `HTTP ${res.status}`);
+          button.closest("li")?.remove();
+        } catch (error) {
+          button.disabled = false;
+          button.dataset.armed = "false";
+          button.textContent = error instanceof Error && error.message === "Unauthorized" ? "Signed out" : "Failed — retry";
+        }
       });
     });
 
-    let lastResolved = "";
-    async function resolve() {
-      const link = linkInput.value.trim();
-      if (!link || link === lastResolved) return;
-      lastResolved = link;
-      hide(resolveError);
-      show(preview);
-      previewStatus.textContent = "Reading link…";
+    const form = document.querySelector<HTMLFormElement>("#checkin-form");
 
-      try {
-        const res = await fetch("/api/places/resolve", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ link }),
+    if (form) {
+      const linkInput = form.elements.namedItem("link") as HTMLTextAreaElement;
+      const nameInput = form.elements.namedItem("name") as HTMLInputElement;
+      const visitedInput = form.elements.namedItem("visitedAt") as HTMLInputElement;
+      const preview = document.querySelector<HTMLDivElement>("#preview")!;
+      const previewStatus = document.querySelector<HTMLParagraphElement>("#preview-status")!;
+      const previewMap = document.querySelector<HTMLAnchorElement>("#preview-map")!;
+      const previewMapWrap = document.querySelector<HTMLDivElement>("#preview-map-wrap")!;
+      const previewMapFrame = document.querySelector<HTMLIFrameElement>("#preview-map-frame")!;
+      const resolveError = document.querySelector<HTMLParagraphElement>("#resolve-error")!;
+      const submitError = document.querySelector<HTMLParagraphElement>("#submit-error")!;
+      const submitButton = form.querySelector<HTMLButtonElement>("button[type=submit]")!;
+      const stars = document.querySelectorAll<HTMLSpanElement>("[data-star]");
+
+      // datetime-local wants local wall-clock time without a zone.
+      const now = new Date();
+      visitedInput.value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+
+      const show = (el: HTMLElement, text?: string) => {
+        if (text !== undefined) el.textContent = text;
+        el.classList.remove("hidden");
+      };
+      const hide = (el: HTMLElement) => el.classList.add("hidden");
+
+      form.querySelectorAll<HTMLInputElement>("input[name=rating]").forEach((radio) => {
+        radio.addEventListener("change", () => {
+          const value = Number(radio.value);
+          stars.forEach((star) => {
+            star.dataset.on = String(Number(star.dataset.star) <= value);
+          });
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Could not read that link");
+      });
 
-        previewMap.href = data.resolved.resolvedUrl;
-        const { lat, lng } = data.existing ?? data.resolved;
-        if (lat !== null && lng !== null) {
-          previewMapFrame.src = `https://maps.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
-          show(previewMapWrap);
-        } else {
-          hide(previewMapWrap);
+      let lastResolved = "";
+      async function resolve() {
+        const link = linkInput.value.trim();
+        if (!link || link === lastResolved) return;
+        lastResolved = link;
+        hide(resolveError);
+        show(preview);
+        previewStatus.textContent = "Reading link…";
+
+        try {
+          const res = await fetch("/api/places/resolve", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ link }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Could not read that link");
+
+          previewMap.href = data.resolved.resolvedUrl;
+          const { lat, lng } = data.existing ?? data.resolved;
+          if (lat !== null && lng !== null) {
+            previewMapFrame.src = `https://maps.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
+            show(previewMapWrap);
+          } else {
+            hide(previewMapWrap);
+          }
+          if (data.existing) {
+            previewStatus.textContent = "Been here before — adding another visit";
+            nameInput.value = data.existing.name;
+            nameInput.readOnly = true;
+          } else {
+            previewStatus.textContent = data.resolved.name ? "New place" : "New place — name not found, type one";
+            nameInput.value = data.resolved.name ?? "";
+            nameInput.readOnly = false;
+          }
+        } catch (error) {
+          hide(preview);
+          lastResolved = "";
+          show(resolveError, error instanceof Error ? error.message : "Could not read that link");
         }
-        if (data.existing) {
-          previewStatus.textContent = "Been here before — adding another visit";
-          nameInput.value = data.existing.name;
-          nameInput.readOnly = true;
-        } else {
-          previewStatus.textContent = data.resolved.name ? "New place" : "New place — name not found, type one";
-          nameInput.value = data.resolved.name ?? "";
-          nameInput.readOnly = false;
-        }
-      } catch (error) {
-        hide(preview);
-        lastResolved = "";
-        show(resolveError, error instanceof Error ? error.message : "Could not read that link");
       }
+
+      linkInput.addEventListener("paste", () => setTimeout(resolve, 0));
+      linkInput.addEventListener("blur", resolve);
+      if (linkInput.value.trim()) resolve();
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        hide(submitError);
+
+        const data = new FormData(form);
+        if (!data.get("rating")) return show(submitError, "Pick a rating");
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Saving…";
+        try {
+          const visited = `${data.get("visitedAt") || ""}`;
+          const res = await fetch("/api/places/checkin", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              link: data.get("link"),
+              name: data.get("name"),
+              rating: Number(data.get("rating")),
+              review: data.get("review"),
+              visitedAt: visited ? new Date(visited).toISOString() : undefined,
+            }),
+          });
+          const body = await res.json();
+          if (!res.ok) throw new Error(body.error || "Check-in failed");
+          location.href = `/places/${body.place.slug}`;
+        } catch (error) {
+          show(submitError, error instanceof Error ? error.message : "Check-in failed");
+          submitButton.disabled = false;
+          submitButton.textContent = "Check in";
+        }
+      });
     }
-
-    linkInput.addEventListener("paste", () => setTimeout(resolve, 0));
-    linkInput.addEventListener("blur", resolve);
-    if (linkInput.value.trim()) resolve();
-
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      hide(submitError);
-
-      const data = new FormData(form);
-      if (!data.get("rating")) return show(submitError, "Pick a rating");
-
-      submitButton.disabled = true;
-      submitButton.textContent = "Saving…";
-      try {
-        const visited = `${data.get("visitedAt") || ""}`;
-        const res = await fetch("/api/places/checkin", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            link: data.get("link"),
-            name: data.get("name"),
-            rating: Number(data.get("rating")),
-            review: data.get("review"),
-            visitedAt: visited ? new Date(visited).toISOString() : undefined,
-          }),
-        });
-        const body = await res.json();
-        if (!res.ok) throw new Error(body.error || "Check-in failed");
-        location.href = `/places/${body.place.slug}`;
-      } catch (error) {
-        show(submitError, error instanceof Error ? error.message : "Check-in failed");
-        submitButton.disabled = false;
-        submitButton.textContent = "Check in";
-      }
-    });
   }
+
+  // Runs on full loads and soft navigations; also run now in case this script
+  // loaded after astro:page-load already fired (first visit via a soft navigation).
+  document.addEventListener("astro:page-load", initCheckInPage);
+  // page-load can stall on this site; after-swap always fires (same as Header/Head).
+  document.addEventListener("astro:after-swap", initCheckInPage);
+  initCheckInPage();
 </script>

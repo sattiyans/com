@@ -10,6 +10,8 @@ type Props = {
 }
 
 const { href, external, underline = true, class: className, ...rest } = Astro.props;
+// Places pages bind client scripts (maps, check-in form) that View Transitions don't reliably re-run.
+const reload = href === "/places" || href.startsWith("/places/") ? true : undefined;
 ---
 
 <a 
@@ -22,6 +24,7 @@ const { href, external, underline = true, class: className, ...rest } = Astro.pr
       : "no-underline",
     className
   )}
+  data-astro-reload={reload}
   {...rest}>
   <slot/>
 </a>
