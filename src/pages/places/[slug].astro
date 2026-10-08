@@ -14,6 +14,8 @@ const place = await getPlaceBySlug(Astro.params.slug ?? "");
 if (!place) return new Response(null, { status: 404 });
 
 const checkins = await getCheckins(place.id); // newest first
+// Places whose check-ins were all deleted are hidden from the index; don't serve a thin page either.
+if (checkins.length === 0) return new Response(null, { status: 404 });
 const avg = checkins.length ? checkins.reduce((n, c) => n + c.rating, 0) / checkins.length : null;
 
 const chronological = [...checkins].reverse();
@@ -44,12 +46,65 @@ const trend =
         ? "Slipping"
         : "Consistent"
     : null;
+
+// SEO: dynamic title/description, OG image (cache-busted by visit count + last visit) and JSON-LD.
+const clip = (text: string, max: number) => (text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text);
+const visitsLabel = `${checkins.length} ${checkins.length === 1 ? "visit" : "visits"}`;
+const seoTitle = avg !== null ? `${place.name} Review — ${avg.toFixed(1)}/5 after ${visitsLabel}` : `${place.name} — Places`;
+const seoDescription = clip(
+  [
+    avg !== null
+      ? `Honest review of ${place.name}: rated ${avg.toFixed(1)}/5 across ${visitsLabel}.`
+      : `${place.name}: check-ins and notes.`,
+    latest?.review ? `Latest: “${latest.review.replace(/\s+/g, " ").trim()}”` : null,
+  ]
+    .filter(Boolean)
+    .join(" "),
+  160,
+);
+const ogVersion = `${checkins.length}-${latest ? new Date(latest.visited_at).getTime() : 0}`;
+const ogImage = `/places/${place.slug}/og.png?v=${ogVersion}`;
+const pageUrl = new URL(`/places/${place.slug}`, Astro.site ?? Astro.url).href;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Place",
+      "@id": `${pageUrl}#place`,
+      name: place.name,
+      url: pageUrl,
+      hasMap: place.maps_url,
+      ...(place.lat !== null && place.lng !== null
+        ? { geo: { "@type": "GeoCoordinates", latitude: place.lat, longitude: place.lng } }
+        : {}),
+      review: checkins.map((c) => ({
+        "@type": "Review",
+        datePublished: new Date(c.visited_at).toISOString().slice(0, 10),
+        reviewBody: c.review || undefined,
+        reviewRating: { "@type": "Rating", ratingValue: c.rating, bestRating: 5, worstRating: 1 },
+        author: { "@type": "Person", name: "Sattiyan Selvarajah", url: "https://sattiyans.com" },
+      })),
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://sattiyans.com/" },
+        { "@type": "ListItem", position: 2, name: "Places", item: "https://sattiyans.com/places" },
+        { "@type": "ListItem", position: 3, name: place.name, item: pageUrl },
+      ],
+    },
+  ],
+};
 ---
 
 <PageLayout
-  title={`${place.name} — Places`}
-  description={`${checkins.length} ${checkins.length === 1 ? "visit" : "visits"} to ${place.name}${avg ? `, rated ${avg.toFixed(1)}/5` : ""}.`}
+  title={seoTitle}
+  description={seoDescription}
+  keywords={`${place.name}, ${place.name} review, ${place.name} rating, sattiyan places`}
+  image={ogImage}
 >
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <Container>
     <div class="space-y-10">
       <nav class="flex items-center space-x-2 text-sm text-black/50 dark:text-white/50">
