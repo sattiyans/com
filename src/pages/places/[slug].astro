@@ -50,7 +50,7 @@ const trend =
 // SEO: dynamic title/description, OG image (cache-busted by visit count + last visit) and JSON-LD.
 const clip = (text: string, max: number) => (text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text);
 const visitsLabel = `${checkins.length} ${checkins.length === 1 ? "visit" : "visits"}`;
-const seoTitle = avg !== null ? `${place.name} — Rated ${avg.toFixed(1)}/5` : `${place.name} — Places`;
+const seoTitle = avg !== null ? `${place.name} | Rated ${avg.toFixed(1)}/5` : `${place.name} | Places`;
 const seoDescription = clip(
   [
     avg !== null

@@ -9,7 +9,7 @@ export const SITE: Site = {
 };
 
 export const HOME: Metadata = {
-  TITLE: "Sattiyan Selvarajah — Software Developer Malaysia",
+  TITLE: "Sattiyan Selvarajah | Software Developer Malaysia",
   DESCRIPTION:
     "Sattiyan Selvarajah is a software developer at G6 Labs Asia and founder of Dotkod Solutions. Hire a Malaysia-based engineer for SaaS platforms, Laravel, Node.js, GenAI automation, and production architecture.",
   KEYWORDS:
@@ -17,15 +17,15 @@ export const HOME: Metadata = {
 };
 
 export const BLOG: Metadata = {
-  TITLE: "Blog — SaaS Engineering, WhatsApp API & Product Notes",
+  TITLE: "Blog | SaaS Engineering, WhatsApp API & Product Notes",
   DESCRIPTION:
-    "Engineering notes from shipping SaaS products — WhatsApp Cloud API campaigns, architecture decisions, and lessons from production systems by Sattiyan Selvarajah.",
+    "Engineering notes from shipping SaaS products: WhatsApp Cloud API campaigns, architecture decisions, and lessons from production systems by Sattiyan Selvarajah.",
   KEYWORDS:
     "saas engineering blog, whatsapp cloud api, product engineering malaysia, laravel notes, sattiyan blog",
 };
 
 export const WORK: Metadata = {
-  TITLE: "Work Experience — Software Developer",
+  TITLE: "Work Experience | Software Developer",
   DESCRIPTION:
     "Career timeline of Sattiyan Selvarajah: software developer at G6 Labs Asia, founder of Dotkod Solutions, and prior roles in SaaS, fintech, and product engineering in Malaysia.",
   KEYWORDS:
@@ -33,7 +33,7 @@ export const WORK: Metadata = {
 };
 
 export const PROJECTS: Metadata = {
-  TITLE: "Projects & Case Studies — SaaS, WhatsApp, Ads Platforms",
+  TITLE: "Projects & Case Studies | SaaS, WhatsApp, Ads Platforms",
   DESCRIPTION:
     "Case studies by Sattiyan Selvarajah: GSendr WhatsApp + email campaigns, GBoost ads automation, and other production SaaS and web products with measurable outcomes.",
   KEYWORDS:
@@ -41,7 +41,7 @@ export const PROJECTS: Metadata = {
 };
 
 export const HIRE: Metadata = {
-  TITLE: "Hire Sattiyan Selvarajah — Freelance SaaS & GenAI Engineer",
+  TITLE: "Hire Sattiyan Selvarajah | Freelance SaaS & GenAI Engineer",
   DESCRIPTION:
     "Hire Sattiyan Selvarajah for freelance or contract work: SaaS platforms, API integrations, GenAI automation, Laravel/Node/Python. KL-based, remote-friendly.",
   KEYWORDS:
@@ -49,7 +49,7 @@ export const HIRE: Metadata = {
 };
 
 export const TOOLS_PAGE: Metadata = {
-  TITLE: "Free Online Tools — LHDN Tax, EXIF Stripper, Cron, SVG, Cookies",
+  TITLE: "Free Online Tools | LHDN Tax, EXIF Stripper, Cron, SVG, Cookies",
   DESCRIPTION:
     "Free client-side tools: Malaysia LHDN tax relief calculator, EXIF metadata stripper, cron parser, SVG sanitizer, and cookie/localStorage inspector. No signup, no uploads.",
   KEYWORDS:
@@ -57,14 +57,14 @@ export const TOOLS_PAGE: Metadata = {
 };
 
 export const USES: Metadata = {
-  TITLE: "Uses — Hardware, Software & Stack",
+  TITLE: "Uses | Hardware, Software & Stack",
   DESCRIPTION:
-    "Hardware, software, and development stack used by Sattiyan Selvarajah — MacBook, Cursor, Laravel, React, Next.js, PostgreSQL, and more.",
+    "Hardware, software, and development stack used by Sattiyan Selvarajah: MacBook, Cursor, Laravel, React, Next.js, PostgreSQL, and more.",
   KEYWORDS: "sattiyan uses, developer setup, laravel stack, cursor editor, developer tools malaysia",
 };
 
 export const ASK: Metadata = {
-  TITLE: "Ask Sattiyan — AI Portfolio Assistant",
+  TITLE: "Ask Sattiyan | AI Portfolio Assistant",
   DESCRIPTION:
     "Ask an AI assistant about Sattiyan Selvarajah’s projects, work experience, skills, and how to hire him for SaaS and GenAI work.",
   KEYWORDS:
@@ -72,9 +72,9 @@ export const ASK: Metadata = {
 };
 
 export const CV: Metadata = {
-  TITLE: "CV / Resume — Sattiyan Selvarajah",
+  TITLE: "CV / Resume | Sattiyan Selvarajah",
   DESCRIPTION:
-    "ATS-friendly CV and resume for Sattiyan Selvarajah — software engineer, SaaS, Laravel/Node/Python. Download or print.",
+    "ATS-friendly CV and resume for Sattiyan Selvarajah: software engineer, SaaS, Laravel/Node/Python. Download or print.",
   KEYWORDS:
     "sattiyan selvarajah cv, sattiyan resume, software engineer resume malaysia, laravel developer cv",
 };
@@ -85,7 +85,7 @@ export const WATCHED: Metadata = {
 };
 
 export const PLACES: Metadata = {
-  TITLE: "Places — Check-ins, Ratings & Reviews",
+  TITLE: "Places | Check-ins, Ratings & Reviews",
   DESCRIPTION:
     "Places Sattiyan has been to around Malaysia and beyond: every check-in with a rating and an honest review, tracked visit by visit.",
   KEYWORDS: "sattiyan places, food reviews malaysia, cafe reviews kl, restaurant ratings, check-ins",

@@ -246,7 +246,7 @@ async function generateKnowledgeBase() {
       knowledgeBase.tools = [
         {
           name: "LHDN Tax Relief Optimizer",
-          description: "Toggle claimable reliefs and see estimated tax saved under Malaysia’s progressive brackets — fully offline.",
+          description: "Toggle claimable reliefs and see estimated tax saved under Malaysia’s progressive brackets, fully offline.",
           href: "/tools/lhdn-tax-relief",
           category: "Finance"
         },

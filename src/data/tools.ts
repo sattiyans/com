@@ -5,7 +5,7 @@ export type ToolDef = {
   href: string;
   name: string;
   shortName: string;
-  /** Exact H1 — primary search phrase people type */
+  /** Exact H1: primary search phrase people type */
   h1: string;
   category: string;
   /** Primary search intent phrase */
@@ -28,11 +28,11 @@ export const TOOLS: ToolDef[] = [
     category: "Finance",
     primaryKeyword: "lhdn tax relief calculator",
     description:
-      "Free LHDN tax relief calculator for Malaysia. Estimate personal income tax savings from EPF, lifestyle, medical, sports, SSPN & PRS reliefs. 100% offline — no signup.",
+      "Free LHDN tax relief calculator for Malaysia. Estimate personal income tax savings from EPF, lifestyle, medical, sports, SSPN & PRS reliefs. 100% offline, no signup.",
     keywords:
       "lhdn tax relief calculator, lhdn tax calculator, malaysia income tax calculator, personal tax relief malaysia, epf tax relief, sspn tax relief, prs tax relief, lifestyle relief lhdn, cukai pendapatan relief",
     summary:
-      "Enter your annual income, toggle claimable LHDN reliefs under standard caps, and see estimated tax saved with Malaysia’s progressive brackets. Runs entirely on your device — nothing is uploaded.",
+      "Enter your annual income, toggle claimable LHDN reliefs under standard caps, and see estimated tax saved with Malaysia’s progressive brackets. Runs entirely on your device; nothing is uploaded.",
     features: [
       "Progressive resident tax bracket estimate",
       "EPF, lifestyle, sports, medical, SSPN, PRS reliefs",
@@ -59,20 +59,20 @@ export const TOOLS: ToolDef[] = [
       {
         question: "Which tax year do the reliefs follow?",
         answer:
-          "Relief caps and brackets are illustrative of common resident individual rules (recent YA patterns). Caps change over time — verify against the current year of assessment.",
+          "Relief caps and brackets are illustrative of common resident individual rules (recent YA patterns). Caps change over time; verify against the current year of assessment.",
       },
     ],
   },
   {
     slug: "exif-stripper",
     href: "/tools/exif-stripper",
-    name: "Free EXIF Stripper Online — Remove GPS & Metadata From Photos",
+    name: "Free EXIF Stripper Online | Remove GPS & Metadata From Photos",
     shortName: "EXIF / Metadata Stripper",
-    h1: "EXIF Stripper — Remove GPS From Photos",
+    h1: "EXIF Stripper | Remove GPS From Photos",
     category: "Privacy",
     primaryKeyword: "exif stripper online",
     description:
-      "Free EXIF stripper online. View GPS, camera model & exposure metadata, then download a clean JPEG with EXIF removed. Runs in your browser — photos never uploaded.",
+      "Free EXIF stripper online. View GPS, camera model & exposure metadata, then download a clean JPEG with EXIF removed. Runs in your browser; photos never uploaded.",
     keywords:
       "exif stripper, exif stripper online, remove exif data, remove gps from photo, metadata remover, strip exif jpeg, photo privacy tool, remove location from photo",
     summary:
@@ -87,7 +87,7 @@ export const TOOLS: ToolDef[] = [
       "Choose or drop an image file.",
       "The tool parses JPEG APP1/EXIF segments locally when present.",
       "Preview metadata such as camera make/model, datetime, and GPS.",
-      "Click download to re-encode via canvas — EXIF is not copied into the new file.",
+      "Click download to re-encode via canvas; EXIF is not copied into the new file.",
     ],
     faqs: [
       {
@@ -110,13 +110,13 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "cron-parser",
     href: "/tools/cron-parser",
-    name: "Cron Expression Parser Online — Next Run Times Explained",
+    name: "Cron Expression Parser Online | Next Run Times Explained",
     shortName: "Cron Parser & Visualizer",
     h1: "Cron Expression Parser Online",
     category: "DevOps",
     primaryKeyword: "cron expression parser",
     description:
-      "Free cron expression parser online. Translate crontab strings into plain English and see the next 10 run times in your timezone. No API — pure JavaScript.",
+      "Free cron expression parser online. Translate crontab strings into plain English and see the next 10 run times in your timezone. No API, pure JavaScript.",
     keywords:
       "cron expression parser, cron parser online, crontab explained, cron next run, cron schedule visualizer, parse cron expression, */15 cron meaning",
     summary:
@@ -154,7 +154,7 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "svg-sanitizer",
     href: "/tools/svg-sanitizer",
-    name: "SVG Sanitizer & Minifier Online — Clean Figma / Illustrator SVG",
+    name: "SVG Sanitizer & Minifier Online | Clean Figma / Illustrator SVG",
     shortName: "SVG Sanitizer & Minifier",
     h1: "SVG Sanitizer & Minifier Online",
     category: "Frontend",
@@ -181,7 +181,7 @@ export const TOOLS: ToolDef[] = [
       {
         question: "Will sanitizing break my SVG?",
         answer:
-          "It targets editor metadata and common bloat. Complex SVGs with required IDs or CSS may need a second pass — always preview before shipping.",
+          "It targets editor metadata and common bloat. Complex SVGs with required IDs or CSS may need a second pass; always preview before shipping.",
       },
       {
         question: "Is this safer than uploading to an optimizer SaaS?",
@@ -198,7 +198,7 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "storage-inspector",
     href: "/tools/storage-inspector",
-    name: "Cookie & LocalStorage Inspector — Parse Headers Online",
+    name: "Cookie & LocalStorage Inspector | Parse Headers Online",
     shortName: "Storage & Cookie Inspector",
     h1: "Cookie Header & LocalStorage Inspector",
     category: "Debug",
@@ -208,7 +208,7 @@ export const TOOLS: ToolDef[] = [
     keywords:
       "cookie parser online, cookie header parser, localstorage formatter, parse cookies, json key value viewer, cookie inspector tool",
     summary:
-      "Paste stringified localStorage objects or raw Cookie HTTP headers. Parse, nest-expand JSON string values, and filter a searchable key–value tree — client-side only.",
+      "Paste stringified localStorage objects or raw Cookie HTTP headers. Parse, nest-expand JSON string values, and filter a searchable key–value tree, client-side only.",
     features: [
       "localStorage JSON mode",
       "Cookie header mode",
@@ -242,13 +242,13 @@ export const TOOLS: ToolDef[] = [
   {
     slug: "car-loan-rule-of-78",
     href: "/tools/car-loan-rule-of-78",
-    name: "Malaysia Car Loan Calculator — Flat Rate vs Rule of 78 Early Settlement",
+    name: "Malaysia Car Loan Calculator | Flat Rate vs Rule of 78 Early Settlement",
     shortName: "Car Loan Rule of 78",
     h1: "Malaysia Car Loan Calculator (Rule of 78)",
     category: "Finance",
     primaryKeyword: "malaysia car loan calculator rule of 78",
     description:
-      "Free Malaysia car loan calculator. Convert flat interest to effective rate (EIR) and estimate Rule of 78 early settlement balances — 100% offline in your browser.",
+      "Free Malaysia car loan calculator. Convert flat interest to effective rate (EIR) and estimate Rule of 78 early settlement balances, 100% offline in your browser.",
     keywords:
       "malaysia car loan calculator, rule of 78 calculator, flat rate vs eir, hire purchase early settlement, car loan rebate malaysia, early settlement car loan",
     summary:
@@ -295,7 +295,7 @@ export const TOOLS: ToolDef[] = [
     keywords:
       "tnb bill calculator, tenaga nasional calculator, electricity bill malaysia, tnb tariff calculator, aircon electricity cost malaysia, tnb eei",
     summary:
-      "Enter monthly kWh (or estimate from appliances). See generation, capacity, network, retail, Energy Efficiency Incentive (EEI), optional AFA, KWTBB, and SST — based on the domestic tariff structure from July 2025.",
+      "Enter monthly kWh (or estimate from appliances). See generation, capacity, network, retail, Energy Efficiency Incentive (EEI), optional AFA, KWTBB, and SST, based on the domestic tariff structure from July 2025.",
     features: [
       "July 2025 domestic unbundled tariff",
       "EEI banded discount",
@@ -339,7 +339,7 @@ export const TOOLS: ToolDef[] = [
     keywords:
       "dsr calculator malaysia, housing loan eligibility malaysia, debt service ratio calculator, home loan affordability malaysia, maybank dsr, cimb dsr",
     summary:
-      "Enter net monthly income, existing commitments, and a target property price (or instalment). See your Debt Service Ratio and how it sits against common bank DSR ceilings — for planning only.",
+      "Enter net monthly income, existing commitments, and a target property price (or instalment). See your Debt Service Ratio and how it sits against common bank DSR ceilings, for planning only.",
     features: [
       "DSR % from income + commitments",
       "Optional instalment from loan amount / rate / tenure",
@@ -361,7 +361,7 @@ export const TOOLS: ToolDef[] = [
       {
         question: "Gross or net income?",
         answer:
-          "Use net take-home for a conservative estimate. Some banks start from gross and apply their own deductions — confirm with your banker.",
+          "Use net take-home for a conservative estimate. Some banks start from gross and apply their own deductions; confirm with your banker.",
       },
       {
         question: "Is my salary data uploaded?",
@@ -448,7 +448,7 @@ export const TOOLS: ToolDef[] = [
       {
         question: "Do religious holiday dates change?",
         answer:
-          "Yes — Hari Raya and similar dates can move with official announcements. Treat the dataset as a planning baseline.",
+          "Yes, Hari Raya and similar dates can move with official announcements. Treat the dataset as a planning baseline.",
       },
       {
         question: "What is a bridge day?",

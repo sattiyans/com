@@ -1,6 +1,6 @@
 ---
 title: "Why we left Evolution API for Official WhatsApp Cloud API"
-description: "GSendr started on Evolution API. Working hours, daily caps, and delays still weren’t enough — numbers got banned fast. Here’s why we moved to Meta’s Official Cloud API."
+description: "GSendr started on Evolution API. Working hours, daily caps, and delays still weren’t enough: numbers got banned fast. Here’s why we moved to Meta’s Official Cloud API."
 date: "2026-08-25"
 draft: false
 project: "gsendr"
@@ -8,7 +8,7 @@ project: "gsendr"
 
 GSendr didn’t start on Official WhatsApp Cloud API.
 
-To ship WhatsApp campaigns quickly, we wired **Evolution API** — an unofficial stack. Connect a number, send, iterate. On a demo it looks fine. In production with real orgs, it didn’t hold.
+To ship WhatsApp campaigns quickly, we wired **Evolution API**, an unofficial stack. Connect a number, send, iterate. On a demo it looks fine. In production with real orgs, it didn’t hold.
 
 ## What broke
 
@@ -23,7 +23,7 @@ We weren’t blasting blindly. We put the usual safeguards in place:
 
 It slowed the bleeding. It didn’t stop it.
 
-Unofficial routes sit outside Meta’s business rules. You’re always one spam or quality signal away from a dead number. For a multi-tenant product, that isn’t a “ops will rotate SIMs” problem — it’s a **customer-trust failure**. An org that wakes up to a banned sender loses campaigns, reply context, and confidence in the platform.
+Unofficial routes sit outside Meta’s business rules. You’re always one spam or quality signal away from a dead number. For a multi-tenant product, that isn’t a “ops will rotate SIMs” problem. It’s a **customer-trust failure**. An org that wakes up to a banned sender loses campaigns, reply context, and confidence in the platform.
 
 ## The real cost
 
@@ -53,6 +53,6 @@ Today GSendr runs Official Cloud API + email for roughly **10 organizations**, w
 
 ## Takeaway
 
-If you’re building WhatsApp into a product — especially multi-org SaaS — treat unofficial APIs as a prototype, not a foundation. We learned that the expensive way on Evolution API.
+If you’re building WhatsApp into a product, especially multi-org SaaS, treat unofficial APIs as a prototype, not a foundation. We learned that the expensive way on Evolution API.
 
 How the full platform is shaped (audiences, PDFs, reply desk, tenancy): [How we built GSendr](/blog/shipping-whatsapp-cloud-api-at-scale) · [Case study](/projects/gsendr).

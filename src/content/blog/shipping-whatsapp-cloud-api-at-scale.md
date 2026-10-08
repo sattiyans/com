@@ -1,6 +1,6 @@
 ---
 title: "How we built GSendr to run WhatsApp + email campaigns across orgs"
-description: "Inside GSendr’s multi-tenant campaign engine — Official WhatsApp Cloud API, personalised bulk email, and a shared reply desk. ~10 orgs; ~10K+ WhatsApp and 10K+ emails daily."
+description: "Inside GSendr’s multi-tenant campaign engine: Official WhatsApp Cloud API, personalised bulk email, and a shared reply desk. ~10 orgs; ~10K+ WhatsApp and 10K+ emails daily."
 date: "2026-05-18"
 draft: false
 project: "gsendr"
@@ -14,12 +14,12 @@ That sounds tidy on a slide. In production it means Meta templates, 24-hour cust
 
 Most “omnichannel” tools treat WhatsApp as a bolt-on:
 
-- Email and WhatsApp audiences drift apart — ops ends up maintaining two lists.
+- Email and WhatsApp audiences drift apart: ops ends up maintaining two lists.
 - Replies land in a generic inbox with no link back to the campaign that started the thread.
 - Bulk email personalisation stops at merge tags; finance/ops still need **per-recipient PDFs** (statements, invoices, policies).
-- Multi-org SaaS needs hard tenancy: templates, domains, numbers, and analytics scoped per organization — not a shared free-for-all.
+- Multi-org SaaS needs hard tenancy: templates, domains, numbers, and analytics scoped per organization, not a shared free-for-all.
 
-We needed a system that treated both channels as first-class, and treated **conversation** as part of the campaign lifecycle — not an afterthought.
+We needed a system that treated both channels as first-class, and treated **conversation** as part of the campaign lifecycle, not an afterthought.
 
 ## What GSendr is
 
@@ -38,7 +38,7 @@ Campaign sending goes through Meta’s Official Cloud API with approved template
 - Delivery / read / failed signals fed back into campaign reporting
 - A real 24-hour customer-service window for free-form replies after the user responds
 
-The product promise is boring on purpose: **reliable, attributable outbound** — not “blast and pray.”
+The product promise is boring on purpose: **reliable, attributable outbound**, not “blast and pray.”
 
 ### One audience, two channels
 
@@ -58,14 +58,14 @@ Organizations, teams, domains, templates, and analytics are scoped. Concurrent c
 
 ## Where it is now
 
-GSendr is live with roughly **10 organizations**. On a busy day they collectively send on the order of **10K+ WhatsApp messages** and **10K+ emails** — sustained daily volume, not a launch spike.
+GSendr is live with roughly **10 organizations**. On a busy day they collectively send on the order of **10K+ WhatsApp messages** and **10K+ emails**, sustained daily volume, not a launch spike.
 
 That scale only works if the boring infrastructure holds: recipient validation, delivery reporting, template/domain governance, and a reply desk that still makes sense when multiple campaigns are in flight.
 
 ## What’s next
 
-- **In development** — AI Reply that drafts on-brand WhatsApp responses from campaign + conversation context  
-- **Planned** — Voice Blast, SMS, deeper segmentation / lifecycle automation, stronger deliverability diagnostics
+- **In development**: AI Reply that drafts on-brand WhatsApp responses from campaign + conversation context  
+- **Planned**: Voice Blast, SMS, deeper segmentation / lifecycle automation, stronger deliverability diagnostics
 
 ## Takeaway
 

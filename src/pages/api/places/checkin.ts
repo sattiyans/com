@@ -48,7 +48,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     let place = await findExistingPlace(match);
     if (!place) {
       const name = nameOverride || resolved.name;
-      if (!name) return json({ error: "Couldn't read a name from the link — type one in" }, 400);
+      if (!name) return json({ error: "Couldn't read a name from the link. Type one in" }, 400);
       place = await createPlace({ ...match, name });
     }
 

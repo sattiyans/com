@@ -141,7 +141,7 @@ const relatedPosts = (await getCollection("blog"))
 ---
 
 <PageLayout
-  title={`${project.data.title} — Case Study`}
+  title={`${project.data.title} | Case Study`}
   description={project.data.description}
   keywords={projectKeywords}
   image={projectImage}
@@ -386,7 +386,7 @@ const relatedPosts = (await getCollection("blog"))
                 <ul class="space-y-3">
                   {caseStudyResults.map((result) => (
                     <li class="text-sm text-black/80 dark:text-white/80 leading-relaxed flex gap-2">
-                      <span class="text-black/30 dark:text-white/30 shrink-0">—</span>
+                      <span class="text-black/30 dark:text-white/30 shrink-0">-</span>
                       <span>{result}</span>
                     </li>
                   ))}
@@ -406,7 +406,7 @@ const relatedPosts = (await getCollection("blog"))
               <ul class="space-y-3">
                 {keyFeatures.map((feature) => (
                   <li class="text-sm text-black/75 dark:text-white/75 leading-relaxed flex gap-2">
-                    <span class="text-black/30 dark:text-white/30 shrink-0">—</span>
+                    <span class="text-black/30 dark:text-white/30 shrink-0">-</span>
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -448,7 +448,7 @@ const relatedPosts = (await getCollection("blog"))
         <section class="space-y-4 border-t border-black/10 dark:border-white/10 pt-10 mt-2">
           <h2 class="text-lg font-semibold text-black dark:text-white">Need something similar?</h2>
           <p class="text-sm text-black/65 dark:text-white/65 leading-relaxed max-w-xl">
-            I build production web systems end-to-end — product, architecture, and shipping.
+            I build production web systems end-to-end: product, architecture, and shipping.
           </p>
           <div class="flex flex-wrap gap-3 pt-1">
             <a

@@ -34,19 +34,19 @@ const field =
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
       <div>
         <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Monthly instalment</p>
-        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-instalment">—</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-instalment">-</p>
       </div>
       <div>
         <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Total flat interest</p>
-        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-interest">—</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-interest">-</p>
       </div>
       <div>
         <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Approx. EIR / year</p>
-        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-eir">—</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-eir">-</p>
       </div>
       <div>
         <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Early settlement owing</p>
-        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-settle">—</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-settle">-</p>
       </div>
     </div>
 
@@ -88,7 +88,7 @@ const field =
               m +
               " · Rule of 78 interest rebate ≈ " +
               rm(rebate) +
-              " · Educational estimate — confirm with your finance company.";
+              " · Educational estimate; confirm with your finance company.";
       }
 
       ["loan", "rate", "years", "paid"].forEach((id) => {

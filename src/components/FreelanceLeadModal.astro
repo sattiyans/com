@@ -7,12 +7,12 @@ const linkedinUrl =
 
 const whatsappUrl =
   "https://wa.me/60143072966?text=" +
-  encodeURIComponent("Hi Sattiyan — interested in a freelance project.");
+  encodeURIComponent("Hi Sattiyan, interested in a freelance project.");
 
 const slides = [
   "Need an AI chatbot or automation for your business?",
   "Want WhatsApp / email campaigns that actually run at scale?",
-  "Have a SaaS or web app idea — need it built end to end?",
+  "Have a SaaS or web app idea and need it built end to end?",
   "Half-finished product? I take messy scopes to production.",
   "Prefer one engineer who owns architecture through launch?",
 ];
@@ -129,7 +129,7 @@ const slides = [
 </dialog>
 
 <style is:global>
-  /* Closed dialog must stay display:none — author display:grid overrides UA and
+  /* Closed dialog must stay display:none; author display:grid overrides UA and
      leaves a full-viewport invisible layer that blocks footer clicks. */
   #freelance-lead-modal.flm:not([open]) {
     display: none;
@@ -183,7 +183,7 @@ const slides = [
       0 24px 56px rgb(0 0 0 / 0.5);
   }
 
-  /* soft top wash — subtle, not loud */
+  /* soft top wash: subtle, not loud */
   #freelance-lead-modal .flm-panel::before {
     content: "";
     position: absolute;

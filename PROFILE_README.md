@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://sattiyans.com">
-    <img src="./hero.svg" width="100%" alt="Sattiyan Selvarajah — systems & GenAI" />
+    <img src="./hero.svg" width="100%" alt="Sattiyan Selvarajah: systems & GenAI" />
   </a>
 </p>
 
@@ -10,9 +10,9 @@
 
 📍 Kuala Lumpur, Malaysia · Remote-friendly · Open to freelance engagements
 
-I take SaaS products from **architecture through production** — designing fault-tolerant, event-driven systems and GenAI workflows with **Laravel, Node.js, and Python**. I lead engineering standards, own technical roadmaps, and build platforms meant to scale without breaking under real traffic.
+I take SaaS products from **architecture through production**, designing fault-tolerant, event-driven systems and GenAI workflows with **Laravel, Node.js, and Python**. I lead engineering standards, own technical roadmaps, and build platforms meant to scale without breaking under real traffic.
 
-Currently shipping production platforms at **G6 Labs Asia**, while running **[Dotkod Solutions](https://dotkod.com)** — custom web apps, e-commerce, and proprietary AI systems for startups and SMEs, from scoping to deployment.
+Currently shipping production platforms at **G6 Labs Asia**, while running **[Dotkod Solutions](https://dotkod.com)**: custom web apps, e-commerce, and proprietary AI systems for startups and SMEs, from scoping to deployment.
 
 ```text
 7+ yrs shipping production software   ·   20+ projects shipped
@@ -27,16 +27,16 @@ SaaS · AI · payment integrations     ·   Zero-downtime, event-driven architec
 - **Payment & API integrations** → Stripe, CHIP, Spayz, Amopay & custom international gateways + webhooks
 - **Product engineering** → Full-stack delivery from scoping and UI through APIs, data models, deployment
 - **Admin dashboards** → Internal ops tools, reporting panels, workflow UIs for teams at scale
-- **Freelance consulting** → Scoped builds for startups & SMEs — discovery through production
+- **Freelance consulting** → Scoped builds for startups & SMEs: discovery through production
 
 ---
 
 ## 🚀 Shipped Products
-- **GBoost.ai** & **GSendr** — production platforms @ G6 Labs Asia
-- **FEMO**, **Invested** & sports web apps — @ TriSquare Technology
+- **GBoost.ai** & **GSendr**: production platforms @ G6 Labs Asia
+- **FEMO**, **Invested** & sports web apps @ TriSquare Technology
 - Plus 20+ client builds via Dotkod (SaaS, e-commerce, AI integrations)
 
-> Started in game dev with **Unreal Engine** & **Unity** — those projects still live on [itch.io](https://sattiyans.itch.io/).
+> Started in game dev with **Unreal Engine** & **Unity**; those projects still live on [itch.io](https://sattiyans.itch.io/).
 
 ---
 
@@ -80,4 +80,4 @@ SaaS · AI · payment integrations     ·   Zero-downtime, event-driven architec
 [![Threads](https://img.shields.io/badge/Threads-@sattiyanss-000000?style=for-the-badge&logo=threads&logoColor=white)](https://www.threads.net/@sattiyanss)
 [![Dotkod](https://img.shields.io/badge/Dotkod-Studio-22C55E?style=for-the-badge&logo=rocket&logoColor=white)](https://dotkod.com)
 
-<sub>🚀 [Dotkod](https://dotkod.com) — crafting digital solutions with excellence.</sub>
+<sub>🚀 [Dotkod](https://dotkod.com): crafting digital solutions with excellence.</sub>

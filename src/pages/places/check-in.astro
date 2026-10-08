@@ -19,7 +19,7 @@ const recent = owner ? await listRecentCheckins() : [];
 Astro.response.headers.set("Cache-Control", "private, no-store");
 ---
 
-<PageLayout title="Check in — Places" description="Check in to a place." hideChatbot>
+<PageLayout title="Check in | Places" description="Check in to a place." hideChatbot>
   <meta slot="head" name="robots" content="noindex, nofollow" />
   <Container>
     {
@@ -245,7 +245,7 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
         } catch (error) {
           button.disabled = false;
           button.dataset.armed = "false";
-          button.textContent = error instanceof Error && error.message === "Unauthorized" ? "Signed out" : "Failed — retry";
+          button.textContent = error instanceof Error && error.message === "Unauthorized" ? "Signed out" : "Failed. Retry";
         }
       });
     });
@@ -312,11 +312,11 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
             hide(previewMapWrap);
           }
           if (data.existing) {
-            previewStatus.textContent = "Been here before — adding another visit";
+            previewStatus.textContent = "Been here before, adding another visit";
             nameInput.value = data.existing.name;
             nameInput.readOnly = true;
           } else {
-            previewStatus.textContent = data.resolved.name ? "New place" : "New place — name not found, type one";
+            previewStatus.textContent = data.resolved.name ? "New place" : "New place: name not found, type one";
             nameInput.value = data.resolved.name ?? "";
             nameInput.readOnly = false;
           }

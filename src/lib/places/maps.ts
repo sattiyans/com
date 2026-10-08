@@ -111,7 +111,7 @@ export function extractFromUrl(url: URL): Omit<ResolvedPlace, "resolvedUrl"> {
   const placeMatch = url.pathname.match(/\/maps\/place\/([^/]+)/);
   if (placeMatch) {
     const candidate = decodeSegment(placeMatch[1]);
-    // Dropped pins are named by their coordinates (3°08'20.0"N 101°41'12.0"E) — not a real name.
+    // Dropped pins are named by their coordinates (3°08'20.0"N 101°41'12.0"E), not a real name.
     if (!COORD_PAIR.test(candidate) && !candidate.includes("°")) name = candidate;
   }
 

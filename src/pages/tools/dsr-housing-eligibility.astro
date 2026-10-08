@@ -60,26 +60,26 @@ const field =
     <div class="grid sm:grid-cols-3 gap-6 pt-2">
       <div>
         <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Housing instalment</p>
-        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-house">—</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-house">-</p>
       </div>
       <div>
         <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Your DSR</p>
-        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-dsr">—</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-dsr">-</p>
       </div>
       <div>
         <p class="text-[11px] uppercase tracking-wide text-black/45 dark:text-white/45">Max housing @ 70% DSR</p>
-        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-max">—</p>
+        <p class="mt-1 text-lg font-semibold text-black dark:text-white" id="out-max">-</p>
       </div>
     </div>
 
     <ul class="divide-y divide-black/10 dark:divide-white/10 border-t border-b border-black/10 dark:border-white/10 text-sm">
       <li class="flex justify-between gap-4 py-2.5">
         <span class="text-black/50 dark:text-white/50">Illustrative 60% ceiling</span>
-        <span class="text-black dark:text-white" id="band-60">—</span>
+        <span class="text-black dark:text-white" id="band-60">-</span>
       </li>
       <li class="flex justify-between gap-4 py-2.5">
         <span class="text-black/50 dark:text-white/50">Illustrative 70% ceiling</span>
-        <span class="text-black dark:text-white" id="band-70">—</span>
+        <span class="text-black dark:text-white" id="band-70">-</span>
       </li>
     </ul>
     <p class="text-xs text-black/40 dark:text-white/40" id="out-note"></p>
@@ -131,11 +131,11 @@ const field =
         document.getElementById("out-dsr").textContent = dsr.toFixed(1) + "%";
         document.getElementById("out-max").textContent = rm(max70);
         document.getElementById("band-60").textContent =
-          dsr <= 60 ? "Within band" : "Above — max housing ≈ " + rm(max60);
+          dsr <= 60 ? "Within band" : "Above: max housing ≈ " + rm(max60);
         document.getElementById("band-70").textContent =
-          dsr <= 70 ? "Within band" : "Above — max housing ≈ " + rm(max70);
+          dsr <= 70 ? "Within band" : "Above: max housing ≈ " + rm(max70);
         document.getElementById("out-note").textContent =
-          "Not a bank decision. Maybank / CIMB / Public Bank policies differ — use this for planning conversations only.";
+          "Not a bank decision. Maybank / CIMB / Public Bank policies differ; use this for planning conversations only.";
       }
 
       document.querySelectorAll('input[name="mode"]').forEach((el) => el.addEventListener("change", syncMode));
