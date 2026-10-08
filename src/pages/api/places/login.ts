@@ -6,7 +6,7 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request, cookies, redirect, url }) => {
   const form = await request.formData();
 
-  if (form.get("action") === "logout") {
+  if (form.get("intent") === "logout") {
     endSession(cookies);
     return redirect("/places", 303);
   }
