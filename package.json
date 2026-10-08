@@ -3,12 +3,12 @@
   "type": "module",
   "version": "1.0.0",
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "astro dev",
     "dev:network": "astro dev --host",
-    "build": "npm run generate:kb && astro build",
+    "build": "npm run generate:kb && astro build && node scripts/patch-vercel-runtime.mjs",
     "build:check": "astro check && astro build",
     "preview": "astro preview",
     "preview:network": "astro preview --host",
