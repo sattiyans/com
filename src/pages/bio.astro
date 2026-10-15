@@ -71,7 +71,11 @@ const socials = [
           <span class="bio-avatar-glow" aria-hidden="true"></span>
           <span class="bio-avatar-ring" aria-hidden="true"></span>
           <span class="bio-avatar-ring bio-avatar-ring-outer" aria-hidden="true"></span>
-          <img src="/photo.jpg" alt="Sattiyan Selvarajah" width="96" height="96" />
+          <picture>
+            <source srcset="/photo.webp" type="image/webp" />
+            <img src="/photo.jpg" alt="Sattiyan Selvarajah" width="96" height="96" decoding="async" />
+          </picture>
+
         </div>
         <h1 class="bio-name"><span class="bio-name-shimmer">{SITE.NAME}</span></h1>
         <p class="bio-role">Technology Lead @ G6 Labs Asia · Founder, Dotkod Solutions</p>
@@ -835,6 +839,14 @@ const socials = [
     border-color: rgba(255, 255, 255, 0.1);
   }
 
+  .bio-avatar picture {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
   .bio-avatar img {
     position: relative;
     z-index: 1;
@@ -845,6 +857,7 @@ const socials = [
     border: 1px solid rgba(0, 0, 0, 0.12);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
   }
+
 
   :global(.dark) .bio-avatar img {
     border-color: rgba(255, 255, 255, 0.16);

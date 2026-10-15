@@ -37,13 +37,18 @@ const slides = [
     </button>
 
     <div class="relative z-[1] px-6 pt-8 pb-6 text-center sm:px-8">
-      <img
-        src="/photo.jpg"
-        alt=""
-        width="64"
-        height="64"
-        class="flm-item mx-auto h-16 w-16 rounded-full object-cover border-2 border-black/10 dark:border-white/15"
-      />
+      <picture class="flm-item mx-auto block h-16 w-16">
+        <source srcset="/photo.webp" type="image/webp" />
+        <img
+          src="/photo.jpg"
+          alt=""
+          width="64"
+          height="64"
+          class="h-16 w-16 rounded-full object-cover border-2 border-black/10 dark:border-white/15"
+          decoding="async"
+        />
+      </picture>
+
 
       <span class="flm-item mt-4 inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/15 bg-white dark:bg-white/5 px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-400">
         <span class="relative flex h-2 w-2">
@@ -70,7 +75,8 @@ const slides = [
         ))}
       </div>
 
-      <div class="flm-item flm-dots mt-3 flex justify-center gap-1.5" data-flm-dots></div>
+      <div class="flm-item flm-dots mt-3 flex justify-center gap-1" data-flm-dots></div>
+
 
       <div class="flm-item mt-6 grid grid-cols-2 gap-2.5">
         <a
@@ -231,29 +237,44 @@ const slides = [
     pointer-events: auto;
   }
 
+  /* 24×24 hit target; visual pill via ::after (Lighthouse target-size) */
   #freelance-lead-modal .flm-dot {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border: none;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  #freelance-lead-modal .flm-dot::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
     width: 6px;
     height: 6px;
     border-radius: 9999px;
-    border: none;
-    padding: 0;
     background: rgb(0 0 0 / 0.15);
-    cursor: pointer;
+    transform: translate(-50%, -50%);
     transition: width 0.2s, background 0.2s;
   }
 
-  .dark #freelance-lead-modal .flm-dot {
+  .dark #freelance-lead-modal .flm-dot::after {
     background: rgb(255 255 255 / 0.2);
   }
 
-  #freelance-lead-modal .flm-dot.is-active {
+  #freelance-lead-modal .flm-dot.is-active::after {
     width: 14px;
     background: rgb(0 0 0 / 0.55);
   }
 
-  .dark #freelance-lead-modal .flm-dot.is-active {
+  .dark #freelance-lead-modal .flm-dot.is-active::after {
     background: rgb(255 255 255 / 0.7);
   }
+
 
   #freelance-lead-modal .flm-item {
     opacity: 0;
