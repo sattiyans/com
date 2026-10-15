@@ -1,19 +1,16 @@
 ---
-// ?url so we control loading (async) — side-effect imports would be render-blocking
-import globalStyles from "../styles/global.css?url";
-import headerStyles from "../styles/header.css?url";
-import inter400Css from "@fontsource/inter/latin-400.css?url";
-import inter600Css from "@fontsource/inter/latin-600.css?url";
+import "../styles/global.css";
+import "../styles/header.css";
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-600.css";
 import inter400 from "@fontsource/inter/files/inter-latin-400-normal.woff2";
 import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2";
 import { ViewTransitions } from "astro:transitions";
 
 import { SITE, SOCIALS } from "@consts";
 
-const deferredStyles = [inter400Css, inter600Css, globalStyles, headerStyles];
-
-
 interface Props {
+
   title: string;
   description: string;
   image?: string;
@@ -113,41 +110,6 @@ const structuredData = {
 <!-- Preload only the UI font used above the fold; Lora loads via CSS for article pages -->
 <link rel="preload" href={inter400} as="font" type="font/woff2" crossorigin />
 <link rel="preload" href={inter600} as="font" type="font/woff2" crossorigin />
-
-<!-- Critical above-the-fold CSS (keeps FCP/LCP from waiting on the full Tailwind bundle) -->
-<style is:inline>
-  html { overflow-y: scroll; color-scheme: light; }
-  html.dark { color-scheme: dark; }
-  html, body { height: 100%; margin: 0; }
-  body {
-    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    flex-direction: column;
-    background: #f5f5f4;
-    color: rgba(0, 0, 0, 0.5);
-  }
-  html.dark body { background: #000; color: rgba(255, 255, 255, 0.75); }
-  body > header { position: fixed; inset: 0 0 auto; z-index: 10001; padding: 0; background: transparent; }
-  main { flex: 1; padding: 1rem 0; padding-top: 6rem; }
-  h1 { margin: 0; font-weight: 600; color: #000; line-height: 1.25; font-size: 1.5rem; }
-  html.dark h1 { color: #fff; }
-  #floating-nav { position: fixed; top: 1rem; inset-inline: 0; z-index: 9999; display: flex; justify-content: center; padding-inline: 0.75rem; }
-</style>
-
-{deferredStyles.map((href) => (
-  <link
-    rel="preload"
-    href={href}
-    as="style"
-    onload="this.onload=null;this.rel='stylesheet'"
-  />
-))}
-{deferredStyles.map((href) => (
-  <noscript>
-    <link rel="stylesheet" href={href} />
-  </noscript>
-))}
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

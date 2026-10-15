@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "dev:network": "astro dev --host",
-    "build": "npm run generate:kb && astro build && node scripts/defer-render-css.mjs && node scripts/patch-vercel-runtime.mjs",
+    "build": "npm run generate:kb && astro build && node scripts/patch-vercel-runtime.mjs",
 
     "build:check": "astro check && astro build",
     "preview": "astro preview",
