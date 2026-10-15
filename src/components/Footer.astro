@@ -59,9 +59,10 @@ const socialIcon: Record<string, string> = {
 
         <!-- Explore -->
         <div class="space-y-3">
-          <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-500">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
             Explore
-          </h4>
+          </p>
+
           <div class="flex flex-col gap-2">
             {navLinks.map((link) => (
               <Link
@@ -77,9 +78,10 @@ const socialIcon: Record<string, string> = {
 
         <!-- More -->
         <div class="space-y-3">
-          <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-500">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
             More
-          </h4>
+          </p>
+
           <div class="flex flex-col gap-2">
             {moreLinks.map((link) => (
               <Link
@@ -96,9 +98,10 @@ const socialIcon: Record<string, string> = {
 
       <!-- Bottom bar -->
       <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-black/5 pt-6 dark:border-white/5 sm:flex-row">
-        <p class="text-sm text-gray-500 dark:text-gray-500">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
           &copy; {year} {SITE.NAME}. All rights reserved.
         </p>
+
 
         <div class="flex items-center gap-1.5">
           {SOCIALS.filter((s) => socialIcon[s.NAME]).map((social) => (

@@ -120,7 +120,7 @@ function linkClass(active: boolean): string {
           </button>
         </div>
 
-        <div id="nav-more-panel" class="nav-more-panel" role="menu" aria-hidden="true">
+        <div id="nav-more-panel" class="nav-more-panel" role="menu" aria-hidden="true" inert>
           <div class="nav-more-panel-inner">
             <div class="mx-2 mb-2 border-t border-black/8 dark:border-white/10 pt-1.5 pb-1 space-y-0.5">
               {
@@ -131,6 +131,7 @@ function linkClass(active: boolean): string {
                       href={link.href}
                       underline={false}
                       role="menuitem"
+                      tabindex="-1"
                       aria-current={active ? "page" : undefined}
                       class={[
                         "flex w-full items-center gap-2.5 rounded-full px-3 py-2.5 text-sm font-medium no-underline transition-colors",
@@ -139,6 +140,7 @@ function linkClass(active: boolean): string {
                           : "text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/10",
                       ].join(" ")}
                     >
+
                       <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         {link.href === "/tools" ? (
                           <>
@@ -300,17 +302,32 @@ function linkClass(active: boolean): string {
 
       if (!shell || !moreBtn || !morePanel) return;
 
+      const setPanelFocusable = function (enabled) {
+        morePanel.querySelectorAll("a, button").forEach(function (el) {
+          if (enabled) {
+            el.removeAttribute("tabindex");
+          } else {
+            el.setAttribute("tabindex", "-1");
+          }
+        });
+      };
+
       const closeMore = function () {
         shell.classList.remove("is-open");
         moreBtn.setAttribute("aria-expanded", "false");
         morePanel.setAttribute("aria-hidden", "true");
+        morePanel.setAttribute("inert", "");
+        setPanelFocusable(false);
       };
 
       const openMore = function () {
         shell.classList.add("is-open");
         moreBtn.setAttribute("aria-expanded", "true");
         morePanel.setAttribute("aria-hidden", "false");
+        morePanel.removeAttribute("inert");
+        setPanelFocusable(true);
       };
+
 
       const toggleMore = function (e) {
         e.preventDefault();

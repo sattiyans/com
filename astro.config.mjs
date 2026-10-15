@@ -8,5 +8,12 @@ export default defineConfig({
   site: "https://sattiyans.com",
   output: "hybrid", // Enable server-side rendering for API routes
   adapter: vercel(),
-  integrations: [mdx(), sitemap(), tailwind()],
+  integrations: [
+    mdx(),
+    sitemap(),
+    // global.css already has @tailwind directives — avoid a second base stylesheet
+    // (was causing ask.css + bio.css to both load on every page)
+    tailwind({ applyBaseStyles: false }),
+  ],
 });
+

@@ -58,9 +58,10 @@ const visibleRecommendations = limit ? recommendations.slice(0, limit) : recomme
 
 <section class="animate space-y-4">
   <div class="flex flex-wrap gap-y-2 items-center justify-between">
-    <h5 class="font-semibold text-black dark:text-white m-0">
+    <h2 class="font-semibold text-black dark:text-white m-0 text-base">
       Recommendations
-    </h5>
+    </h2>
+
     <Link
       href="https://www.linkedin.com/in/sattiyans"
       external
@@ -107,13 +108,13 @@ const visibleRecommendations = limit ? recommendations.slice(0, limit) : recomme
         <div class="flex-shrink-0 w-80 border border-black/15 dark:border-white/20 rounded-lg p-6 hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-300">
           <div class="flex flex-col gap-2 mb-4">
             <div>
-              <h6 class="font-semibold text-black dark:text-white text-sm">
+              <h3 class="font-semibold text-black dark:text-white text-sm">
                 {rec.name}
-              </h6>
+              </h3>
               <p class="text-xs text-gray-600 dark:text-gray-400 mb-1">
                 {rec.title}
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-500">
+              <p class="text-xs text-gray-500 dark:text-gray-400">
                 {rec.relationship} • {rec.date}
               </p>
             </div>
