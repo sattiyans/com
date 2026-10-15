@@ -6,7 +6,9 @@ import Link from "@components/Link.astro";
 import ProjectOwnerBadge from "@components/ProjectOwnerBadge.astro";
 import GSendrFlowDiagram from "@components/GSendrFlowDiagram.astro";
 import GSendrStats from "@components/GSendrStats.astro";
+import SerifFonts from "@components/SerifFonts.astro";
 import { readingTime } from "@lib/utils";
+
 
 export async function getStaticPaths() {
   const projects = (await getCollection("projects"))
@@ -146,7 +148,9 @@ const relatedPosts = (await getCollection("blog"))
   keywords={projectKeywords}
   image={projectImage}
 >
+  <SerifFonts slot="head" />
   <Container>
+
     <div class="space-y-8 sm:space-y-10">
       <nav class="flex items-center space-x-2 text-sm text-black/50 dark:text-white/50">
         <a href="/" class="hover:text-black dark:hover:text-white transition-colors">Home</a>

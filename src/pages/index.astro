@@ -41,8 +41,8 @@ const projects = (await getCollection("projects"))
       <div class="grid grid-cols-1 lg:grid-cols-[1fr_minmax(300px,360px)] gap-8 lg:gap-12 items-center mb-8">
         <!-- Left: intro + positioning + CTA -->
         <div>
-      <!-- Top: avatar + greeting + availability -->
-      <div class="animate flex items-center gap-4 mb-4">
+      <!-- Top: avatar + greeting + availability (no .animate — LCP must paint without waiting on JS) -->
+      <div class="flex items-center gap-4 mb-4">
         <BrandMark size={64} class="w-14 h-14 sm:w-16 sm:h-16 shrink-0" />
         <div class="flex flex-col gap-2">
           <h1 class="text-2xl md:text-3xl font-semibold text-black dark:text-white leading-tight">
@@ -56,19 +56,20 @@ const projects = (await getCollection("projects"))
       </div>
 
       <!-- Positioning -->
-      <p class="animate text-lg text-gray-700 dark:text-gray-200 font-medium mb-1">
+      <p class="text-lg text-gray-700 dark:text-gray-200 font-medium mb-1">
         Technology Lead @ G6 Labs Asia · Founder, Dotkod Solutions
       </p>
-      <p class="animate text-sm text-gray-500 dark:text-gray-400 mb-2">
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">
         System architecture, product engineering & GenAI automation: Laravel, Node.js & Python
       </p>
-      <p class="animate flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 mb-5">
+      <p class="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 mb-5">
         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
         </svg>
         Kuala Lumpur, Malaysia · Remote-friendly
       </p>
+
 
         <div class="flex flex-wrap items-center gap-2.5 mb-6 lg:mb-8">
         <Link

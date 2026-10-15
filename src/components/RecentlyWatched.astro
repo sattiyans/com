@@ -407,7 +407,33 @@ import Link from "@components/Link.astro";
     }
   }
 
-  document
-    .querySelectorAll<HTMLElement>("[data-recently-watched]")
-    .forEach(loadRecentlyWatched);
+  function bindRecentlyWatched() {
+    document.querySelectorAll<HTMLElement>("[data-recently-watched]").forEach((container) => {
+      if (container.dataset.rwBound === "1") return;
+      container.dataset.rwBound = "1";
+
+      // Defer network work until the section is near the viewport (keeps LCP free)
+      if (!("IntersectionObserver" in window)) {
+        loadRecentlyWatched(container);
+        return;
+      }
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            io.disconnect();
+            loadRecentlyWatched(container);
+          }
+        },
+        { rootMargin: "200px 0px" }
+      );
+      io.observe(container);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", bindRecentlyWatched);
+  document.addEventListener("astro:page-load", bindRecentlyWatched);
+  if (document.readyState !== "loading") bindRecentlyWatched();
 </script>
+
